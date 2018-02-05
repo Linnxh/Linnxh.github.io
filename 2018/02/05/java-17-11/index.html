@@ -82,21 +82,21 @@
 <meta name="description" content="shelllinux编辑文件时不可用修改/etc/vim/vimrc.tiny 文件，将set compatible 设置成set nocompatible . 保存退出即可。这是因为有时候系统会默认vim兼容vi，所以使用vi的命令设置里面要选择桥连，ubantu地址是：我linux地址是10.10.1.742、搭建java开发环境ubuntu-16.04+mac+virtual+idea——–">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java-17-10">
-<meta property="og:url" content="http://linnxh.com/2018/02/05/java-17-10/index.html">
+<meta property="og:url" content="http://linnxh.com/2018/02/05/java-17-11/index.html">
 <meta property="og:site_name" content="林秀红的博客">
 <meta property="og:description" content="shelllinux编辑文件时不可用修改/etc/vim/vimrc.tiny 文件，将set compatible 设置成set nocompatible . 保存退出即可。这是因为有时候系统会默认vim兼容vi，所以使用vi的命令设置里面要选择桥连，ubantu地址是：我linux地址是10.10.1.742、搭建java开发环境ubuntu-16.04+mac+virtual+idea——–">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://linnxh.com/2018/02/05/java-17-10/Users/LXH/Desktop/杂项/醋2.jpg">
-<meta property="og:image" content="http://linnxh.com/2018/02/05/java-17-10/media/15161661991937/15177962099111.jpg">
-<meta property="og:image" content="http://linnxh.com/2018/02/05/java-17-10/media/15161661991937/15177962329985.jpg">
-<meta property="og:image" content="http://linnxh.com/2018/02/05/java-17-10/media/15161661991937/15177962794620.jpg">
-<meta property="og:image" content="http://linnxh.com/2018/02/05/java-17-10/media/15161661991937/15177964355422.jpg">
-<meta property="og:image" content="http://linnxh.com/2018/02/05/java-17-10/media/15161661991937/15177964636988.jpg">
-<meta property="og:updated_time" content="2018-02-05T08:51:20.980Z">
+<meta property="og:image" content="http://linnxh.com/2018/02/05/java-17-11/java-17-09/15161661991937/15177961453999.jpg">
+<meta property="og:image" content="http://linnxh.com/2018/02/05/java-17-11/media/15161661991937/15177962099111.jpg">
+<meta property="og:image" content="http://linnxh.com/2018/02/05/java-17-11/media/15161661991937/15177962329985.jpg">
+<meta property="og:image" content="http://linnxh.com/2018/02/05/java-17-11/media/15161661991937/15177962794620.jpg">
+<meta property="og:image" content="http://linnxh.com/2018/02/05/java-17-11/media/15161661991937/15177964355422.jpg">
+<meta property="og:image" content="http://linnxh.com/2018/02/05/java-17-11/media/15161661991937/15177964636988.jpg">
+<meta property="og:updated_time" content="2018-02-05T09:05:25.020Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java-17-10">
 <meta name="twitter:description" content="shelllinux编辑文件时不可用修改/etc/vim/vimrc.tiny 文件，将set compatible 设置成set nocompatible . 保存退出即可。这是因为有时候系统会默认vim兼容vi，所以使用vi的命令设置里面要选择桥连，ubantu地址是：我linux地址是10.10.1.742、搭建java开发环境ubuntu-16.04+mac+virtual+idea——–">
-<meta name="twitter:image" content="http://linnxh.com/2018/02/05/java-17-10/Users/LXH/Desktop/杂项/醋2.jpg">
+<meta name="twitter:image" content="http://linnxh.com/2018/02/05/java-17-11/java-17-09/15161661991937/15177961453999.jpg">
 
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <link rel="canonical" href="http://linnxh.com/2018/02/05/java-17-10/"/>
+  <link rel="canonical" href="http://linnxh.com/2018/02/05/java-17-11/"/>
 
 
 
@@ -239,7 +239,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://linnxh.com/2018/02/05/java-17-10/">
+    <link itemprop="mainEntityOfPage" href="http://linnxh.com/2018/02/05/java-17-11/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lxh">
@@ -328,11 +328,10 @@
       
 
       
-        <h4 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h4><p>linux编辑文件时不可用<br>修改/etc/vim/vimrc.tiny 文件，将set compatible 设置成set nocompatible . 保存退出即可。这是因为有时候系统会默认vim兼容vi，所以使用vi的命令<br>设置里面要选择桥连，ubantu地址是：我linux地址是10.10.1.74<br>2、搭建java开发环境<br>ubuntu-16.04+mac+virtual+idea<br>——–ubuntu启用root用户：参考 <a href="http://blog.csdn.net/sunxiaoju/article/details/51993091" target="_blank" rel="noopener">ubuntu16启用root用户</a><br>sudo passwd -u root 设置root密码<br>su root 测试是否可以进入root用户，如果出现# 说明已成功<br>进入到/usr/share/lightdm/lightdm.conf.d/目录，使用gedit 50-unity-greeter.conf &amp;命令打开50-unity-greeter.conf 文件，如下图所示：<br>在打开文件中添加如下信息，来设置登录时可以选择用户登录，如下图所示：<br>user-session=ubuntu<br>greeter-show-manual-login=true<br>all-guest=false</p>
-<p><img src="/2018/02/05/java-17-10/Users/LXH/Desktop/杂项/醋2.jpg" alt=""></p>
+        <h4 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h4><p>linux编辑文件时不可用<br>修改/etc/vim/vimrc.tiny 文件，将set compatible 设置成set nocompatible . 保存退出即可。这是因为有时候系统会默认vim兼容vi，所以使用vi的命令<br>设置里面要选择桥连，ubantu地址是：我linux地址是10.10.1.74<br>2、搭建java开发环境<br>ubuntu-16.04+mac+virtual+idea<br>——–ubuntu启用root用户：参考 <a href="http://blog.csdn.net/sunxiaoju/article/details/51993091" target="_blank" rel="noopener">ubuntu16启用root用户</a><br>sudo passwd -u root 设置root密码<br>su root 测试是否可以进入root用户，如果出现# 说明已成功<br>进入到/usr/share/lightdm/lightdm.conf.d/目录，使用gedit 50-unity-greeter.conf &amp;命令打开50-unity-greeter.conf 文件，如下图所示：<br>在打开文件中添加如下信息，来设置登录时可以选择用户登录，如下图所示：<br>user-session=ubuntu<br>greeter-show-manual-login=true<br>all-guest=false<br><img src="/2018/02/05/java-17-11/java-17-09/15161661991937/15177961453999.jpg" alt=""></p>
 <p>重启系统，点击登录，输入root，和设置的密码 </p>
-<p>重启系统，点击登录，输入root，和设置的密码<br>此时会出现：读取/root/.profile时发现错误，对话框，如下图所示：<br><img src="/2018/02/05/java-17-10/media/15161661991937/15177962099111.jpg" alt=""></p>
-<p>点击确定按钮，进入系统，使用vi /root/.profile命令修改文件，找到mesg n，修改为：tty -s &amp;&amp; mesg n，如下图所示：<br><img src="/2018/02/05/java-17-10/media/15161661991937/15177962329985.jpg" alt=""></p>
+<p>重启系统，点击登录，输入root，和设置的密码<br>此时会出现：读取/root/.profile时发现错误，对话框，如下图所示：<br><img src="/2018/02/05/java-17-11/media/15161661991937/15177962099111.jpg" alt=""></p>
+<p>点击确定按钮，进入系统，使用vi /root/.profile命令修改文件，找到mesg n，修改为：tty -s &amp;&amp; mesg n，如下图所示：<br><img src="/2018/02/05/java-17-11/media/15161661991937/15177962329985.jpg" alt=""></p>
 <ul>
 <li><a href="http://www.runoob.com/linux/linux-shell.html" target="_blank" rel="noopener">shell基础教程</a><br>shell脚本开头是，<br>“#!bin/sh”，是一个shell脚本，用bin/sh来执行<br>”#!/bin/bash”，是bash脚本程序，用/bin/sh来执行<br>bash是sh的增强版本，bash中支持的命令更加多一些，实际开发中用bash比较多</li>
 <li>linux和mac互传文件<br>用的是smb，finder 文件-前往-连接服务器，，，smb://10.10.2.236</li>
@@ -351,7 +350,7 @@
 <ol>
 <li>根绝实际项目中的框架来决定使用哪种方法，有的框架有现成的方法，比如spring-boot 里的CorsConfiguration，配置具体参数即可实现</li>
 </ol>
-<h4 id="spring-boot"><a href="#spring-boot" class="headerlink" title="spring-boot"></a>spring-boot</h4><p>启动项目方法，<br><img src="/2018/02/05/java-17-10/media/15161661991937/15177962794620.jpg" alt=""></p>
+<h4 id="spring-boot"><a href="#spring-boot" class="headerlink" title="spring-boot"></a>spring-boot</h4><p>启动项目方法，<br><img src="/2018/02/05/java-17-11/media/15161661991937/15177962794620.jpg" alt=""></p>
 <p>关闭项目，property文件一系列配置，命令行里 。。。。stop<br>2、项目根目录，mvn spring-boot:run<br>修改端口号<br>resources下新建 application.properties文件内容server.port=8081<br>3、新建controller文件，@RestController 等价于 @Controller 和@RequestBody<br>4、热更新</p>
 <ul>
 <li>comm+shift+option+/   main..。。。修改一个app设置</li>
@@ -671,7 +670,7 @@ done
 <h3 id="内部跳转-请求转发-和外部跳转-重定向-的区别"><a href="#内部跳转-请求转发-和外部跳转-重定向-的区别" class="headerlink" title="内部跳转(请求转发)和外部跳转(重定向)的区别"></a>内部跳转(请求转发)和外部跳转(重定向)的区别</h3><p>总结归纳要点:<br>1、内部跳转的时候实际上是通过服务器端将请求转发到另外的页面或者servlet中,这个时候跳转到的目标页面或者servlet可以获取到请求对象,也可以获取到请求中的属性和参数。而外部跳转的时候实际上是第一次请求后，服务器端向客户端发送了一个指令，让客户端再次请求了一次服务器端，这个时候服务器第二次拿到的request对象已经不是第一次请求的request对象了,所以无法获取到第一次请求里的参数和属性。<br>2、内部跳转的url地址栏不会发生变化，外部跳转url则会发生变化。<br>3、内部跳转无法跳转到工程以外的jsp或者servlet,外部跳转则可以。<br>4、内部跳转实现的方法:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">request.getRequestDispatcher(&quot;XXX.jsp或者servlet&quot;).forward(request, response),</span><br></pre></td></tr></table></figure></p>
 <p>外部跳转实现的方法:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response.sendRedirect(&quot;XXX.jsp或者servlet&quot;)</span><br></pre></td></tr></table></figure></p>
 <p>301，302 都是HTTP状态的编码，都代表着某个URL发生了转移<br>301 redirect: 301 代表永久性转移(Permanently Moved)。<br>302 redirect: 302 代表暂时性转移(Temporarily Moved )。 浏览器中旧的URL变成了新的URL。页面跳到了这个新的url指向的地方。<br>问题就在于，有的时候搜索引擎，尤其是Google，并不能总是抓取目标网址。为什么呢？比如说，有的时候A网址很短，但是它做了一个302重定向到B网址，而B网址是一个很长的乱七八糟的URL网址，甚至还有可能包含一些问号之类的参数。很自然的，A网址更加用户友好，而B网址既难看，又不用户友好。这时Google很有可能会仍然显示网址A。</p>
-<h3 id="spring"><a href="#spring" class="headerlink" title="spring"></a>spring</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p><img src="/2018/02/05/java-17-10/media/15161661991937/15177964355422.jpg" alt=""></p>
+<h3 id="spring"><a href="#spring" class="headerlink" title="spring"></a>spring</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p><img src="/2018/02/05/java-17-11/media/15161661991937/15177964355422.jpg" alt=""></p>
 <p>具体作用</p>
 <ul>
 <li>core container<br>spring-core和spring-beans：提供了框架的基础部分，包括反转控制和依赖注入功能。其中Bean Factory是容器核心，本质是“工厂设计模式”的实现，而且无需编程实现“单例设计模式”，单例完全由容器控制，而且提倡面向接口编程，而非面向实现编程；所有应用程序对象及对象间关系由框架管理，从而真正把你从程序逻辑中把维护对象之间的依赖关系提取出来，所有这些依赖关系都由BeanFactory来维护。<br>spring-context：这个模块建立在core和bean模块提供坚实的基础上，集成Beans模块功能并添加资源绑定、数据验证、国际化、Java EE支持、容器生命周期、事件传播等；核心接口是ApplicationContext。<br>spring-expression：提供强大的表达式语言支持，支持访问和修改属性值，方法调用，支持访问及修改数组、容器和索引器，命名变量，支持算数和逻辑运算，支持从Spring 容器获取Bean，它也支持列表投影、选择和一般的列表聚合等。</li>
@@ -688,7 +687,7 @@ done
 </blockquote>
 <p>基本概念理解</p>
 <ul>
-<li>IoC(Inversion of Control)<br><img src="/2018/02/05/java-17-10/media/15161661991937/15177964636988.jpg" alt=""></li>
+<li>IoC(Inversion of Control)<br><img src="/2018/02/05/java-17-11/media/15161661991937/15177964636988.jpg" alt=""></li>
 </ul>
 <p>如图1所示，对象A依赖于对象B，那么对象A在初始化或者运行到某一点的时候，自己必须主动去创建对象B或者使用已经创建的对象B。无论是创建还是使用对象B，控制权都在自己手上<br>如图2所示，由于IOC容器的加入，对象A与对象B之间失去了直接联系，所以，当对象A运行到需要对象B的时候，IOC容器会主动创建一个对象B注入到对象A需要的地方<br>综上：控制反转是一种在软件工程中解耦合的思想，调用类只依赖接口，而不依赖具体的实现类，减少了耦合。控制权交给了容器，在运行的时候才由容器决定将具体的实现动态的“注入”到调用类的对象中。</p>
 <p>spring中有三种注入方式，一种是set注入，一种是接口注入，另一种是构造方法注入。</p>
@@ -846,8 +845,8 @@ this.office = office ;
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/02/05/tools/" rel="next" title="tools">
-                <i class="fa fa-chevron-left"></i> tools
+              <a href="/2018/02/05/java-17-10/" rel="next" title="java-17-10">
+                <i class="fa fa-chevron-left"></i> java-17-10
               </a>
             
           </div>
@@ -856,8 +855,8 @@ this.office = office ;
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/02/05/java-17-11/" rel="prev" title="java-17-10">
-                java-17-10 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/02/05/java-17-09/" rel="prev" title="java-17-09">
+                java-17-09 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
