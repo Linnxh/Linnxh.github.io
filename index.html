@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://linnxh.com">
-  <title>林秀红的博客</title>
+  <title>Linnxh的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
-<meta property="og:title" content="林秀红的博客">
+<meta property="og:title" content="Linnxh的博客">
 <meta property="og:url" content="http://linnxh.com/index.html">
-<meta property="og:site_name" content="林秀红的博客">
+<meta property="og:site_name" content="Linnxh的博客">
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="林秀红的博客">
+<meta name="twitter:title" content="Linnxh的博客">
   
-    <link rel="alternative" href="/atom.xml" title="林秀红的博客" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="Linnxh的博客" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -43,10 +43,10 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="" class="js-avatar">
+			<img src="/lxhimg.png" class="js-avatar">
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href="/">lxh</a></h1>
+		  <h1 class="header-author"><a href="/">LXH</a></h1>
 		</hgroup>
 		
 
@@ -83,13 +83,11 @@
 		<nav class="header-nav">
 			<div class="social">
 				
-					<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+					<a class="github" target="_blank" href="https://github.com/Linnxh" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+					<a class="weibo" target="_blank" href="https://weibo.com/2707587327/profile" title="weibo"><i class="icon-weibo"></i></a>
 		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-		        
-					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/lin-xiu-hong-51/activities" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
 			</div>
 		</nav>
@@ -107,10 +105,10 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="" class="js-avatar">
+				<img src="/lxhimg.png" class="js-avatar">
 			</div>
 			<hgroup>
-			  <h1 class="header-author js-header-author">lxh</h1>
+			  <h1 class="header-author js-header-author">LXH</h1>
 			</hgroup>
 			
 			
@@ -130,13 +128,11 @@
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" href="https://github.com/Linnxh" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+						<a class="weibo" target="_blank" href="https://weibo.com/2707587327/profile" title="weibo"><i class="icon-weibo"></i></a>
 			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-			        
-						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/lin-xiu-hong-51/activities" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
 				</div>
 			</nav>
@@ -190,15 +186,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h4><p>linux编辑文件时不可用<br>修改/etc/vim/vimrc.tiny 文件，将set compatible 设置成set nocompatible . 保存退出即可。这是因为有时候系统会默认vim兼容vi，所以使用vi的命令<br>设置里面要选择桥连，ubantu地址是：我linux地址是10.10.1.74<br>2、搭建java开发环境<br>ubuntu-16.04+mac+virtual+idea<br>——–ubuntu启用root用户：参考 <a href="http://blog.csdn.net/sunxiaoju/article/details/51993091" target="_blank" rel="noopener">ubuntu16启用root用户</a><br>sudo passwd -u root 设置root密码<br>su root 测试是否可以进入root用户，如果出现# 说明已成功<br>进入到/usr/share/lightdm/lightdm.conf.d/目录，使用gedit 50-unity-greeter.conf &amp;命令打开50-unity-greeter.conf 文件，如下图所示：<br>在打开文件中添加如下信息，来设置登录时可以选择用户登录，如下图所示：<br>user-session=ubuntu<br>greeter-show-manual-login=true<br>all-guest=false<br><img src="/2018/02/05/java-17-10/15161661991937/15177961453999.jpg" alt=""></p>
-<p>重启系统，点击登录，输入root，和设置的密码 </p>
-<p>重启系统，点击登录，输入root，和设置的密码<br>此时会出现：读取/root/.profile时发现错误，对话框，如下图所示：<br><img src="/2018/02/05/java-17-10/15161661991937/15177962099111.jpg" alt=""></p>
-<p>点击确定按钮，进入系统，使用vi /root/.profile命令修改文件，找到mesg n，修改为：tty -s &amp;&amp; mesg n，如下图所示：<br><img src="/2018/02/05/java-17-10/15161661991937/15177962329985.jpg" alt=""></p>
-<ul>
-<li><a href="http://www.runoob.com/linux/linux-shell.html" target="_blank" rel="noopener">shell基础教程</a><br>shell脚本开头是，<br>“#!bin/sh”，是一个shell脚本，用bin/sh来执行<br>”#!/bin/bash”，是bash脚本程序，用/bin/sh来执行<br>bash是sh的增强版本，bash中支持的命令更加多一些，实际开发中用bash比较多</li>
-<li>linux和mac互传文件<br>用的是smb，finder 文件-前往-连接服务器，，，smb://10.10.2.236</li>
-</ul>
-<h5 id="mac运行sh文件"><a href="#mac运行sh文件" class="headerlink" title="mac运行sh文件"></a>mac运行sh文件</h5><p>然后输入sudo su<br>随后输入密码。这样就取得了root用户权限。<br>提示，sh-3.2#，每个人可能不一样<br>执行./sh文件名字（ls查看所有文件，进入脚本目录）<br>就可以了。<br>在执行的时候，可能会报如下的错误：<br>-bash: ./startup.sh: Permission denied解决办法：<br>这是因为用户没有权限，而导致无法执行。用命令chmod 修改一下bin目录下的.sh权限就可以了。<br>chmod u+x <em>.sh<br>这里的u 这里指文件所有者，+x 添加可执行权限，</em>.sh表示所有的sh文件<br></p>
+        <h4 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h4><p>linux编辑文件时不可用<br>修改/etc/vim/vimrc.tiny 文件，将set compatible 设置成set nocompatible . 保存退出即可。这是因为有时候系统会默认vim兼容vi，所以使用vi的命令<br>设置里面要选择桥连，ubantu地址是：我linux地址是10.10.1.74<br>2、搭建java开发环境<br>ubuntu-16.04+mac+virtual+idea<br>——–ubuntu启用root用户：参考 <a href="http://blog.csdn.net/sunxiaoju/article/details/51993091" target="_blank" rel="noopener">ubuntu16启用root用户</a><br>sudo passwd -u root 设置root密码<br>su root 测试是否可以进入root用户，如果出现# 说明已成功<br>进入到/usr/share/lightdm/lightdm.conf.d/目录，使用gedit 50-unity-greeter.conf &amp;命令打开50-unity-greeter.conf 文件，如下图所示：<br>在打开文件中添加如下信息，来设置登录时可以选择用户登录，如下图所示：<br>user-session=ubuntu<br>greeter-show-manual-login=true<br>all-guest=false<br></p>
         
           <a class="article-more-a" href="/2018/02/05/java-17-10/#more">more >></a>
         
@@ -274,12 +262,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="intelljdea"><a href="#intelljdea" class="headerlink" title="intelljdea"></a>intelljdea</h1><h2 id="【链接】-求助-IntelliJIDEA怎么破解"><a href="#【链接】-求助-IntelliJIDEA怎么破解" class="headerlink" title="【链接】[求助]IntelliJIDEA怎么破解"></a>【链接】[求助]IntelliJIDEA怎么破解</h2><p>1、<a href="http://bbs.feng.com/read-htm-tid-11256605.html" target="_blank" rel="noopener">http://bbs.feng.com/read-htm-tid-11256605.html</a><br>激活界面选license server，把<a href="http://xidea.online粘贴进去，点激活" target="_blank" rel="noopener">http://xidea.online粘贴进去，点激活</a><br>2、<a href="http://idea.lanyus.com/" target="_blank" rel="noopener">http://idea.lanyus.com/</a><br>3、jar激活，<a href="https://www.jianshu.com/p/f404994e2843" target="_blank" rel="noopener">https://www.jianshu.com/p/f404994e2843</a></p>
-<h2 id="java代码里的黄线"><a href="#java代码里的黄线" class="headerlink" title="java代码里的黄线"></a>java代码里的黄线</h2><p>在 setting 里面 搜索 inspections <em> General </em> Duplicated Code 取消勾选.提交之后就可以了.<br>———–如何设置idea开发工具的界面字体大小<br>首先打开IntelliJ IDEA软件<br>1、单击编辑器左上角File 2、在弹出的下拉框中选中Setting<br>在弹出的界面上选中Appearance&amp;Behavior，之后选中Appearance<br>然后查看右边主界面，找到Override default fonts by (not recommended);勾选前面的框，下面的一行（Name和Size）被点亮，Name中调整字体风格（我这里是微软雅黑，选择自己喜欢的就好），Size中调整大小。</p>
-<h2 id="格式化jsp"><a href="#格式化jsp" class="headerlink" title="格式化jsp"></a>格式化jsp</h2><p><a href="http://blog.csdn.net/ieayoio/article/details/49930587" target="_blank" rel="noopener">http://blog.csdn.net/ieayoio/article/details/49930587</a></p>
-<h2 id="【链接】intellijIDEA如何设置默认的maven配置？"><a href="#【链接】intellijIDEA如何设置默认的maven配置？" class="headerlink" title="【链接】intellijIDEA如何设置默认的maven配置？"></a>【链接】intellijIDEA如何设置默认的maven配置？</h2><p><a href="http://www.oschina.net/question/948439_243781" target="_blank" rel="noopener">http://www.oschina.net/question/948439_243781</a></p>
-<h2 id="【链接】IntellijIDEA创建MavenWeb项目"><a href="#【链接】IntellijIDEA创建MavenWeb项目" class="headerlink" title="【链接】IntellijIDEA创建MavenWeb项目"></a>【链接】IntellijIDEA创建MavenWeb项目</h2><p><a href="http://blog.csdn.net/gaokao2011/article/details/53995435" target="_blank" rel="noopener">http://blog.csdn.net/gaokao2011/article/details/53995435</a></p>
-
+        <h1 id="intelljdea"><a href="#intelljdea" class="headerlink" title="intelljdea"></a>intelljdea</h1><h2 id="【链接】-求助-IntelliJIDEA怎么破解"><a href="#【链接】-求助-IntelliJIDEA怎么破解" class="headerlink" title="【链接】[求助]IntelliJIDEA怎么破解"></a>【链接】[求助]IntelliJIDEA怎么破解</h2><p>1、<a href="http://bbs.feng.com/read-htm-tid-11256605.html" target="_blank" rel="noopener">http://bbs.feng.com/read-htm-tid-11256605.html</a><br>激活界面选license server，把<a href="http://xidea.online粘贴进去，点激活" target="_blank" rel="noopener">http://xidea.online粘贴进去，点激活</a><br>2、<a href="http://idea.lanyus.com/" target="_blank" rel="noopener">http://idea.lanyus.com/</a><br>3、jar激活，<a href="https://www.jianshu.com/p/f404994e2843" target="_blank" rel="noopener">https://www.jianshu.com/p/f404994e2843</a><br></p>
+        
+          <a class="article-more-a" href="/2018/02/05/tools/#more">more >></a>
+        
       
 
       
@@ -417,7 +403,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 lxh
+    		&copy; 2018 LXH
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -545,41 +531,13 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-friends" q-show="friends">
   		
-        <ul class="search-ul">
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接5</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接6</a>
-            </li>
-          
-        </ul>
-  		
     	</section>
     
 
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">软妹子往家庭妇女的过渡中&lt;br&gt;Hi~~Hi~~Hi~~</div>
   	  	
     	</section>
     
