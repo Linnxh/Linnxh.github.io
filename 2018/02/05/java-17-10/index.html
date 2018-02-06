@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://linnxh.com/2018/02/05/java-17-10/15161661991937/15177962794620.jpg">
 <meta property="og:image" content="http://linnxh.com/2018/02/05/java-17-10/15161661991937/15177964355422.jpg">
 <meta property="og:image" content="http://linnxh.com/2018/02/05/java-17-10/15161661991937/15177964636988.jpg">
-<meta property="og:updated_time" content="2018-02-05T09:39:34.548Z">
+<meta property="og:updated_time" content="2018-02-06T02:35:01.401Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java-17-10">
 <meta name="twitter:description" content="shelllinux编辑文件时不可用修改/etc/vim/vimrc.tiny 文件，将set compatible 设置成set nocompatible . 保存退出即可。这是因为有时候系统会默认vim兼容vi，所以使用vi的命令设置里面要选择桥连，ubantu地址是：我linux地址是10.10.1.742、搭建java开发环境ubuntu-16.04+mac+virtual+idea——–">
@@ -207,7 +207,7 @@
 <li><a href="http://www.runoob.com/linux/linux-shell.html" target="_blank" rel="noopener">shell基础教程</a><br>shell脚本开头是，<br>“#!bin/sh”，是一个shell脚本，用bin/sh来执行<br>”#!/bin/bash”，是bash脚本程序，用/bin/sh来执行<br>bash是sh的增强版本，bash中支持的命令更加多一些，实际开发中用bash比较多</li>
 <li>linux和mac互传文件<br>用的是smb，finder 文件-前往-连接服务器，，，smb://10.10.2.236</li>
 </ul>
-<h5 id="mac运行sh文件"><a href="#mac运行sh文件" class="headerlink" title="mac运行sh文件"></a>mac运行sh文件</h5><p>然后输入sudo su<br>随后输入密码。这样就取得了root用户权限。<br>提示，sh-3.2#，每个人可能不一样<br>执行./sh文件名字（ls查看所有文件，进入脚本目录）<br>就可以了。<br>在执行的时候，可能会报如下的错误：<br>-bash: ./startup.sh: Permission denied解决办法：<br>这是因为用户没有权限，而导致无法执行。用命令chmod 修改一下bin目录下的.sh权限就可以了。<br>chmod u+x <em>.sh<br>这里的u 这里指文件所有者，+x 添加可执行权限，</em>.sh表示所有的sh文件</p>
+<h5 id="mac运行sh文件"><a href="#mac运行sh文件" class="headerlink" title="mac运行sh文件"></a>mac运行sh文件</h5><p>然后输入sudo su<br>随后输入密码。这样就取得了root用户权限。<br>提示，sh-3.2#，每个人可能不一样<br>执行./sh文件名字（ls查看所有文件，进入脚本目录）<br>就可以了。<br>在执行的时候，可能会报如下的错误：<br>-bash: ./startup.sh: Permission denied解决办法：<br>这是因为用户没有权限，而导致无法执行。用命令chmod 修改一下bin目录下的.sh权限就可以了。<br>chmod u+x <em>.sh<br>这里的u 这里指文件所有者，+x 添加可执行权限，</em>.sh表示所有的sh文件<br><a id="more"></a></p>
 <h4 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h4><p>跨域：js和服务端数据交互必须要是相同的域名<br>同一域名：协议（http，https）、域名(www.baidu.com,www.baidu.cn)、端口都必须相同<br>解决办法：</p>
 <ol>
 <li>后台接口开启Access-Control-Allow-Origin：*表示谁都可以用</li>
