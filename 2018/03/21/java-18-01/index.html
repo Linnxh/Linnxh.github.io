@@ -6,22 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://linnxh.com">
-  <title>ps修图 | Linnxh的博客</title>
+  <title>java-18-01 | Linnxh的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="ps工具工具地址：xclient当然支持官方正版，如果money足够的话；我使用的版本如下：">
+  <meta name="description" content="##volatile @(java) volatile是保证被修饰的变量能在不同的线程中可见，但是不一定能保证原子性若不使用，则是线程阻塞的，效率较低 1234567891011121314151617181920212223242526272829303132public class VolaticleNoAtomic extends Thread &amp;#123;    private volat">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ps修图">
-<meta property="og:url" content="http://linnxh.com/2018/02/12/ps修图/index.html">
+<meta property="og:title" content="java-18-01">
+<meta property="og:url" content="http://linnxh.com/2018/03/21/java-18-01/index.html">
 <meta property="og:site_name" content="Linnxh的博客">
-<meta property="og:description" content="ps工具工具地址：xclient当然支持官方正版，如果money足够的话；我使用的版本如下：">
+<meta property="og:description" content="##volatile @(java) volatile是保证被修饰的变量能在不同的线程中可见，但是不一定能保证原子性若不使用，则是线程阻塞的，效率较低 1234567891011121314151617181920212223242526272829303132public class VolaticleNoAtomic extends Thread &amp;#123;    private volat">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://linnxh.com/2018/02/12/ps修图/QQ20180212-114519@2x.png">
-<meta property="og:image" content="http://linnxh.com/2018/02/12/ps修图/工具栏.png">
-<meta property="og:updated_time" content="2018-02-12T04:23:28.955Z">
+<meta property="og:image" content="http://linnxh.com/2018/03/21/java-18-01/QQ20180321-175431@2x.png">
+<meta property="og:updated_time" content="2018-03-21T10:11:08.851Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ps修图">
-<meta name="twitter:description" content="ps工具工具地址：xclient当然支持官方正版，如果money足够的话；我使用的版本如下：">
-<meta name="twitter:image" content="http://linnxh.com/2018/02/12/ps修图/QQ20180212-114519@2x.png">
+<meta name="twitter:title" content="java-18-01">
+<meta name="twitter:description" content="##volatile @(java) volatile是保证被修饰的变量能在不同的线程中可见，但是不一定能保证原子性若不使用，则是线程阻塞的，效率较低 1234567891011121314151617181920212223242526272829303132public class VolaticleNoAtomic extends Thread &amp;#123;    private volat">
+<meta name="twitter:image" content="http://linnxh.com/2018/03/21/java-18-01/QQ20180321-175431@2x.png">
   
     <link rel="alternative" href="/atom.xml" title="Linnxh的博客" type="application/atom+xml">
   
@@ -149,36 +148,58 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-ps修图" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-java-18-01" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      ps修图
+      java-18-01
     </h1>
   
 
         
-        <a href="/2018/02/12/ps修图/" class="archive-article-date">
-  	<time datetime="2018-02-12T03:42:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-12</time>
+        <a href="/2018/03/21/java-18-01/" class="archive-article-date">
+  	<time datetime="2018-03-21T09:52:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="ps工具"><a href="#ps工具" class="headerlink" title="ps工具"></a>ps工具</h1><p>工具地址：<a href="http://xclient.info/?_=653420e002e5ffc187c32790372b59eb" target="_blank" rel="noopener">xclient</a><br>当然支持官方正版，如果money足够的话；我使用的版本如下：<br><img src="/2018/02/12/ps修图/QQ20180212-114519@2x.png" alt=""></p>
-<a id="more"></a>
+        <p>##volatile</p>
+<p>@(java)</p>
+<p>volatile是保证被修饰的变量能在不同的线程中可见，但是不一定能保证原子性<br>若不使用，则是线程阻塞的，效率较低</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">public class VolaticleNoAtomic extends Thread &#123;</span><br><span class="line"></span><br><span class="line">    private volatile boolean  isRunning = true;</span><br><span class="line"></span><br><span class="line">    private void setRunning(boolean isRunning) &#123;</span><br><span class="line">        this.isRunning = isRunning;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void run() &#123;</span><br><span class="line">        System.out.println(&quot;进入方法&quot;);</span><br><span class="line">        while (isRunning) &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;方法结束&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String args[]) throws InterruptedException &#123;</span><br><span class="line">        VolaticleNoAtomic thread = new VolaticleNoAtomic();</span><br><span class="line">        thread.start();</span><br><span class="line">        Thread.sleep(1000);</span><br><span class="line">        thread.setRunning(false);</span><br><span class="line">        System.out.println(&quot;isrunning被设置为false&quot;);</span><br><span class="line">        Thread.sleep(1000);</span><br><span class="line">        System.out.println(thread.isRunning);</span><br><span class="line">    &#125;</span><br><span class="line">//输出结果：</span><br><span class="line">//进入方法</span><br><span class="line">//被设置为false</span><br><span class="line">//方法结束</span><br><span class="line">//false</span><br><span class="line">//若不是使用volatile，则输出也是也是这样的，但是名为thread的进程是没有停止，</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public class VolaticleNoAtomic extends Thread &#123;</span><br><span class="line"></span><br><span class="line">    private static volatile int count = 0;</span><br><span class="line">    // AtomicInteger可以保证原子性，这个例子中可以给addCont添加synchronized关键字，但是阻塞了线程，效率不行</span><br><span class="line">    private static AtomicInteger  atCount =new AtomicInteger(0);</span><br><span class="line"></span><br><span class="line">    private static  void addCont() &#123;</span><br><span class="line">        for (int i = 0; i &lt; 10000; i++) &#123;</span><br><span class="line">            count++;</span><br><span class="line">            atCount.incrementAndGet();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;count-----&quot;+count);</span><br><span class="line">        System.out.println(&quot;atCount---&quot;+atCount);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void run() &#123;</span><br><span class="line">        addCont();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String args[]) &#123;</span><br><span class="line">        VolaticleNoAtomic[] arr = new VolaticleNoAtomic[100];</span><br><span class="line">        for (int i = 0; i &lt; 100; i++) &#123;</span><br><span class="line">            arr[i] = new VolaticleNoAtomic();</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i = 0; i &lt; 100; i++) &#123;</span><br><span class="line">            arr[i].start();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h2><p>定义：<br>远程过程调用，A通过网络调用B的过程方法<br>RPC调用的流程<br><img src="/2018/03/21/java-18-01/QQ20180321-175431@2x.png" alt=""></p>
+<p>1）服务消费方（client）调用以本地调用方式调用服务；<br>2）client stub接收到调用后负责将方法、参数等组装成能够进行网络传输的消息体；<br>3）client stub找到服务地址，并将消息发送到服务端；<br>4）server stub收到消息后进行解码；<br>5）server stub根据解码结果调用本地的服务；<br>6）本地服务执行并将结果返回给server stub；<br>7）server stub将返回结果打包成消息并发送至消费方；<br>8）client stub接收到消息，并进行解码；<br>9）服务消费方得到最终结果<br>RPC的目标就是要2~8这些步骤都封装起来，让用户对这些细节透明<br> 举例说明</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1 int Multiply(int l, int r) &#123;</span><br><span class="line">2    int y = l * r;</span><br><span class="line">3    return y;</span><br><span class="line">4 &#125;</span><br><span class="line">5 </span><br><span class="line">6 int lvalue = 10;</span><br><span class="line">7 int rvalue = 20;</span><br><span class="line">8 int l_times_r = Multiply(lvalue, rvalue);</span><br></pre></td></tr></table></figure>
+<p>本地调用流程<br>1。 将 lvalue 和 rvalue 的值压栈</p>
 <ol>
-<li>导入图片，文件–打开，打开要处理的文件，在右侧的图层里先复制出一个，使用的时候先将其中一个隐藏</li>
-<li>新建背景图层，图层-新建-背景图层，（背景图层就是你在快捷栏里设置的背景颜色）<br><img src="/2018/02/12/ps修图/工具栏.png" alt=""><br>最下面那个，上面是前景色，下面是背景色，点击可以直接修改，</li>
-<li>用橡皮擦去想要变换的地方， 如果发现此事，背景编程网格的，则建议，看方法2，将背景色设置为一个统一的，而且不要在同一个图层，需要将原来的背景去掉，下面有介绍去背景的方法</li>
+<li>进入Multiply函数，取出栈中的值10 和 20，将其赋予 l 和 r</li>
+<li>执行第2行代码，计算 l * r ，并将结果存在 y</li>
+<li>将 y 的值压栈，然后从Multiply返回</li>
+<li>第8行，从栈中取出返回值 200 ，并赋值给 l_times_r</li>
 </ol>
-<p>快捷键：<br>comm+d:取消刚才的选取<br>comm+鼠标左键（在图层预览上点击）：选中这个图层上的图形<br>再切换到背景图层，点删除按钮，刚才选中的就从北京图层删除了</p>
-<p>去背景的方法：<br>橡皮擦–&gt;背景橡皮擦可以直接去背景，如果去掉的背景不是很好，可以使用橡皮擦–&gt;模式橡皮擦，将那些细微地方的背景也去掉</p>
-<p>要移动某个图层，要在对应的图层中先选中对应的图层，将工具栏切换为移动工具栏，在移动，<br>shift+键盘左右键，可以微调图形</p>
+<p>若改成远程调用，Multiply则应该调用的是远程的机器上的，会遇到如下问题</p>
+<ul>
+<li>Call ID映射。在本地调用中，函数体是直接通过函数指针来指定的，我们调用Multiply，编译器就自动帮我们调用它相应的函数指针。但是在远程调用中，函数指针是不行的，因为两个进程的地址空间是完全不一样的。所以，在RPC中，所有的函数都必须有自己的一个ID。这个ID在所有进程中都是唯一确定的。客户端在做远程过程调用时，必须附上这个ID。然后我们还需要在客户端和服务端分别维护一个 {函数 &lt;–&gt; Call ID} 的对应表。两者的表不一定需要完全相同，但相同的函数对应的Call ID必须相同。当客户端需要进行远程调用时，它就查一下这个表，找出相应的Call ID，然后把它传给服务端，服务端也通过查表，来确定客户端需要调用的函数，然后执行相应函数的代码。</li>
+<li>序列化和反序列化。客户端怎么把参数值传给远程的函数呢？在本地调用中，我们只需要把参数压到栈里，然后让函数自己去栈里读就行。但是在远程过程调用时，客户端跟服务端是不同的进程，不能通过内存来传递参数。甚至有时候客户端和服务端使用的都不是同一种语言（比如服务端用C++，客户端用Java或者Python）。这时候就需要客户端把参数先转成一个字节流，传给服务端后，再把字节流转成自己能读取的格式。这个过程叫序列化和反序列化。同理，从服务端返回的值也需要序列化反序列化的过程。</li>
+<li>网络传输。远程调用往往用在网络上，客户端和服务端是通过网络连接的。所有的数据都需要通过网络传输，因此就需要有一个网络传输层。网络传输层需要把Call ID和序列化后的参数字节流传给服务端，然后再把序列化后的调用结果传回客户端。只要能完成这两者的，都可以作为传输层使用。因此，它所使用的协议其实是不限的，能完成传输就行。尽管大部分RPC框架都使用TCP协议，但其实UDP也可以，而gRPC干脆就用了HTTP2。Java的Netty也属于这层的东西<blockquote>
+<p>Netty</p>
+</blockquote>
+</li>
+</ul>
+<p>Netty是一个高性能、异步事件驱动的NIO框架，它提供了对TCP、UDP和文件传输的支持，作为一个异步NIO框架，Netty的所有IO操作都是异步非阻塞的，通过Future-Listener机制，用户可以方便的主动获取或者通过通知机制获得IO操作结果。</p>
+<p>Netty是由JBOSS提供的一个java开源框架。Netty提供异步的、事件驱动的网络应用程序框架和工具，用以快速开发高性能、高可靠性的网络服务器和客户端程序</p>
+<p>阿里分布式服务框架 Dubbo 的 RPC 框架使用 Dubbo 协议进行节点间通信，Dubbo 协议默认使用 Netty 作为基础通信组件，用于实现各进程节点之间的内部通信</p>
+<p>##微服务架构的基础框架选择：Spring Cloud还是Dubbo？</p>
+<p><a href="https://zhuanlan.zhihu.com/p/25450681" target="_blank" rel="noopener">参考</a></p>
+<p>##中间件<br>作用：分库分表<br>背景：传统的架构模式，应用连接数据库直接对数据进行访问，会遇到如下问题，单个表和库的数据量都较大，单台数据量服务器压力很大，读写速度慢；<br>第一种解决方法，向上扩展，即增加硬件性能只能暂时解决问题；<br>另一种方法，水平扩展，增加机器数量，把不同数据库放在不同的服务器，在应用到数据库之间加一个proxy进行路由，<br><a href="https://www.cnblogs.com/grefr/p/6087942.html" target="_blank" rel="noopener">参考</a></p>
+<p>##锁<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">public class MyThread &#123;</span><br><span class="line">    private static int num = 0;</span><br><span class="line">    public static synchronized void print(String args) throws InterruptedException &#123;</span><br><span class="line">        if (args.equals(&quot;a&quot;)) &#123;</span><br><span class="line">            System.out.println(&quot;I&apos;am a &quot;);</span><br><span class="line">            num = 100;</span><br><span class="line">            Thread.sleep(1000L);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            System.out.println(&quot;I&apos;am b &quot;);</span><br><span class="line">            num = 200;</span><br><span class="line">            Thread.sleep(1000L);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;Over&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        MyThread myThread1 = new MyThread();</span><br><span class="line">        MyThread myThread2 = new MyThread();</span><br><span class="line"></span><br><span class="line">        Thread thread1 = new Thread(new Runnable() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void run() &#123;</span><br><span class="line">                try &#123;</span><br><span class="line">                    myThread1.print(&quot;a&quot;);</span><br><span class="line">                &#125; catch (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        Thread thread2 = new Thread(new Runnable() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void run() &#123;</span><br><span class="line">                try &#123;</span><br><span class="line">                    myThread2.print(&quot;b&quot;);</span><br><span class="line">                &#125; catch (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        thread1.start();</span><br><span class="line">        thread2.start();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>以上代码输出的是 I’am a Over I’am b Over 固定结果，如果把 print的static方法去掉，并且把num变为非static的方法，输出结果就不固定了，<br>synchronized加在static锁定的就是class类，类级别的锁。</p>
 
       
 
@@ -237,7 +258,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://linnxh.com/2018/02/12/ps修图/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://linnxh.com/2018/03/21/java-18-01/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -251,18 +272,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/03/21/java-18-01/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          java-18-01
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/02/05/java-17-10/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">java-17-10</div>
+    <a href="/2018/02/12/ps修图/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ps修图</div>
       <i class="icon-circle-right"></i>
     </a>
   
