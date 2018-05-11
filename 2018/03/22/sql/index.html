@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Linnxh的博客">
 <meta property="og:description" content="摘要:常用sql的总结">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-12T07:31:21.349Z">
+<meta property="og:updated_time" content="2018-05-10T11:15:33.485Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sql">
 <meta name="twitter:description" content="摘要:常用sql的总结">
@@ -176,8 +176,36 @@
         
       </header>
     
+    <!-- 目录内容 -->
+
+    <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+          <span class="btn-bg"></span>
+          <span class="btn-text">文章导航</span>
+          </p>
+  <div id="toc-article" class="toc-article">
+      <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+    <strong class="toc-title">文章目录</strong>
+           <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#create-schema"><span class="toc-number">1.</span> <span class="toc-text">create schema</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库"><span class="toc-number">2.</span> <span class="toc-text">数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#悲观锁-Pessimistic-Locking"><span class="toc-number">2.1.</span> <span class="toc-text">悲观锁(Pessimistic Locking):</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#乐观锁（-Optimistic-Locking-）"><span class="toc-number">2.2.</span> <span class="toc-text">乐观锁（ Optimistic Locking ）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MYSQL基本操作"><span class="toc-number">2.3.</span> <span class="toc-text">MYSQL基本操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#select-1-from-table"><span class="toc-number">2.4.</span> <span class="toc-text">select 1 from table</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JDBC"><span class="toc-number">2.5.</span> <span class="toc-text">JDBC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#索引"><span class="toc-number">2.6.</span> <span class="toc-text">索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#常用sql语句"><span class="toc-number">2.7.</span> <span class="toc-text">常用sql语句</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#事务"><span class="toc-number">2.8.</span> <span class="toc-text">事务</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sql引擎"><span class="toc-number"></span> <span class="toc-text">sql引擎</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sql优化"><span class="toc-number"></span> <span class="toc-text">sql优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、索引"><span class="toc-number">1.</span> <span class="toc-text">一、索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#like语句"><span class="toc-number">2.</span> <span class="toc-text">like语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#where语句使用in和not-in-也要慎用，否则也会导致全表扫描"><span class="toc-number">3.</span> <span class="toc-text">where语句使用in和not in 也要慎用，否则也会导致全表扫描</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#union-union-all"><span class="toc-number">4.</span> <span class="toc-text">union union all</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#where子句中对字段进行表达式操作的优化"><span class="toc-number">5.</span> <span class="toc-text">where子句中对字段进行表达式操作的优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Inner-join-和-left-join、right-join、子查询"><span class="toc-number">6.</span> <span class="toc-text">Inner join 和 left join、right join、子查询</span></a></li></ol>
+         </div>
+   <script type="text/javascript">
+  function showToc(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:block");
+    show_toc_btn.setAttribute("style","display:none");
+    };
+  function showBtn(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:none");
+    show_toc_btn.setAttribute("style","display:block");
+    };
+   </script>
+      
+<!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
+       <!--  -->
         <p>摘要:常用sql的总结<br><a id="more"></a></p>
 <h3 id="create-schema"><a href="#create-schema" class="headerlink" title="create schema"></a>create schema</h3><p>成功执行了create schema st authorization wang</p>
 <p>那么 wang 就是数据库中的一个用户<br>st 就是一个架构名<br>创建表的时候可以<br>create table st.表名(t1 int)<br>访问的时候<br>select * from st.表名<br>REPEAT 函数返回一个重复 character_expression 指定次数的字符串</p>
@@ -496,6 +524,19 @@ TRUNCATE TABLE  table_name;</code></p>
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#create-schema"><span class="toc-number">1.</span> <span class="toc-text">create schema</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库"><span class="toc-number">2.</span> <span class="toc-text">数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#悲观锁-Pessimistic-Locking"><span class="toc-number">2.1.</span> <span class="toc-text">悲观锁(Pessimistic Locking):</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#乐观锁（-Optimistic-Locking-）"><span class="toc-number">2.2.</span> <span class="toc-text">乐观锁（ Optimistic Locking ）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MYSQL基本操作"><span class="toc-number">2.3.</span> <span class="toc-text">MYSQL基本操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#select-1-from-table"><span class="toc-number">2.4.</span> <span class="toc-text">select 1 from table</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JDBC"><span class="toc-number">2.5.</span> <span class="toc-text">JDBC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#索引"><span class="toc-number">2.6.</span> <span class="toc-text">索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#常用sql语句"><span class="toc-number">2.7.</span> <span class="toc-text">常用sql语句</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#事务"><span class="toc-number">2.8.</span> <span class="toc-text">事务</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sql引擎"><span class="toc-number"></span> <span class="toc-text">sql引擎</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sql优化"><span class="toc-number"></span> <span class="toc-text">sql优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、索引"><span class="toc-number">1.</span> <span class="toc-text">一、索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#like语句"><span class="toc-number">2.</span> <span class="toc-text">like语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#where语句使用in和not-in-也要慎用，否则也会导致全表扫描"><span class="toc-number">3.</span> <span class="toc-text">where语句使用in和not in 也要慎用，否则也会导致全表扫描</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#union-union-all"><span class="toc-number">4.</span> <span class="toc-text">union union all</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#where子句中对字段进行表达式操作的优化"><span class="toc-number">5.</span> <span class="toc-text">where子句中对字段进行表达式操作的优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Inner-join-和-left-join、right-join、子查询"><span class="toc-number">6.</span> <span class="toc-text">Inner join 和 left join、right join、子查询</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
@@ -510,6 +551,7 @@ TRUNCATE TABLE  table_name;</code></p>
   
 
   
+
 
 
           </div>
