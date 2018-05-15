@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://linnxh.com/2018/02/05/java-17-10/20160928165919863.jpg">
 <meta property="og:image" content="http://linnxh.com/2018/02/05/java-17-10/15161661991937/15177964355422.jpg">
 <meta property="og:image" content="http://linnxh.com/2018/02/05/java-17-10/15161661991937/15177964636988.jpg">
-<meta property="og:updated_time" content="2018-05-11T07:03:30.065Z">
+<meta property="og:updated_time" content="2018-05-11T08:08:16.744Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java-17-10">
 <meta name="twitter:description" content="java基础知识总结 2017-10">
@@ -268,7 +268,9 @@
 <p>在业内常见的部署组合就是ELK系统了，ELK是elasticsearch、logstash、kibana三个系统的首字母组合。接下来的几篇博客会从整体和三个系统细分角度看ELK如何使用。</p>
 <h2 id="部署方式"><a href="#部署方式" class="headerlink" title="部署方式"></a>部署方式</h2><p>ELK部署最简单的方式就是L-E-K方式，不添加任何其他辅助系统，部署简单快速，容易上手</p>
 <h1 id="jenkis"><a href="#jenkis" class="headerlink" title="jenkis"></a>jenkis</h1><p><a href="http://blog.csdn.net/taishanduba/article/details/50452601" target="_blank" rel="noopener">http://blog.csdn.net/taishanduba/article/details/50452601</a></p>
-<p>打开terminal，进入到war包所在目录，<br>/usr/local/Cellar/jenkins/2.69/libexec<br>执行命令：<br>java -jar jenkins.war –httpPort=8888<br><a href="http://localhost:8080/exit" target="_blank" rel="noopener">http://localhost:8080/exit</a>       //退出Jenkins</p>
+<p>打开terminal，进入到war包所在目录，<br>/usr/local/Cellar/jenkins/2.121/libexec<br>执行命令：</p>
+<p>java -jar jenkins.war –ajp13Port=-1 –httpPort=8081<br>2.69  版本对应操作如下<br>java -jar jenkins.war –httpPort=8888</p>
+<p><a href="http://localhost:8080/exit" target="_blank" rel="noopener">http://localhost:8080/exit</a>       //退出Jenkins</p>
 <p><a href="http://localhost:8080/restart" target="_blank" rel="noopener">http://localhost:8080/restart</a>  //重启</p>
 <p><a href="http://localhost:8080/reload" target="_blank" rel="noopener">http://localhost:8080/reload</a>  //重新加载<br>从cmd进入jenkins的安装目录，执行jenkins stop/start 也可以关闭和开启jenkins服务</p>
 <p>修改端口号</p>
