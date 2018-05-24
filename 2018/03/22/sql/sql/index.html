@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://linnxh.com">
-  <title>tools | Linnxh的博客</title>
+  <title>sql | Linnxh的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="java开发常用工具总结，intelljdea">
+  <meta name="description" content="摘要:常用sql的总结">
 <meta property="og:type" content="article">
-<meta property="og:title" content="tools">
-<meta property="og:url" content="http://linnxh.com/2018/02/05/tools/index.html">
+<meta property="og:title" content="sql">
+<meta property="og:url" content="http://linnxh.com/2018/03/22/sql/sql/index.html">
 <meta property="og:site_name" content="Linnxh的博客">
-<meta property="og:description" content="java开发常用工具总结，intelljdea">
+<meta property="og:description" content="摘要:常用sql的总结">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-12T07:26:12.815Z">
+<meta property="og:updated_time" content="2018-05-23T08:56:58.751Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tools">
-<meta name="twitter:description" content="java开发常用工具总结，intelljdea">
+<meta name="twitter:title" content="sql">
+<meta name="twitter:description" content="摘要:常用sql的总结">
   
     <link rel="alternative" href="/atom.xml" title="Linnxh的博客" type="application/atom+xml">
   
@@ -158,20 +158,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-tools" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-sql/sql" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      tools
+      sql
     </h1>
   
 
         
-        <a href="/2018/02/05/tools/" class="archive-article-date">
-  	<time datetime="2018-02-05T08:32:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-05</time>
+        <a href="/2018/03/22/sql/sql/" class="archive-article-date">
+  	<time datetime="2018-03-22T06:25:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-22</time>
 </a>
         
       </header>
@@ -180,37 +180,278 @@
     <div class="article-entry" itemprop="articleBody">
       
        <!--  -->
-        <p>java开发常用工具总结，intelljdea<br><a id="more"></a></p>
-<h1 id="intelljdea"><a href="#intelljdea" class="headerlink" title="intelljdea"></a>intelljdea</h1><h2 id="【链接】-求助-IntelliJIDEA怎么破解"><a href="#【链接】-求助-IntelliJIDEA怎么破解" class="headerlink" title="【链接】[求助]IntelliJIDEA怎么破解"></a>【链接】[求助]IntelliJIDEA怎么破解</h2><p>1、<a href="http://bbs.feng.com/read-htm-tid-11256605.html" target="_blank" rel="noopener">http://bbs.feng.com/read-htm-tid-11256605.html</a><br>激活界面选license server，把<a href="http://xidea.online粘贴进去，点激活" target="_blank" rel="noopener">http://xidea.online粘贴进去，点激活</a><br>2、<a href="http://idea.lanyus.com/" target="_blank" rel="noopener">http://idea.lanyus.com/</a><br>3、jar激活，<a href="https://www.jianshu.com/p/f404994e2843" target="_blank" rel="noopener">https://www.jianshu.com/p/f404994e2843</a></p>
-<h2 id="代码里的黄线"><a href="#代码里的黄线" class="headerlink" title="代码里的黄线"></a>代码里的黄线</h2><ol>
-<li>java代码的波浪线，在 setting 里面  inspections <em> General </em> Duplicated Code 取消勾选.提交之后就可以了.</li>
-<li>sql里的黄色背景：setting–&gt;Spring–&gt;Spring Core–&gt;Code–&gt;Autowring for Bean Class里的对号去掉，setting–&gt;Spring–&gt;SQL–&gt;Code–&gt;No data source configured 和 SQL dialect detection 里的对号去掉;</li>
+        <p>摘要:常用sql的总结<br>    <a id="more"></a></p>
+<h1 id="create-schema"><a href="#create-schema" class="headerlink" title="create schema"></a>create schema</h1><p>成功执行了create schema st authorization wang</p>
+<p>那么 wang 就是数据库中的一个用户<br>st 就是一个架构名<br>创建表的时候可以<br>create table st.表名(t1 int)<br>访问的时候<br>select * from st.表名<br>REPEAT 函数返回一个重复 character_expression 指定次数的字符串</p>
+<p><code>select a.id,REPEAT(&#39;圣诞快乐&#39;,2) AS 哈哈 FROM table AS a ;</code></p>
+<p>返回结果</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>哈哈</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>圣诞快乐圣诞快乐</td>
+</tr>
+<tr>
+<td>2</td>
+<td>圣诞快乐圣诞快乐</td>
+</tr>
+</tbody>
+</table>
+<p>`<br>–将table按照id分组，统计出每组的个数，并按照每组个数倒叙排序<br>SELECT COUNT(<em>),ss_id FROM goods_statistics GROUP BY ss_id ORDER BY COUNT(</em>) DESC<br>`</p>
+<p><code>select A.id,A.name,B.name from A,B where A.id=B.id;</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">id</th>
+<th style="text-align:right">name</th>
+<th style="text-align:center">name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:right">Pirate</td>
+<td style="text-align:center">Rutabaga</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:right">Monkey</td>
+<td style="text-align:center">Pirate</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:right">Ninja</td>
+<td style="text-align:center">Darth Vader</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:right">Spaghetti</td>
+<td style="text-align:center">Ninja</td>
+</tr>
+</tbody>
+</table>
+<h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><h2 id="悲观锁-Pessimistic-Locking"><a href="#悲观锁-Pessimistic-Locking" class="headerlink" title="悲观锁(Pessimistic Locking):"></a>悲观锁(Pessimistic Locking):</h2><p>在整个数据处理过程中，将数据处于锁定状态。<br>`<br>//0.开始事务<br>begin;/begin work;/start transaction; (三者选一就可以)<br>//1.查询出商品信息<br>select status from t_goods where id=1 for update;<br>//2.根据商品信息生成订单<br>insert into t_orders (id,goods_id) values (null,1);<br>//3.修改商品status为2<br>update t_goods set status=2;<br>//4.提交事务<br>commit;/commit work;<br>`</p>
+<h2 id="乐观锁（-Optimistic-Locking-）"><a href="#乐观锁（-Optimistic-Locking-）" class="headerlink" title="乐观锁（ Optimistic Locking ）"></a>乐观锁（ Optimistic Locking ）</h2><p>相对悲观锁而言，乐观锁假设认为数据一般情况下不会造成冲突，所以在数据进行提交更新的时候，才会正式对数据的冲突与否进行检测，如果发现冲突了，则让返回用户错误的信息，让用户决定如何去做。<br>处理方式：<br>1、UNDO的方式来获取数据行的历史版本<br>2、内存中保存同一数据行的多个历史版本（如下举例）<br>`<br>//1.查询出商品信息<br>select (status,status,version) from t_goods where id=#{id}<br>//2.根据商品信息生成订单<br>//3.修改商品status为2<br>update t_goods<br>set status=2,version=version+1<br>where id=#{id} and version=#{version};<br>`<br>处理场景</p>
+<ol>
+<li>设数据库中帐户信息表中有一个 version 字段，当前值为 1 ；而当前帐户余额字段（ balance ）为 100 。<br>操作员 A 此时将其读出（ version=1 ），并从其帐户余额中扣除 50（100 -50 ）。</li>
+<li>在操作员 A 操作的过程中，操作员 B 也读入此用户信息（ version=1 ），并 从其帐户余额中扣除 20 （100-20 ）</li>
+<li>操作员 A 完成了修改工作，将数据版本号加一（ version=2 ），连同帐户扣 除后余额（ balance=50 ），提交至数据库更新，此时由于提交数据版本大 于数据库记录当前版本，数据被更新，数据库记录 version 更新为 2 。 </li>
+<li>操作员 B 完成了操作，也将版本号加一（ version=2 ）试图向数据库提交数 据（ balance=80 ），但此时比对数据库记录版本时发现，操作员 B 提交的 数据版本号为 2 ，数据库记录当前版本也为 2 ，不满足 “ 提交版本必须大于记 录当前版本才能执行更新 “ 的乐观锁策略，因此，操作员 B 的提交被驳回。 </li>
 </ol>
-<h2 id="格式化jsp"><a href="#格式化jsp" class="headerlink" title="格式化jsp"></a>格式化jsp</h2><p><a href="http://blog.csdn.net/ieayoio/article/details/49930587" target="_blank" rel="noopener">http://blog.csdn.net/ieayoio/article/details/49930587</a></p>
-<h2 id="【链接】intellijIDEA如何设置默认的maven配置？"><a href="#【链接】intellijIDEA如何设置默认的maven配置？" class="headerlink" title="【链接】intellijIDEA如何设置默认的maven配置？"></a>【链接】intellijIDEA如何设置默认的maven配置？</h2><p><a href="http://www.oschina.net/question/948439_243781" target="_blank" rel="noopener">http://www.oschina.net/question/948439_243781</a></p>
-<h2 id="【链接】IntellijIDEA创建MavenWeb项目"><a href="#【链接】IntellijIDEA创建MavenWeb项目" class="headerlink" title="【链接】IntellijIDEA创建MavenWeb项目"></a>【链接】IntellijIDEA创建MavenWeb项目</h2><blockquote>
-<p>new project——maven——勾选 create from archetype 选中webapp</p>
-</blockquote>
-<p><a href="http://blog.csdn.net/gaokao2011/article/details/53995435" target="_blank" rel="noopener">http://blog.csdn.net/gaokao2011/article/details/53995435</a></p>
-<p><a href="https://www.zhihu.com/question/38595887" target="_blank" rel="noopener">https://www.zhihu.com/question/38595887</a><br> 命令行<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn archetype:generate -DgroupId=com.zhtxtest.lxh -DartifactId=commontest -DarchetypeArtifactId=maven-archetype-webapp -DinteractiveMode=false</span><br></pre></td></tr></table></figure></p>
-<h2 id="【链接】Intelij导入maven项目并部署到tomcat"><a href="#【链接】Intelij导入maven项目并部署到tomcat" class="headerlink" title="【链接】Intelij导入maven项目并部署到tomcat"></a>【链接】Intelij导入maven项目并部署到tomcat</h2><p><a href="http://blog.csdn.net/txvaqh/article/details/52824492" target="_blank" rel="noopener">http://blog.csdn.net/txvaqh/article/details/52824492</a></p>
-<p>release版本，对于发布状态的artifact（就是被依赖的jar包），如果版本号相同，即使我们内部的镜像服务器上的组件比本地新，maven也不会主动下载的。<br>intellj取出mybaits黄线警告<br><a href="http://blog.csdn.net/aubdiy/article/details/" target="_blank" rel="noopener">http://blog.csdn.net/aubdiy/article/details/</a></p>
-<h2 id="创建父子工程"><a href="#创建父子工程" class="headerlink" title="创建父子工程"></a>创建父子工程</h2><p><a href="http://blog.csdn.net/aiu_iu/article/details/71844568?utm_source=itdadao&amp;utm_medium=referral" target="_blank" rel="noopener">http://blog.csdn.net/aiu_iu/article/details/71844568?utm_source=itdadao&amp;utm_medium=referral</a><br>若提示。。。Failed to create a Maven project:’’ already exists in VFS<br>创建子工程在最后选择路径的时候添加”/“,指定路径即可</p>
-<h2 id="新建maven项目"><a href="#新建maven项目" class="headerlink" title="新建maven项目"></a>新建maven项目</h2><p><a href="http://blog.csdn.net/myarrow/article/details/50824793" target="_blank" rel="noopener">http://blog.csdn.net/myarrow/article/details/50824793</a><br>intellij idea 导入maven项目<br>file-new-project from existing source<br>intellj修改js不重启<br><a href="http://www.oschina.net/question/194770_91781?sort=time&amp;p=1" target="_blank" rel="noopener">http://www.oschina.net/question/194770_91781?sort=time&amp;p=1</a><br>快捷键<br>Option+/<br>代码助手“智能提示”<br>Command+1<br>快速修复<br><a href="http://blog.csdn.net/feng2qing/article/details/70344832" target="_blank" rel="noopener">http://blog.csdn.net/feng2qing/article/details/70344832</a></p>
-<h2 id="使用小提示"><a href="#使用小提示" class="headerlink" title="使用小提示"></a>使用小提示</h2><h3 id="如果项目长时间没有启动"><a href="#如果项目长时间没有启动" class="headerlink" title="如果项目长时间没有启动"></a>如果项目长时间没有启动</h3><ol>
-<li>看一下debug的断点设置，不能打在实体和sql上，或者为了保险起见，先注释掉；</li>
-<li><p>maven project面板将项目重现导入编辑一下，toggle offline mode切换一下</p>
-<h3 id="设置idea的运行内存；"><a href="#设置idea的运行内存；" class="headerlink" title="设置idea的运行内存；"></a>设置idea的运行内存；</h3><p> mac为例,<br> 应用程序–&gt;idea–&gt;显示包内容–&gt;Contents–&gt;bin–&gt;idea.vmoptions  打开文件，我的显示如下，</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">    -Xms1024m</span><br><span class="line">-Xmx4096m</span><br><span class="line">-XX:ReservedCodeCacheSize=1024m</span><br><span class="line">-XX:+UseCompressedOops</span><br><span class="line">-Dfile.encoding=UTF-8</span><br><span class="line">-XX:+UseConcMarkSweepGC</span><br><span class="line">-XX:SoftRefLRUPolicyMSPerMB=50</span><br><span class="line">-ea</span><br><span class="line">-Dsun.io.useCanonCaches=false</span><br><span class="line">-Djava.net.preferIPv4Stack=true</span><br><span class="line">-XX:+HeapDumpOnOutOfMemoryError</span><br><span class="line">-XX:-OmitStackTraceInFastThrow</span><br><span class="line">-Xverify:none</span><br><span class="line">-XX:ErrorFile=$USER_HOME/java_error_in_idea_%p.log</span><br><span class="line">-XX:HeapDumpPath=$USER_HOME/java_error_in_idea.hprof</span><br><span class="line">-Xbootclasspath/a:../lib/boot.jar</span><br><span class="line">-javaagent:/Users/LXH/Library/Java/JetbrainsLicense.jar</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>参数解释</p>
+<p>实例：将某个记录删除时,is_del就是乐观锁字段</p>
 </blockquote>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    -Xmx   Java Heap最大值，默认值为物理内存的1/4，最佳设值应该视物理内存大小及计算机内其他内存开销而定；</span><br><span class="line">-Xms   Java Heap初始值，Server端JVM最好将-Xms和-Xmx设为相同值，开发测试机JVM可以保留默认值；</span><br><span class="line">-Xmn   Java Heap Young区大小，不熟悉最好保留默认值；</span><br><span class="line">-Xss   每个线程的Stack大小，不熟悉最好保留默认值；</span><br></pre></td></tr></table></figure>
+<p>`UPDATE user c<br>SET c.is_del = 1 WHERE c.name = “lxh” AND c.is_del=0<br>`</p>
+<h1 id="MYSQL基本操作"><a href="#MYSQL基本操作" class="headerlink" title="MYSQL基本操作"></a>MYSQL基本操作</h1><ul>
+<li>登录 <code>mysql -u root -p</code></li>
+<li>修改mysql中root的密码：<br>  <code>SET PASSWORD FOR &#39;root&#39;@&#39;localhost&#39; = PASSWORD(&#39;123123&#39;);</code></li>
+<li>重置密码  </li>
+</ul>
+<ul>
+<li>关闭mysql服务器 <code>sudo /usr/local/mysql/support-files/mysql.server</code><br>也可以在系统偏好里有个MySQL里关闭。</li>
+</ul>
+<ol>
+<li><code>cd /usr/local/mysql/bin</code>    进入目录sudo su 获取权限 <code>./mysqld_safe --skip-grant-tables</code>， 重启服务器</li>
+<li>重开个终端，配置短命令：alias mysql=/usr/local/mysql/bin/mysql</li>
+<li>输入mysql 进入mysql命令模式</li>
+<li>use mysql进入mysql数据库flush privileges; 大概就是获取权限，要不他不让你改。</li>
+<li>set password for ‘root’@’localhost’=password(‘新密码’);  </li>
+</ol>
+<p>Mysql常用命令<br>show databases; 显示数据库<br>create database name; 创建数据库<br>use databasename; 选择数据库<br>drop database name 直接删除数据库，不提醒<br>show tables; 显示表<br>describe tablename; 显示具体的表结构<br>select 中加上distinct去除重复字段<br>mysqladmin drop databasename 删除数据库前，有提示。<br>显示当前mysql版本和当前日期<br>select version(),current_date;<br>重命名表:<br>mysql > alter table t1 rename t2;<br>备份数据库<br>shell> mysqldump -h host -u root -p user >dbname_backup.sql<br>恢复数据库<br>shell> mysqladmin -h myhost -u root -p create dbname<br>shell> mysqldump -h host -u root -p dbname \&lt; dbname_backup.sql </p>
+<h1 id="select-1-from-table"><a href="#select-1-from-table" class="headerlink" title="select 1 from table"></a>select 1 from table</h1><p>select 1 from table;与select anycol(目的表集合中的任意一行） from table;与select * from table 从作用上来说是没有差别的，都是查看是否有记录，一般是作条件查询用的。select 1 from 中的1是一常量（可以为任意数值），查到的所有行的值都是它，但从效率上来说，1>anycol>*，因为不用查字典表。</p>
+<h1 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h1><p>`<br>Class.forName(“com.mysql.jdbc.Driver”);<br>            Connection connection = DriverManager.getConnection(“j<br>            .1:3306/web-demo”, “root”,<br>                    “123123”);<br>            String sql = “select id,command,description,content from message”;<br>            PreparedStatement state = connection.prepareStatement(sql);<br>            ResultSet rSet = state.executeQuery();<br>            List<message> messages = new ArrayList<message>();<br>            while (rSet.next()) {<br>                Message msg = new Message();<br>                messages.add(msg);<br>                msg.setId(rSet.getString(“ID”));<br>                msg.setCommand(rSet.getString(“Command”));<br>                msg.setDescription(rSet.getString(“Description”));<br>                msg.setContent(rSet.getString(“CONTENT”));<br>            }<br>            req.setAttribute(“messageList”, messages);<br>`</message></message></p>
+<h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><ol>
+<li>定义：首先要明白索引（index）是在存储引擎（storage engine）层面实现的，而不是server层面。不是所有的存储引擎都支持所有的索引类型。即使多个存储引擎支持某一索引类型，它们的实现和行为也可能有所差别。</li>
+<li>分类</li>
+<li>从数据结构角度<ol>
+<li>Btree:查找某氛围内的数据，可以很快的从当前数据找到下条数据</li>
+<li>hash索引：使用于随机访问的场合，查找每条数据的时间几乎相同<br> a  仅仅能满足”=”,”IN”和”\&lt;=>“查询，不能使用范围查询<br> b 其检索效率非常高，索引的检索可以一次定位，不像B-Tree 索引需要从根节点到枝节点，最后才能访问到页节点这样多次的IO访问，所以 Hash 索引的查询效率要远高于 B-Tree 索引<br> c 只有Memory存储引擎显示支持hash索引</li>
+<li>FULLTEXT索引（现在MyISAM和InnoDB引擎都支持了）</li>
+<li>R-Tree索引（用于对GIS数据类型创建SPATIAL索引）<ol>
+<li>从物理存储角度</li>
+</ol>
+</li>
+<li>聚集索引（clustered index）</li>
+<li>非聚集索引（non-clustered index）</li>
+</ol>
+</li>
+<li>从逻辑角度<ol>
+<li>主键索引：主键索引是一种特殊的唯一索引，不允许有空值</li>
+<li>普通索引或者单列索引</li>
+<li>多列索引（复合索引）：复合索引指多个字段上创建的索引，只有在查询条件中使用了创建索引时的第一个字段，索引才会被使用。使用复合索引时遵循最左前缀集合</li>
+<li>唯一索引或者非唯一索引</li>
+<li>空间索引：空间索引是对空间数据类型的字段建立的索引，MYSQL中的空间数据类型有4种，分别是GEOMETRY、POINT、LINESTRING、POLYGON。</li>
+</ol>
 </li>
 </ol>
-<h3 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h3><ol>
-<li>comm+shiift+小键盘的*    option+鼠标左键</li>
+<h1 id="常用sql语句"><a href="#常用sql语句" class="headerlink" title="常用sql语句"></a>常用sql语句</h1><p>语句都是基于mysql的</p>
+<pre><code>--列的添加和删除
+ALTER TABLE article ADD time date;
+ALTER TABLE article DROP COLUMN time
+--试图
+CREATE VIEW view_name AS 
+    SELECT id , title
+    FROM article
+    WHERE id = 1;
+SELECT * FROM view_name;
+--SQL 约束
+--约束是作用于数据表中列上的规则，用于限制表中数据的类型。约束的存在保证了-数据库中数据的精确性和可靠性。约束有列级和表级之分，列级约束作用于单一的列，而表级约束作用于整张数据表。 
+1. NOT NULL 约束：保证列中数据不能有 NULL 值   
+2. DEFAULT 约束：提供该列数据未指定时所采用的默认值 ;   
+3. UNIQUE 约束：保证列中的所有数据各不相同
+--索引和约束的区别
+索引是面向数据库本身的，用于查询优化等操作
+约束则更多的是业务上的关系，包括唯一性、外键约束等
+
+新建表：
+CREATE TABLE article
+(
+id int NOT NULL,
+title varchar(255) NOT NULL,
+body varchar(255), 
+City varchar(255) default &apos;lxh&apos;,
+CONSTRAINT uc_PersonID UNIQUE (P_Id,LastName),
+CONSTRAINT chk_Person CHECK (id&gt;0 AND City=&apos;Sandnes&apos;)
+)
+已有表：
+单列：
+ALTER TABLE article ADD UNIQUE (id)
+多列：
+ALTER TABLE article ADD CONSTRAINT uc_PersonID UNIQUE (id,title)
+4. 主键约束：唯一标识数据表中的行/记录
+5. 外键约束：唯一标识其他表中的一条行/记录
+6. CHECK 约束：此约束保证列中的所有值满足某一条件
+索引：用于在数据库中快速创建或检索数据
+ALTER TABLE article ADD CONSTRAINT uni_age UNIQUE(age);
+-- 主键约束
+alter table article add constraint  primary key (age)
+-- 约束
+ALTER TABLE article ADD CONSTRAINT uc_title UNIQUE (title)
+ALTER TABLE article ADD  CHECK(age&gt;30);
+--添加索引
+create [unique] index index_name on person
+--撤销索引
+drop  index person on index_name;
+
+--insert 防重（insert into 后面对应的相当于是value值）
+-- 一条数据防重
+INSERT INTO article(title , body , age) 
+SELECT &apos;中国2&apos; , &apos;大好河山，啦啦啦&apos; , 132
+FROM DUAL
+WHERE NOT EXISTS
+( SELECT * FROM article WHERE title = &apos;中国2&apos; )
+-- 多条数据防重
+INSERT INTO article(title , body , age) 
+SELECT * FROM (
+SELECT &apos;中国3&apos; title , &apos;大好河山，啦啦啦&apos;  body, 132 age
+FROM DUAL
+UNION ALL 
+SELECT &apos;中国3&apos; title , &apos;大好河山，啦啦啦&apos; body, 132 age
+UNION ALL
+SELECT &apos;中国4&apos; title , &apos;大好河山，啦啦啦&apos; body, 132 age
+)a WHERE NOT EXISTS (SELECT 1 FROM article WHERE article.title=a.title)
+-- 更新防重
+UPDATE customer_grouping
+SET grouping_name = &apos;tesdd2222t&apos;
+WHERE  id=177
+AND NOT EXISTS(
+    SELECT t.grouping_name
+    FROM ( SELECT grouping_name FROM customer_grouping WHERE grouping_name = &apos;tdd222est&apos; ) t
+)
+</code></pre><p>mysql date函数<br>NOW()   返回当前的日期和时间<br>CURDATE()   返回当前的日期<br>CURTIME()   返回当前的时间<br>DATE()  提取日期或日期/时间表达式的日期部分<br>EXTRACT()   返回日期/时间的单独部分<br>DATE_ADD()  向日期添加指定的时间间隔<br>DATE_SUB()  从日期减去指定的时间间隔<br>DATEDIFF()  返回两个日期之间的天数<br>DATE_FORMAT()   用不同的格式显示日期/时间</p>
+<p>`<br>–删除表里的所有数据，不包括表<br>TRUNCATE TABLE  table_name;<br>`</p>
+<h1 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h1><ul>
+<li>isolation的参数有以下五种：</li>
+</ul>
+<ul>
+<li>Isolation.DEFAULT:为数据源的默认隔离级别</li>
+<li>isolation=Isolation.READ_UNCOMMITTED:未授权读取级别（一般采用这个策略）<br>以操作同一行数据为前提，读事务允许其他读事务和写事务，未提交的写事务禁止其他写事务（但允许其他读事务）。此隔离级别可以防止更新丢失，但不能防止脏读、不可重复读、幻读。此隔离级别可以通过“排他写锁”实现。</li>
+</ul>
+<ol>
+<li>iIsolation.READ_COMMITTED:授权读取级别<br>以操作同一行数据为前提，读事务允许其他读事务和写事务，未提交的写事务禁止其他读事务和写事务。此隔离级别可以防止更新丢失、脏读，但不能防止不可重复读、幻读。此隔离级别可以通过“瞬间共享读锁”和“排他写锁”实现。</li>
+<li>iIsolation.REPEATABLE_READ:可重复读取级别<br>以操作同一行数据为前提，读事务禁止其他写事务（但允许其他读事务），未提交的写事务禁止其他读事务和写事务。此隔离级别可以防止更新丢失、脏读、不可重复读，但不能防止幻读。此隔离级别可以通过“共享读锁”和“排他写锁”实现。</li>
+<li>iIsolation.SERIALIZABLE:序列化级别<br>提供严格的事务隔离。它要求事务序列化执行，事务只能一个接着一个地执行，不能并发执行。此隔离级别可以防止更新丢失、脏读、不可重复读、幻读。如果仅仅通过“行级锁”是无法实现事务序列化的，必须通过其他机制保证新插入的数据不会被刚执行查询操作的事务访问到。</li>
 </ol>
+<ul>
+<li>特性</li>
+</ul>
+<ul>
+<li>原子性(Atomicity)：<br>事务是数据库的逻辑工作单位，它对数据库的修改要么全部执行，要么全部不执行。</li>
+</ul>
+<ol>
+<li>一致性(Consistemcy)：<br>事务前后，数据库的状态都满足所有的完整性约束。</li>
+<li>隔离性(Isolation)：<br>并发执行的事务是隔离的，一个不影响一个。如果有两个事务，运行在相同的时间内，执行相同的功能，事务的隔离性将确保每一事务在系统中认为只有该事务在使用系统。这种属性有时称为串行化，为了防止事务操作间的混淆，必须串行化或序列化请求，使得在同一时间仅有一个请求用于同一数据。通过设置数据库的隔离级别，可以达到不同的隔离效果。</li>
+<li>持久性(Durability)：<br>在事务完成以后，该事务所对数据库所作的更改便持久的保存在数据库之中，并不会被回滚。</li>
+<li>更新丢失：<br>两个事务都同时更新一行数据，但是第二个事务却中途失败退出，导致对数据的两个修改都失效了。这是因为系统没有执行任何的锁操作，因此并发事务并没有被隔离开来。</li>
+<li>脏读：<br>脏读又称无效数据读出。一个事务读取另外一个事务还没有提交的数据叫脏读。<br>例如：事务T1修改了一行数据，但是还没有提交，这时候事务T2读取了被事务T1修改后的数据，之后事务T1因为某种原因Rollback了，那么事务T2读取的数据就是脏的。</li>
+<li>不可重复读：<br>不可重复读是指在同一个事务内，两个相同的查询返回了不同的结果。<br>例如：事务T1读取某一数据，事务T2读取并修改了该数据，T1为了对读取值进行检验而再次读取该数据，便得到了不同的结果。</li>
+<li>幻读：<br>事务在操作过程中进行两次查询，第二次查询的结果包含了第一次查询中未出现的数据或者缺少了第一次查询中出现的数据<br>例如：系统管理员A将数据库中所有学生的成绩从具体分数改为ABCDE等级，但是系统管理员B就在这个时候插入了一条具体分数的记录，当系统管理员A改结束后发现还有一条记录没有改过来，就好像发生了幻觉一样。这就叫幻读。</li>
+</ol>
+<p>存储过程：</p>
+<pre><code>create procedure procedureName( 
+    out min decimal(8,2), 
+    out avg decimal(8,2), 
+    out max decimal(8,2) 
+) 
+BEGIN 
+    select MIN(price) INTO min from order; 
+    select AVG(price) into avg from order; 
+    select MAX(price) into max from order; 
+END;  
+-- 由于过程指定三个参数， 故调用必须要参数匹配 
+call procedureName(@min, @avg, @max);  
+select @min, @avg, @max; 
+</code></pre><h1 id="sql引擎"><a href="#sql引擎" class="headerlink" title="sql引擎"></a>sql引擎</h1><blockquote>
+<p>mysql的存储引擎包括：MyISAM、InnoDB、BDB、MEMORY、MERGE、EXAMPLE、NDBCluster、ARCHIVE、CSV、BLACKHOLE、FEDERATED等，其中InnoDB和BDB提供事务安全表，其他存储引擎都是非事务安全表。<br>最常使用的2种存储引擎</p>
+</blockquote>
+<ol>
+<li>Myisam是Mysql的默认存储引擎，当create创建新表时，未指定新表的存储引擎时，默认使用Myisam。每个MyISAM在磁盘上存储成三个文件。文件名都和表名相同，扩展名分别是.frm（存储表定义）、.MYD(MYData，存储数据)、.MYI(MYIndex，存储索引)。数据文件和索引文件可以放置在不同的目录，平均分布io，获得更快的速度。</li>
+<li>InnoDB存储引擎提供了具有提交、回滚和崩溃恢复能力的事务安全。但是对比Myisam的存储引擎，InnoDB写的处理效率差一些并且会占用更多的磁盘空间以保留数据和索引。</li>
+</ol>
+<pre><code>--看你的mysql现在已提供什么存储引擎:
+show engines;s 
+--看你的mysql当前默认的存储引擎:
+show variables like &apos;%storage_engine%&apos;;
+</code></pre><h1 id="sql优化"><a href="#sql优化" class="headerlink" title="sql优化"></a>sql优化</h1><h2 id="索引-1"><a href="#索引-1" class="headerlink" title="索引"></a>索引</h2><p>怎么加快查询速度，优化查询效率，主要原则就是应尽量避免全表扫描，应该考虑在where及order by 涉及的列上建立索引。</p>
+<p>建立索引不是建的越多越好，原则是：</p>
+<p>第一：一个表的索引不是越多越好，也没有一个具体的数字，根据以往的经验，一个表的索引最多不能超过6个，因为索引越多，对update和insert操作也会有性能的影响，涉及到索引的新建和重建操作。</p>
+<p>第二：建立索引的方法论为：</p>
+<p>多数查询经常使用的列；<br>很少进行修改操作的列；<br>索引需要建立在数据差异化大的列上</p>
+<p>a. SELECT [column1],[column2],…. FROM [TABLE] ORDER BY [sort] LIMIT [offset],[LIMIT];<br>这个SQL语句优化比较简单，在[sort]这个栏位上建立索引即可<br>b. WHERE + ORDER BY + LIMIT组合的索引优化</p>
+<p>如果一个SQL语句形如：SELECT [column1],[column2],…. FROM [TABLE] WHERE [columnX] = [VALUE] ORDER BY [sort] LIMIT [offset],[LIMIT];</p>
+<p>这个语句，如果你仍然采用第一个例子中建立索引的方法，虽然可以用到索引，但是效率不高。更高效的方法是建立一个联合索引(columnX,sort)</p>
+<p>c. WHERE+ORDER BY多个栏位+LIMIT</p>
+<p>如果一个SQL语句形如：SELECT * FROM [table] WHERE uid=1 ORDER x,y LIMIT 0,10;</p>
+<p>对于这个语句，大家可能是加一个这样的索引:(x,y,uid)。但实际上更好的效果是(uid,x,y)。这是由MySQL处理排序的机制造成的。</p>
+<blockquote>
+<p>复合索引</p>
+</blockquote>
+<p><code>select* from users where area =’beijing’ and age=22;</code></p>
+<p>如果我们是在area和age上分别创建索引的话，由于mysql查询每次只能使用一个索引，所以虽然这样已经相对不做索引时全表扫描提高了很多效率，但是如果area，age两列上创建复合索引的话将带来更高的效率。</p>
+<p>在使用索引字段作为条件时，如果该索引是复合索引，那么必须使用到该索引中的第一个字段作为条件时才能保证系统使用该索引，否则该索引将不会被使用，并且应尽可能的让字段顺序与索引顺序相一致。</p>
+<p>例如索引（area,age,salary），那么其实相当于创建了（area,age,salary）,(area,age),(area)三个索引，这样称为最佳左前缀特性。</p>
+<h2 id="like语句"><a href="#like语句" class="headerlink" title="like语句"></a>like语句</h2><p><code>SELECT id FROM A WHERE name like &#39;%abc%&#39;</code><br> 　　由于abc前面用了“%”，因此该查询必然走全表查询，除非必要，否则不要在关键词前加%，优化成如下</p>
+<p>SELECT id FROM A WHERE name like ‘abc%’</p>
+<h2 id="where语句使用in和not-in-也要慎用，否则也会导致全表扫描"><a href="#where语句使用in和not-in-也要慎用，否则也会导致全表扫描" class="headerlink" title="where语句使用in和not in 也要慎用，否则也会导致全表扫描"></a>where语句使用in和not in 也要慎用，否则也会导致全表扫描</h2><p>方案一：between替换in</p>
+<p><code>SELECT id FROM A WHERE num in(1,2,3)</code> 优化成：<code>SELECT id FROM A WHERE num between 1 and 3</code></p>
+<p>方案二：exist替换in</p>
+<p><code>SELECT id FROM A WHERE num in(select num from b )</code> 优化成：``<code>SELECT num FROM A WHERE num exists(select 1 from B where B.num = A.num)</code></p>
+<p>方案三：left join替换in</p>
+<p><code>SELECT id FROM A WHERE num in(select num from B)</code> 优化成：<code>SELECT id FROM A LEFT JOIN B ON A.num = B.num</code></p>
+<h2 id="union-union-all"><a href="#union-union-all" class="headerlink" title="union union all"></a>union union all</h2><p>union all 连接两个结果集，union连接两个结果集，去除相同的部分<br>　很多时候使用union all 或 nuin(必要的时候)的方式替换“or”会得到更好的效果。where子句中使用了or,索引将被放弃使用。<br>　　 如SQL:SELECT id FROM A WHERE num =10 or num = 20 优化成：SELECT id FROM A WHERE num = 10 union all SELECT id FROM A WHERE num=20</p>
+<h2 id="where子句中对字段进行表达式操作的优化"><a href="#where子句中对字段进行表达式操作的优化" class="headerlink" title="where子句中对字段进行表达式操作的优化"></a>where子句中对字段进行表达式操作的优化</h2><p>不要在where子句中的“=”左边进行函数、算数运算或其他表达式运算，否则系统将可能无法正确使用索引。</p>
+<p><code>SELECT id FROM A WHERE num/2 = 100</code> 优化成：<code>SELECT id FROM A WHERE num = 100*2</code></p>
+<p><code>SELECT id FROM A WHERE substring(name,1,3) = &#39;abc&#39;</code>优化成：<code>SELECT id FROM A WHERE LIKE &#39;abc%&#39;</code></p>
+<p><code>SELECT id FROM A WHERE datediff(day,createdate,&#39;2016-11-30&#39;)=0</code> 优化成：<code>SELECT id FROM A WHERE createdate&gt;=&#39;2016-11-30&#39; and createdate&lt;&#39;2016-12-1&#39;</code></p>
+<p><code>SELECT id FROM A WHERE year(addate) &lt;2016</code> 优化成：<code>SELECT id FROM A where addate&lt;&#39;2016-01-01&#39;</code></p>
+<h2 id="Inner-join-和-left-join、right-join、子查询"><a href="#Inner-join-和-left-join、right-join、子查询" class="headerlink" title="Inner join 和 left join、right join、子查询"></a>Inner join 和 left join、right join、子查询</h2><p>第一：inner join内连接也叫等值连接，left/rightjoin是外连接。<br>inner join(join) 效率比left join和right join要高<br>第二：子查询的性能又比外连接性能慢，尽量用外连接来替换子查询<br><code>Select* from A where exists (select * from B where id&gt;=3000 and A.uuid=B.uuid);</code><br>代替如下<br><code>Select* from A inner join B ON A.uuid=B.uuid using(uuid) where b.uuid&gt;=3000;</code><br>第三：使用JOIN时候，应该用小的结果驱动打的结果（left join 左边表结果尽量小，如果有条件应该放到左边先处理，right join同理反向），同时尽量把牵涉到多表联合的查询拆分多个query  (多个表查询效率低，容易锁表和阻塞)。如：<br><code>Select * from A left join B A.id=B.ref_id where  A.id&gt;10;</code><br>可以优化为：<br><code>select * from (select * from A wehre id &gt;10) T1 left join B on T1.id=B.ref_id;</code></p>
+<h1 id="修改数据库字符集"><a href="#修改数据库字符集" class="headerlink" title="修改数据库字符集"></a>修改数据库字符集</h1><p><code>alter database dbname default character set utf8;</code></p>
 
       
 
@@ -225,7 +466,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/工具//" class="article-tag-list-link color3">工具</a>
+        			<a href="/categories/sql//" class="article-tag-list-link color4">sql</a>
         		</li>
       		
 		</ul>
@@ -280,7 +521,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://linnxh.com/2018/02/05/tools/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://linnxh.com/2018/03/22/sql/sql/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -294,18 +535,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/02/05/java-17-10/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/05/15/java/SpringBoot基础/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          java-17-10
+          SpringBoot基础
         
       </div>
     </a>
   
   
-    <a href="/2018/02/05/README/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">README</div>
+    <a href="/2018/03/21/java/java-18-01/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">java-18-01</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -332,7 +573,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#intelljdea"><span class="toc-number">1.</span> <span class="toc-text">intelljdea</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#【链接】-求助-IntelliJIDEA怎么破解"><span class="toc-number">1.1.</span> <span class="toc-text">【链接】[求助]IntelliJIDEA怎么破解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码里的黄线"><span class="toc-number">1.2.</span> <span class="toc-text">代码里的黄线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#格式化jsp"><span class="toc-number">1.3.</span> <span class="toc-text">格式化jsp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#【链接】intellijIDEA如何设置默认的maven配置？"><span class="toc-number">1.4.</span> <span class="toc-text">【链接】intellijIDEA如何设置默认的maven配置？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#【链接】IntellijIDEA创建MavenWeb项目"><span class="toc-number">1.5.</span> <span class="toc-text">【链接】IntellijIDEA创建MavenWeb项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#【链接】Intelij导入maven项目并部署到tomcat"><span class="toc-number">1.6.</span> <span class="toc-text">【链接】Intelij导入maven项目并部署到tomcat</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建父子工程"><span class="toc-number">1.7.</span> <span class="toc-text">创建父子工程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新建maven项目"><span class="toc-number">1.8.</span> <span class="toc-text">新建maven项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用小提示"><span class="toc-number">1.9.</span> <span class="toc-text">使用小提示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#如果项目长时间没有启动"><span class="toc-number">1.9.1.</span> <span class="toc-text">如果项目长时间没有启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置idea的运行内存；"><span class="toc-number">1.9.2.</span> <span class="toc-text">设置idea的运行内存；</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#快捷键"><span class="toc-number">1.9.3.</span> <span class="toc-text">快捷键</span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#create-schema"><span class="toc-number">1.</span> <span class="toc-text">create schema</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据库"><span class="toc-number">2.</span> <span class="toc-text">数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#悲观锁-Pessimistic-Locking"><span class="toc-number">2.1.</span> <span class="toc-text">悲观锁(Pessimistic Locking):</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#乐观锁（-Optimistic-Locking-）"><span class="toc-number">2.2.</span> <span class="toc-text">乐观锁（ Optimistic Locking ）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MYSQL基本操作"><span class="toc-number">3.</span> <span class="toc-text">MYSQL基本操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#select-1-from-table"><span class="toc-number">4.</span> <span class="toc-text">select 1 from table</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JDBC"><span class="toc-number">5.</span> <span class="toc-text">JDBC</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#索引"><span class="toc-number">6.</span> <span class="toc-text">索引</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常用sql语句"><span class="toc-number">7.</span> <span class="toc-text">常用sql语句</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#事务"><span class="toc-number">8.</span> <span class="toc-text">事务</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sql引擎"><span class="toc-number">9.</span> <span class="toc-text">sql引擎</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sql优化"><span class="toc-number">10.</span> <span class="toc-text">sql优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#索引-1"><span class="toc-number">10.1.</span> <span class="toc-text">索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#like语句"><span class="toc-number">10.2.</span> <span class="toc-text">like语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#where语句使用in和not-in-也要慎用，否则也会导致全表扫描"><span class="toc-number">10.3.</span> <span class="toc-text">where语句使用in和not in 也要慎用，否则也会导致全表扫描</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#union-union-all"><span class="toc-number">10.4.</span> <span class="toc-text">union union all</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#where子句中对字段进行表达式操作的优化"><span class="toc-number">10.5.</span> <span class="toc-text">where子句中对字段进行表达式操作的优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Inner-join-和-left-join、right-join、子查询"><span class="toc-number">10.6.</span> <span class="toc-text">Inner join 和 left join、right join、子查询</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#修改数据库字符集"><span class="toc-number">11.</span> <span class="toc-text">修改数据库字符集</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -346,7 +587,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="tools" data-title="tools" data-url="http://linnxh.com/2018/02/05/tools/"></div>
+	<div class="ds-thread" data-thread-key="sql/sql" data-title="sql" data-url="http://linnxh.com/2018/03/22/sql/sql/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -369,8 +610,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://linnxh.com/2018/02/05/tools/", 
-    sourceId: "tools",
+    url: "http://linnxh.com/2018/03/22/sql/sql/", 
+    sourceId: "sql/sql",
     productKey: "true",
     target: "cloud-tie-wrapper"
   };

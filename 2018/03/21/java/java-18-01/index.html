@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://linnxh.com">
-  <title>Archives: 2018/5 | Linnxh的博客</title>
+  <title>java-18-01 | Linnxh的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Linnxh的博客">
-<meta property="og:url" content="http://linnxh.com/archives/2018/05/index.html">
+  <meta name="description" content="java基础知识总结 2018-01">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java-18-01">
+<meta property="og:url" content="http://linnxh.com/2018/03/21/java/java-18-01/index.html">
 <meta property="og:site_name" content="Linnxh的博客">
+<meta property="og:description" content="java基础知识总结 2018-01">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/QQ20180321-175431@2x.png">
+<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/post-get.png">
+<meta property="og:updated_time" content="2018-05-24T01:53:02.761Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linnxh的博客">
+<meta name="twitter:title" content="java-18-01">
+<meta name="twitter:description" content="java基础知识总结 2018-01">
+<meta name="twitter:image" content="http://p964q970y.bkt.clouddn.com/QQ20180321-175431@2x.png">
   
     <link rel="alternative" href="/atom.xml" title="Linnxh的博客" type="application/atom+xml">
   
@@ -154,37 +161,167 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-java/java-18-01" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/23/java/商品详情切换sku/" class="archive-article-date">
-  	<time datetime="2018-05-23T08:48:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-23</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/23/java/商品详情切换sku/">商品详情切换sku</a>
+    <h1 class="article-title" itemprop="name">
+      java-18-01
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
+        
+        <a href="/2018/03/21/java/java-18-01/" class="archive-article-date">
+  	<time datetime="2018-03-21T09:52:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-21</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+       <!--  -->
+        <p>java基础知识总结 2018-01<br>    <a id="more"></a></p>
+<h2 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h2><p>volatile是保证被修饰的变量能在不同的线程中可见，但是不一定能保证原子性<br>若不使用，则是线程阻塞的，效率较低</p>
+<pre><code>public class VolaticleNoAtomic extends Thread {
+
+     private volatile boolean  isRunning = true;
+
+     private void setRunning(boolean isRunning) {
+        this.isRunning = isRunning;
+    }
+
+    public void run() {
+        System.out.println(&quot;进入方法&quot;);
+        while (isRunning) {
+
+        }
+        System.out.println(&quot;方法结束&quot;);
+    }
+
+    public static void main(String args[]) throws InterruptedException {
+        VolaticleNoAtomic thread = new VolaticleNoAtomic();
+        thread.start();
+        Thread.sleep(1000);
+        thread.setRunning(false);
+        System.out.println(&quot;isrunning被设置为false&quot;);
+        Thread.sleep(1000);
+        System.out.println(thread.isRunning);
+    }
+//输出结果：
+//进入方法
+//被设置为false
+//方法结束
+//false
+//若不是使用volatile，则输出也是也是这样的，但是名为thread的进程是没有停止，
+}
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">	</span><br></pre></td></tr></table></figure>
+
+public class VolaticleNoAtomic extends Thread {
+
+    private static volatile int count = 0;
+    // AtomicInteger可以保证原子性，这个例子中可以给addCont添加synchronized关键字，但是阻塞了线程，效率不行
+    private static AtomicInteger  atCount =new AtomicInteger(0);
+
+    private static  void addCont() {
+        for (int i = 0; i &lt; 10000; i++) {
+            count++;
+            atCount.incrementAndGet();
+        }
+        System.out.println(&quot;count-----&quot;+count);
+        System.out.println(&quot;atCount---&quot;+atCount);
+    }
+
+    public void run() {
+        addCont();
+    }
+
+    public static void main(String args[]) {
+        VolaticleNoAtomic[] arr = new VolaticleNoAtomic[100];
+         for (int i = 0; i &lt; 100; i++) {
+             arr[i] = new VolaticleNoAtomic();
+         }
+         for (int i = 0; i &lt; 100; i++) {
+             arr[i].start();
+       }
+
+    }
+}
+`
+</code></pre><h2 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h2><p>定义：<br>远程过程调用，A通过网络调用B的过程方法<br>RPC调用的流程<br><img src="http://p964q970y.bkt.clouddn.com/QQ20180321-175431@2x.png" alt=""></p>
+<p>1）服务消费方（client）调用以本地调用方式调用服务；<br>2）client stub接收到调用后负责将方法、参数等组装成能够进行网络传输的消息体；<br>3）client stub找到服务地址，并将消息发送到服务端；<br>4）server stub收到消息后进行解码；<br>5）server stub根据解码结果调用本地的服务；<br>6）本地服务执行并将结果返回给server stub；<br>7）server stub将返回结果打包成消息并发送至消费方；<br>8）client stub接收到消息，并进行解码；<br>9）服务消费方得到最终结果<br>RPC的目标就是要2~8这些步骤都封装起来，让用户对这些细节透明<br> 举例说明</p>
+<pre><code>1 int Multiply(int l, int r) {
+2    int y = l * r;
+3    return y;
+4 }
+5 
+6 int lvalue = 10;
+7 int rvalue = 20;
+8 int l_times_r = Multiply(lvalue, rvalue);
+</code></pre><p>本地调用流程<br>1。 将 lvalue 和 rvalue 的值压栈</p>
+<ol>
+<li>进入Multiply函数，取出栈中的值10 和 20，将其赋予 l 和 r</li>
+<li>执行第2行代码，计算 l * r ，并将结果存在 y</li>
+<li>将 y 的值压栈，然后从Multiply返回</li>
+<li>第8行，从栈中取出返回值 200 ，并赋值给 l_times_r</li>
+</ol>
+<p>若改成远程调用，Multiply则应该调用的是远程的机器上的，会遇到如下问题</p>
+<ul>
+<li>Call ID映射。在本地调用中，函数体是直接通过函数指针来指定的，我们调用Multiply，编译器就自动帮我们调用它相应的函数指针。但是在远程调用中，函数指针是不行的，因为两个进程的地址空间是完全不一样的。所以，在RPC中，所有的函数都必须有自己的一个ID。这个ID在所有进程中都是唯一确定的。客户端在做远程过程调用时，必须附上这个ID。然后我们还需要在客户端和服务端分别维护一个 {函数 \&lt;–> Call ID} 的对应表。两者的表不一定需要完全相同，但相同的函数对应的Call ID必须相同。当客户端需要进行远程调用时，它就查一下这个表，找出相应的Call ID，然后把它传给服务端，服务端也通过查表，来确定客户端需要调用的函数，然后执行相应函数的代码。</li>
+<li>序列化和反序列化。客户端怎么把参数值传给远程的函数呢？在本地调用中，我们只需要把参数压到栈里，然后让函数自己去栈里读就行。但是在远程过程调用时，客户端跟服务端是不同的进程，不能通过内存来传递参数。甚至有时候客户端和服务端使用的都不是同一种语言（比如服务端用C++，客户端用Java或者Python）。这时候就需要客户端把参数先转成一个字节流，传给服务端后，再把字节流转成自己能读取的格式。这个过程叫序列化和反序列化。同理，从服务端返回的值也需要序列化反序列化的过程。</li>
+<li>网络传输。远程调用往往用在网络上，客户端和服务端是通过网络连接的。所有的数据都需要通过网络传输，因此就需要有一个网络传输层。网络传输层需要把Call ID和序列化后的参数字节流传给服务端，然后再把序列化后的调用结果传回客户端。只要能完成这两者的，都可以作为传输层使用。因此，它所使用的协议其实是不限的，能完成传输就行。尽管大部分RPC框架都使用TCP协议，但其实UDP也可以，而gRPC干脆就用了HTTP2。Java的Netty也属于这层的东西<blockquote>
+<p>Netty</p>
+</blockquote>
+</li>
+</ul>
+<p>Netty是一个高性能、异步事件驱动的NIO框架，它提供了对TCP、UDP和文件传输的支持，作为一个异步NIO框架，Netty的所有IO操作都是异步非阻塞的，通过Future-Listener机制，用户可以方便的主动获取或者通过通知机制获得IO操作结果。</p>
+<p>Netty是由JBOSS提供的一个java开源框架。Netty提供异步的、事件驱动的网络应用程序框架和工具，用以快速开发高性能、高可靠性的网络服务器和客户端程序</p>
+<p>阿里分布式服务框架 Dubbo 的 RPC 框架使用 Dubbo 协议进行节点间通信，Dubbo 协议默认使用 Netty 作为基础通信组件，用于实现各进程节点之间的内部通信</p>
+<h2 id="微服务架构的基础框架选择：Spring-Cloud还是Dubbo？"><a href="#微服务架构的基础框架选择：Spring-Cloud还是Dubbo？" class="headerlink" title="微服务架构的基础框架选择：Spring Cloud还是Dubbo？"></a>微服务架构的基础框架选择：Spring Cloud还是Dubbo？</h2><p><a href="https://zhuanlan.zhihu.com/p/25450681" target="_blank" rel="noopener">参考</a></p>
+<h2 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h2><p>作用：分库分表<br>背景：传统的架构模式，应用连接数据库直接对数据进行访问，会遇到如下问题，单个表和库的数据量都较大，单台数据量服务器压力很大，读写速度慢；<br>第一种解决方法，向上扩展，即增加硬件性能只能暂时解决问题；<br>另一种方法，水平扩展，增加机器数量，把不同数据库放在不同的服务器，在应用到数据库之间加一个proxy进行路由，<br><a href="https://www.cnblogs.com/grefr/p/6087942.html" target="_blank" rel="noopener">参考</a></p>
+<h2 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">public class MyThread &#123;</span><br><span class="line">    private static int num = 0;</span><br><span class="line">    public static synchronized void print(String args) throws InterruptedException &#123;</span><br><span class="line">        if (args.equals(&quot;a&quot;)) &#123;</span><br><span class="line">            System.out.println(&quot;I&apos;am a &quot;);</span><br><span class="line">            num = 100;</span><br><span class="line">            Thread.sleep(1000L);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            System.out.println(&quot;I&apos;am b &quot;);</span><br><span class="line">            num = 200;</span><br><span class="line">            Thread.sleep(1000L);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;Over&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        MyThread myThread1 = new MyThread();</span><br><span class="line">        MyThread myThread2 = new MyThread();</span><br><span class="line"></span><br><span class="line">        Thread thread1 = new Thread(new Runnable() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void run() &#123;</span><br><span class="line">                try &#123;</span><br><span class="line">                    myThread1.print(&quot;a&quot;);</span><br><span class="line">                &#125; catch (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        Thread thread2 = new Thread(new Runnable() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void run() &#123;</span><br><span class="line">                try &#123;</span><br><span class="line">                    myThread2.print(&quot;b&quot;);</span><br><span class="line">                &#125; catch (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        thread1.start();</span><br><span class="line">        thread2.start();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上代码输出的是 I’am a Over I’am b Over 固定结果，如果把 print的static方法去掉，并且把num变为非static的方法，输出结果就不固定了，<br>synchronized加在static锁定的就是class类，类级别的锁。</p>
+<h2 id="http"><a href="#http" class="headerlink" title="http"></a>http</h2><p>HTTP请求的方法：<br>HTTP/1.1协议中共定义了八种方法（有时也叫“动作”），来表明Request-URL指定的资源不同的操作方式</p>
+<ol>
+<li>OPTIONS<br>返回服务器针对特定资源所支持的HTTP请求方法，也可以利用向web服务器发送‘*’的请求来测试服务器的功能性</li>
+<li>HEAD<br>向服务器索与GET请求相一致的响应，只不过响应体将不会被返回。这一方法可以再不必传输整个响应内容的情况下，就可以获取包含在响应小消息头中的元信息。</li>
+<li>GET<br>向特定的资源发出请求。它本质就是发送一个请求来取得服务器上的某一资源。资源通过一组HTTP头和呈现数据（如HTML文本，或者图片或者视频等）返回给客户端。GET请求中，永远不会包含呈现数据。</li>
+<li>POST<br>向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST请求可能会导致新的资源的建立和/或已有资源的修改。 Loadrunner中对应POST请求函数：web_submit_data,web_submit_form</li>
+<li>PUT<br>向指定资源位置上传其最新内容</li>
+<li>DELETE<br>请求服务器删除Request-URL所标识的资源</li>
+<li>TRACE<br>回显服务器收到的请求，主要用于测试或诊断</li>
+<li>CONNECT<br>HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。</li>
+</ol>
+<blockquote>
+<p>注意：<br>1）方法名称是区分大小写的，当某个请求所针对的资源不支持对应的请求方法的时候，服务器应当返回状态码405（Mothod Not Allowed）；当服务器不认识或者不支持对应的请求方法时，应返回状态码501（Not Implemented）。<br>2）HTTP服务器至少应该实现GET和HEAD/POST方法，其他方法都是可选的，此外除上述方法，特定的HTTP服务器支持扩展自定义的方法。</p>
+</blockquote>
+<p>post和get的对比图<br><img src="http://p964q970y.bkt.clouddn.com/post-get.png" alt=""></p>
+<h2 id="高并发"><a href="#高并发" class="headerlink" title="高并发"></a>高并发</h2><h3 id="HTML静态化"><a href="#HTML静态化" class="headerlink" title="HTML静态化"></a>HTML静态化</h3><p>用户可以直接获取页面，不用走那么多流程，比较适用于页面不频繁更新。</p>
+<h3 id="使用缓存"><a href="#使用缓存" class="headerlink" title="使用缓存"></a>使用缓存</h3><p>第一次获取数据从数据库准提取，然后保存在缓存中，以后就可以直接从缓存提取数据。不过需要有机制维持缓存和数据库的一致性。</p>
+<h3 id="图片服务器分离"><a href="#图片服务器分离" class="headerlink" title="图片服务器分离"></a>图片服务器分离</h3><p>图片是最消耗资源的，于是我们有必要将图片与页面进行分离，保证系统不会因为图片问题而崩溃，在图片和应用服务器可以进行不同的配置</p>
+<h3 id="数据库集群和库表散列"><a href="#数据库集群和库表散列" class="headerlink" title="数据库集群和库表散列"></a>数据库集群和库表散列</h3><p>在数据库集群方面，很多数据库都有自己的解决方案，Oracle、Sybase等都有很好的方案，常用的MySQL提供的Master/Slave也是类似的方案，您使用了什么样的DB，就参考相应的解决方案来实施即可。</p>
+<blockquote>
+<p>一．水平分割<br>根据一列或多列数据的值把数据行放到两个独立的表中。即按记录进分分割，不同的记录可以分开保存，每个子表的列数相同。<br>二．垂直分割<br>垂直分割表（不破坏第三范式），把主码和一些列放到一个表，然后把主码和另外的列放到另一个表中。<br>三. 库表散列<br>表散列与水平分割相似，但没有水平分割那样的明显分割界限，采用Hash算法把数据分散到各个分表中, 这样IO更加均衡.</p>
+<h3 id="使用储存过程"><a href="#使用储存过程" class="headerlink" title="使用储存过程"></a>使用储存过程</h3><p>那些处理一次请求需要多次访问数据库的操作，可以把操作整合到储存过程，这样只要一次数据库访问就可以了。</p>
+</blockquote>
+<h3 id="批量读取"><a href="#批量读取" class="headerlink" title="批量读取"></a>批量读取</h3><p>高并发情况下，可以把多个请求的查询合并到一次进行，以减少数据库的访问次数</p>
+<h3 id="使用索引"><a href="#使用索引" class="headerlink" title="使用索引"></a>使用索引</h3><p>索引可以看作是特殊的缓存，尽量使用索引就要求where字句中精确的给出索引列的值。</p>
+<h3 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h3><blockquote>
+<p>CDN的全称是Content Delivery Network，即内容分发网络。<br>镜像网站是指将一个完全相同的网站源程序放到几个服务器，分别有自己独立的URL，在这些服务器上互为镜像网站。eg：要下载翻墙的资源，可以借助国内一些镜像资源，他们把你需要的资源都放在这个网站，你就可以直接借助该网站，</p>
+<h2 id="pom打包"><a href="#pom打包" class="headerlink" title="pom打包"></a>pom打包</h2><p>jar包和war包</p>
+</blockquote>
+<p>jar：jar包就是别人已经写好的一些类，然后对这些类进行打包，别的项目可以直接引用已经存在的jar包；<br>war：Javaweb程序打包成war包，一个WAR文件就是一个Web应用程序，建立WAR文件，就是把整个Web应用程序压缩起来，指定一个.war扩展名</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -197,66 +334,159 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://linnxh.com/2018/03/21/java/java-18-01/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/15/java/SpringBoot基础/" class="archive-article-date">
-  	<time datetime="2018-05-15T07:45:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-15</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2018/03/22/sql/sql/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          sql
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/02/12/tools/ps修图/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ps修图</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/15/java/SpringBoot基础/">SpringBoot基础</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">springboot</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#volatile"><span class="toc-number">1.</span> <span class="toc-text">volatile</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RPC"><span class="toc-number">2.</span> <span class="toc-text">RPC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微服务架构的基础框架选择：Spring-Cloud还是Dubbo？"><span class="toc-number">3.</span> <span class="toc-text">微服务架构的基础框架选择：Spring Cloud还是Dubbo？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#中间件"><span class="toc-number">4.</span> <span class="toc-text">中间件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#锁"><span class="toc-number">5.</span> <span class="toc-text">锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#http"><span class="toc-number">6.</span> <span class="toc-text">http</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#高并发"><span class="toc-number">7.</span> <span class="toc-text">高并发</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML静态化"><span class="toc-number">7.1.</span> <span class="toc-text">HTML静态化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用缓存"><span class="toc-number">7.2.</span> <span class="toc-text">使用缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图片服务器分离"><span class="toc-number">7.3.</span> <span class="toc-text">图片服务器分离</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库集群和库表散列"><span class="toc-number">7.4.</span> <span class="toc-text">数据库集群和库表散列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用储存过程"><span class="toc-number">7.5.</span> <span class="toc-text">使用储存过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#批量读取"><span class="toc-number">7.6.</span> <span class="toc-text">批量读取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用索引"><span class="toc-number">7.7.</span> <span class="toc-text">使用索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CDN"><span class="toc-number">7.8.</span> <span class="toc-text">CDN</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pom打包"><span class="toc-number">8.</span> <span class="toc-text">pom打包</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
+  
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="java/java-18-01" data-title="java-18-01" data-url="http://linnxh.com/2018/03/21/java/java-18-01/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
   
   
-    </div></section>
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://linnxh.com/2018/03/21/java/java-18-01/", 
+    sourceId: "java/java-18-01",
+    productKey: "true",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-    
+  
+
+  
+
+  
+
+
 
 
           </div>
@@ -282,8 +512,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
