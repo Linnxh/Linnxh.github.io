@@ -22,7 +22,7 @@
 <meta property="og:image" content="http://linnxh.online/java/java-17-10/">
 <meta property="og:image" content="http://p964q970y.bkt.clouddn.com/QQ20180524-094112@2x.png">
 <meta property="og:image" content="http://p964q970y.bkt.clouddn.com/15177964636988.jpg">
-<meta property="og:updated_time" content="2018-05-24T01:53:29.542Z">
+<meta property="og:updated_time" content="2018-06-12T02:37:59.968Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java-17-10">
 <meta name="twitter:description" content="java基础知识总结 2017-10">
@@ -199,6 +199,7 @@
 <li><a href="http://www.runoob.com/linux/linux-shell.html" target="_blank" rel="noopener">shell基础教程</a><br>shell脚本开头是，<br>“#!bin/sh”，是一个shell脚本，用bin/sh来执行<br>”#!/bin/bash”，是bash脚本程序，用/bin/sh来执行<br>bash是sh的增强版本，bash中支持的命令更加多一些，实际开发中用bash比较多</li>
 <li>linux和mac互传文件<br>用的是smb，finder 文件-前往-连接服务器，，，smb://10.10.2.236</li>
 </ul>
+<p><code>VBoxManage modifymedium /Users/LXH/&quot;VirtualBox VMs&quot;/新编组/Ubuntu-64/Ubuntu-64.vdi --resize 31440</code>将虚拟机硬盘大小设置成 31440M ~~ 30G</p>
 <h2 id="mac运行sh文件"><a href="#mac运行sh文件" class="headerlink" title="mac运行sh文件"></a>mac运行sh文件</h2><p>然后输入sudo su<br>随后输入密码。这样就取得了root用户权限。<br>提示，sh-3.2#，每个人可能不一样<br>执行./sh文件名字（ls查看所有文件，进入脚本目录）<br>就可以了。<br>在执行的时候，可能会报如下的错误：<br>-bash: ./startup.sh: Permission denied解决办法：<br>这是因为用户没有权限，而导致无法执行。用命令chmod 修改一下bin目录下的.sh权限就可以了。<br>chmod u+x *.sh<br>这里的u 这里指文件所有者，+x 添加可执行权限，*.sh表示所有的sh文件</p>
 <h1 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h1><p>跨域：js和服务端数据交互必须要是相同的域名<br>同一域名：协议（http，https）、域名(www.baidu.com,www.baidu.cn)、端口都必须相同<br>解决办法：</p>
 <ol>
@@ -753,8 +754,8 @@ public class mvcController {
     </a>
   
   
-    <a href="/tools/tools/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">tools</div>
+    <a href="/tools/idea工具使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">idea工具使用</div>
       <i class="icon-circle-right"></i>
     </a>
   

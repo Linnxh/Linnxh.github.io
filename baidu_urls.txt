@@ -1,9 +1,9 @@
+http://linnxh.online/java/mongodb/
 http://linnxh.online/java/商品详情切换sku/
 http://linnxh.online/java/SpringBoot基础/
 http://linnxh.online/sql/sql/
 http://linnxh.online/java/java-18-01/
-http://linnxh.online/tools/2018-05-25/
 http://linnxh.online/tools/ps修图/
 http://linnxh.online/java/java-17-10/
-http://linnxh.online/tools/tools/
+http://linnxh.online/tools/idea工具使用/
 http://linnxh.online/README/
