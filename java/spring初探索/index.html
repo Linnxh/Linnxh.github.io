@@ -6,21 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://linnxh.online">
-  <title>Linnxh的博客</title>
+  <title>spring初探索 | Linnxh的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="spring概述 具体作用  core containerspring-core和spring-beans：提供了框架的基础部分，包括反转控制和依赖注入功能。其中Bean Factory是容器核心，本质是“工厂设计模式”的实现，而且无需编程实现“单例设计模式”，单例完全由容器控制，而且提倡面向接口编程，而非面向实现编程；所有应用程序对象及对象间关系由框架管理，从而真正把你从程序逻辑中把维护对象之间">
+  <meta name="description" content="spring概述">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linnxh的博客">
+<meta property="og:title" content="spring初探索">
 <meta property="og:url" content="http://linnxh.online/java/spring初探索/index.html">
 <meta property="og:site_name" content="Linnxh的博客">
-<meta property="og:description" content="spring概述 具体作用  core containerspring-core和spring-beans：提供了框架的基础部分，包括反转控制和依赖注入功能。其中Bean Factory是容器核心，本质是“工厂设计模式”的实现，而且无需编程实现“单例设计模式”，单例完全由容器控制，而且提倡面向接口编程，而非面向实现编程；所有应用程序对象及对象间关系由框架管理，从而真正把你从程序逻辑中把维护对象之间">
+<meta property="og:description" content="spring概述">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://p964q970y.bkt.clouddn.com/QQ20180524-094112@2x.png">
 <meta property="og:image" content="http://p964q970y.bkt.clouddn.com/15177964636988.jpg">
-<meta property="og:updated_time" content="2018-06-20T07:12:16.313Z">
+<meta property="og:updated_time" content="2018-06-22T13:59:21.659Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linnxh的博客">
-<meta name="twitter:description" content="spring概述 具体作用  core containerspring-core和spring-beans：提供了框架的基础部分，包括反转控制和依赖注入功能。其中Bean Factory是容器核心，本质是“工厂设计模式”的实现，而且无需编程实现“单例设计模式”，单例完全由容器控制，而且提倡面向接口编程，而非面向实现编程；所有应用程序对象及对象间关系由框架管理，从而真正把你从程序逻辑中把维护对象之间">
+<meta name="twitter:title" content="spring初探索">
+<meta name="twitter:description" content="spring概述">
 <meta name="twitter:image" content="http://p964q970y.bkt.clouddn.com/QQ20180524-094112@2x.png">
   
     <link rel="alternative" href="/atom.xml" title="Linnxh的博客" type="application/atom+xml">
@@ -164,12 +164,26 @@
             <article id="post-java/spring初探索" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      spring初探索
+    </h1>
+  
+
+        
+        <a href="/java/spring初探索/" class="archive-article-date">
+  	<time datetime="2018-06-19T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-20</time>
+</a>
+        
+      </header>
+    
    
     <div class="article-entry" itemprop="articleBody">
       
        <!--  -->
-        <h1 id="spring"><a href="#spring" class="headerlink" title="spring"></a>spring</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><img src="http://p964q970y.bkt.clouddn.com/QQ20180524-094112@2x.png" alt=""></p>
-<p>具体作用</p>
+        <h1 id="spring"><a href="#spring" class="headerlink" title="spring"></a>spring</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><img src="http://p964q970y.bkt.clouddn.com/QQ20180524-094112@2x.png" alt=""><br><a id="more"></a><br>具体作用</p>
 <ul>
 <li>core container<br>spring-core和spring-beans：提供了框架的基础部分，包括反转控制和依赖注入功能。其中Bean Factory是容器核心，本质是“工厂设计模式”的实现，而且无需编程实现“单例设计模式”，单例完全由容器控制，而且提倡面向接口编程，而非面向实现编程；所有应用程序对象及对象间关系由框架管理，从而真正把你从程序逻辑中把维护对象之间的依赖关系提取出来，所有这些依赖关系都由BeanFactory来维护。<br>spring-context：这个模块建立在core和bean模块提供坚实的基础上，集成Beans模块功能并添加资源绑定、数据验证、国际化、Java EE支持、容器生命周期、事件传播等；核心接口是ApplicationContext。<br>spring-expression：提供强大的表达式语言支持，支持访问和修改属性值，方法调用，支持访问及修改数组、容器和索引器，命名变量，支持算数和逻辑运算，支持从Spring 容器获取Bean，它也支持列表投影、选择和一般的列表聚合等。</li>
 <li>spring-aop：Spring AOP模块提供了符合 AOP Alliance规范的面向方面的编程（aspect-oriented programming）实现，提供比如日志记录、权限控制、性能统计等通用功能和业务逻辑分离的技术，并且能动态的把这些功能添加到需要的代码中；这样各专其职，降低业务逻辑和通用功能的耦合。</li>
@@ -312,6 +326,17 @@ public class mvcController {
       
       
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
 
@@ -418,7 +443,7 @@ public class mvcController {
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="java/spring初探索" data-title="" data-url="http://linnxh.online/java/spring初探索/"></div>
+	<div class="ds-thread" data-thread-key="java/spring初探索" data-title="spring初探索" data-url="http://linnxh.online/java/spring初探索/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
