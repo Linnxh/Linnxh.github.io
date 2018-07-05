@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://linnxh.online">
-  <title>Linnxh的博客</title>
+  <title>Aspect面向切面编程 | Linnxh的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="#  AOP详解定义AOP（Aspect Orient Programming），我们一般称为面向方面（切面）编程，作为面向对象的一种补充，用于处理系统中分布于各个模块的横切关注点，比如事务管理、日志、缓存等等。 分类 静态代理，举例：AspectJ 动态代理，举例：Spring AOP，Spring AOP中的动态代理主要有两种方式，JDK动态代理和CGLIB动态代理Spring AOP的实现原">
+  <meta name="description" content="AOP详解定义AOP（Aspect Orient Programming），我们一般称为面向方面（切面）编程，作为面向对象的一种补充，用于处理系统中分布于各个模块的横切关注点，比如事务管理、日志、缓存等等。 分类 静态代理，举例：AspectJ 动态代理，举例：Spring AOP，Spring AOP中的动态代理主要有两种方式，JDK动态代理和CGLIB动态代理Spring AOP的实现原理使用">
+<meta name="keywords" content="springboot,aop">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linnxh的博客">
+<meta property="og:title" content="Aspect面向切面编程">
 <meta property="og:url" content="http://linnxh.online/java/Aspect面向切面编程/index.html">
 <meta property="og:site_name" content="Linnxh的博客">
-<meta property="og:description" content="#  AOP详解定义AOP（Aspect Orient Programming），我们一般称为面向方面（切面）编程，作为面向对象的一种补充，用于处理系统中分布于各个模块的横切关注点，比如事务管理、日志、缓存等等。 分类 静态代理，举例：AspectJ 动态代理，举例：Spring AOP，Spring AOP中的动态代理主要有两种方式，JDK动态代理和CGLIB动态代理Spring AOP的实现原">
+<meta property="og:description" content="AOP详解定义AOP（Aspect Orient Programming），我们一般称为面向方面（切面）编程，作为面向对象的一种补充，用于处理系统中分布于各个模块的横切关注点，比如事务管理、日志、缓存等等。 分类 静态代理，举例：AspectJ 动态代理，举例：Spring AOP，Spring AOP中的动态代理主要有两种方式，JDK动态代理和CGLIB动态代理Spring AOP的实现原理使用">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-07-05T06:29:20.269Z">
+<meta property="og:updated_time" content="2018-07-05T06:30:31.134Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linnxh的博客">
-<meta name="twitter:description" content="#  AOP详解定义AOP（Aspect Orient Programming），我们一般称为面向方面（切面）编程，作为面向对象的一种补充，用于处理系统中分布于各个模块的横切关注点，比如事务管理、日志、缓存等等。 分类 静态代理，举例：AspectJ 动态代理，举例：Spring AOP，Spring AOP中的动态代理主要有两种方式，JDK动态代理和CGLIB动态代理Spring AOP的实现原">
+<meta name="twitter:title" content="Aspect面向切面编程">
+<meta name="twitter:description" content="AOP详解定义AOP（Aspect Orient Programming），我们一般称为面向方面（切面）编程，作为面向对象的一种补充，用于处理系统中分布于各个模块的横切关注点，比如事务管理、日志、缓存等等。 分类 静态代理，举例：AspectJ 动态代理，举例：Spring AOP，Spring AOP中的动态代理主要有两种方式，JDK动态代理和CGLIB动态代理Spring AOP的实现原理使用">
   
     <link rel="alternative" href="/atom.xml" title="Linnxh的博客" type="application/atom+xml">
   
@@ -161,12 +162,26 @@
             <article id="post-java/Aspect面向切面编程" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Aspect面向切面编程
+    </h1>
+  
+
+        
+        <a href="/java/Aspect面向切面编程/" class="archive-article-date">
+  	<time datetime="2018-07-05T08:48:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-05</time>
+</a>
+        
+      </header>
+    
    
     <div class="article-entry" itemprop="articleBody">
       
        <!--  -->
-        <p># </p>
-<h2 id="AOP详解"><a href="#AOP详解" class="headerlink" title="AOP详解"></a>AOP详解</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>AOP（Aspect Orient Programming），我们一般称为面向方面（切面）编程，作为面向对象的一种补充，用于处理系统中分布于各个模块的横切关注点，比如事务管理、日志、缓存等等。</p>
+        <h2 id="AOP详解"><a href="#AOP详解" class="headerlink" title="AOP详解"></a>AOP详解</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>AOP（Aspect Orient Programming），我们一般称为面向方面（切面）编程，作为面向对象的一种补充，用于处理系统中分布于各个模块的横切关注点，比如事务管理、日志、缓存等等。</p>
 <h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><ol>
 <li>静态代理，举例：AspectJ</li>
 <li>动态代理，举例：Spring AOP，Spring AOP中的动态代理主要有两种方式，JDK动态代理和CGLIB动态代理<br><a href="http://www.importnew.com/24305.html" target="_blank" rel="noopener">Spring AOP的实现原理</a><br>使用AspectJ的编译时增强实现AOP<br>之前提到，AspectJ是静态代理的增强，所谓的静态代理就是AOP框架会在编译阶段生成AOP代理类，因此也称为编译时增强。</li>
@@ -240,6 +255,21 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">springboot</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">aop</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -347,7 +377,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="java/Aspect面向切面编程" data-title="" data-url="http://linnxh.online/java/Aspect面向切面编程/"></div>
+	<div class="ds-thread" data-thread-key="java/Aspect面向切面编程" data-title="Aspect面向切面编程" data-url="http://linnxh.online/java/Aspect面向切面编程/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -491,6 +521,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">springboot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">aop</a>
               </li>
              
               <li class="article-tag-list-item">
