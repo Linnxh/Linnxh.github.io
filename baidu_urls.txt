@@ -1,5 +1,6 @@
+http://linnxh.online/java/Aspect面向切面编程/
 http://linnxh.online/java/spring初探索/
-http://linnxh.online/java/mongodb/
+http://linnxh.online/sql/mongodb/
 http://linnxh.online/java/商品详情切换sku/
 http://linnxh.online/java/SpringBoot基础/
 http://linnxh.online/sql/sql/

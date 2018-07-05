@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://linnxh.online/java/Aspect%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B/</loc>
+    
+    <lastmod>2018-07-05T06:29:20.269Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://linnxh.online/java/spring%E5%88%9D%E6%8E%A2%E7%B4%A2/</loc>
     
-    <lastmod>2018-07-05T06:21:17.813Z</lastmod>
+    <lastmod>2018-07-05T06:29:15.963Z</lastmod>
     
   </url>
   
@@ -30,7 +37,7 @@
   </url>
   
   <url>
-    <loc>http://linnxh.online/java/mongodb/</loc>
+    <loc>http://linnxh.online/sql/mongodb/</loc>
     
     <lastmod>2018-06-22T14:49:33.206Z</lastmod>
     
