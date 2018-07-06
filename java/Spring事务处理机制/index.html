@@ -6,21 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://linnxh.online">
-  <title>sql | Linnxh的博客</title>
+  <title>Spring事务处理机制 | Linnxh的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="摘要:常用sql的总结">
+  <meta name="description" content="在应用系统调用声明@Transactional 的目标方法时，Spring Framework 默认使用 AOP 代理，在代码运行时生成一个代理对象，根据@Transactional 的属性配置信息，这个代理对象决定该声明@Transactional 的目标方法是否由拦截器 TransactionInterceptor 来使用拦截，在 TransactionInterceptor 拦截时，会在在目">
+<meta name="keywords" content="spring,Transactional">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sql">
-<meta property="og:url" content="http://linnxh.online/sql/sql/index.html">
+<meta property="og:title" content="Spring事务处理机制">
+<meta property="og:url" content="http://linnxh.online/java/Spring事务处理机制/index.html">
 <meta property="og:site_name" content="Linnxh的博客">
-<meta property="og:description" content="摘要:常用sql的总结">
+<meta property="og:description" content="在应用系统调用声明@Transactional 的目标方法时，Spring Framework 默认使用 AOP 代理，在代码运行时生成一个代理对象，根据@Transactional 的属性配置信息，这个代理对象决定该声明@Transactional 的目标方法是否由拦截器 TransactionInterceptor 来使用拦截，在 TransactionInterceptor 拦截时，会在在目">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%BC%A0%E6%92%AD%E8%A1%8C%E4%B8%BA.png">
-<meta property="og:updated_time" content="2018-07-05T06:33:54.281Z">
+<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/spring%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6.png">
+<meta property="og:updated_time" content="2018-07-05T09:42:20.388Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sql">
-<meta name="twitter:description" content="摘要:常用sql的总结">
-<meta name="twitter:image" content="http://p964q970y.bkt.clouddn.com/%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%BC%A0%E6%92%AD%E8%A1%8C%E4%B8%BA.png">
+<meta name="twitter:title" content="Spring事务处理机制">
+<meta name="twitter:description" content="在应用系统调用声明@Transactional 的目标方法时，Spring Framework 默认使用 AOP 代理，在代码运行时生成一个代理对象，根据@Transactional 的属性配置信息，这个代理对象决定该声明@Transactional 的目标方法是否由拦截器 TransactionInterceptor 来使用拦截，在 TransactionInterceptor 拦截时，会在在目">
+<meta name="twitter:image" content="http://p964q970y.bkt.clouddn.com/spring%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6.png">
   
     <link rel="alternative" href="/atom.xml" title="Linnxh的博客" type="application/atom+xml">
   
@@ -160,20 +161,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-sql/sql" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-java/Spring事务处理机制" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      sql
+      Spring事务处理机制
     </h1>
   
 
         
-        <a href="/sql/sql/" class="archive-article-date">
-  	<time datetime="2018-03-22T06:25:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-22</time>
+        <a href="/java/Spring事务处理机制/" class="archive-article-date">
+  	<time datetime="2018-07-05T08:48:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-05</time>
 </a>
         
       </header>
@@ -182,236 +183,60 @@
     <div class="article-entry" itemprop="articleBody">
       
        <!--  -->
-        <p>摘要:常用sql的总结<br>    <a id="more"></a></p>
-<h1 id="create-schema"><a href="#create-schema" class="headerlink" title="create schema"></a>create schema</h1><p>成功执行了create schema st authorization wang</p>
-<p>那么 wang 就是数据库中的一个用户<br>st 就是一个架构名<br>创建表的时候可以<br>create table st.表名(t1 int)<br>访问的时候<br>select * from st.表名<br>REPEAT 函数返回一个重复 character_expression 指定次数的字符串</p>
-<p><code>select a.id,REPEAT(&#39;圣诞快乐&#39;,2) AS 哈哈 FROM table AS a ;</code></p>
-<p>返回结果</p>
+        <p>在应用系统调用声明@Transactional 的目标方法时，Spring Framework 默认使用 AOP 代理，在代码运行时生成一个代理对象，根据@Transactional 的属性配置信息，这个代理对象决定该声明@Transactional 的目标方法是否由拦截器 TransactionInterceptor 来使用拦截，在 TransactionInterceptor 拦截时，会在在目标方法开始执行之前创建并加入事务，并执行目标方法的逻辑, 最后根据执行情况是否出现异常</p>
+<p>@Transactional 注解管理事务的实现步骤<br>使用@Transactional 注解管理事务的实现步骤分为两步。第一步，在 xml 配置文件中添加如清单 1 的事务配置信息。除了用配置文件的方式，@EnableTransactionManagement 注解也可以启用事务管理功能。这里以简单的 DataSourceTransactionManager 为例。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;tx:annotation-driven /&gt;</span><br><span class="line">&lt;bean id=&quot;transactionManager&quot;</span><br><span class="line">class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</span><br><span class="line">&lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<p>第二步，将@Transactional 注解添加到合适的方法上，并设置合适的属性信息。@Transactional 注解的属性信息如表 1 展示。<br>表 1. @Transactional 注解的属性信息</p>
 <table>
 <thead>
 <tr>
-<th>id</th>
-<th>哈哈</th>
+<th>属性名</th>
+<th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1</td>
-<td>圣诞快乐圣诞快乐</td>
+<td>name</td>
+<td>当在配置文件中有多个 TransactionManager , 可以用该属性指定选择哪个事务管理器。</td>
 </tr>
 <tr>
-<td>2</td>
-<td>圣诞快乐圣诞快乐</td>
+<td>propagation</td>
+<td>事务的传播行为，默认值为 REQUIRED。</td>
+</tr>
+<tr>
+<td>isolation</td>
+<td>事务的隔离度，默认值采用 DEFAULT。</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>事务的超时时间，默认值为-1。如果超过该时间限制但事务还没有完成，则自动回滚事务。</td>
+</tr>
+<tr>
+<td>read-only</td>
+<td>指定事务是否为只读事务，默认值为 false；为了忽略那些不需要事务的方法，比如读取数据，可以设置 read-only 为 true。</td>
+</tr>
+<tr>
+<td>rollback-for</td>
+<td>用于指定能够触发事务回滚的异常类型，如果有多个异常类型需要指定，各类型之间可以通过逗号分隔。</td>
+</tr>
+<tr>
+<td>no-rollback- for</td>
+<td>抛出 no-rollback-for 指定的异常类型，不回滚事务。</td>
 </tr>
 </tbody>
 </table>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--将table按照id分组，统计出每组的个数，并按照每组个数倒叙排序</span><br><span class="line">SELECT COUNT(*),ss\_id FROM goods\_statistics GROUP BY ss\_id ORDER BY COUNT(*) DESC</span><br></pre></td></tr></table></figure>
-<p><code>select A.id,A.name,B.name from A,B where A.id=B.id;</code></p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">id</th>
-<th style="text-align:right">name</th>
-<th style="text-align:center">name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">1</td>
-<td style="text-align:right">Pirate</td>
-<td style="text-align:center">Rutabaga</td>
-</tr>
-<tr>
-<td style="text-align:left">2</td>
-<td style="text-align:right">Monkey</td>
-<td style="text-align:center">Pirate</td>
-</tr>
-<tr>
-<td style="text-align:left">3</td>
-<td style="text-align:right">Ninja</td>
-<td style="text-align:center">Darth Vader</td>
-</tr>
-<tr>
-<td style="text-align:left">4</td>
-<td style="text-align:right">Spaghetti</td>
-<td style="text-align:center">Ninja</td>
-</tr>
-</tbody>
-</table>
-<h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><h2 id="悲观锁-Pessimistic-Locking"><a href="#悲观锁-Pessimistic-Locking" class="headerlink" title="悲观锁(Pessimistic Locking):"></a>悲观锁(Pessimistic Locking):</h2><p>在整个数据处理过程中，将数据处于锁定状态。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//0.开始事务</span><br><span class="line">begin;/begin work;/start transaction; (三者选一就可以)</span><br><span class="line">//1.查询出商品信息</span><br><span class="line">select status from t\_goods where id=1 for update;</span><br><span class="line">//2.根据商品信息生成订单</span><br><span class="line">insert into t\_orders (id,goods\_id) values (null,1);</span><br><span class="line">//3.修改商品status为2</span><br><span class="line">update t\_goods set status=2;</span><br><span class="line">//4.提交事务</span><br><span class="line">commit;/commit work;</span><br></pre></td></tr></table></figure>
-<h2 id="乐观锁（-Optimistic-Locking-）"><a href="#乐观锁（-Optimistic-Locking-）" class="headerlink" title="乐观锁（ Optimistic Locking ）"></a>乐观锁（ Optimistic Locking ）</h2><p>相对悲观锁而言，乐观锁假设认为数据一般情况下不会造成冲突，所以在数据进行提交更新的时候，才会正式对数据的冲突与否进行检测，如果发现冲突了，则让返回用户错误的信息，让用户决定如何去做。<br>处理方式：<br>1、UNDO的方式来获取数据行的历史版本<br>2、内存中保存同一数据行的多个历史版本（如下举例）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//1.查询出商品信息</span><br><span class="line">select (status,status,version) from t\_goods where id=#&#123;id&#125;</span><br><span class="line">//2.根据商品信息生成订单</span><br><span class="line">//3.修改商品status为2</span><br><span class="line">update t\_goods </span><br><span class="line">set status=2,version=version+1</span><br><span class="line">where id=#&#123;id&#125; and version=#&#123;version&#125;;</span><br></pre></td></tr></table></figure>
-<p>处理场景</p>
-<ol>
-<li>设数据库中帐户信息表中有一个 version 字段，当前值为 1 ；而当前帐户余额字段（ balance ）为 100 。<br>操作员 A 此时将其读出（ version=1 ），并从其帐户余额中扣除 50（100 -50 ）。</li>
-<li>在操作员 A 操作的过程中，操作员 B 也读入此用户信息（ version=1 ），并 从其帐户余额中扣除 20 （100-20 ）</li>
-<li>操作员 A 完成了修改工作，将数据版本号加一（ version=2 ），连同帐户扣 除后余额（ balance=50 ），提交至数据库更新，此时由于提交数据版本大 于数据库记录当前版本，数据被更新，数据库记录 version 更新为 2 。 </li>
-<li>操作员 B 完成了操作，也将版本号加一（ version=2 ）试图向数据库提交数 据（ balance=80 ），但此时比对数据库记录版本时发现，操作员 B 提交的 数据版本号为 2 ，数据库记录当前版本也为 2 ，不满足 “ 提交版本必须大于记 录当前版本才能执行更新 “ 的乐观锁策略，因此，操作员 B 的提交被驳回。 </li>
-</ol>
-<blockquote>
-<p>实例：将某个记录删除时,is_del就是乐观锁字段</p>
-</blockquote>
-<p><code>UPDATE user c SET c.is\_del = 1 WHERE c.name = &quot;lxh&quot; AND c.is\_del=0</code></p>
-<h1 id="MYSQL基本操作"><a href="#MYSQL基本操作" class="headerlink" title="MYSQL基本操作"></a>MYSQL基本操作</h1><ul>
-<li>登录 <code>mysql -u root -p</code></li>
-<li>修改mysql中root的密码：<br>  <code>SET PASSWORD FOR &#39;root&#39;@&#39;localhost&#39; = PASSWORD(&#39;123123&#39;);</code></li>
-<li>重置密码  </li>
-</ul>
-<ul>
-<li>关闭mysql服务器 <code>sudo /usr/local/mysql/support-files/mysql.server</code><br>也可以在系统偏好里有个MySQL里关闭。</li>
-</ul>
-<ol>
-<li><code>cd /usr/local/mysql/bin</code>    进入目录sudo su 获取权限 <code>./mysqld_safe --skip-grant-tables</code>， 重启服务器</li>
-<li>重开个终端，配置短命令：alias mysql=/usr/local/mysql/bin/mysql</li>
-<li>输入mysql 进入mysql命令模式</li>
-<li>use mysql进入mysql数据库flush privileges; 大概就是获取权限，要不他不让你改。</li>
-<li>set password for ‘root’@’localhost’=password(‘新密码’);  </li>
-</ol>
-<p>Mysql常用命令<br>show databases; 显示数据库<br>create database name; 创建数据库<br>use databasename; 选择数据库<br>drop database name 直接删除数据库，不提醒<br>show tables; 显示表<br>describe tablename; 显示具体的表结构<br>select 中加上distinct去除重复字段<br>mysqladmin drop databasename 删除数据库前，有提示。<br>显示当前mysql版本和当前日期<br>select version(),current_date;<br>重命名表:<br>mysql > alter table t1 rename t2;<br>备份数据库<br>shell> mysqldump -h host -u root -p user >dbname_backup.sql<br>恢复数据库<br>shell> mysqladmin -h myhost -u root -p create dbname<br>shell> mysqldump -h host -u root -p dbname \&lt; dbname_backup.sql </p>
-<h1 id="select-1-from-table"><a href="#select-1-from-table" class="headerlink" title="select 1 from table"></a>select 1 from table</h1><p>select 1 from table;与select anycol(目的表集合中的任意一行） from table;与select * from table 从作用上来说是没有差别的，都是查看是否有记录，一般是作条件查询用的。select 1 from 中的1是一常量（可以为任意数值），查到的所有行的值都是它，但从效率上来说，1>anycol>*，因为不用查字典表。</p>
-<h1 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Class.forName(&quot;com.mysql.jdbc.Driver&quot;);</span><br><span class="line">	        Connection connection = DriverManager.getConnection(&quot;j</span><br><span class="line">	        .1:3306/web-demo&quot;, &quot;root&quot;,</span><br><span class="line">	                &quot;123123&quot;);</span><br><span class="line">	        String sql = &quot;select id,command,description,content from message&quot;;</span><br><span class="line">	        PreparedStatement state = connection.prepareStatement(sql);</span><br><span class="line">	        ResultSet rSet = state.executeQuery();</span><br><span class="line">	        List&lt;Message&gt; messages = new ArrayList&lt;Message&gt;();</span><br><span class="line">	        while (rSet.next()) &#123;</span><br><span class="line">	            Message msg = new Message();</span><br><span class="line">	            messages.add(msg);</span><br><span class="line">	            msg.setId(rSet.getString(&quot;ID&quot;));</span><br><span class="line">	            msg.setCommand(rSet.getString(&quot;Command&quot;));</span><br><span class="line">	            msg.setDescription(rSet.getString(&quot;Description&quot;));</span><br><span class="line">	            msg.setContent(rSet.getString(&quot;CONTENT&quot;));</span><br><span class="line">	        &#125;</span><br><span class="line">	        req.setAttribute(&quot;messageList&quot;, messages);</span><br></pre></td></tr></table></figure>
-<h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><ol>
-<li>定义：首先要明白索引（index）是在存储引擎（storage engine）层面实现的，而不是server层面。不是所有的存储引擎都支持所有的索引类型。即使多个存储引擎支持某一索引类型，它们的实现和行为也可能有所差别。</li>
-<li>分类</li>
-<li>从数据结构角度<ol>
-<li>Btree:查找某氛围内的数据，可以很快的从当前数据找到下条数据</li>
-<li>hash索引：使用于随机访问的场合，查找每条数据的时间几乎相同<br> a  仅仅能满足”=”,”IN”和”\&lt;=>“查询，不能使用范围查询<br> b 其检索效率非常高，索引的检索可以一次定位，不像B-Tree 索引需要从根节点到枝节点，最后才能访问到页节点这样多次的IO访问，所以 Hash 索引的查询效率要远高于 B-Tree 索引<br> c 只有Memory存储引擎显示支持hash索引</li>
-<li>FULLTEXT索引（现在MyISAM和InnoDB引擎都支持了）</li>
-<li>R-Tree索引（用于对GIS数据类型创建SPATIAL索引）<ol>
-<li>从物理存储角度</li>
-</ol>
-</li>
-<li>聚集索引（clustered index）</li>
-<li>非聚集索引（non-clustered index）</li>
-</ol>
-</li>
-<li>从逻辑角度<ol>
-<li>主键索引：主键索引是一种特殊的唯一索引，不允许有空值</li>
-<li>普通索引或者单列索引</li>
-<li>多列索引（复合索引）：复合索引指多个字段上创建的索引，只有在查询条件中使用了创建索引时的第一个字段，索引才会被使用。使用复合索引时遵循最左前缀集合</li>
-<li>唯一索引或者非唯一索引</li>
-<li>空间索引：空间索引是对空间数据类型的字段建立的索引，MYSQL中的空间数据类型有4种，分别是GEOMETRY、POINT、LINESTRING、POLYGON。</li>
-</ol>
-</li>
-</ol>
-<h1 id="常用sql语句"><a href="#常用sql语句" class="headerlink" title="常用sql语句"></a>常用sql语句</h1><p>语句都是基于mysql的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line">--列的添加和删除</span><br><span class="line">	ALTER TABLE article ADD time date;</span><br><span class="line">	ALTER TABLE article DROP COLUMN time</span><br><span class="line">	--试图</span><br><span class="line">	CREATE VIEW view_name AS </span><br><span class="line">	    SELECT id , title</span><br><span class="line">	    FROM article</span><br><span class="line">	    WHERE id = 1;</span><br><span class="line">	SELECT * FROM view_name;</span><br><span class="line">	--SQL 约束</span><br><span class="line">	--约束是作用于数据表中列上的规则，用于限制表中数据的类型。约束的存在保证了-数据库中数据的精确性和可靠性。约束有列级和表级之分，列级约束作用于单一的列，而表级约束作用于整张数据表。 </span><br><span class="line">	1. NOT NULL 约束：保证列中数据不能有 NULL 值   </span><br><span class="line">	2. DEFAULT 约束：提供该列数据未指定时所采用的默认值 ;   </span><br><span class="line">	3. UNIQUE 约束：保证列中的所有数据各不相同</span><br><span class="line">	--索引和约束的区别</span><br><span class="line">	索引是面向数据库本身的，用于查询优化等操作</span><br><span class="line">	约束则更多的是业务上的关系，包括唯一性、外键约束等</span><br><span class="line">	</span><br><span class="line">	新建表：</span><br><span class="line">	CREATE TABLE article</span><br><span class="line">	(</span><br><span class="line">	id int NOT NULL,</span><br><span class="line">	title varchar(255) NOT NULL,</span><br><span class="line">	body varchar(255), </span><br><span class="line">	City varchar(255) default &apos;lxh&apos;,</span><br><span class="line">	CONSTRAINT uc_PersonID UNIQUE (P_Id,LastName),</span><br><span class="line">	CONSTRAINT chk_Person CHECK (id&gt;0 AND City=&apos;Sandnes&apos;)</span><br><span class="line">	)</span><br><span class="line">	已有表：</span><br><span class="line">	单列：</span><br><span class="line">	ALTER TABLE article ADD UNIQUE (id)</span><br><span class="line">	多列：</span><br><span class="line">	ALTER TABLE article ADD CONSTRAINT uc_PersonID UNIQUE (id,title)</span><br><span class="line">	4. 主键约束：唯一标识数据表中的行/记录</span><br><span class="line">	5. 外键约束：唯一标识其他表中的一条行/记录</span><br><span class="line">	6. CHECK 约束：此约束保证列中的所有值满足某一条件</span><br><span class="line">	索引：用于在数据库中快速创建或检索数据</span><br><span class="line">	ALTER TABLE article ADD CONSTRAINT uni_age UNIQUE(age);</span><br><span class="line">	-- 主键约束</span><br><span class="line">	alter table article add constraint  primary key (age)</span><br><span class="line">	-- 约束</span><br><span class="line">	ALTER TABLE article ADD CONSTRAINT uc_title UNIQUE (title)</span><br><span class="line">	ALTER TABLE article ADD  CHECK(age&gt;30);</span><br><span class="line">	--添加索引</span><br><span class="line">	create [unique] index index_name on person</span><br><span class="line">	--撤销索引</span><br><span class="line">	drop  index person on index_name;</span><br><span class="line">	</span><br><span class="line">	--insert 防重（insert into 后面对应的相当于是value值）</span><br><span class="line">	-- 一条数据防重</span><br><span class="line">	INSERT INTO article(title , body , age) </span><br><span class="line">	SELECT &apos;中国2&apos; , &apos;大好河山，啦啦啦&apos; , 132</span><br><span class="line">	FROM DUAL</span><br><span class="line">	WHERE NOT EXISTS</span><br><span class="line">	( SELECT * FROM article WHERE title = &apos;中国2&apos; )</span><br><span class="line">	-- 多条数据防重</span><br><span class="line">	INSERT INTO article(title , body , age) </span><br><span class="line">	SELECT * FROM (</span><br><span class="line">	SELECT &apos;中国3&apos; title , &apos;大好河山，啦啦啦&apos;  body, 132 age</span><br><span class="line">	FROM DUAL</span><br><span class="line">	UNION ALL </span><br><span class="line">	SELECT &apos;中国3&apos; title , &apos;大好河山，啦啦啦&apos; body, 132 age</span><br><span class="line">	UNION ALL</span><br><span class="line">	SELECT &apos;中国4&apos; title , &apos;大好河山，啦啦啦&apos; body, 132 age</span><br><span class="line">	)a WHERE NOT EXISTS (SELECT 1 FROM article WHERE article.title=a.title)</span><br><span class="line">	-- 更新防重</span><br><span class="line">	UPDATE customer_grouping</span><br><span class="line">	SET grouping_name = &apos;tesdd2222t&apos;</span><br><span class="line">	WHERE  id=177</span><br><span class="line">	AND NOT EXISTS(</span><br><span class="line">	    SELECT t.grouping_name</span><br><span class="line">	    FROM ( SELECT grouping_name FROM customer_grouping WHERE grouping_name = &apos;tdd222est&apos; ) t</span><br><span class="line">	)</span><br><span class="line"></span><br><span class="line">mysql date函数</span><br><span class="line">NOW()   返回当前的日期和时间</span><br><span class="line">CURDATE()   返回当前的日期</span><br><span class="line">CURTIME()   返回当前的时间</span><br><span class="line">DATE()  提取日期或日期/时间表达式的日期部分</span><br><span class="line">EXTRACT()   返回日期/时间的单独部分</span><br><span class="line">DATE\_ADD()  向日期添加指定的时间间隔</span><br><span class="line">DATE\_SUB()  从日期减去指定的时间间隔</span><br><span class="line">DATEDIFF()  返回两个日期之间的天数</span><br><span class="line">DATE\_FORMAT()   用不同的格式显示日期/时间</span><br><span class="line"></span><br><span class="line">--删除表里的所有数据，不包括表</span><br><span class="line">TRUNCATE TABLE  table\_name;</span><br></pre></td></tr></table></figure>
-<h1 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h1><ul>
-<li>isolation的参数有以下五种：</li>
-</ul>
-<ul>
-<li>Isolation.DEFAULT:为数据源的默认隔离级别</li>
-<li>isolation=Isolation.READ_UNCOMMITTED:未授权读取级别（一般采用这个策略）<br>以操作同一行数据为前提，读事务允许其他读事务和写事务，未提交的写事务禁止其他写事务（但允许其他读事务）。此隔离级别可以防止更新丢失，但不能防止脏读、不可重复读、幻读。此隔离级别可以通过“排他写锁”实现。</li>
-</ul>
-<ol>
-<li>iIsolation.READ_COMMITTED:授权读取级别<br>以操作同一行数据为前提，读事务允许其他读事务和写事务，未提交的写事务禁止其他读事务和写事务。此隔离级别可以防止更新丢失、脏读，但不能防止不可重复读、幻读。此隔离级别可以通过“瞬间共享读锁”和“排他写锁”实现。</li>
-<li>iIsolation.REPEATABLE_READ:可重复读取级别<br>以操作同一行数据为前提，读事务禁止其他写事务（但允许其他读事务），未提交的写事务禁止其他读事务和写事务。此隔离级别可以防止更新丢失、脏读、不可重复读，但不能防止幻读。此隔离级别可以通过“共享读锁”和“排他写锁”实现。</li>
-<li>iIsolation.SERIALIZABLE:序列化级别<br>提供严格的事务隔离。它要求事务序列化执行，事务只能一个接着一个地执行，不能并发执行。此隔离级别可以防止更新丢失、脏读、不可重复读、幻读。如果仅仅通过“行级锁”是无法实现事务序列化的，必须通过其他机制保证新插入的数据不会被刚执行查询操作的事务访问到。</li>
-</ol>
-<ul>
-<li>特性</li>
-</ul>
-<ul>
-<li>原子性(Atomicity)：<br>事务是数据库的逻辑工作单位，它对数据库的修改要么全部执行，要么全部不执行。</li>
-</ul>
-<ol>
-<li>一致性(Consistemcy)：<br>事务前后，数据库的状态都满足所有的完整性约束。</li>
-<li>隔离性(Isolation)：<br>并发执行的事务是隔离的，一个不影响一个。如果有两个事务，运行在相同的时间内，执行相同的功能，事务的隔离性将确保每一事务在系统中认为只有该事务在使用系统。这种属性有时称为串行化，为了防止事务操作间的混淆，必须串行化或序列化请求，使得在同一时间仅有一个请求用于同一数据。通过设置数据库的隔离级别，可以达到不同的隔离效果。</li>
-<li>持久性(Durability)：<br>在事务完成以后，该事务所对数据库所作的更改便持久的保存在数据库之中，并不会被回滚。</li>
-<li>更新丢失：<br>两个事务都同时更新一行数据，但是第二个事务却中途失败退出，导致对数据的两个修改都失效了。这是因为系统没有执行任何的锁操作，因此并发事务并没有被隔离开来。</li>
-<li>脏读：<br>脏读又称无效数据读出。一个事务读取另外一个事务还没有提交的数据叫脏读。<br>例如：事务T1修改了一行数据，但是还没有提交，这时候事务T2读取了被事务T1修改后的数据，之后事务T1因为某种原因Rollback了，那么事务T2读取的数据就是脏的。</li>
-<li>不可重复读：<br>不可重复读是指在同一个事务内，两个相同的查询返回了不同的结果。<br>例如：事务T1读取某一数据，事务T2读取并修改了该数据，T1为了对读取值进行检验而再次读取该数据，便得到了不同的结果。</li>
-<li>幻读：<br>事务在操作过程中进行两次查询，第二次查询的结果包含了第一次查询中未出现的数据或者缺少了第一次查询中出现的数据<br>例如：系统管理员A将数据库中所有学生的成绩从具体分数改为ABCDE等级，但是系统管理员B就在这个时候插入了一条具体分数的记录，当系统管理员A改结束后发现还有一条记录没有改过来，就好像发生了幻觉一样。这就叫幻读。</li>
-</ol>
-<h2 id="数据事务四种隔离机制和七种传播行为"><a href="#数据事务四种隔离机制和七种传播行为" class="headerlink" title="数据事务四种隔离机制和七种传播行为"></a>数据事务四种隔离机制和七种传播行为</h2><table>
-<thead>
-<tr>
-<th>隔离级别</th>
-<th>脏读</th>
-<th>不可重复读</th>
-<th>幻读</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>READ_UNCOMMITTED</td>
-<td>√</td>
-<td>√</td>
-<td>√</td>
-</tr>
-<tr>
-<td>READ_COMMITTED</td>
-<td>X</td>
-<td>√</td>
-<td>√</td>
-</tr>
-<tr>
-<td>REPEATABLE_READ</td>
-<td>X</td>
-<td>X</td>
-<td>√</td>
-</tr>
-<tr>
-<td>SERIALIZABLE</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-</tr>
-</tbody>
-</table>
-<p><img src="http://p964q970y.bkt.clouddn.com/%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%BC%A0%E6%92%AD%E8%A1%8C%E4%B8%BA.png" alt="事务的传播行为"></p>
-<h1 id="存储过程："><a href="#存储过程：" class="headerlink" title="存储过程："></a>存储过程：</h1><p>存储过程（Stored Procedure）是数据库系统中，一组为了完成特定功能的SQL 语句集，经编译后存储在数据库中，用户通过指定存储过程的名字并给出参数（如果该存储过程带有参数）来执行它。</p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">create procedure procedureName( </span><br><span class="line">    out min decimal(8,2), </span><br><span class="line">    out avg decimal(8,2), </span><br><span class="line">    out max decimal(8,2) </span><br><span class="line">) </span><br><span class="line">BEGIN </span><br><span class="line">    select MIN(price) INTO min from order; </span><br><span class="line">    select AVG(price) into avg from order; </span><br><span class="line">    select MAX(price) into max from order; </span><br><span class="line">END;  </span><br><span class="line">-- 由于过程指定三个参数， 故调用必须要参数匹配 </span><br><span class="line">call procedureName(@min, @avg, @max);  </span><br><span class="line">select @min, @avg, @max;</span><br></pre></td></tr></table></figure>
-</code></pre><blockquote>
-<p>mysql默认以分号作为sql语句的结束来进行执行，当我们在创建存储过程时，为了不让完整的存储过程语句由于分号而提前执行，需要临时规定以//或者$$来作为结束符号。这样的话，创建存储过程时，中间的分号会被忽略，直到遇到//符号才执行语句。  </p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">delimiter $$  </span><br><span class="line">中间代码 </span><br><span class="line">delimiter</span><br></pre></td></tr></table></figure>
-<h1 id="sql引擎"><a href="#sql引擎" class="headerlink" title="sql引擎"></a>sql引擎</h1><blockquote>
-<p>mysql的存储引擎包括：MyISAM、InnoDB、BDB、MEMORY、MERGE、EXAMPLE、NDBCluster、ARCHIVE、CSV、BLACKHOLE、FEDERATED等，其中InnoDB和BDB提供事务安全表，其他存储引擎都是非事务安全表。<br>最常使用的2种存储引擎</p>
-</blockquote>
-<ol>
-<li>Myisam是Mysql的默认存储引擎，当create创建新表时，未指定新表的存储引擎时，默认使用Myisam。每个MyISAM在磁盘上存储成三个文件。文件名都和表名相同，扩展名分别是.frm（存储表定义）、.MYD(MYData，存储数据)、.MYI(MYIndex，存储索引)。数据文件和索引文件可以放置在不同的目录，平均分布io，获得更快的速度。</li>
-<li>InnoDB存储引擎提供了具有提交、回滚和崩溃恢复能力的事务安全。但是对比Myisam的存储引擎，InnoDB写的处理效率差一些并且会占用更多的磁盘空间以保留数据和索引。</li>
-</ol>
-<pre><code>--看你的mysql现在已提供什么存储引擎:
-show engines;s 
---看你的mysql当前默认的存储引擎:
-show variables like &apos;%storage_engine%&apos;;
-</code></pre><h1 id="sql优化"><a href="#sql优化" class="headerlink" title="sql优化"></a>sql优化</h1><h2 id="索引-1"><a href="#索引-1" class="headerlink" title="索引"></a>索引</h2><p>怎么加快查询速度，优化查询效率，主要原则就是应尽量避免全表扫描，应该考虑在where及order by 涉及的列上建立索引。</p>
-<p>建立索引不是建的越多越好，原则是：</p>
-<p>第一：一个表的索引不是越多越好，也没有一个具体的数字，根据以往的经验，一个表的索引最多不能超过6个，因为索引越多，对update和insert操作也会有性能的影响，涉及到索引的新建和重建操作。</p>
-<p>第二：建立索引的方法论为：</p>
-<p>多数查询经常使用的列；<br>很少进行修改操作的列；<br>索引需要建立在数据差异化大的列上</p>
-<p>a. SELECT [column1],[column2],…. FROM [TABLE] ORDER BY [sort] LIMIT [offset],[LIMIT];<br>这个SQL语句优化比较简单，在[sort]这个栏位上建立索引即可<br>b. WHERE + ORDER BY + LIMIT组合的索引优化</p>
-<p>如果一个SQL语句形如：SELECT [column1],[column2],…. FROM [TABLE] WHERE [columnX] = [VALUE] ORDER BY [sort] LIMIT [offset],[LIMIT];</p>
-<p>这个语句，如果你仍然采用第一个例子中建立索引的方法，虽然可以用到索引，但是效率不高。更高效的方法是建立一个联合索引(columnX,sort)</p>
-<p>c. WHERE+ORDER BY多个栏位+LIMIT</p>
-<p>如果一个SQL语句形如：SELECT * FROM [table] WHERE uid=1 ORDER x,y LIMIT 0,10;</p>
-<p>对于这个语句，大家可能是加一个这样的索引:(x,y,uid)。但实际上更好的效果是(uid,x,y)。这是由MySQL处理排序的机制造成的。</p>
-<blockquote>
-<p>复合索引</p>
-</blockquote>
-<p><code>select* from users where area =’beijing’ and age=22;</code></p>
-<p>如果我们是在area和age上分别创建索引的话，由于mysql查询每次只能使用一个索引，所以虽然这样已经相对不做索引时全表扫描提高了很多效率，但是如果area，age两列上创建复合索引的话将带来更高的效率。</p>
-<p>在使用索引字段作为条件时，如果该索引是复合索引，那么必须使用到该索引中的第一个字段作为条件时才能保证系统使用该索引，否则该索引将不会被使用，并且应尽可能的让字段顺序与索引顺序相一致。</p>
-<p>例如索引（area,age,salary），那么其实相当于创建了（area,age,salary）,(area,age),(area)三个索引，这样称为最佳左前缀特性。</p>
-<h2 id="like语句"><a href="#like语句" class="headerlink" title="like语句"></a>like语句</h2><p><code>SELECT id FROM A WHERE name like &#39;%abc%&#39;</code><br> 　　由于abc前面用了“%”，因此该查询必然走全表查询，除非必要，否则不要在关键词前加%，优化成如下</p>
-<p>SELECT id FROM A WHERE name like ‘abc%’</p>
-<h2 id="where语句使用in和not-in-也要慎用，否则也会导致全表扫描"><a href="#where语句使用in和not-in-也要慎用，否则也会导致全表扫描" class="headerlink" title="where语句使用in和not in 也要慎用，否则也会导致全表扫描"></a>where语句使用in和not in 也要慎用，否则也会导致全表扫描</h2><p>方案一：between替换in</p>
-<p><code>SELECT id FROM A WHERE num in(1,2,3)</code> 优化成：<code>SELECT id FROM A WHERE num between 1 and 3</code></p>
-<p>方案二：exist替换in</p>
-<p><code>SELECT id FROM A WHERE num in(select num from b )</code> 优化成：``<code>SELECT num FROM A WHERE num exists(select 1 from B where B.num = A.num)</code></p>
-<p>方案三：left join替换in</p>
-<p><code>SELECT id FROM A WHERE num in(select num from B)</code> 优化成：<code>SELECT id FROM A LEFT JOIN B ON A.num = B.num</code></p>
-<h2 id="union-union-all"><a href="#union-union-all" class="headerlink" title="union union all"></a>union union all</h2><p>union all 连接两个结果集，union连接两个结果集，去除相同的部分<br>　很多时候使用union all 或 nuin(必要的时候)的方式替换“or”会得到更好的效果。where子句中使用了or,索引将被放弃使用。<br>　　 如SQL:SELECT id FROM A WHERE num =10 or num = 20 优化成：SELECT id FROM A WHERE num = 10 union all SELECT id FROM A WHERE num=20</p>
-<h2 id="where子句中对字段进行表达式操作的优化"><a href="#where子句中对字段进行表达式操作的优化" class="headerlink" title="where子句中对字段进行表达式操作的优化"></a>where子句中对字段进行表达式操作的优化</h2><p>不要在where子句中的“=”左边进行函数、算数运算或其他表达式运算，否则系统将可能无法正确使用索引。</p>
-<p><code>SELECT id FROM A WHERE num/2 = 100</code> 优化成：<code>SELECT id FROM A WHERE num = 100*2</code></p>
-<p><code>SELECT id FROM A WHERE substring(name,1,3) = &#39;abc&#39;</code>优化成：<code>SELECT id FROM A WHERE LIKE &#39;abc%&#39;</code></p>
-<p><code>SELECT id FROM A WHERE datediff(day,createdate,&#39;2016-11-30&#39;)=0</code> 优化成：<code>SELECT id FROM A WHERE createdate&gt;=&#39;2016-11-30&#39; and createdate&lt;&#39;2016-12-1&#39;</code></p>
-<p><code>SELECT id FROM A WHERE year(addate) &lt;2016</code> 优化成：<code>SELECT id FROM A where addate&lt;&#39;2016-01-01&#39;</code></p>
-<h2 id="Inner-join-和-left-join、right-join、子查询"><a href="#Inner-join-和-left-join、right-join、子查询" class="headerlink" title="Inner join 和 left join、right join、子查询"></a>Inner join 和 left join、right join、子查询</h2><p>第一：inner join内连接也叫等值连接，left/rightjoin是外连接。<br>inner join(join) 效率比left join和right join要高<br>第二：子查询的性能又比外连接性能慢，尽量用外连接来替换子查询<br><code>Select* from A where exists (select * from B where id&gt;=3000 and A.uuid=B.uuid);</code><br>代替如下<br><code>Select* from A inner join B ON A.uuid=B.uuid using(uuid) where b.uuid&gt;=3000;</code><br>第三：使用JOIN时候，应该用小的结果驱动打的结果（left join 左边表结果尽量小，如果有条件应该放到左边先处理，right join同理反向），同时尽量把牵涉到多表联合的查询拆分多个query  (多个表查询效率低，容易锁表和阻塞)。如：<br><code>Select * from A left join B A.id=B.ref_id where  A.id&gt;10;</code><br>可以优化为：<br><code>select * from (select * from A wehre id &gt;10) T1 left join B on T1.id=B.ref_id;</code></p>
-<h1 id="修改数据库字符集"><a href="#修改数据库字符集" class="headerlink" title="修改数据库字符集"></a>修改数据库字符集</h1><p><code>alter database dbname default character set utf8;</code></p>
+<h3 id="Spring-的注解方式的事务实现机制"><a href="#Spring-的注解方式的事务实现机制" class="headerlink" title="Spring 的注解方式的事务实现机制"></a>Spring 的注解方式的事务实现机制</h3><p>在应用系统调用声明@Transactional 的目标方法时，Spring Framework 默认使用 AOP 代理，在代码运行时生成一个代理对象，根据@Transactional 的属性配置信息，这个代理对象决定该声明@Transactional 的目标方法是否由拦截器 TransactionInterceptor 来使用拦截，在 TransactionInterceptor 拦截时，会在在目标方法开始执行之前创建并加入事务，并执行目标方法的逻辑, 最后根据执行情况是否出现异常，利用抽象事务管理器AbstractPlatformTransactionManager 操作数据源 DataSource 提交或回滚事务, </p>
+<p><img src="http://p964q970y.bkt.clouddn.com/spring%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6.png" alt="spring事务处理机制"><br>Spring AOP 代理有 CglibAopProxy 和 JdkDynamicAopProxy 两种，上图是以 CglibAopProxy 为例，对于 CglibAopProxy，需要调用其内部类的 DynamicAdvisedInterceptor 的 intercept 方法。对于 JdkDynamicAopProxy，需要调用其 invoke 方法。</p>
+<h3 id="spring的-Transactional也可以加在合适的方法上"><a href="#spring的-Transactional也可以加在合适的方法上" class="headerlink" title="spring的@Transactional也可以加在合适的方法上"></a>spring的@Transactional也可以加在合适的方法上</h3><p>常见的使用方法</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Transactional(rollbackFor = &#123;Exception.class&#125;, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)</span><br></pre></td></tr></table></figure>
+<p>需要注意下面三种 propagation 可以不启动事务。本来期望目标方法进行事务管理，但若是错误的配置这三种 propagation，事务将不会发生回滚。</p>
+<p>TransactionDefinition.PROPAGATION_SUPPORTS：如果当前存在事务，则加入该事务；如果当前没有事务，则以非事务的方式继续运行。<br>TransactionDefinition.PROPAGATION_NOT_SUPPORTED：以非事务方式运行，如果当前存在事务，则把当前事务挂起。<br>TransactionDefinition.PROPAGATION_NEVER：以非事务方式运行，如果当前存在事务，则抛出异常。</p>
+<p>注意事务的四种隔离级别和其中传播行为</p>
+<h3 id="rollbackFor"><a href="#rollbackFor" class="headerlink" title="rollbackFor"></a>rollbackFor</h3><p> 事务中抛出了未检查异常（RuntimeException）或者Error，Spring将回滚事务，除此之外不会回滚，或者可以自定义异常并指定rollbackFor<br> 清单 3. RollbackRuleAttribute 的 getDepth 方法</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> private int getDepth(Class&lt;?&gt; exceptionClass, int depth) &#123;</span><br><span class="line">        if (exceptionClass.getName().contains(this.exceptionName)) &#123;</span><br><span class="line">            // Found it!</span><br><span class="line">            return depth;</span><br><span class="line">&#125;</span><br><span class="line">        // If we&apos;ve gone as far as we can go and haven&apos;t found it...</span><br><span class="line">        if (exceptionClass == Throwable.class) &#123;</span><br><span class="line">            return -1;</span><br><span class="line">&#125;</span><br><span class="line">return getDepth(exceptionClass.getSuperclass(), depth + 1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Transactional-只能应用到-public-方法才有效"><a href="#Transactional-只能应用到-public-方法才有效" class="headerlink" title="@Transactional 只能应用到 public 方法才有效"></a>@Transactional 只能应用到 public 方法才有效</h3><p>只有@Transactional 注解应用到 public 方法，才能进行事务管理。这是因为在使用 Spring AOP 代理时，Spring 在调用在图 1 中的 TransactionInterceptor 在目标方法执行前后进行拦截之前，DynamicAdvisedInterceptor（CglibAopProxy 的内部类）的的 intercept 方法或 JdkDynamicAopProxy 的 invoke 方法会间接调用 AbstractFallbackTransactionAttributeSource（Spring 通过这个类获取 @Transactional 注解的事务属性配置属性信息）的 computeTransactionAttribute 方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">protected TransactionAttribute computeTransactionAttribute(Method method,</span><br><span class="line">    Class&lt;?&gt; targetClass) &#123;</span><br><span class="line">        // Don&apos;t allow no-public methods as required.</span><br><span class="line">        if (allowPublicMethodsOnly() &amp;&amp; !Modifier.isPublic(method.getModifiers())) &#123;</span><br><span class="line">return null;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="避免-Spring-的-AOP-的自调用问题"><a href="#避免-Spring-的-AOP-的自调用问题" class="headerlink" title="避免 Spring 的 AOP 的自调用问题"></a>避免 Spring 的 AOP 的自调用问题</h3><p>参考：<br><a href="https://www.ibm.com/developerworks/cn/java/j-master-spring-transactional-use/index.html" target="_blank" rel="noopener">透彻的掌握 Spring 中@transactional 的使用</a></p>
 
       
 
@@ -420,18 +245,22 @@ show variables like &apos;%storage_engine%&apos;;
     <div class="article-info article-info-index">
       
       
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/sql//" class="article-tag-list-link color4">sql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Transactional</a>
         		</li>
       		
 		</ul>
 	</div>
 
+      
 
       
 
@@ -481,7 +310,7 @@ show variables like &apos;%storage_engine%&apos;;
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://linnxh.online/sql/sql/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://linnxh.online/java/Spring事务处理机制/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -495,18 +324,18 @@ show variables like &apos;%storage_engine%&apos;;
   
 <nav id="article-nav">
   
-    <a href="/java/SpringBoot基础/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/java/Aspect面向切面编程/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          SpringBoot基础
+          Aspect面向切面编程
         
       </div>
     </a>
   
   
-    <a href="/java/java-18-01/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">java-18-01</div>
+    <a href="/java/spring初探索/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">spring初探索</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -533,7 +362,7 @@ show variables like &apos;%storage_engine%&apos;;
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#create-schema"><span class="toc-number">1.</span> <span class="toc-text">create schema</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据库"><span class="toc-number">2.</span> <span class="toc-text">数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#悲观锁-Pessimistic-Locking"><span class="toc-number">2.1.</span> <span class="toc-text">悲观锁(Pessimistic Locking):</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#乐观锁（-Optimistic-Locking-）"><span class="toc-number">2.2.</span> <span class="toc-text">乐观锁（ Optimistic Locking ）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MYSQL基本操作"><span class="toc-number">3.</span> <span class="toc-text">MYSQL基本操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#select-1-from-table"><span class="toc-number">4.</span> <span class="toc-text">select 1 from table</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JDBC"><span class="toc-number">5.</span> <span class="toc-text">JDBC</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#索引"><span class="toc-number">6.</span> <span class="toc-text">索引</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常用sql语句"><span class="toc-number">7.</span> <span class="toc-text">常用sql语句</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#事务"><span class="toc-number">8.</span> <span class="toc-text">事务</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据事务四种隔离机制和七种传播行为"><span class="toc-number">8.1.</span> <span class="toc-text">数据事务四种隔离机制和七种传播行为</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#存储过程："><span class="toc-number">9.</span> <span class="toc-text">存储过程：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sql引擎"><span class="toc-number">10.</span> <span class="toc-text">sql引擎</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sql优化"><span class="toc-number">11.</span> <span class="toc-text">sql优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#索引-1"><span class="toc-number">11.1.</span> <span class="toc-text">索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#like语句"><span class="toc-number">11.2.</span> <span class="toc-text">like语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#where语句使用in和not-in-也要慎用，否则也会导致全表扫描"><span class="toc-number">11.3.</span> <span class="toc-text">where语句使用in和not in 也要慎用，否则也会导致全表扫描</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#union-union-all"><span class="toc-number">11.4.</span> <span class="toc-text">union union all</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#where子句中对字段进行表达式操作的优化"><span class="toc-number">11.5.</span> <span class="toc-text">where子句中对字段进行表达式操作的优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Inner-join-和-left-join、right-join、子查询"><span class="toc-number">11.6.</span> <span class="toc-text">Inner join 和 left join、right join、子查询</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#修改数据库字符集"><span class="toc-number">12.</span> <span class="toc-text">修改数据库字符集</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring-的注解方式的事务实现机制"><span class="toc-number">1.</span> <span class="toc-text">Spring 的注解方式的事务实现机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#spring的-Transactional也可以加在合适的方法上"><span class="toc-number">2.</span> <span class="toc-text">spring的@Transactional也可以加在合适的方法上</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rollbackFor"><span class="toc-number">3.</span> <span class="toc-text">rollbackFor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Transactional-只能应用到-public-方法才有效"><span class="toc-number">4.</span> <span class="toc-text">@Transactional 只能应用到 public 方法才有效</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#避免-Spring-的-AOP-的自调用问题"><span class="toc-number">5.</span> <span class="toc-text">避免 Spring 的 AOP 的自调用问题</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -547,7 +376,7 @@ show variables like &apos;%storage_engine%&apos;;
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="sql/sql" data-title="sql" data-url="http://linnxh.online/sql/sql/"></div>
+	<div class="ds-thread" data-thread-key="java/Spring事务处理机制" data-title="Spring事务处理机制" data-url="http://linnxh.online/java/Spring事务处理机制/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -570,8 +399,8 @@ show variables like &apos;%storage_engine%&apos;;
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://linnxh.online/sql/sql/", 
-    sourceId: "sql/sql",
+    url: "http://linnxh.online/java/Spring事务处理机制/", 
+    sourceId: "java/Spring事务处理机制",
     productKey: "true",
     target: "cloud-tie-wrapper"
   };

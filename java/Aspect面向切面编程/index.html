@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Linnxh的博客">
 <meta property="og:description" content="AOP详解定义AOP（Aspect Orient Programming），我们一般称为面向方面（切面）编程，作为面向对象的一种补充，用于处理系统中分布于各个模块的横切关注点，比如事务管理、日志、缓存等等。 分类 静态代理，举例：AspectJ 动态代理，举例：Spring AOP，Spring AOP中的动态代理主要有两种方式，JDK动态代理和CGLIB动态代理Spring AOP的实现原理使用">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-07-05T06:30:31.134Z">
+<meta property="og:updated_time" content="2018-07-05T06:33:04.768Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Aspect面向切面编程">
 <meta name="twitter:description" content="AOP详解定义AOP（Aspect Orient Programming），我们一般称为面向方面（切面）编程，作为面向对象的一种补充，用于处理系统中分布于各个模块的横切关注点，比如事务管理、日志、缓存等等。 分类 静态代理，举例：AspectJ 动态代理，举例：Spring AOP，Spring AOP中的动态代理主要有两种方式，JDK动态代理和CGLIB动态代理Spring AOP的实现原理使用">
@@ -184,7 +184,8 @@
         <h2 id="AOP详解"><a href="#AOP详解" class="headerlink" title="AOP详解"></a>AOP详解</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>AOP（Aspect Orient Programming），我们一般称为面向方面（切面）编程，作为面向对象的一种补充，用于处理系统中分布于各个模块的横切关注点，比如事务管理、日志、缓存等等。</p>
 <h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><ol>
 <li>静态代理，举例：AspectJ</li>
-<li>动态代理，举例：Spring AOP，Spring AOP中的动态代理主要有两种方式，JDK动态代理和CGLIB动态代理<br><a href="http://www.importnew.com/24305.html" target="_blank" rel="noopener">Spring AOP的实现原理</a><br>使用AspectJ的编译时增强实现AOP<br>之前提到，AspectJ是静态代理的增强，所谓的静态代理就是AOP框架会在编译阶段生成AOP代理类，因此也称为编译时增强。</li>
+<li>动态代理，举例：Spring AOP，Spring AOP中的动态代理主要有两种方式，JDK动态代理和CGLIB动态代理<br><a href="http://www.importnew.com/24305.html" target="_blank" rel="noopener">Spring AOP的实现原理</a><br>使用AspectJ的编译时增强实现AOP<br>之前提到，AspectJ是静态代理的增强，所谓的静态代理就是AOP框架会在编译阶段生成AOP代理类，因此也称为编译时增强。<a id="more"></a>
+</li>
 </ol>
 <h4 id="AspectJ"><a href="#AspectJ" class="headerlink" title="AspectJ"></a>AspectJ</h4><p>举个实例的例子来说。首先我们有一个普通的Hello类</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class Hello &#123;</span><br><span class="line">    public void sayHello() &#123;</span><br><span class="line">        System.out.println(&quot;hello&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Hello h = new Hello();</span><br><span class="line">        h.sayHello();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -335,8 +336,8 @@
 <nav id="article-nav">
   
   
-    <a href="/java/spring初探索/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">spring初探索</div>
+    <a href="/java/Spring事务处理机制/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spring事务处理机制</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -520,7 +521,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">springboot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -528,7 +541,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Transactional</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -537,14 +554,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sku</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sql</a>
               </li>
             
             <div class="clearfix"></div>
