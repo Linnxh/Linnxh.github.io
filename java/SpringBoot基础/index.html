@@ -164,356 +164,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-java/SpringBoot基础" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      SpringBoot基础
-    </h1>
-  
-
-        
-        <a href="/java/SpringBoot基础/" class="archive-article-date">
-  	<time datetime="2018-05-15T07:45:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-15</time>
-</a>
-        
-      </header>
-    
-   
-    <div class="article-entry" itemprop="articleBody">
-      
-       <!--  -->
-        <h1 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h1><p>本人使用的mac idea版本，intellij idea 2017.3.3(ultimate edition),破解方法，[idea 破解方法见链接][1]<br><a id="more"></a></p>
-<ol>
-<li><p>File –>new —>project<br><img src="http://p964q970y.bkt.clouddn.com/%E6%96%B0%E5%BB%BA-1.png" alt="ssss"></p>
-</li>
-<li><p>项目名称等<br><img src="http://p964q970y.bkt.clouddn.com/%E6%96%B0%E5%BB%BA-2.png" alt="新建springboot项目"></p>
-</li>
-<li>点击左侧标签web，右侧选择web；左侧sql，选择mysql或者自己需要的数据库<br><img src="http://p964q970y.bkt.clouddn.com/%E6%96%B0%E5%BB%BA-3.png" alt="新建springboot项目"></li>
-<li>选择项目存储路径<br><img src="http://p964q970y.bkt.clouddn.com/%E6%96%B0%E5%BB%BA-4.png" alt="新建springboot项目"></li>
-</ol>
-<h1 id="springboot-配置不同的环境变量"><a href="#springboot-配置不同的环境变量" class="headerlink" title="springboot 配置不同的环境变量"></a>springboot 配置不同的环境变量</h1><p>三套配置文件<br>application.properties<br>application-test.properties  test环境的设置<br>application-dev.properties  dev环境的设置</p>
-<p>主配置文件<br>application.properties中设置spring.profiles.active=dev   取的是dev里环境配置</p>
-<p>命令行打包命令  <code>mvn clean install -Dmaven.test.skip=true</code><br>命令行运行jar包， 如果想指定环境（指定用test的环境）   <code>java -jar lxhdemo.jar --spring.profiles.active=test</code></p>
-<h1 id="jenkins自动打包配置"><a href="#jenkins自动打包配置" class="headerlink" title="jenkins自动打包配置"></a>jenkins自动打包配置</h1><p>安装jenkins请自行百度吧</p>
-<h2 id="关键配置"><a href="#关键配置" class="headerlink" title="关键配置"></a>关键配置</h2><p>post steps选择send files or execute commands over ssh<br>ssh server 是在系统设置里配置的，配置方法如下</p>
-<p>transfers 配置注意具体位置，/user/local/springboot/start.sh 后面两个参数demo.jar test</p>
-<blockquote>
-<p>demo.jar test分别是 start.sh的两个入参,前者代表打成的jar包的名称，具体方法可在build中添加如下配置<code>&lt;finalName&gt;demo&lt;/finalName&gt;</code>,后者test则指的是环境的配置取，application-test.properties，在shell里的<code>java -jar $JARFILE --spring.profiles.active=$2</code> 就可以取到对应的值</p>
-</blockquote>
-<h2 id="启动springboot项目的shell"><a href="#启动springboot项目的shell" class="headerlink" title="启动springboot项目的shell"></a>启动springboot项目的shell</h2><pre><code>#!/usr/bin/env bash 
-
-echo &quot;-------------------------cd start.sh--------------------------&quot;
-DATE=$(date +%Y%m%d-%H%M%S)
-export JAVA_HOME PATH CLASSPATH
-JAVA_HOME=/usr/local/jdk
-PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH
-CLASSPATH=.:$JAVA_HOME/lib:$JAVA_HOME/jre/lib:$CLASSPATH
-#操作目录
-DIR=/usr/local/springboot/
-JARFILE=$1
-PROFILESACTIVE=$2
-
-echo &quot;--JARFILE--&gt;&quot;+$JARFILE+&quot;--PROFILES_ACTIVE----&gt;&quot;+$PROFILESACTIVE
-
-echo &quot;-------------------------var startus end------------------&quot;
-
-#创建备份目录
-if [ ! -d $DIR/backup ];then
-   mkdir -p $DIR/backup
-fi
-
-#进入操作目录
-cd $DIR
-echo &quot;-------------------------cd dir--------------------------&quot;;
-
-
-temp_pid=`ps -ef | grep $JARFILE | grep -v grep |grep java| awk &apos;{print $2}&apos;`;
-
-echo &quot;---temp_id--&quot;+$temp_pid;
-
-if [ -n $temp_pid ];then
-
-    kill -9 $temp_pid
-    echo &quot;---------kill -9--------&quot;$temp_pid&quot;-------------&quot;
-
-fi
-
-
-# 将war包copy移动到springboot目录
-mv -f /usr/local/jenkinsin/$JARFILE .
-
-#移动纸备份目录
-if [  -e $JARFILE ];then
-   cp $JARFILE backup/$JARFILE$DATE
-fi
-
-echo &quot;-------------------------copy file--------------------------&quot;
-
-#命令行启动项目 
-java -jar $JARFILE --spring.profiles.active=$PROFILESACTIVE &gt; out.log &amp;
-
-if [ $? = 0 ];then
-        sleep 30
-        #输入 out.log的前50代码
-        tail -n 50 out.log
-fi
-
-#保留最近5个包，其他的清楚
-cd backup/
-ls -lt|awk &apos;NR&gt;5{print $NF}&apos;|xargs rm -rf
-
-echo &quot;--------------------------sucess start spring boot demo--------------------------&quot;
-</code></pre><h3 id="涉及到shell用法"><a href="#涉及到shell用法" class="headerlink" title="涉及到shell用法"></a>涉及到shell用法</h3><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>-e filename</td>
-<td>如果 filename存在，则为真</td>
-</tr>
-<tr>
-<td>-d filename</td>
-<td>如果 filename为目录，则为真</td>
-</tr>
-<tr>
-<td>-f filename</td>
-<td>如果 filename为常规文件，则为真</td>
-</tr>
-<tr>
-<td>> 文件名称</td>
-<td>清空该文件下的内容，文件，文件，不是文件夹</td>
-</tr>
-<tr>
-<td>文字内容 > 文件名称</td>
-<td>将文字内容插入到文件名称</td>
-</tr>
-<tr>
-<td>rm -rf 目录名</td>
-<td>删除目录</td>
-</tr>
-<tr>
-<td>{print $2}</td>
-<td>打印第二个字段</td>
-</tr>
-<tr>
-<td>xargs</td>
-<td>使用上一个操作的结果作为下一个命令的参数使用</td>
-</tr>
-<tr>
-<td>grep -v grep</td>
-<td>并过滤掉含有grep的命令</td>
-</tr>
-<tr>
-<td>rm filename</td>
-<td>删除文件</td>
-</tr>
-<tr>
-<td>mv dictionary1 dictonary2</td>
-<td>由dictionary1移动到dictionary2</td>
-</tr>
-</tbody>
-</table>
-<p><code>ps -ef | grep $JARFILE | grep -v grep | awk &#39;{print $2}&#39; | xargs kill -9|</code> 查看所有进程， 查出所有 含有$JARFILE的命令，输出第二个参数，并将所有改进程杀死</p>
-<h1 id="代码路径"><a href="#代码路径" class="headerlink" title="代码路径"></a>代码路径</h1><p>[github代码地址][2]</p>
-<h1 id="地址"><a href="#地址" class="headerlink" title="地址"></a>地址</h1>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">springboot</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://linnxh.online/java/SpringBoot基础/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/java/商品详情切换sku/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          商品详情切换sku
-        
-      </div>
-    </a>
-  
-  
-    <a href="/sql/sql/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">sql</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#搭建"><span class="toc-number">1.</span> <span class="toc-text">搭建</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#springboot-配置不同的环境变量"><span class="toc-number">2.</span> <span class="toc-text">springboot 配置不同的环境变量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#jenkins自动打包配置"><span class="toc-number">3.</span> <span class="toc-text">jenkins自动打包配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#关键配置"><span class="toc-number">3.1.</span> <span class="toc-text">关键配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动springboot项目的shell"><span class="toc-number">3.2.</span> <span class="toc-text">启动springboot项目的shell</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#涉及到shell用法"><span class="toc-number">3.2.1.</span> <span class="toc-text">涉及到shell用法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码路径"><span class="toc-number">4.</span> <span class="toc-text">代码路径</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#地址"><span class="toc-number">5.</span> <span class="toc-text">地址</span></a></li></ol>
-                    </div>
-                </span>
-            </div>
-        </div>
-        
-    </div>
-</aside>
-
-
-
-  
-  <div class="duoshuo">
-	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="java/SpringBoot基础" data-title="SpringBoot基础" data-url="http://linnxh.online/java/SpringBoot基础/"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"true"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-	<!-- 多说公共JS代码 end -->
-</div>
-
-  
-  
-  
-  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
-<script>
-  var cloudTieConfig = {
-    url: "http://linnxh.online/java/SpringBoot基础/", 
-    sourceId: "java/SpringBoot基础",
-    productKey: "true",
-    target: "cloud-tie-wrapper"
-  };
-</script>
-<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
-  
-
-  
-
-  
-
-  
-
-
-
-
+            
           </div>
         </div>
       </div>
@@ -616,11 +267,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">springboot</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">aop</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -632,23 +291,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">aop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">缓存</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sql</a>
               </li>
              
               <li class="article-tag-list-item">
