@@ -161,7 +161,265 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-sql/mongodb" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      mongodb初印象
+    </h1>
+  
+
+        
+        <a href="/sql/mongodb/" class="archive-article-date">
+  	<time datetime="2018-06-04T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-05</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+       <!--  -->
+        <p>之前只接触过一种数据库mysql，偶然间接到一个需求，发现数据是存在mongodb里的，接下来就记录一下我认识mongodb的过程。<br><a id="more"></a></p>
+<h1 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h1><p>MongoDB 是一个基于分布式文件存储的数据库。由 C++ 语言编写。旨在为 WEB 应用提供可扩展的高性能数据存储解决方案。</p>
+<p>MongoDB 是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。</p>
+<h1 id="二、特性"><a href="#二、特性" class="headerlink" title="二、特性"></a>二、特性</h1><p>面向集合存储，易于存储对象类型的数据<br>模式自由<br>支持动态查询<br>支持完全索引，包含内部对象<br>支持复制和故障恢复<br>使用高效的二进制数据存储，包括大型对象<br>文件存储格式为BSON(一种JSON的扩展)</p>
+<h1 id="三、MongoDB基本概念"><a href="#三、MongoDB基本概念" class="headerlink" title="三、MongoDB基本概念"></a>三、MongoDB基本概念</h1><ol>
+<li>文档：是MongoDB中数据的基本单元，非常类似于关系型数据库系统中的行（但是比行要复杂很多）</li>
+<li>集合：就是一组文档，如果说MongoDB中的文档类似于关系型数据库中的行，那么集合就如同表</li>
+<li>MongoDB的单个计算机可以容纳多个独立的数据库，每一个数据库都有自己的集合和权限</li>
+<li>MongoDB自带简洁但功能强大的JavaScript shell，这个工具对于管理MongoDB实例和操作数据库作用非常大</li>
+<li>每一个文档都有一个特殊的键”_id”,它在文档所处的集合中是唯一的，相当于关系数据库中的表的主键</li>
+</ol>
+<p><img src="http://p964q970y.bkt.clouddn.com/QQ20180605-143022.png" alt="mongodb和mysql对比"></p>
+<h1 id="四、安装注意事项"><a href="#四、安装注意事项" class="headerlink" title="四、安装注意事项"></a>四、安装注意事项</h1><p>因为我的虚拟机好像内存不够了，用<code>mongod</code>启动提示内存不足什么的，改用<code>mongod --smallfiles</code>的方式启动mongo就可以了</p>
+<p>如果界面一直卡在<br>wating for 2110端口上，表示已经开启了mongodb，新开一个命令行输入mongo即可进入</p>
+<h1 id="五、基本操作"><a href="#五、基本操作" class="headerlink" title="五、基本操作"></a>五、基本操作</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">show dbs    show databases  //显示所有数据库</span><br><span class="line">use lxhtest  //如果存在该数据库就使用该数据库，否则就创建该数据库</span><br><span class="line">show collections  //显示所有集合（mysql，显示所有表）</span><br><span class="line"></span><br><span class="line">//查</span><br><span class="line">db.lxhtest.find().pretty()  //查询出lxhtest的所有行</span><br><span class="line">db.lxhtest.find(&#123;“name”:&quot;test-lxh&quot;&#125;).pretty() </span><br><span class="line"></span><br><span class="line">//增</span><br><span class="line">db.createCollection(&quot;runnoob&quot;)  //创建名称为runnoob的集合（mysql中的数据库）</span><br><span class="line">db.runnoob.insert(&#123;&quot;name&quot;:&quot;test-lxh&quot;&#125;)  //向集合名称为runnoob中插入该条数据</span><br><span class="line"></span><br><span class="line">//删 </span><br><span class="line">db.runnoob.drop()  //删除runnoob集合（mysql中删除表）</span><br><span class="line">use lxhtest2   </span><br><span class="line">db.dropDatabase()   //删除lxhtest2数据库</span><br><span class="line"></span><br><span class="line">//改</span><br><span class="line">db.runnoob.update(&#123;&apos;name&apos;:&apos;test-lxh&apos;&#125;,&#123;$set:&#123;&apos;name&apos;:&apos;test-lxh&apos;&#125;&#125;)  //以上语句只会修改第一条发现的文档，如果你要修改多条相同的文档，则需要设置 multi 参数为 true。</span><br><span class="line">db.runnoob.update(&#123;&apos;name&apos;:&apos;test-lxh&apos;&#125;,&#123;$set:&#123;&apos;name&apos;:&apos;test-lxh&apos;&#125;&#125;,&#123;multi:true&#125;)</span><br><span class="line">db.col.save(&#123; &quot;_id&quot; : ObjectId(&quot;56064f89ade2f21f36b03136&quot;), &quot;name&quot; : &quot;test-lxh2222&quot;&#125;)//将id为56064f89ade2f21f36b03136数据修改为。。。</span><br><span class="line"></span><br><span class="line">//数量</span><br><span class="line">db.users.find().count();</span><br></pre></td></tr></table></figure>
+<h1 id="六、分片存储"><a href="#六、分片存储" class="headerlink" title="六、分片存储"></a>六、分片存储</h1>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://linnxh.online/sql/mongodb/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/java/spring初探索/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          spring初探索
+        
+      </div>
+    </a>
+  
+  
+    <a href="/java/商品详情切换sku/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">商品详情切换sku</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、介绍"><span class="toc-number">1.</span> <span class="toc-text">一、介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、特性"><span class="toc-number">2.</span> <span class="toc-text">二、特性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、MongoDB基本概念"><span class="toc-number">3.</span> <span class="toc-text">三、MongoDB基本概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、安装注意事项"><span class="toc-number">4.</span> <span class="toc-text">四、安装注意事项</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五、基本操作"><span class="toc-number">5.</span> <span class="toc-text">五、基本操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六、分片存储"><span class="toc-number">6.</span> <span class="toc-text">六、分片存储</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="sql/mongodb" data-title="mongodb初印象" data-url="http://linnxh.online/sql/mongodb/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+  
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://linnxh.online/sql/mongodb/", 
+    sourceId: "sql/mongodb",
+    productKey: "true",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+  
+
+  
+
+  
+
+
+
+ 
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "YvrDo8i7S82D6P8Nkakr9gI2-gzGzoHsz",
+            app_key: "vw9R5Xqo4RvBGLy84umOsRlv",
+            placeholder: "Just go go",
+            avatar:"mm"
+        });
+    }
+</script>
+    </section>
+  
+
+
+
+
+
+
+
+
+
+
           </div>
         </div>
       </div>
@@ -264,14 +522,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">springboot</a>
               </li>
              
@@ -280,15 +530,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">aop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">transactional</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">aop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -305,6 +555,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sku</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sql</a>
               </li>
             
             <div class="clearfix"></div>
