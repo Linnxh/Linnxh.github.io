@@ -8,20 +8,21 @@
   <link rel="dns-prefetch" href="http://linnxh.online">
   <title>Spring事务处理机制 | Linnxh的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在应用系统调用声明@Transactional 的目标方法时，Spring Framework 默认使用 AOP 代理，在代码运行时生成一个代理对象，根据@Transactional 的属性配置信息，这个代理对象决定该声明@Transactional 的目标方法是否由拦截器 TransactionInterceptor 来使用拦截，在 TransactionInterceptor 拦截时，会在在目">
-<meta name="keywords" content="spring,Transactional">
+  <meta name="description" content="事务管理器Spring对事务管理是通过事务管理器来实现的。Spring提供了许多内置事务管理器实现： 事务管理器(org.springframework.*)使用场景    事务管理器器 使用场景     DataSourceTransactionManager 数据源事务管理器，提供对单个javax.sql.DataSource事务管理，用于Spring JDBC抽象框架、iBATIS或MyBa">
+<meta name="keywords" content="spring,transactional">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring事务处理机制">
 <meta property="og:url" content="http://linnxh.online/java/Spring事务处理机制/index.html">
 <meta property="og:site_name" content="Linnxh的博客">
-<meta property="og:description" content="在应用系统调用声明@Transactional 的目标方法时，Spring Framework 默认使用 AOP 代理，在代码运行时生成一个代理对象，根据@Transactional 的属性配置信息，这个代理对象决定该声明@Transactional 的目标方法是否由拦截器 TransactionInterceptor 来使用拦截，在 TransactionInterceptor 拦截时，会在在目">
+<meta property="og:description" content="事务管理器Spring对事务管理是通过事务管理器来实现的。Spring提供了许多内置事务管理器实现： 事务管理器(org.springframework.*)使用场景    事务管理器器 使用场景     DataSourceTransactionManager 数据源事务管理器，提供对单个javax.sql.DataSource事务管理，用于Spring JDBC抽象框架、iBATIS或MyBa">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/spring%E5%86%85%E7%BD%AE%E7%9A%84%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8.png">
 <meta property="og:image" content="http://p964q970y.bkt.clouddn.com/spring%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6.png">
-<meta property="og:updated_time" content="2018-07-05T09:42:20.388Z">
+<meta property="og:updated_time" content="2018-07-09T02:02:21.639Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring事务处理机制">
-<meta name="twitter:description" content="在应用系统调用声明@Transactional 的目标方法时，Spring Framework 默认使用 AOP 代理，在代码运行时生成一个代理对象，根据@Transactional 的属性配置信息，这个代理对象决定该声明@Transactional 的目标方法是否由拦截器 TransactionInterceptor 来使用拦截，在 TransactionInterceptor 拦截时，会在在目">
-<meta name="twitter:image" content="http://p964q970y.bkt.clouddn.com/spring%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6.png">
+<meta name="twitter:description" content="事务管理器Spring对事务管理是通过事务管理器来实现的。Spring提供了许多内置事务管理器实现： 事务管理器(org.springframework.*)使用场景    事务管理器器 使用场景     DataSourceTransactionManager 数据源事务管理器，提供对单个javax.sql.DataSource事务管理，用于Spring JDBC抽象框架、iBATIS或MyBa">
+<meta name="twitter:image" content="http://p964q970y.bkt.clouddn.com/spring%E5%86%85%E7%BD%AE%E7%9A%84%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8.png">
   
     <link rel="alternative" href="/atom.xml" title="Linnxh的博客" type="application/atom+xml">
   
@@ -183,8 +184,66 @@
     <div class="article-entry" itemprop="articleBody">
       
        <!--  -->
-        <p>在应用系统调用声明@Transactional 的目标方法时，Spring Framework 默认使用 AOP 代理，在代码运行时生成一个代理对象，根据@Transactional 的属性配置信息，这个代理对象决定该声明@Transactional 的目标方法是否由拦截器 TransactionInterceptor 来使用拦截，在 TransactionInterceptor 拦截时，会在在目标方法开始执行之前创建并加入事务，并执行目标方法的逻辑, 最后根据执行情况是否出现异常</p>
-<p>@Transactional 注解管理事务的实现步骤<br>使用@Transactional 注解管理事务的实现步骤分为两步。第一步，在 xml 配置文件中添加如清单 1 的事务配置信息。除了用配置文件的方式，@EnableTransactionManagement 注解也可以启用事务管理功能。这里以简单的 DataSourceTransactionManager 为例。</p>
+        <h1 id="事务管理器"><a href="#事务管理器" class="headerlink" title="事务管理器"></a>事务管理器</h1><p>Spring对事务管理是通过事务管理器来实现的。Spring提供了许多内置事务管理器实现：</p>
+<p>事务管理器(org.springframework.*)使用场景</p>
+<table>
+<thead>
+<tr>
+<th>事务管理器器</th>
+<th>使用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DataSourceTransactionManager</td>
+<td>数据源事务管理器，提供对单个javax.sql.DataSource事务管理，用于Spring JDBC抽象框架、iBATIS或MyBatis框架的事务管理；</td>
+</tr>
+<tr>
+<td>JdoTransactionManager</td>
+<td>提供对单个javax.jdo.PersistenceManagerFactory事务管理，用于集成JDO框架时的事务管理；</td>
+</tr>
+<tr>
+<td>JpaTransactionManager</td>
+<td>提供对单个javax.persistence.EntityManagerFactory事务支持，用于集成JPA实现框架时的事务管理；</td>
+</tr>
+<tr>
+<td>HibernateTransactionManager</td>
+<td>提供对单个org.hibernate.SessionFactory事务支持，用于集成</td>
+<td>Hibernate框架时的事务管理；该事务管理器只支持Hibernate3+版本，且Spring3.0+版本只支持Hibernate 3.2+版本；</td>
+</tr>
+<tr>
+<td>JtaTransactionManager</td>
+<td>提供对分布式事务管理的支持，并将事务管理委托给Java EE应用服务器事务管理器；</td>
+</tr>
+<tr>
+<td>OC4JjtaTransactionManager</td>
+<td>Spring提供的对OC4J10.1.3+应用服务器事务管理器的适配器，此适配器用于对应用服务器提供的高级事务的支持；</td>
+</tr>
+<tr>
+<td>WebSphereUowTransactionManager</td>
+<td>Spring提供的对WebSphere 6.0+应用服务器事务管理器的适配器，此适配器用于对应用服务器提供的高级事务的支持；</td>
+</tr>
+<tr>
+<td>WebLogicJtaTransactionManager</td>
+<td>Spring提供的对WebLogic 8.1+应用服务器事务管理器的适配器，此适配器用于对应用服务器提供的高级事务的支持。</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<p><img src="http://p964q970y.bkt.clouddn.com/spring%E5%86%85%E7%BD%AE%E7%9A%84%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8.png" alt="Spring内置的管理器"><br>以上就是Spring中支持使用的事务管理器，一般我们比较常用的就是HibernateTransactionManager和DataSourceTransactionManager。我们在使用事务的时候要声明要使用哪种事务管理器。如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;tx:annotation-driven /&gt;</span><br><span class="line">&lt;bean id=&quot;transactionManager&quot;</span><br><span class="line">class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</span><br><span class="line">&lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="编程式和声明式事务"><a href="#编程式和声明式事务" class="headerlink" title="编程式和声明式事务"></a>编程式和声明式事务</h1><p>Spring提供了对编程式事务和声明式事务的支持</p>
+<ul>
+<li>编程式事务<br>允许用户在代码中精确定义事务的边界，侵入到了业务代码里面，但是提供了更加详细的事务管理</li>
+<li>声明式事务<br>由于基于AOP，所以既能起到事务管理的作用，又可以不影响业务代码的具体实现，有助于用户将操作与事务规则进行解耦，</li>
+</ul>
+<h2 id="编程式"><a href="#编程式" class="headerlink" title="编程式"></a>编程式</h2><p>以下是以TransactionTemplate和PlatformTransactionManager为例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">import javax.naming.Context;</span><br><span class="line">import javax.naming.InitialContext;</span><br><span class="line">import javax.sql.DataSource;</span><br><span class="line"></span><br><span class="line">import org.springframework.jdbc.core.JdbcTemplate;</span><br><span class="line">import org.springframework.jdbc.datasource.DataSourceTransactionManager;</span><br><span class="line">import org.springframework.transaction.PlatformTransactionManager;</span><br><span class="line">import org.springframework.transaction.TransactionStatus;</span><br><span class="line">import org.springframework.transaction.support.DefaultTransactionDefinition;</span><br><span class="line">import org.springframework.transaction.support.TransactionCallback;</span><br><span class="line">import org.springframework.transaction.support.TransactionCallbackWithoutResult;</span><br><span class="line">import org.springframework.transaction.support.TransactionTemplate;</span><br><span class="line"></span><br><span class="line">@SuppressWarnings(&quot;all&quot;)</span><br><span class="line">public class Test &#123;</span><br><span class="line"></span><br><span class="line">	public void m1() throws Exception &#123;</span><br><span class="line">		TransactionTemplate transactionTemplate = TemplateUtils</span><br><span class="line">				.getTransactionTemplate();</span><br><span class="line">		Object object = transactionTemplate.execute(new TransactionCallback() &#123;</span><br><span class="line">			public Object doInTransaction(TransactionStatus status) &#123;</span><br><span class="line">				try &#123;</span><br><span class="line">					// 数据库操作1</span><br><span class="line">					// 数据库操作2</span><br><span class="line">				&#125; catch (Exception e) &#123;</span><br><span class="line">					status.setRollbackOnly();</span><br><span class="line">					e.printStackTrace();</span><br><span class="line">				&#125;</span><br><span class="line">				return null;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void m2() throws Exception &#123;</span><br><span class="line">		TransactionTemplate transactionTemplate = TemplateUtils</span><br><span class="line">				.getTransactionTemplate();</span><br><span class="line">		transactionTemplate.execute(new TransactionCallbackWithoutResult() &#123;</span><br><span class="line">			protected void doInTransactionWithoutResult(TransactionStatus s) &#123;</span><br><span class="line">				try &#123;</span><br><span class="line">					// 数据库操作1</span><br><span class="line">					// 数据库操作2</span><br><span class="line">				&#125; catch (Exception e) &#123;</span><br><span class="line">					s.setRollbackOnly();</span><br><span class="line">					e.printStackTrace();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void m3() throws Exception &#123;</span><br><span class="line">		Context ctx = new InitialContext();</span><br><span class="line">		DataSource ds = (DataSource) ctx.lookup(&quot;java:OracleDS&quot;);</span><br><span class="line">		JdbcTemplate jt = new JdbcTemplate(ds);</span><br><span class="line">		DefaultTransactionDefinition tf = new DefaultTransactionDefinition();</span><br><span class="line">		PlatformTransactionManager tm = new DataSourceTransactionManager(ds);</span><br><span class="line">		TransactionStatus ts = tm.getTransaction(tf);</span><br><span class="line">		try &#123;</span><br><span class="line">			// 数据库操作1</span><br><span class="line">			// 数据库操作2</span><br><span class="line">			tm.commit(ts);</span><br><span class="line">		&#125; catch (Exception e) &#123;</span><br><span class="line">			tm.rollback(ts);</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="声明式"><a href="#声明式" class="headerlink" title="声明式"></a>声明式</h2><p>有很多种，举例如下</p>
+<h3 id="tx拦截器"><a href="#tx拦截器" class="headerlink" title="tx拦截器"></a>tx拦截器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 配置事务管理器 --&gt;</span><br><span class="line">    &lt;bean id=&quot;transactionManager&quot; class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot; /&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 注解方式配置事物 --&gt;</span><br><span class="line">    &lt;!-- &lt;tx:annotation-driven transaction-manager=&quot;transactionManager&quot; /&gt; --&gt;</span><br><span class="line"> </span><br><span class="line">    &lt;!-- 拦截器方式配置事物 --&gt;</span><br><span class="line">    &lt;tx:advice id=&quot;transactionAdvice&quot; transaction-manager=&quot;transactionManager&quot;&gt;</span><br><span class="line">        &lt;tx:attributes&gt;</span><br><span class="line">            &lt;tx:method name=&quot;add*&quot; propagation=&quot;REQUIRED&quot; /&gt;</span><br><span class="line">            &lt;tx:method name=&quot;insert*&quot; propagation=&quot;REQUIRED&quot; /&gt;</span><br><span class="line">            &lt;tx:method name=&quot;update*&quot; propagation=&quot;REQUIRED&quot; /&gt;</span><br><span class="line">            &lt;tx:method name=&quot;modify*&quot; propagation=&quot;REQUIRED&quot; /&gt;</span><br><span class="line">            &lt;tx:method name=&quot;delete*&quot; propagation=&quot;REQUIRED&quot; /&gt;</span><br><span class="line">            &lt;tx:method name=&quot;delAndRepair&quot; propagation=&quot;REQUIRED&quot; /&gt;</span><br><span class="line"></span><br><span class="line">            &lt;tx:method name=&quot;get*&quot; propagation=&quot;SUPPORTS&quot; /&gt;</span><br><span class="line">            &lt;tx:method name=&quot;find*&quot; propagation=&quot;SUPPORTS&quot; /&gt;</span><br><span class="line">            &lt;tx:method name=&quot;search*&quot; propagation=&quot;SUPPORTS&quot; /&gt;</span><br><span class="line"></span><br><span class="line">            &lt;tx:method name=&quot;*&quot; propagation=&quot;SUPPORTS&quot; /&gt;</span><br><span class="line">        &lt;/tx:attributes&gt;</span><br><span class="line">    &lt;/tx:advice&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;aop:config&gt;</span><br><span class="line">            &lt;!--- 表示com.fog.travel.service包下的所有方法为为事务管理 --&gt;</span><br><span class="line">        &lt;aop:pointcut id=&quot;transactionPointcut&quot; expression=&quot;execution(* com.fog.travel.service..*impl.*(..))&quot; /&gt;</span><br><span class="line">        &lt;aop:advisor pointcut-ref=&quot;transactionPointcut&quot; advice-ref=&quot;transactionAdvice&quot; /&gt;</span><br><span class="line">    &lt;/aop:config&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">expression=&quot;execution(* com.fog.travel.service.impl.*.*(..))&quot;</span><br><span class="line"> </span><br><span class="line">这样写应该就可以了 这是com.fog.travel.service..*impl包下所有的类的所有方法。。</span><br><span class="line">第一个*代表所有的返回值类型 </span><br><span class="line">第二个*代表所有的类</span><br><span class="line">第三个*代表类所有方法 最后一个..代表所有的参数。</span><br></pre></td></tr></table></figure>
+<h3 id="Transactional注解方式"><a href="#Transactional注解方式" class="headerlink" title="@Transactional注解方式"></a>@Transactional注解方式</h3><p>在应用系统调用声明@Transactional 的目标方法时，Spring Framework 默认使用 AOP 代理，在代码运行时生成一个代理对象，根据@Transactional 的属性配置信息，这个代理对象决定该声明@Transactional 的目标方法是否由拦截器 TransactionInterceptor 来使用拦截，在 TransactionInterceptor 拦截时，会在在目标方法开始执行之前创建并加入事务，并执行目标方法的逻辑, 最后根据执行情况是否出现异常</p>
+<h4 id="Transactional-注解管理事务的实现步骤"><a href="#Transactional-注解管理事务的实现步骤" class="headerlink" title="@Transactional 注解管理事务的实现步骤"></a>@Transactional 注解管理事务的实现步骤</h4><p>使用@Transactional 注解管理事务的实现步骤分为两步。第一步，在 xml 配置文件中添加如清单 1 的事务配置信息。除了用配置文件的方式，@EnableTransactionManagement 注解也可以启用事务管理功能。这里以简单的 DataSourceTransactionManager 为例。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;tx:annotation-driven /&gt;</span><br><span class="line">&lt;bean id=&quot;transactionManager&quot;</span><br><span class="line">class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</span><br><span class="line">&lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
 <p>第二步，将@Transactional 注解添加到合适的方法上，并设置合适的属性信息。@Transactional 注解的属性信息如表 1 展示。<br>表 1. @Transactional 注解的属性信息</p>
 <table>
@@ -225,18 +284,22 @@
 </tr>
 </tbody>
 </table>
-<h3 id="Spring-的注解方式的事务实现机制"><a href="#Spring-的注解方式的事务实现机制" class="headerlink" title="Spring 的注解方式的事务实现机制"></a>Spring 的注解方式的事务实现机制</h3><p>在应用系统调用声明@Transactional 的目标方法时，Spring Framework 默认使用 AOP 代理，在代码运行时生成一个代理对象，根据@Transactional 的属性配置信息，这个代理对象决定该声明@Transactional 的目标方法是否由拦截器 TransactionInterceptor 来使用拦截，在 TransactionInterceptor 拦截时，会在在目标方法开始执行之前创建并加入事务，并执行目标方法的逻辑, 最后根据执行情况是否出现异常，利用抽象事务管理器AbstractPlatformTransactionManager 操作数据源 DataSource 提交或回滚事务, </p>
-<p><img src="http://p964q970y.bkt.clouddn.com/spring%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6.png" alt="spring事务处理机制"><br>Spring AOP 代理有 CglibAopProxy 和 JdkDynamicAopProxy 两种，上图是以 CglibAopProxy 为例，对于 CglibAopProxy，需要调用其内部类的 DynamicAdvisedInterceptor 的 intercept 方法。对于 JdkDynamicAopProxy，需要调用其 invoke 方法。</p>
-<h3 id="spring的-Transactional也可以加在合适的方法上"><a href="#spring的-Transactional也可以加在合适的方法上" class="headerlink" title="spring的@Transactional也可以加在合适的方法上"></a>spring的@Transactional也可以加在合适的方法上</h3><p>常见的使用方法</p>
+<h4 id="Spring-的注解方式的事务实现机制"><a href="#Spring-的注解方式的事务实现机制" class="headerlink" title="Spring 的注解方式的事务实现机制"></a>Spring 的注解方式的事务实现机制</h4><p>在应用系统调用声明@Transactional 的目标方法时，Spring Framework 默认使用 AOP 代理，在代码运行时生成一个代理对象，根据@Transactional 的属性配置信息，这个代理对象决定该声明@Transactional 的目标方法是否由拦截器 TransactionInterceptor 来使用拦截，在 TransactionInterceptor 拦截时，会在在目标方法开始执行之前创建并加入事务，并执行目标方法的逻辑, 最后根据执行情况是否出现异常，利用抽象事务管理器AbstractPlatformTransactionManager 操作数据源 DataSource 提交或回滚事务, </p>
+<p><img src="http://p964q970y.bkt.clouddn.com/spring%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6.png" alt="spring事务处理机制"></p>
+<p>Spring AOP 代理有 CglibAopProxy 和 JdkDynamicAopProxy 两种，上图是以 CglibAopProxy 为例，对于 CglibAopProxy，需要调用其内部类的 DynamicAdvisedInterceptor 的 intercept 方法。对于 JdkDynamicAopProxy，需要调用其 invoke 方法。</p>
+<h4 id="spring的-Transactional也可以加在合适的方法上"><a href="#spring的-Transactional也可以加在合适的方法上" class="headerlink" title="spring的@Transactional也可以加在合适的方法上"></a>spring的@Transactional也可以加在合适的方法上</h4><p>常见的使用方法</p>
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Transactional(rollbackFor = &#123;Exception.class&#125;, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)</span><br></pre></td></tr></table></figure>
 <p>需要注意下面三种 propagation 可以不启动事务。本来期望目标方法进行事务管理，但若是错误的配置这三种 propagation，事务将不会发生回滚。</p>
 <p>TransactionDefinition.PROPAGATION_SUPPORTS：如果当前存在事务，则加入该事务；如果当前没有事务，则以非事务的方式继续运行。<br>TransactionDefinition.PROPAGATION_NOT_SUPPORTED：以非事务方式运行，如果当前存在事务，则把当前事务挂起。<br>TransactionDefinition.PROPAGATION_NEVER：以非事务方式运行，如果当前存在事务，则抛出异常。</p>
 <p>注意事务的四种隔离级别和其中传播行为</p>
-<h3 id="rollbackFor"><a href="#rollbackFor" class="headerlink" title="rollbackFor"></a>rollbackFor</h3><p> 事务中抛出了未检查异常（RuntimeException）或者Error，Spring将回滚事务，除此之外不会回滚，或者可以自定义异常并指定rollbackFor<br> 清单 3. RollbackRuleAttribute 的 getDepth 方法</p>
+<h4 id="rollbackFor"><a href="#rollbackFor" class="headerlink" title="rollbackFor"></a>rollbackFor</h4><p> 事务中抛出了未检查异常（RuntimeException）或者Error，Spring将回滚事务，除此之外不会回滚，或者可以自定义异常并指定rollbackFor<br> 清单 3. RollbackRuleAttribute 的 getDepth 方法</p>
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> private int getDepth(Class&lt;?&gt; exceptionClass, int depth) &#123;</span><br><span class="line">        if (exceptionClass.getName().contains(this.exceptionName)) &#123;</span><br><span class="line">            // Found it!</span><br><span class="line">            return depth;</span><br><span class="line">&#125;</span><br><span class="line">        // If we&apos;ve gone as far as we can go and haven&apos;t found it...</span><br><span class="line">        if (exceptionClass == Throwable.class) &#123;</span><br><span class="line">            return -1;</span><br><span class="line">&#125;</span><br><span class="line">return getDepth(exceptionClass.getSuperclass(), depth + 1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Transactional-只能应用到-public-方法才有效"><a href="#Transactional-只能应用到-public-方法才有效" class="headerlink" title="@Transactional 只能应用到 public 方法才有效"></a>@Transactional 只能应用到 public 方法才有效</h3><p>只有@Transactional 注解应用到 public 方法，才能进行事务管理。这是因为在使用 Spring AOP 代理时，Spring 在调用在图 1 中的 TransactionInterceptor 在目标方法执行前后进行拦截之前，DynamicAdvisedInterceptor（CglibAopProxy 的内部类）的的 intercept 方法或 JdkDynamicAopProxy 的 invoke 方法会间接调用 AbstractFallbackTransactionAttributeSource（Spring 通过这个类获取 @Transactional 注解的事务属性配置属性信息）的 computeTransactionAttribute 方法。</p>
+<h4 id="Transactional-只能应用到-public-方法才有效"><a href="#Transactional-只能应用到-public-方法才有效" class="headerlink" title="@Transactional 只能应用到 public 方法才有效"></a>@Transactional 只能应用到 public 方法才有效</h4><p>只有@Transactional 注解应用到 public 方法，才能进行事务管理。这是因为在使用 Spring AOP 代理时，Spring 在调用在图 1 中的 TransactionInterceptor 在目标方法执行前后进行拦截之前，DynamicAdvisedInterceptor（CglibAopProxy 的内部类）的的 intercept 方法或 JdkDynamicAopProxy 的 invoke 方法会间接调用 AbstractFallbackTransactionAttributeSource（Spring 通过这个类获取 @Transactional 注解的事务属性配置属性信息）的 computeTransactionAttribute 方法。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">protected TransactionAttribute computeTransactionAttribute(Method method,</span><br><span class="line">    Class&lt;?&gt; targetClass) &#123;</span><br><span class="line">        // Don&apos;t allow no-public methods as required.</span><br><span class="line">        if (allowPublicMethodsOnly() &amp;&amp; !Modifier.isPublic(method.getModifiers())) &#123;</span><br><span class="line">return null;&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="避免-Spring-的-AOP-的自调用问题"><a href="#避免-Spring-的-AOP-的自调用问题" class="headerlink" title="避免 Spring 的 AOP 的自调用问题"></a>避免 Spring 的 AOP 的自调用问题</h3><p>参考：<br><a href="https://www.ibm.com/developerworks/cn/java/j-master-spring-transactional-use/index.html" target="_blank" rel="noopener">透彻的掌握 Spring 中@transactional 的使用</a></p>
+<h4 id="避免-Spring-的-AOP-的自调用问题"><a href="#避免-Spring-的-AOP-的自调用问题" class="headerlink" title="避免 Spring 的 AOP 的自调用问题"></a>避免 Spring 的 AOP 的自调用问题</h4><p> 在 Spring 的 AOP 代理下，只有目标方法由外部调用，目标方法才由 Spring 生成的代理对象来管理，这会造成自调用问题。若同一类中的其他没有@Transactional 注解的方法内部调用有@Transactional 注解的方法，有@Transactional 注解的方法的事务被忽略，不会发生回滚。见举例代码展示</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> @Service</span><br><span class="line">--&gt;public class OrderService &#123;</span><br><span class="line">    private void insert() &#123;</span><br><span class="line">insertOrder();</span><br><span class="line">&#125;</span><br><span class="line">@Transactional</span><br><span class="line">    public void insertOrder() &#123;</span><br><span class="line">        //insert log info</span><br><span class="line">        //insertOrder</span><br><span class="line">        //updateAccount</span><br><span class="line">       &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>insertOrder 尽管有@Transactional 注解，但它被内部方法 insert 调用，事务被忽略，出现异常事务不会发生回滚</p>
+<p>参考：<br><a href="https://www.ibm.com/developerworks/cn/java/j-master-spring-transactional-use/index.html" target="_blank" rel="noopener">透彻的掌握 Spring 中@transactional 的使用</a><br><a href="https://blog.csdn.net/zq9017197/article/details/6321391" target="_blank" rel="noopener">Spring的事务管理入门：编程式事务管理</a></p>
 
       
 
@@ -254,7 +317,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Transactional</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">transactional</a>
         		</li>
       		
 		</ul>
@@ -324,18 +387,18 @@
   
 <nav id="article-nav">
   
-    <a href="/java/Aspect面向切面编程/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/java/分布式架构中的缓存/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Aspect面向切面编程
+          分布式架构中的缓存
         
       </div>
     </a>
   
   
-    <a href="/java/spring初探索/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">spring初探索</div>
+    <a href="/java/Aspect面向切面编程/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Aspect面向切面编程</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -362,7 +425,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring-的注解方式的事务实现机制"><span class="toc-number">1.</span> <span class="toc-text">Spring 的注解方式的事务实现机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#spring的-Transactional也可以加在合适的方法上"><span class="toc-number">2.</span> <span class="toc-text">spring的@Transactional也可以加在合适的方法上</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rollbackFor"><span class="toc-number">3.</span> <span class="toc-text">rollbackFor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Transactional-只能应用到-public-方法才有效"><span class="toc-number">4.</span> <span class="toc-text">@Transactional 只能应用到 public 方法才有效</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#避免-Spring-的-AOP-的自调用问题"><span class="toc-number">5.</span> <span class="toc-text">避免 Spring 的 AOP 的自调用问题</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#事务管理器"><span class="toc-number">1.</span> <span class="toc-text">事务管理器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#编程式和声明式事务"><span class="toc-number">2.</span> <span class="toc-text">编程式和声明式事务</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#编程式"><span class="toc-number">2.1.</span> <span class="toc-text">编程式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#声明式"><span class="toc-number">2.2.</span> <span class="toc-text">声明式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tx拦截器"><span class="toc-number">2.2.1.</span> <span class="toc-text">tx拦截器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Transactional注解方式"><span class="toc-number">2.2.2.</span> <span class="toc-text">@Transactional注解方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Transactional-注解管理事务的实现步骤"><span class="toc-number">2.2.2.1.</span> <span class="toc-text">@Transactional 注解管理事务的实现步骤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Spring-的注解方式的事务实现机制"><span class="toc-number">2.2.2.2.</span> <span class="toc-text">Spring 的注解方式的事务实现机制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#spring的-Transactional也可以加在合适的方法上"><span class="toc-number">2.2.2.3.</span> <span class="toc-text">spring的@Transactional也可以加在合适的方法上</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#rollbackFor"><span class="toc-number">2.2.2.4.</span> <span class="toc-text">rollbackFor</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Transactional-只能应用到-public-方法才有效"><span class="toc-number">2.2.2.5.</span> <span class="toc-text">@Transactional 只能应用到 public 方法才有效</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#避免-Spring-的-AOP-的自调用问题"><span class="toc-number">2.2.2.6.</span> <span class="toc-text">避免 Spring 的 AOP 的自调用问题</span></a></li></ol></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -519,19 +582,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">springboot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -543,7 +594,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Transactional</a>
+                <a href="javascript:void(0)" class="js-tag color4">transactional</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -552,6 +607,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sku</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sql</a>
               </li>
             
             <div class="clearfix"></div>

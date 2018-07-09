@@ -17,7 +17,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://p964q970y.bkt.clouddn.com/QQ20180321-175431@2x.png">
 <meta property="og:image" content="http://p964q970y.bkt.clouddn.com/post-get.png">
-<meta property="og:updated_time" content="2018-06-22T14:35:49.125Z">
+<meta property="og:updated_time" content="2018-07-09T02:37:21.438Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java-18-01">
 <meta name="twitter:description" content="java基础知识总结 2018-01">
@@ -298,20 +298,7 @@ public class VolaticleNoAtomic extends Thread {
 <p>注意：<br>1）方法名称是区分大小写的，当某个请求所针对的资源不支持对应的请求方法的时候，服务器应当返回状态码405（Mothod Not Allowed）；当服务器不认识或者不支持对应的请求方法时，应返回状态码501（Not Implemented）。<br>2）HTTP服务器至少应该实现GET和HEAD/POST方法，其他方法都是可选的，此外除上述方法，特定的HTTP服务器支持扩展自定义的方法。</p>
 </blockquote>
 <p>post和get的对比图<br><img src="http://p964q970y.bkt.clouddn.com/post-get.png" alt=""></p>
-<h2 id="高并发"><a href="#高并发" class="headerlink" title="高并发"></a>高并发</h2><h3 id="HTML静态化"><a href="#HTML静态化" class="headerlink" title="HTML静态化"></a>HTML静态化</h3><p>用户可以直接获取页面，不用走那么多流程，比较适用于页面不频繁更新。</p>
-<h3 id="使用缓存"><a href="#使用缓存" class="headerlink" title="使用缓存"></a>使用缓存</h3><p>第一次获取数据从数据库准提取，然后保存在缓存中，以后就可以直接从缓存提取数据。不过需要有机制维持缓存和数据库的一致性。</p>
-<h3 id="图片服务器分离"><a href="#图片服务器分离" class="headerlink" title="图片服务器分离"></a>图片服务器分离</h3><p>图片是最消耗资源的，于是我们有必要将图片与页面进行分离，保证系统不会因为图片问题而崩溃，在图片和应用服务器可以进行不同的配置</p>
-<h3 id="数据库集群和库表散列"><a href="#数据库集群和库表散列" class="headerlink" title="数据库集群和库表散列"></a>数据库集群和库表散列</h3><p>在数据库集群方面，很多数据库都有自己的解决方案，Oracle、Sybase等都有很好的方案，常用的MySQL提供的Master/Slave也是类似的方案，您使用了什么样的DB，就参考相应的解决方案来实施即可。</p>
-<blockquote>
-<p>一．水平分割<br>根据一列或多列数据的值把数据行放到两个独立的表中。即按记录进分分割，不同的记录可以分开保存，每个子表的列数相同。<br>二．垂直分割<br>垂直分割表（不破坏第三范式），把主码和一些列放到一个表，然后把主码和另外的列放到另一个表中。<br>三. 库表散列<br>表散列与水平分割相似，但没有水平分割那样的明显分割界限，采用Hash算法把数据分散到各个分表中, 这样IO更加均衡.</p>
-<h3 id="使用储存过程"><a href="#使用储存过程" class="headerlink" title="使用储存过程"></a>使用储存过程</h3><p>那些处理一次请求需要多次访问数据库的操作，可以把操作整合到储存过程，这样只要一次数据库访问就可以了。</p>
-</blockquote>
-<h3 id="批量读取"><a href="#批量读取" class="headerlink" title="批量读取"></a>批量读取</h3><p>高并发情况下，可以把多个请求的查询合并到一次进行，以减少数据库的访问次数</p>
-<h3 id="使用索引"><a href="#使用索引" class="headerlink" title="使用索引"></a>使用索引</h3><p>索引可以看作是特殊的缓存，尽量使用索引就要求where字句中精确的给出索引列的值。</p>
-<h3 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h3><blockquote>
-<p>CDN的全称是Content Delivery Network，即内容分发网络。<br>镜像网站是指将一个完全相同的网站源程序放到几个服务器，分别有自己独立的URL，在这些服务器上互为镜像网站。eg：要下载翻墙的资源，可以借助国内一些镜像资源，他们把你需要的资源都放在这个网站，你就可以直接借助该网站，</p>
 <h2 id="pom打包"><a href="#pom打包" class="headerlink" title="pom打包"></a>pom打包</h2><p>jar包和war包</p>
-</blockquote>
 <p>jar：jar包就是别人已经写好的一些类，然后对这些类进行打包，别的项目可以直接引用已经存在的jar包；<br>war：Javaweb程序打包成war包，一个WAR文件就是一个Web应用程序，建立WAR文件，就是把整个Web应用程序压缩起来，指定一个.war扩展名</p>
 
       
@@ -434,7 +421,7 @@ public class VolaticleNoAtomic extends Thread {
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#volatile"><span class="toc-number">1.</span> <span class="toc-text">volatile</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RPC"><span class="toc-number">2.</span> <span class="toc-text">RPC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微服务架构的基础框架选择：Spring-Cloud还是Dubbo？"><span class="toc-number">3.</span> <span class="toc-text">微服务架构的基础框架选择：Spring Cloud还是Dubbo？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#中间件"><span class="toc-number">4.</span> <span class="toc-text">中间件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#锁"><span class="toc-number">5.</span> <span class="toc-text">锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#http"><span class="toc-number">6.</span> <span class="toc-text">http</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#高并发"><span class="toc-number">7.</span> <span class="toc-text">高并发</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML静态化"><span class="toc-number">7.1.</span> <span class="toc-text">HTML静态化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用缓存"><span class="toc-number">7.2.</span> <span class="toc-text">使用缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图片服务器分离"><span class="toc-number">7.3.</span> <span class="toc-text">图片服务器分离</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库集群和库表散列"><span class="toc-number">7.4.</span> <span class="toc-text">数据库集群和库表散列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用储存过程"><span class="toc-number">7.5.</span> <span class="toc-text">使用储存过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#批量读取"><span class="toc-number">7.6.</span> <span class="toc-text">批量读取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用索引"><span class="toc-number">7.7.</span> <span class="toc-text">使用索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CDN"><span class="toc-number">7.8.</span> <span class="toc-text">CDN</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pom打包"><span class="toc-number">8.</span> <span class="toc-text">pom打包</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#volatile"><span class="toc-number">1.</span> <span class="toc-text">volatile</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RPC"><span class="toc-number">2.</span> <span class="toc-text">RPC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微服务架构的基础框架选择：Spring-Cloud还是Dubbo？"><span class="toc-number">3.</span> <span class="toc-text">微服务架构的基础框架选择：Spring Cloud还是Dubbo？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#中间件"><span class="toc-number">4.</span> <span class="toc-text">中间件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#锁"><span class="toc-number">5.</span> <span class="toc-text">锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#http"><span class="toc-number">6.</span> <span class="toc-text">http</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pom打包"><span class="toc-number">7.</span> <span class="toc-text">pom打包</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -591,19 +578,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">springboot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -615,7 +590,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Transactional</a>
+                <a href="javascript:void(0)" class="js-tag color4">transactional</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -624,6 +603,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sku</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sql</a>
               </li>
             
             <div class="clearfix"></div>

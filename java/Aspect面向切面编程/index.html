@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Linnxh的博客">
 <meta property="og:description" content="AOP详解定义AOP（Aspect Orient Programming），我们一般称为面向方面（切面）编程，作为面向对象的一种补充，用于处理系统中分布于各个模块的横切关注点，比如事务管理、日志、缓存等等。 分类 静态代理，举例：AspectJ 动态代理，举例：Spring AOP，Spring AOP中的动态代理主要有两种方式，JDK动态代理和CGLIB动态代理Spring AOP的实现原理使用">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-07-05T06:33:04.768Z">
+<meta property="og:updated_time" content="2018-07-06T03:27:56.956Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Aspect面向切面编程">
 <meta name="twitter:description" content="AOP详解定义AOP（Aspect Orient Programming），我们一般称为面向方面（切面）编程，作为面向对象的一种补充，用于处理系统中分布于各个模块的横切关注点，比如事务管理、日志、缓存等等。 分类 静态代理，举例：AspectJ 动态代理，举例：Spring AOP，Spring AOP中的动态代理主要有两种方式，JDK动态代理和CGLIB动态代理Spring AOP的实现原理使用">
@@ -246,8 +246,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public class DefaultAopProxyFactory implements AopProxyFactory, Serializable &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    	public AopProxy createAopProxy(AdvisedSupport config) throws AopConfigException &#123;</span><br><span class="line">    		if (config.isOptimize() || config.isProxyTargetClass() || hasNoUserSuppliedProxyInterfaces(config)) &#123;</span><br><span class="line">    			Class&lt;?&gt; targetClass = config.getTargetClass();</span><br><span class="line">    			if (targetClass == null) &#123;</span><br><span class="line">    				throw new AopConfigException(&quot;TargetSource cannot determine target class: &quot; +</span><br><span class="line">    						&quot;Either an interface or a target is required for proxy creation.&quot;);</span><br><span class="line">    			&#125;</span><br><span class="line">    			if (targetClass.isInterface() || Proxy.isProxyClass(targetClass)) &#123;</span><br><span class="line">    				return new JdkDynamicAopProxy(config);</span><br><span class="line">    			&#125;</span><br><span class="line">    			return new ObjenesisCglibAopProxy(config);</span><br><span class="line">    		&#125;</span><br><span class="line">    		else &#123;</span><br><span class="line">    			return new JdkDynamicAopProxy(config);</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>如果目标对象实现了接口，则默认采用JDK<br>如果目标对象没有实现接口，则默认采用CGLIB<br>如果目标对象实现了接口,且强制使用CGLIB，</p>
 <p>强制使用CGLIB方法,将config.isProxyTargetClass() 设置为true，springboot的启动类添加@EnableAspectJAutoProxy(proxyTargetClass = true)其中proxyTargetClass则代表强制使用CGLIB代理；</p>
-<p>参考:<br><a href="https://www.imooc.com/video/15693" target="_blank" rel="noopener">慕课网探秘Spring AOP</a><br><a href="https://blog.csdn.net/luanlouis/article/details/51155821" target="_blank" rel="noopener">《Spring设计思想》AOP实现原理（基于JDK和基于CGLIB）</a></p>
-<p><a href="http://www.importnew.com/24305.html" target="_blank" rel="noopener">Spring AOP的实现原理</a></p>
+<p>参考:<br><a href="https://www.imooc.com/video/15693" target="_blank" rel="noopener">慕课网探秘Spring AOP</a><br><a href="https://blog.csdn.net/luanlouis/article/details/51155821" target="_blank" rel="noopener">Spring设计思想-AOP实现原理（基于JDK和基于CGLIB）</a><br><a href="http://www.importnew.com/24305.html" target="_blank" rel="noopener">Spring AOP的实现原理</a></p>
 
       
 
@@ -335,9 +334,18 @@
   
 <nav id="article-nav">
   
+    <a href="/java/Spring事务处理机制/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Spring事务处理机制
+        
+      </div>
+    </a>
   
-    <a href="/java/Spring事务处理机制/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Spring事务处理机制</div>
+  
+    <a href="/java/spring初探索/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">spring初探索</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -521,19 +529,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">springboot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -545,7 +541,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Transactional</a>
+                <a href="javascript:void(0)" class="js-tag color4">transactional</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -554,6 +554,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sku</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sql</a>
               </li>
             
             <div class="clearfix"></div>

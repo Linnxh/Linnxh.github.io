@@ -156,6 +156,320 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-java/分布式架构中的缓存" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java/分布式架构中的缓存/">分布式架构中的缓存</a>
+    </h1>
+  
+
+        
+        <a href="/java/分布式架构中的缓存/" class="archive-article-date">
+  	<time datetime="2018-07-09T02:03:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-09</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+       <!--  -->
+        <h1 id="缓存概述"><a href="#缓存概述" class="headerlink" title="缓存概述"></a>缓存概述</h1><p>缓存主要用于存储数据的硬件活软件的组成部分，以使得后续更快访问相应的数据；</p>
+<p>主要解决高并发，大数据场景下，热点数据访问的性能问题，提高高性能的数据快速访问</p>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p>CDN缓存<br>反向代理缓存<br>本地应用缓存<br>分布式缓存</p>
+<p><img src="http://p964q970y.bkt.clouddn.com/%E7%BC%93%E5%AD%98%E5%88%86%E5%B1%82%E6%9E%B6%E6%9E%84.png" alt="缓存的分层架构"><br>注：本地应用缓存层，指的是服务器本地的缓存</p>
+<h3 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h3><p>全称是Content Delivery Network，即内容分发网络。<br>镜像网站是指将一个完全相同的网站源程序放到几个服务器，分别有自己独立的URL，在这些服务器上互为镜像网站。eg：要下载翻墙的资源，可以借助国内一些镜像资源，他们把你需要的资源都放在这个网站，你就可以直接借助该网站，<br>优点：<br>镜像服务：消除不同运营商之间互联的瓶颈的影响，实现了跨运营的网络加速<br>远程加速：远程访问用户根据DNS负载均衡技术智能选择Cache服务器</p>
+<h3 id="反向代理缓存"><a href="#反向代理缓存" class="headerlink" title="反向代理缓存"></a>反向代理缓存</h3><p>反向代理位于应用服务器机房，处理所有对WEB服务器的请求。<br>如果用户请求的页面在代理服务器上有缓冲的话，代理服务器直接将缓冲内容发送给用户。如果没有缓冲则先向WEB服务器发出请求，取回数据，本地缓存后再发送给用户。通过降低向WEB服务器的请求数，从而降低了WEB服务器的负载。</p>
+<p>eg:Ngix，Varnish</p>
+<h3 id="服务器本地应用缓存"><a href="#服务器本地应用缓存" class="headerlink" title="服务器本地应用缓存"></a>服务器本地应用缓存</h3><p>指的是在应用中的缓存组件，其最大的优点是应用和cache是在同一个进程内部，请求缓存非常快速<br>应用场景：缓存集合，字典等常用数据(字典是一个无序的序列，它的每一项都是一个键值对，且键必须唯一）,对数据的变更无需太敏感，可以在内存中添加版本控制；<br>缺点：受heap区域影响，缓存数据量很小，缓存受GC影响</p>
+<p>可以将缓存放在硬盘上或者内存中<br>硬盘上合适对速度要求不是很高，但需要大量缓存存储的场景（HTML静态化，用户可以直接获取页面，不用走那么多流程，比较适用于页面不频繁更新）<br>内存中直接维护到本机内存中，通过程序直接维护对象，访问速度较快</p>
+<h3 id="分布式缓存"><a href="#分布式缓存" class="headerlink" title="分布式缓存"></a>分布式缓存</h3><p>指的是与应用分离的缓存组件或服务，其最大的优点是自身就是一个独立的应用，与本地应用隔离，多个应用可直接的共享缓存</p>
+<p>eg:Redis</p>
+<h4 id="Redis-VS-Memcached"><a href="#Redis-VS-Memcached" class="headerlink" title="Redis VS Memcached"></a>Redis VS Memcached</h4><p>redis比Memcached出现的要晚，它本身也从Memcached上吸取借鉴大量宝贵经验教训，被称为“强化版Memcached”，从功能多样式来说比Memcached会好些</p>
+<p>redids是一种NoSQL(非关系型数据库)，即NotOnlySql，常见的菲关系型数据有：</p>
+<ul>
+<li>redis：key/value键值对存储数据库</li>
+<li>mongodb:文档型数据库</li>
+<li>hbase：列式数据库</li>
+<li>neo4j：图式数据库，存储的是图关系而非行或列。主要用于社交网络的存储。</li>
+</ul>
+<p>redis数据结构: String  List  Hash Set SortedSet<br>redis事务:multi exec discard<br>redis 持久化: rdb内存快照 aof命令日志</p>
+<p>安装：brew install redis<br>修改配置文件：/usr/local/etc/redis.conf 的daemonize为yes，改成不是前台启动的方式<br>启动redis：/usr/local/bin/redis-server /usr/local/etc/redis.conf<br>后面的是conf路径<br>停止redis：/usr/local/bin/redis-cli shutdown<br>查看进程：ps -ef | grep -i redis<br>执行客户端：/usr/local/bin/redis-cli<br>127.0.0.1:6379> ping<br>PONG<br>127.0.0.1:6379> set name lala<br>OK<br>127.0.0.1:6379> get name<br>“lala”<br>127.0.0.1:6379> del name<br>(integer) 1<br>127.0.0.1:6379> get name<br>(nil)<br>127.0.0.1:6379> keys * –查看所有键值<br>1) “name”</p>
+<p>Redis与Memcached比较</p>
+<table>
+<thead>
+<tr>
+<th>Reddddis</th>
+<th>Redis</th>
+<th>Memcached</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>支持的数据结构</td>
+<td>哈希、列表、集合、有序集合 纯kev-value</td>
+</tr>
+<tr>
+<td>持久化支持</td>
+<td>有</td>
+<td>无</td>
+</tr>
+<tr>
+<td>高可用支持</td>
+<td>redis天然支持集群功能，可以实现主动复制，读写分离。官方也提供了sentinel集群管理工具，能够实现主从服务监控，故障自动转移，这一切，对于客户端都是透明的，无需程序改动，也无需人工介入</td>
+<td>需要二次开发</td>
+</tr>
+<tr>
+<td>存储value容量</td>
+<td>最大512M</td>
+<td>最大1M</td>
+</tr>
+<tr>
+<td>内存分配</td>
+<td>临时申请空间，可能导致碎片</td>
+<td>预分配内存池的方式管理内存，能够省去内存分配时间</td>
+</tr>
+<tr>
+<td>虚拟内存使用</td>
+<td>有自己的VM机制，理论上能够存储比物理内存更多的数据，当数据超量时，会引发swap，把冷数据刷到磁盘上</td>
+<td>所有的数据存储在物理内存里</td>
+</tr>
+<tr>
+<td>网络模型</td>
+<td>非阻塞IO复用模型,提供一些非KV存储之外的排序，聚合功能，在执行这些功能时，复杂的CPU计算，会阻塞整个IO调度</td>
+<td>非阻塞IO复用模型</td>
+</tr>
+<tr>
+<td>多线程</td>
+<td>Redis支持单线程</td>
+<td>Memcached支持多线程,CPU利用方面Memcache优于Redis</td>
+</tr>
+<tr>
+<td>过期策略</td>
+<td>有专门线程，清除缓存数据</td>
+<td>懒淘汰机制：每次往缓存放入数据的时候，都会存一个时间，在读取的时候要和设置的时间做TTL比较来判断是否过期</td>
+</tr>
+<tr>
+<td>单机QPS</td>
+<td>约10W</td>
+<td>约60W</td>
+</tr>
+<tr>
+<td>源代码可读性</td>
+<td>代码清爽简洁</td>
+<td>能是考虑了太多的扩展性，多系统的兼容性，代码不清爽</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>复杂数据结构、有持久化、高可用需求、value存储内容较大</td>
+<td>纯KV，数据量非常大，并发量非常大的业务</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://www.infoworld.com/article/3063161/nosql/why-redis-beats-memcached-for-caching.html" target="_blank" rel="noopener">Redis VS Memcached</a></p>
+<h1 id="高并发的处理方式"><a href="#高并发的处理方式" class="headerlink" title="高并发的处理方式"></a>高并发的处理方式</h1><h2 id="HTML静态化"><a href="#HTML静态化" class="headerlink" title="HTML静态化"></a>HTML静态化</h2><p>用户可以直接获取页面，不用走那么多流程，比较适用于页面不频繁更新。</p>
+<h2 id="使用缓存"><a href="#使用缓存" class="headerlink" title="使用缓存"></a>使用缓存</h2><p>第一次获取数据从数据库准提取，然后保存在缓存中，以后就可以直接从缓存提取数据。不过需要有机制维持缓存和数据库的一致性。</p>
+<h2 id="图片服务器分离"><a href="#图片服务器分离" class="headerlink" title="图片服务器分离"></a>图片服务器分离</h2><p>图片是最消耗资源的，于是我们有必要将图片与页面进行分离，保证系统不会因为图片问题而崩溃，在图片和应用服务器可以进行不同的配置</p>
+<h2 id="数据库集群和库表散列"><a href="#数据库集群和库表散列" class="headerlink" title="数据库集群和库表散列"></a>数据库集群和库表散列</h2><p>在数据库集群方面，很多数据库都有自己的解决方案，Oracle、Sybase等都有很好的方案，常用的MySQL提供的Master/Slave也是类似的方案，您使用了什么样的DB，就参考相应的解决方案来实施即可。</p>
+<blockquote>
+<p>一．水平分割<br>根据一列或多列数据的值把数据行放到两个独立的表中。即按记录进分分割，不同的记录可以分开保存，每个子表的列数相同。<br>二．垂直分割<br>垂直分割表（不破坏第三范式），把主码和一些列放到一个表，然后把主码和另外的列放到另一个表中。<br>三. 库表散列<br>表散列与水平分割相似，但没有水平分割那样的明显分割界限，采用Hash算法把数据分散到各个分表中, 这样IO更加均衡.</p>
+<h2 id="使用储存过程"><a href="#使用储存过程" class="headerlink" title="使用储存过程"></a>使用储存过程</h2><p>那些处理一次请求需要多次访问数据库的操作，可以把操作整合到储存过程，这样只要一次数据库访问就可以了。</p>
+</blockquote>
+<h2 id="批量读取"><a href="#批量读取" class="headerlink" title="批量读取"></a>批量读取</h2><p>高并发情况下，可以把多个请求的查询合并到一次进行，以减少数据库的访问次数</p>
+<h2 id="使用索引"><a href="#使用索引" class="headerlink" title="使用索引"></a>使用索引</h2><p>索引可以看作是特殊的缓存，尽量使用索引就要求where字句中精确的给出索引列的值。</p>
+<h2 id="CDN-1"><a href="#CDN-1" class="headerlink" title="CDN"></a>CDN</h2><blockquote>
+<p>CDN的全称是Content Delivery Network，即内容分发网络。<br>镜像网站是指将一个完全相同的网站源程序放到几个服务器，分别有自己独立的URL，在这些服务器上互为镜像网站。eg：要下载翻墙的资源，可以借助国内一些镜像资源，他们把你需要的资源都放在这个网站，你就可以直接借助该网站，</p>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">transactional</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/java/分布式架构中的缓存/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+  
+    <article id="post-java/Spring事务处理机制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java/Spring事务处理机制/">Spring事务处理机制</a>
+    </h1>
+  
+
+        
+        <a href="/java/Spring事务处理机制/" class="archive-article-date">
+  	<time datetime="2018-07-05T08:48:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-05</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="事务管理器"><a href="#事务管理器" class="headerlink" title="事务管理器"></a>事务管理器</h1><p>Spring对事务管理是通过事务管理器来实现的。Spring提供了许多内置事务管理器实现：</p>
+<p>事务管理器(org.springframework.*)使用场景</p>
+<table>
+<thead>
+<tr>
+<th>事务管理器器</th>
+<th>使用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DataSourceTransactionManager</td>
+<td>数据源事务管理器，提供对单个javax.sql.DataSource事务管理，用于Spring JDBC抽象框架、iBATIS或MyBatis框架的事务管理；</td>
+</tr>
+<tr>
+<td>JdoTransactionManager</td>
+<td>提供对单个javax.jdo.PersistenceManagerFactory事务管理，用于集成JDO框架时的事务管理；</td>
+</tr>
+<tr>
+<td>JpaTransactionManager</td>
+<td>提供对单个javax.persistence.EntityManagerFactory事务支持，用于集成JPA实现框架时的事务管理；</td>
+</tr>
+<tr>
+<td>HibernateTransactionManager</td>
+<td>提供对单个org.hibernate.SessionFactory事务支持，用于集成</td>
+<td>Hibernate框架时的事务管理；该事务管理器只支持Hibernate3+版本，且Spring3.0+版本只支持Hibernate 3.2+版本；</td>
+</tr>
+<tr>
+<td>JtaTransactionManager</td>
+<td>提供对分布式事务管理的支持，并将事务管理委托给Java EE应用服务器事务管理器；</td>
+</tr>
+<tr>
+<td>OC4JjtaTransactionManager</td>
+<td>Spring提供的对OC4J10.1.3+应用服务器事务管理器的适配器，此适配器用于对应用服务器提供的高级事务的支持；</td>
+</tr>
+<tr>
+<td>WebSphereUowTransactionManager</td>
+<td>Spring提供的对WebSphere 6.0+应用服务器事务管理器的适配器，此适配器用于对应用服务器提供的高级事务的支持；</td>
+</tr>
+<tr>
+<td>WebLogicJtaTransactionManager</td>
+<td>Spring提供的对WebLogic 8.1+应用服务器事务管理器的适配器，此适配器用于对应用服务器提供的高级事务的支持。</td>
+</tr>
+</tbody>
+</table>
+        
+          <a class="article-more-a" href="/java/Spring事务处理机制/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">transactional</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/java/Spring事务处理机制/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+  
     <article id="post-java/Aspect面向切面编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -211,141 +525,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/java/Aspect面向切面编程/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
-    <article id="post-java/Spring事务处理机制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java/Spring事务处理机制/">Spring事务处理机制</a>
-    </h1>
-  
-
-        
-        <a href="/java/Spring事务处理机制/" class="archive-article-date">
-  	<time datetime="2018-07-05T08:48:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-05</time>
-</a>
-        
-      </header>
-    
-   
-    <div class="article-entry" itemprop="articleBody">
-      
-       <!--  -->
-        <p>在应用系统调用声明@Transactional 的目标方法时，Spring Framework 默认使用 AOP 代理，在代码运行时生成一个代理对象，根据@Transactional 的属性配置信息，这个代理对象决定该声明@Transactional 的目标方法是否由拦截器 TransactionInterceptor 来使用拦截，在 TransactionInterceptor 拦截时，会在在目标方法开始执行之前创建并加入事务，并执行目标方法的逻辑, 最后根据执行情况是否出现异常</p>
-<p>@Transactional 注解管理事务的实现步骤<br>使用@Transactional 注解管理事务的实现步骤分为两步。第一步，在 xml 配置文件中添加如清单 1 的事务配置信息。除了用配置文件的方式，@EnableTransactionManagement 注解也可以启用事务管理功能。这里以简单的 DataSourceTransactionManager 为例。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;tx:annotation-driven /&gt;</span><br><span class="line">&lt;bean id=&quot;transactionManager&quot;</span><br><span class="line">class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</span><br><span class="line">&lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
-<p>第二步，将@Transactional 注解添加到合适的方法上，并设置合适的属性信息。@Transactional 注解的属性信息如表 1 展示。<br>表 1. @Transactional 注解的属性信息</p>
-<table>
-<thead>
-<tr>
-<th>属性名</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>name</td>
-<td>当在配置文件中有多个 TransactionManager , 可以用该属性指定选择哪个事务管理器。</td>
-</tr>
-<tr>
-<td>propagation</td>
-<td>事务的传播行为，默认值为 REQUIRED。</td>
-</tr>
-<tr>
-<td>isolation</td>
-<td>事务的隔离度，默认值采用 DEFAULT。</td>
-</tr>
-<tr>
-<td>timeout</td>
-<td>事务的超时时间，默认值为-1。如果超过该时间限制但事务还没有完成，则自动回滚事务。</td>
-</tr>
-<tr>
-<td>read-only</td>
-<td>指定事务是否为只读事务，默认值为 false；为了忽略那些不需要事务的方法，比如读取数据，可以设置 read-only 为 true。</td>
-</tr>
-<tr>
-<td>rollback-for</td>
-<td>用于指定能够触发事务回滚的异常类型，如果有多个异常类型需要指定，各类型之间可以通过逗号分隔。</td>
-</tr>
-<tr>
-<td>no-rollback- for</td>
-<td>抛出 no-rollback-for 指定的异常类型，不回滚事务。</td>
-</tr>
-</tbody>
-</table>
-<h3 id="Spring-的注解方式的事务实现机制"><a href="#Spring-的注解方式的事务实现机制" class="headerlink" title="Spring 的注解方式的事务实现机制"></a>Spring 的注解方式的事务实现机制</h3><p>在应用系统调用声明@Transactional 的目标方法时，Spring Framework 默认使用 AOP 代理，在代码运行时生成一个代理对象，根据@Transactional 的属性配置信息，这个代理对象决定该声明@Transactional 的目标方法是否由拦截器 TransactionInterceptor 来使用拦截，在 TransactionInterceptor 拦截时，会在在目标方法开始执行之前创建并加入事务，并执行目标方法的逻辑, 最后根据执行情况是否出现异常，利用抽象事务管理器AbstractPlatformTransactionManager 操作数据源 DataSource 提交或回滚事务, </p>
-<p><img src="http://p964q970y.bkt.clouddn.com/spring%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6.png" alt="spring事务处理机制"><br>Spring AOP 代理有 CglibAopProxy 和 JdkDynamicAopProxy 两种，上图是以 CglibAopProxy 为例，对于 CglibAopProxy，需要调用其内部类的 DynamicAdvisedInterceptor 的 intercept 方法。对于 JdkDynamicAopProxy，需要调用其 invoke 方法。</p>
-<h3 id="spring的-Transactional也可以加在合适的方法上"><a href="#spring的-Transactional也可以加在合适的方法上" class="headerlink" title="spring的@Transactional也可以加在合适的方法上"></a>spring的@Transactional也可以加在合适的方法上</h3><p>常见的使用方法</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Transactional(rollbackFor = &#123;Exception.class&#125;, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)</span><br></pre></td></tr></table></figure>
-<p>需要注意下面三种 propagation 可以不启动事务。本来期望目标方法进行事务管理，但若是错误的配置这三种 propagation，事务将不会发生回滚。</p>
-<p>TransactionDefinition.PROPAGATION_SUPPORTS：如果当前存在事务，则加入该事务；如果当前没有事务，则以非事务的方式继续运行。<br>TransactionDefinition.PROPAGATION_NOT_SUPPORTED：以非事务方式运行，如果当前存在事务，则把当前事务挂起。<br>TransactionDefinition.PROPAGATION_NEVER：以非事务方式运行，如果当前存在事务，则抛出异常。</p>
-<p>注意事务的四种隔离级别和其中传播行为</p>
-<h3 id="rollbackFor"><a href="#rollbackFor" class="headerlink" title="rollbackFor"></a>rollbackFor</h3><p> 事务中抛出了未检查异常（RuntimeException）或者Error，Spring将回滚事务，除此之外不会回滚，或者可以自定义异常并指定rollbackFor<br> 清单 3. RollbackRuleAttribute 的 getDepth 方法</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> private int getDepth(Class&lt;?&gt; exceptionClass, int depth) &#123;</span><br><span class="line">        if (exceptionClass.getName().contains(this.exceptionName)) &#123;</span><br><span class="line">            // Found it!</span><br><span class="line">            return depth;</span><br><span class="line">&#125;</span><br><span class="line">        // If we&apos;ve gone as far as we can go and haven&apos;t found it...</span><br><span class="line">        if (exceptionClass == Throwable.class) &#123;</span><br><span class="line">            return -1;</span><br><span class="line">&#125;</span><br><span class="line">return getDepth(exceptionClass.getSuperclass(), depth + 1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Transactional-只能应用到-public-方法才有效"><a href="#Transactional-只能应用到-public-方法才有效" class="headerlink" title="@Transactional 只能应用到 public 方法才有效"></a>@Transactional 只能应用到 public 方法才有效</h3><p>只有@Transactional 注解应用到 public 方法，才能进行事务管理。这是因为在使用 Spring AOP 代理时，Spring 在调用在图 1 中的 TransactionInterceptor 在目标方法执行前后进行拦截之前，DynamicAdvisedInterceptor（CglibAopProxy 的内部类）的的 intercept 方法或 JdkDynamicAopProxy 的 invoke 方法会间接调用 AbstractFallbackTransactionAttributeSource（Spring 通过这个类获取 @Transactional 注解的事务属性配置属性信息）的 computeTransactionAttribute 方法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">protected TransactionAttribute computeTransactionAttribute(Method method,</span><br><span class="line">    Class&lt;?&gt; targetClass) &#123;</span><br><span class="line">        // Don&apos;t allow no-public methods as required.</span><br><span class="line">        if (allowPublicMethodsOnly() &amp;&amp; !Modifier.isPublic(method.getModifiers())) &#123;</span><br><span class="line">return null;&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="避免-Spring-的-AOP-的自调用问题"><a href="#避免-Spring-的-AOP-的自调用问题" class="headerlink" title="避免 Spring 的 AOP 的自调用问题"></a>避免 Spring 的 AOP 的自调用问题</h3><p>参考：<br><a href="https://www.ibm.com/developerworks/cn/java/j-master-spring-transactional-use/index.html" target="_blank" rel="noopener">透彻的掌握 Spring 中@transactional 的使用</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Transactional</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/java/Spring事务处理机制/">展开全文 >></a>
         </p>
       
 
@@ -964,85 +1143,6 @@
 
 
   
-    <article id="post-java/java-17-10" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java/java-17-10/">java-17-10</a>
-    </h1>
-  
-
-        
-        <a href="/java/java-17-10/" class="archive-article-date">
-  	<time datetime="2018-02-05T08:48:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-05</time>
-</a>
-        
-      </header>
-    
-   
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>java基础知识总结 2017-10</p>
-        
-          <a class="article-more-a" href="/java/java-17-10/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/java/java-17-10/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1152,19 +1252,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">springboot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1176,7 +1264,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Transactional</a>
+                <a href="javascript:void(0)" class="js-tag color4">transactional</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1185,6 +1277,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sku</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sql</a>
               </li>
             
             <div class="clearfix"></div>

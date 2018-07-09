@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://p964q970y.bkt.clouddn.com/15177962329985.jpg">
 <meta property="og:image" content="http://linnxh.online/java/java-17-10/">
 <meta property="og:image" content="http://linnxh.online/java/java-17-10/">
-<meta property="og:updated_time" content="2018-07-05T06:21:14.640Z">
+<meta property="og:updated_time" content="2018-07-09T03:26:56.969Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java-17-10">
 <meta name="twitter:description" content="java基础知识总结 2017-10">
@@ -267,16 +267,7 @@ public static void main(String[] args) throws Exception {
     System.out.println(result);
 }
 }
-</code></pre><h1 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h1><p>redids是一种NoSQL(非关系型数据库)，即NotOnlySql，常见的菲关系型数据有：</p>
-<ul>
-<li>redis：key/value键值对存储数据库</li>
-<li>mongodb:文档型数据库</li>
-<li>hbase：列式数据库</li>
-<li>neo4j：图式数据库，存储的是图关系而非行或列。主要用于社交网络的存储。</li>
-</ul>
-<p>redis数据结构: String Hash Set SortedSet List<br>redis事务:multi exec discard<br>redis 持久化: rdb内存快照 aof命令日志</p>
-<p>安装：brew install redis<br>修改配置文件：/usr/local/etc/redis.conf 的daemonize为yes，改成不是前台启动的方式<br>启动redis：/usr/local/bin/redis-server /usr/local/etc/redis.conf<br>后面的是conf路径<br>停止redis：/usr/local/bin/redis-cli shutdown<br>查看进程：ps -ef | grep -i redis<br>执行客户端：/usr/local/bin/redis-cli<br>127.0.0.1:6379> ping<br>PONG<br>127.0.0.1:6379> set name lala<br>OK<br>127.0.0.1:6379> get name<br>“lala”<br>127.0.0.1:6379> del name<br>(integer) 1<br>127.0.0.1:6379> get name<br>(nil)<br>127.0.0.1:6379> keys * –查看所有键值<br>1) “name”</p>
-<h1 id="zookeepre"><a href="#zookeepre" class="headerlink" title="zookeepre"></a>zookeepre</h1><p><a href="">参考地址</a><a href="">4</a><br>mac安装步骤</p>
+</code></pre><h1 id="zookeepre"><a href="#zookeepre" class="headerlink" title="zookeepre"></a>zookeepre</h1><p><a href="">参考地址</a><a href="">4</a><br>mac安装步骤</p>
 <ol>
 <li>brew install zookeeper</li>
 <li>zkServer start  启动命令  zkServer stop  停止</li>
@@ -646,7 +637,7 @@ id=&quot;WebApp_ID&quot; version=&quot;3.0&quot;&gt;
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#shell"><span class="toc-number">1.</span> <span class="toc-text">shell</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#mac运行sh文件"><span class="toc-number">1.1.</span> <span class="toc-text">mac运行sh文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#跨域"><span class="toc-number">2.</span> <span class="toc-text">跨域</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#spring-boot"><span class="toc-number">3.</span> <span class="toc-text">spring-boot</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#linux-安装"><span class="toc-number">4.</span> <span class="toc-text">linux 安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#反射"><span class="toc-number">5.</span> <span class="toc-text">反射</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#redis"><span class="toc-number">6.</span> <span class="toc-text">redis</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#zookeepre"><span class="toc-number">7.</span> <span class="toc-text">zookeepre</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#spring的注解"><span class="toc-number">8.</span> <span class="toc-text">spring的注解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#具体实心"><span class="toc-number">8.1.</span> <span class="toc-text">具体实心</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#docker"><span class="toc-number">9.</span> <span class="toc-text">docker</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ELK"><span class="toc-number">10.</span> <span class="toc-text">ELK</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">10.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#部署方式"><span class="toc-number">10.2.</span> <span class="toc-text">部署方式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#jenkis"><span class="toc-number">11.</span> <span class="toc-text">jenkis</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#shell脚本"><span class="toc-number">12.</span> <span class="toc-text">shell脚本</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#js"><span class="toc-number">13.</span> <span class="toc-text">js</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#命令行启动tomcat"><span class="toc-number">14.</span> <span class="toc-text">命令行启动tomcat</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#jenkins"><span class="toc-number">15.</span> <span class="toc-text">jenkins</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JSP"><span class="toc-number">16.</span> <span class="toc-text">JSP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JSTL"><span class="toc-number">17.</span> <span class="toc-text">JSTL</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#EL"><span class="toc-number">18.</span> <span class="toc-text">EL</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#EL主要作用："><span class="toc-number">18.1.</span> <span class="toc-text">EL主要作用：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#demo参考"><span class="toc-number">18.2.</span> <span class="toc-text">demo参考</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#el表达式无效"><span class="toc-number">19.</span> <span class="toc-text">el表达式无效</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ognl"><span class="toc-number">20.</span> <span class="toc-text">ognl</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mybaits"><span class="toc-number">21.</span> <span class="toc-text">mybaits</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#背景介绍"><span class="toc-number">21.1.</span> <span class="toc-text">背景介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原理讲解"><span class="toc-number">21.2.</span> <span class="toc-text">原理讲解</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Struts2"><span class="toc-number">22.</span> <span class="toc-text">Struts2</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#action中如何接受页面传过来的参数"><span class="toc-number">22.1.</span> <span class="toc-text">action中如何接受页面传过来的参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内部跳转-请求转发-和外部跳转-重定向-的区别"><span class="toc-number">22.2.</span> <span class="toc-text">内部跳转(请求转发)和外部跳转(重定向)的区别</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#shell"><span class="toc-number">1.</span> <span class="toc-text">shell</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#mac运行sh文件"><span class="toc-number">1.1.</span> <span class="toc-text">mac运行sh文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#跨域"><span class="toc-number">2.</span> <span class="toc-text">跨域</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#spring-boot"><span class="toc-number">3.</span> <span class="toc-text">spring-boot</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#linux-安装"><span class="toc-number">4.</span> <span class="toc-text">linux 安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#反射"><span class="toc-number">5.</span> <span class="toc-text">反射</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#zookeepre"><span class="toc-number">6.</span> <span class="toc-text">zookeepre</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#spring的注解"><span class="toc-number">7.</span> <span class="toc-text">spring的注解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#具体实心"><span class="toc-number">7.1.</span> <span class="toc-text">具体实心</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#docker"><span class="toc-number">8.</span> <span class="toc-text">docker</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ELK"><span class="toc-number">9.</span> <span class="toc-text">ELK</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">9.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#部署方式"><span class="toc-number">9.2.</span> <span class="toc-text">部署方式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#jenkis"><span class="toc-number">10.</span> <span class="toc-text">jenkis</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#shell脚本"><span class="toc-number">11.</span> <span class="toc-text">shell脚本</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#js"><span class="toc-number">12.</span> <span class="toc-text">js</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#命令行启动tomcat"><span class="toc-number">13.</span> <span class="toc-text">命令行启动tomcat</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#jenkins"><span class="toc-number">14.</span> <span class="toc-text">jenkins</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JSP"><span class="toc-number">15.</span> <span class="toc-text">JSP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JSTL"><span class="toc-number">16.</span> <span class="toc-text">JSTL</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#EL"><span class="toc-number">17.</span> <span class="toc-text">EL</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#EL主要作用："><span class="toc-number">17.1.</span> <span class="toc-text">EL主要作用：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#demo参考"><span class="toc-number">17.2.</span> <span class="toc-text">demo参考</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#el表达式无效"><span class="toc-number">18.</span> <span class="toc-text">el表达式无效</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ognl"><span class="toc-number">19.</span> <span class="toc-text">ognl</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mybaits"><span class="toc-number">20.</span> <span class="toc-text">mybaits</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#背景介绍"><span class="toc-number">20.1.</span> <span class="toc-text">背景介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原理讲解"><span class="toc-number">20.2.</span> <span class="toc-text">原理讲解</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Struts2"><span class="toc-number">21.</span> <span class="toc-text">Struts2</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#action中如何接受页面传过来的参数"><span class="toc-number">21.1.</span> <span class="toc-text">action中如何接受页面传过来的参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内部跳转-请求转发-和外部跳转-重定向-的区别"><span class="toc-number">21.2.</span> <span class="toc-text">内部跳转(请求转发)和外部跳转(重定向)的区别</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -803,19 +794,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">springboot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -827,7 +806,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Transactional</a>
+                <a href="javascript:void(0)" class="js-tag color4">transactional</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -836,6 +819,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sku</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sql</a>
               </li>
             
             <div class="clearfix"></div>
