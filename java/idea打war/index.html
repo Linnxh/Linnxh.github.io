@@ -6,15 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://linnxh.online">
-  <title>Tag: mybatis | Linnxh的博客</title>
+  <title>idea打war.md | Linnxh的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Linnxh的博客">
-<meta property="og:url" content="http://linnxh.online/tags/mybatis/index.html">
+  <meta name="description" content="idea中如果是javaee的web项目，要想打包成war的方法，参考方法如下，注：项目是eclipse下的项目，而且不是用mvn构建的 file–open–选择项目所在路径，注意右边path中所对应的web.xml的路径和下面的web resources directories 下面要对应到webcontent目录下  cmmon+;  快捷键发开项目project structure,face">
+<meta name="keywords" content="idea">
+<meta property="og:type" content="article">
+<meta property="og:title" content="idea打war.md">
+<meta property="og:url" content="http://linnxh.online/java/idea打war/index.html">
 <meta property="og:site_name" content="Linnxh的博客">
+<meta property="og:description" content="idea中如果是javaee的web项目，要想打包成war的方法，参考方法如下，注：项目是eclipse下的项目，而且不是用mvn构建的 file–open–选择项目所在路径，注意右边path中所对应的web.xml的路径和下面的web resources directories 下面要对应到webcontent目录下  cmmon+;  快捷键发开项目project structure,face">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/ideabuildwar11.png">
+<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/ideabuildwar22.png">
+<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/idea%E6%89%93%E6%88%90war3.png">
+<meta property="og:updated_time" content="2018-08-21T09:55:20.738Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linnxh的博客">
+<meta name="twitter:title" content="idea打war.md">
+<meta name="twitter:description" content="idea中如果是javaee的web项目，要想打包成war的方法，参考方法如下，注：项目是eclipse下的项目，而且不是用mvn构建的 file–open–选择项目所在路径，注意右边path中所对应的web.xml的路径和下面的web resources directories 下面要对应到webcontent目录下  cmmon+;  快捷键发开项目project structure,face">
+<meta name="twitter:image" content="http://p964q970y.bkt.clouddn.com/ideabuildwar11.png">
   
     <link rel="alternative" href="/atom.xml" title="Linnxh的博客" type="application/atom+xml">
   
@@ -154,52 +163,56 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-java/idea打war" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/sql/mybatis得到解析后最终执行的sql/" class="archive-article-date">
-  	<time datetime="2018-08-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-15</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/sql/mybatis得到解析后最终执行的sql/">mybatis得到解析后最终执行的sql</a>
+    <h1 class="article-title" itemprop="name">
+      idea打war.md
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/java/idea打war/" class="archive-article-date">
+  	<time datetime="2018-08-20T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-21</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+       <!--  -->
+        <p>idea中如果是javaee的web项目，要想打包成war的方法，参考方法如下，注：项目是eclipse下的项目，而且不是用mvn构建的</p>
+<p>file–open–选择项目所在路径，注意右边path中所对应的web.xml的路径<br>和下面的web resources directories 下面要对应到webcontent目录下</p>
+<p><img src="http://p964q970y.bkt.clouddn.com/ideabuildwar11.png" alt="idea"></p>
+<p>cmmon+;  快捷键发开项目project structure,<br>facets选项卡中添加web</p>
+<p>artifcats 选项卡，选择加号，<br><img src="http://p964q970y.bkt.clouddn.com/ideabuildwar22.png" alt="ideaa"></p>
+<p>如图所示，选择从项目添加，<br>注意输出路径，还有这个war包一定要包含，之前新建的项目<br><img src="http://p964q970y.bkt.clouddn.com/idea%E6%89%93%E6%88%90war3.png" alt="idr"></p>
+<p>build—&gt;build artifiacts  选择刚才新建的项目build，新项目即可打包</p>
+<p>参考<br><a href="https://blog.csdn.net/yabingshi_tech/article/details/60766877" target="_blank" rel="noopener">idea打成war</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sql</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mybatis</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">idea</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -212,17 +225,190 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://linnxh.online/java/idea打war/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/linux/2018-08-23/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          shell总结
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/sql/mybatis得到解析后最终执行的sql/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mybatis得到解析后最终执行的sql</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    目录，不存在的…
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="java/idea打war" data-title="idea打war.md" data-url="http://linnxh.online/java/idea打war/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+  
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://linnxh.online/java/idea打war/", 
+    sourceId: "java/idea打war",
+    productKey: "true",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-    
+  
+
+  
+
+  
+
+
+
+ 
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "YvrDo8i7S82D6P8Nkakr9gI2-gzGzoHsz",
+            app_key: "vw9R5Xqo4RvBGLy84umOsRlv",
+            placeholder: "欢迎评论",
+            avatar:"mm"
+        });
+    }
+</script>
+    </section>
+  
+
+
+
+
+
+
+
+
 
 
           </div>
@@ -265,9 +451,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: false,

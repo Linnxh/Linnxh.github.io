@@ -6,24 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://linnxh.online">
-  <title>idea打war.md | Linnxh的博客</title>
+  <title>Arrays和ArrayList对比 | Linnxh的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="idea中如果是javaee的web项目，要想打包成war的方法，参考方法如下，注：项目是eclipse下的项目，而且不是用mvn构建的 file–open–选择项目所在路径，注意右边path中所对应的web.xml的路径和下面的web resources directories 下面要对应到webcontent目录下  cmmon+;  快捷键发开项目project structure,face">
-<meta name="keywords" content="idea">
+  <meta name="description" content="源码对比ArrayList 和 Arrays 对比，后者不知处add、remove，支持set方法 首先看Arrays.asList的源代码： 12345@SafeVarargs@SuppressWarnings(&amp;quot;varargs&amp;quot;)public static &amp;lt;T&amp;gt; List&amp;lt;T&amp;gt; asList(T... a) &amp;#123;   return new">
 <meta property="og:type" content="article">
-<meta property="og:title" content="idea打war.md">
-<meta property="og:url" content="http://linnxh.online/sql/idea打war/index.html">
+<meta property="og:title" content="Arrays和ArrayList对比">
+<meta property="og:url" content="http://linnxh.online/java/Arrays和ArrayList对比/index.html">
 <meta property="og:site_name" content="Linnxh的博客">
-<meta property="og:description" content="idea中如果是javaee的web项目，要想打包成war的方法，参考方法如下，注：项目是eclipse下的项目，而且不是用mvn构建的 file–open–选择项目所在路径，注意右边path中所对应的web.xml的路径和下面的web resources directories 下面要对应到webcontent目录下  cmmon+;  快捷键发开项目project structure,face">
+<meta property="og:description" content="源码对比ArrayList 和 Arrays 对比，后者不知处add、remove，支持set方法 首先看Arrays.asList的源代码： 12345@SafeVarargs@SuppressWarnings(&amp;quot;varargs&amp;quot;)public static &amp;lt;T&amp;gt; List&amp;lt;T&amp;gt; asList(T... a) &amp;#123;   return new">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/ideabuildwar11.png">
-<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/ideabuildwar22.png">
-<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/idea%E6%89%93%E6%88%90war3.png">
-<meta property="og:updated_time" content="2018-08-21T09:55:20.738Z">
+<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/arrays%E5%92%8Carraylist%E5%AF%B9%E6%AF%941.png">
+<meta property="og:updated_time" content="2018-08-28T05:36:40.374Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="idea打war.md">
-<meta name="twitter:description" content="idea中如果是javaee的web项目，要想打包成war的方法，参考方法如下，注：项目是eclipse下的项目，而且不是用mvn构建的 file–open–选择项目所在路径，注意右边path中所对应的web.xml的路径和下面的web resources directories 下面要对应到webcontent目录下  cmmon+;  快捷键发开项目project structure,face">
-<meta name="twitter:image" content="http://p964q970y.bkt.clouddn.com/ideabuildwar11.png">
+<meta name="twitter:title" content="Arrays和ArrayList对比">
+<meta name="twitter:description" content="源码对比ArrayList 和 Arrays 对比，后者不知处add、remove，支持set方法 首先看Arrays.asList的源代码： 12345@SafeVarargs@SuppressWarnings(&amp;quot;varargs&amp;quot;)public static &amp;lt;T&amp;gt; List&amp;lt;T&amp;gt; asList(T... a) &amp;#123;   return new">
+<meta name="twitter:image" content="http://p964q970y.bkt.clouddn.com/arrays%E5%92%8Carraylist%E5%AF%B9%E6%AF%941.png">
   
     <link rel="alternative" href="/atom.xml" title="Linnxh的博客" type="application/atom+xml">
   
@@ -163,20 +160,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-sql/idea打war" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-java/Arrays和ArrayList对比" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      idea打war.md
+      Arrays和ArrayList对比
     </h1>
   
 
         
-        <a href="/sql/idea打war/" class="archive-article-date">
-  	<time datetime="2018-08-20T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-21</time>
+        <a href="/java/Arrays和ArrayList对比/" class="archive-article-date">
+  	<time datetime="2018-08-27T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-28</time>
 </a>
         
       </header>
@@ -185,14 +182,20 @@
     <div class="article-entry" itemprop="articleBody">
       
        <!--  -->
-        <p>idea中如果是javaee的web项目，要想打包成war的方法，参考方法如下，注：项目是eclipse下的项目，而且不是用mvn构建的</p>
-<p>file–open–选择项目所在路径，注意右边path中所对应的web.xml的路径<br>和下面的web resources directories 下面要对应到webcontent目录下</p>
-<p><img src="http://p964q970y.bkt.clouddn.com/ideabuildwar11.png" alt="idea"></p>
-<p>cmmon+;  快捷键发开项目project structure,<br>facets选项卡中添加web</p>
-<p>artifcats 选项卡，选择加号，<br><img src="http://p964q970y.bkt.clouddn.com/ideabuildwar22.png" alt="ideaa"></p>
-<p>如图所示，选择从项目添加，<br>注意输出路径，还有这个war包一定要包含，之前新建的项目<br><img src="http://p964q970y.bkt.clouddn.com/idea%E6%89%93%E6%88%90war3.png" alt="idr"></p>
-<p>build—&gt;build artifiacts  选择刚才新建的项目build，新项目即可打包</p>
-<p>参考<br><a href="https://blog.csdn.net/yabingshi_tech/article/details/60766877" target="_blank" rel="noopener">idea打成war</a></p>
+        <h1 id="源码对比"><a href="#源码对比" class="headerlink" title="源码对比"></a>源码对比</h1><p>ArrayList 和 Arrays 对比，后者不知处add、remove，支持set方法</p>
+<p>首先看Arrays.asList的源代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@SafeVarargs</span><br><span class="line">@SuppressWarnings(&quot;varargs&quot;)</span><br><span class="line">public static &lt;T&gt; List&lt;T&gt; asList(T... a) &#123;</span><br><span class="line">   return new ArrayList&lt;&gt;(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里的ArrayList并非java.util工具包下的ArrayList，而是Arrays工具类自定义的一个内部静态类。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">private static class ArrayList&lt;E&gt; extends AbstractList&lt;E&gt;</span><br><span class="line">      implements RandomAccess, java.io.Serializable</span><br><span class="line">  &#123;</span><br><span class="line">      private static final long serialVersionUID = -2764017481108945198L;</span><br><span class="line">      private final E[] a;</span><br><span class="line"></span><br><span class="line">      ArrayList(E[] array) &#123;</span><br><span class="line">          a = Objects.requireNonNull(array);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p><code>Arrays$ArrayList</code>和<code>ArrayList</code>都是继承AbstractList，remove，add等method在AbstractList中是默认throw UnsupportedOperationException而且不作任何操作。ArrayList override这些method来对list进行操作，但是Arrays$ArrayList没有override remove()，add()等，所以throw UnsupportedOperationException。</p>
+<p>解决办法，转化为java.util.ArrayList。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; strings = Arrays.asList(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;);</span><br><span class="line">List&lt;String&gt; ids = new ArrayList&lt;&gt;(strings);</span><br><span class="line">ids.add(&quot;4&quot;);</span><br><span class="line"></span><br><span class="line">System.out.println(ids.toString());</span><br><span class="line">System.out.println(strings.toString());</span><br></pre></td></tr></table></figure>
+<p>输出结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 3, 4]</span><br><span class="line">[1, 2, 3]</span><br></pre></td></tr></table></figure>
+<h1 id="该方法不适用于基本数据类型"><a href="#该方法不适用于基本数据类型" class="headerlink" title="该方法不适用于基本数据类型"></a>该方法不适用于基本数据类型</h1><p>（byte,short,int,long,float,double,boolean）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; strings = Arrays.asList(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;);</span><br><span class="line">List&lt;Double&gt; doubles = Arrays.asList(1.1,2.2,3.2);</span><br></pre></td></tr></table></figure>
+<h1 id="更新Arrays数据时"><a href="#更新Arrays数据时" class="headerlink" title="更新Arrays数据时"></a>更新Arrays数据时</h1><p>该方法，当使用asList()方法时，数组就和列表链接在一起了。当更新其中之一时，另一个将自动获得更新。因为asList获得的List实际引用的就是数组</p>
+<p><img src="http://p964q970y.bkt.clouddn.com/arrays%E5%92%8Carraylist%E5%AF%B9%E6%AF%941.png" alt=""></p>
 
       
 
@@ -201,17 +204,6 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">idea</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
@@ -273,7 +265,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://linnxh.online/sql/idea打war/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://linnxh.online/java/Arrays和ArrayList对比/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -288,8 +280,8 @@
 <nav id="article-nav">
   
   
-    <a href="/sql/mybatis得到解析后最终执行的sql/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">mybatis得到解析后最终执行的sql</div>
+    <a href="/linux/2018-08-23/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">shell总结</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -316,7 +308,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    目录，不存在的…
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#源码对比"><span class="toc-number">1.</span> <span class="toc-text">源码对比</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#该方法不适用于基本数据类型"><span class="toc-number">2.</span> <span class="toc-text">该方法不适用于基本数据类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#更新Arrays数据时"><span class="toc-number">3.</span> <span class="toc-text">更新Arrays数据时</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -330,7 +322,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="sql/idea打war" data-title="idea打war.md" data-url="http://linnxh.online/sql/idea打war/"></div>
+	<div class="ds-thread" data-thread-key="java/Arrays和ArrayList对比" data-title="Arrays和ArrayList对比" data-url="http://linnxh.online/java/Arrays和ArrayList对比/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -353,8 +345,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://linnxh.online/sql/idea打war/", 
-    sourceId: "sql/idea打war",
+    url: "http://linnxh.online/java/Arrays和ArrayList对比/", 
+    sourceId: "java/Arrays和ArrayList对比",
     productKey: "true",
     target: "cloud-tie-wrapper"
   };
@@ -504,27 +496,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">springboot</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">aop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">idea</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -553,6 +533,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sku</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
             
             <div class="clearfix"></div>
