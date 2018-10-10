@@ -16,7 +16,7 @@
 <meta property="og:description" content="源码对比ArrayList 和 Arrays 对比，后者不知处add、remove，支持set方法 首先看Arrays.asList的源代码： 12345@SafeVarargs@SuppressWarnings(&amp;quot;varargs&amp;quot;)public static &amp;lt;T&amp;gt; List&amp;lt;T&amp;gt; asList(T... a) &amp;#123;   return new">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://p964q970y.bkt.clouddn.com/arrays%E5%92%8Carraylist%E5%AF%B9%E6%AF%941.png">
-<meta property="og:updated_time" content="2018-08-28T05:36:40.374Z">
+<meta property="og:updated_time" content="2018-09-29T05:40:44.831Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Arrays和ArrayList对比">
 <meta name="twitter:description" content="源码对比ArrayList 和 Arrays 对比，后者不知处add、remove，支持set方法 首先看Arrays.asList的源代码： 12345@SafeVarargs@SuppressWarnings(&amp;quot;varargs&amp;quot;)public static &amp;lt;T&amp;gt; List&amp;lt;T&amp;gt; asList(T... a) &amp;#123;   return new">
@@ -196,6 +196,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; strings = Arrays.asList(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;);</span><br><span class="line">List&lt;Double&gt; doubles = Arrays.asList(1.1,2.2,3.2);</span><br></pre></td></tr></table></figure>
 <h1 id="更新Arrays数据时"><a href="#更新Arrays数据时" class="headerlink" title="更新Arrays数据时"></a>更新Arrays数据时</h1><p>该方法，当使用asList()方法时，数组就和列表链接在一起了。当更新其中之一时，另一个将自动获得更新。因为asList获得的List实际引用的就是数组</p>
 <p><img src="http://p964q970y.bkt.clouddn.com/arrays%E5%92%8Carraylist%E5%AF%B9%E6%AF%941.png" alt=""></p>
+<h1 id="set"><a href="#set" class="headerlink" title="set"></a>set</h1><p>HashSet和TreeSet set中元素是不允许重复的，</p>
 
       
 
@@ -279,8 +280,17 @@
   
 <nav id="article-nav">
   
+    <a href="/java/2018-08-30/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
   
-    <a href="/linux/2018-08-23/" id="article-nav-older" class="article-nav-link-wrap">
+  
+    <a href="/linux/shell总结/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">shell总结</div>
       <i class="icon-circle-right"></i>
     </a>
@@ -308,7 +318,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#源码对比"><span class="toc-number">1.</span> <span class="toc-text">源码对比</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#该方法不适用于基本数据类型"><span class="toc-number">2.</span> <span class="toc-text">该方法不适用于基本数据类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#更新Arrays数据时"><span class="toc-number">3.</span> <span class="toc-text">更新Arrays数据时</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#源码对比"><span class="toc-number">1.</span> <span class="toc-text">源码对比</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#该方法不适用于基本数据类型"><span class="toc-number">2.</span> <span class="toc-text">该方法不适用于基本数据类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#更新Arrays数据时"><span class="toc-number">3.</span> <span class="toc-text">更新Arrays数据时</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#set"><span class="toc-number">4.</span> <span class="toc-text">set</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -496,15 +506,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">idea</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">springboot</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">aop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -517,6 +527,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">transactional</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">profile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -536,7 +550,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -544,7 +558,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
             
             <div class="clearfix"></div>

@@ -12,11 +12,11 @@
 <meta name="keywords" content="shell">
 <meta property="og:type" content="article">
 <meta property="og:title" content="shell总结">
-<meta property="og:url" content="http://linnxh.online/linux/2018-08-23/index.html">
+<meta property="og:url" content="http://linnxh.online/linux/shell总结/index.html">
 <meta property="og:site_name" content="Linnxh的博客">
 <meta property="og:description" content="项目根目录执行 ps -ef|grep tomcat|grep -v grep jar -cvf videostructure.war ./*rm -rf  文件名称 cp   a/b.war  c/d.war  把a目录下的b.war拷贝到c目录下，并重命名为d.war  tail -f filename | grep taskTimer    会把filename里最尾部的内容显示在屏幕上,并">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-28T03:03:05.599Z">
+<meta property="og:updated_time" content="2018-09-29T03:33:28.549Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="shell总结">
 <meta name="twitter:description" content="项目根目录执行 ps -ef|grep tomcat|grep -v grep jar -cvf videostructure.war ./*rm -rf  文件名称 cp   a/b.war  c/d.war  把a目录下的b.war拷贝到c目录下，并重命名为d.war  tail -f filename | grep taskTimer    会把filename里最尾部的内容显示在屏幕上,并">
@@ -159,7 +159,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-linux/2018-08-23" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-linux/shell总结" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -171,7 +171,7 @@
   
 
         
-        <a href="/linux/2018-08-23/" class="archive-article-date">
+        <a href="/linux/shell总结/" class="archive-article-date">
   	<time datetime="2018-08-22T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-23</time>
 </a>
         
@@ -192,6 +192,8 @@
 <p>如果我直接运行./xxx.sh，首先你会查找脚本第一行是否指定了解释器，如果没指定，那么就用当前系统默认的shell(大多数linux默认是bash)，如果指定了解释器，那么就将该脚本交给指定的解释器<br>举例如下：<br>定义如下脚本，名字为a指定了这是一个python脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line">print(&quot;This is Python script&quot;)</span><br></pre></td></tr></table></figure></p>
 <p>./a.run，结果就是输出一行文字，但是如果你运行sh a.run，会报错</p>
 <p>sh是一个shell。运行sh xxx.sh，表示我使用sh来解释这个脚本,sh和source命令<br>一样，没有执行权限也可以运行脚本。</p>
+<h1 id="centos7-5-虚拟机不上网配置"><a href="#centos7-5-虚拟机不上网配置" class="headerlink" title="centos7.5 虚拟机不上网配置"></a>centos7.5 虚拟机不上网配置</h1><p><a href="https://blog.csdn.net/qian_xia_er/article/details/79953170" target="_blank" rel="noopener">https://blog.csdn.net/qian_xia_er/article/details/79953170</a></p>
+<h1 id="查看内存总数"><a href="#查看内存总数" class="headerlink" title="查看内存总数"></a>查看内存总数</h1><p><code>cat /proc/meminfo | grep MemTotal</code></p>
 
       
 
@@ -272,7 +274,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://linnxh.online/linux/2018-08-23/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://linnxh.online/linux/shell总结/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -324,7 +326,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    目录，不存在的…
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#centos7-5-虚拟机不上网配置"><span class="toc-number">1.</span> <span class="toc-text">centos7.5 虚拟机不上网配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查看内存总数"><span class="toc-number">2.</span> <span class="toc-text">查看内存总数</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -338,7 +340,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="linux/2018-08-23" data-title="shell总结" data-url="http://linnxh.online/linux/2018-08-23/"></div>
+	<div class="ds-thread" data-thread-key="linux/shell总结" data-title="shell总结" data-url="http://linnxh.online/linux/shell总结/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -361,8 +363,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://linnxh.online/linux/2018-08-23/", 
-    sourceId: "linux/2018-08-23",
+    url: "http://linnxh.online/linux/shell总结/", 
+    sourceId: "linux/shell总结",
     productKey: "true",
     target: "cloud-tie-wrapper"
   };
@@ -512,15 +514,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">idea</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">springboot</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">aop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -533,6 +535,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">transactional</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">profile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -552,7 +558,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -560,7 +566,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
             
             <div class="clearfix"></div>

@@ -9,7 +9,7 @@
   <title>mongodb初印象 | Linnxh的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="之前只接触过一种数据库mysql，偶然间接到一个需求，发现数据是存在mongodb里的，接下来就记录一下我认识mongodb的过程。">
-<meta name="keywords" content="mongodb,sql">
+<meta name="keywords" content="sql,mongodb">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mongodb初印象">
 <meta property="og:url" content="http://linnxh.online/sql/mongodb/index.html">
@@ -17,7 +17,7 @@
 <meta property="og:description" content="之前只接触过一种数据库mysql，偶然间接到一个需求，发现数据是存在mongodb里的，接下来就记录一下我认识mongodb的过程。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://p964q970y.bkt.clouddn.com/QQ20180605-143022.png">
-<meta property="og:updated_time" content="2018-08-22T12:41:27.909Z">
+<meta property="og:updated_time" content="2018-09-12T07:17:16.699Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mongodb初印象">
 <meta name="twitter:description" content="之前只接触过一种数据库mysql，偶然间接到一个需求，发现数据是存在mongodb里的，接下来就记录一下我认识mongodb的过程。">
@@ -197,7 +197,7 @@
 <p><img src="http://p964q970y.bkt.clouddn.com/QQ20180605-143022.png" alt="mongodb和mysql对比"></p>
 <h1 id="四、安装注意事项"><a href="#四、安装注意事项" class="headerlink" title="四、安装注意事项"></a>四、安装注意事项</h1><p>因为我的虚拟机好像内存不够了，用<code>mongod</code>启动提示内存不足什么的，改用<code>mongod --smallfiles</code>的方式启动mongo就可以了</p>
 <p>如果界面一直卡在<br>wating for 2110端口上，表示已经开启了mongodb，新开一个命令行输入mongo即可进入</p>
-<h1 id="五、基本操作"><a href="#五、基本操作" class="headerlink" title="五、基本操作"></a>五、基本操作</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">show dbs    show databases  //显示所有数据库</span><br><span class="line">use lxhtest  //如果存在该数据库就使用该数据库，否则就创建该数据库</span><br><span class="line">show collections  //显示所有集合（mysql，显示所有表）</span><br><span class="line"></span><br><span class="line">//查</span><br><span class="line">db.lxhtest.find().pretty()  //查询出lxhtest的所有行</span><br><span class="line">db.lxhtest.find(&#123;“name”:&quot;test-lxh&quot;&#125;).pretty() </span><br><span class="line"></span><br><span class="line">//增</span><br><span class="line">db.createCollection(&quot;runnoob&quot;)  //创建名称为runnoob的集合（mysql中的数据库）</span><br><span class="line">db.runnoob.insert(&#123;&quot;name&quot;:&quot;test-lxh&quot;&#125;)  //向集合名称为runnoob中插入该条数据</span><br><span class="line"></span><br><span class="line">//删 </span><br><span class="line">db.runnoob.drop()  //删除runnoob集合（mysql中删除表）</span><br><span class="line">use lxhtest2   </span><br><span class="line">db.dropDatabase()   //删除lxhtest2数据库</span><br><span class="line"></span><br><span class="line">//改</span><br><span class="line">db.runnoob.update(&#123;&apos;name&apos;:&apos;test-lxh&apos;&#125;,&#123;$set:&#123;&apos;name&apos;:&apos;test-lxh&apos;&#125;&#125;)  //以上语句只会修改第一条发现的文档，如果你要修改多条相同的文档，则需要设置 multi 参数为 true。</span><br><span class="line">db.runnoob.update(&#123;&apos;name&apos;:&apos;test-lxh&apos;&#125;,&#123;$set:&#123;&apos;name&apos;:&apos;test-lxh&apos;&#125;&#125;,&#123;multi:true&#125;)</span><br><span class="line">db.col.save(&#123; &quot;_id&quot; : ObjectId(&quot;56064f89ade2f21f36b03136&quot;), &quot;name&quot; : &quot;test-lxh2222&quot;&#125;)//将id为56064f89ade2f21f36b03136数据修改为。。。</span><br><span class="line"></span><br><span class="line">//数量</span><br><span class="line">db.users.find().count();</span><br></pre></td></tr></table></figure>
+<h1 id="五、基本操作"><a href="#五、基本操作" class="headerlink" title="五、基本操作"></a>五、基本操作</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">show dbs    show databases  //显示所有数据库</span><br><span class="line">use lxhtest  //如果存在该数据库就使用该数据库，否则就创建该数据库</span><br><span class="line">show collections  //显示所有集合（mysql，显示所有表）</span><br><span class="line"></span><br><span class="line">//查</span><br><span class="line">db.lxhtest.find().pretty()  //查询出lxhtest的所有行</span><br><span class="line">db.lxhtest.find(&#123;“name”:&quot;test-lxh&quot;&#125;).pretty() </span><br><span class="line"></span><br><span class="line">//增</span><br><span class="line">db.createCollection(&quot;runnoob&quot;)  //创建名称为runnoob的集合（mysql中的数据库）</span><br><span class="line">db.runnoob.insert(&#123;&quot;name&quot;:&quot;test-lxh&quot;&#125;)  //向集合名称为runnoob中插入该条数据</span><br><span class="line"></span><br><span class="line">//删 </span><br><span class="line">db.runnoob.drop()  //删除runnoob集合（mysql中删除表）</span><br><span class="line">use lxhtest2   </span><br><span class="line">db.dropDatabase()   //删除lxhtest2数据库</span><br><span class="line"></span><br><span class="line">//改</span><br><span class="line">db.runnoob.update(&#123;&apos;name&apos;:&apos;test-lxh&apos;&#125;,&#123;$set:&#123;&apos;name&apos;:&apos;test-lxh&apos;&#125;&#125;)  //以上语句只会修改第一条发现的文档，如果你要修改多条相同的文档，则需要设置 multi 参数为 true。</span><br><span class="line">db.runnoob.update(&#123;&apos;name&apos;:&apos;test-lxh&apos;&#125;,&#123;$set:&#123;&apos;name&apos;:&apos;test-lxh&apos;&#125;&#125;,&#123;multi:true&#125;)</span><br><span class="line">db.col.save(&#123; &quot;_id&quot; : ObjectId(&quot;56064f89ade2f21f36b03136&quot;), &quot;name&quot; : &quot;test-lxh2222&quot;&#125;)//将id为56064f89ade2f21f36b03136数据修改为。。。</span><br><span class="line"></span><br><span class="line">//数量</span><br><span class="line">db.users.find().count();</span><br><span class="line"></span><br><span class="line">db.users.find().limit(10)</span><br></pre></td></tr></table></figure>
 <h1 id="六、分片存储"><a href="#六、分片存储" class="headerlink" title="六、分片存储"></a>六、分片存储</h1>
       
 
@@ -211,11 +211,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sql</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
         		</li>
       		
 		</ul>
@@ -522,15 +522,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">idea</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">springboot</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">aop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -543,6 +543,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">transactional</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">profile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -562,7 +566,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -570,7 +574,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
             
             <div class="clearfix"></div>

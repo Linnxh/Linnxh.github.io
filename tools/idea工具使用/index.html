@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Linnxh的博客">
 <meta property="og:description" content="java开发常用工具总结，intelljdea">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-28T05:33:10.953Z">
+<meta property="og:updated_time" content="2018-09-11T10:31:25.552Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="idea工具使用">
 <meta name="twitter:description" content="java开发常用工具总结，intelljdea">
@@ -184,7 +184,9 @@
 <h1 id="intelljdea"><a href="#intelljdea" class="headerlink" title="intelljdea"></a>intelljdea</h1><h2 id="【链接】-求助-IntelliJIDEA怎么破解"><a href="#【链接】-求助-IntelliJIDEA怎么破解" class="headerlink" title="【链接】[求助]IntelliJIDEA怎么破解"></a>【链接】[求助]IntelliJIDEA怎么破解</h2><p>1、<a href="http://bbs.feng.com/read-htm-tid-11256605.html" target="_blank" rel="noopener">http://bbs.feng.com/read-htm-tid-11256605.html</a><br>激活界面选license server，把<a href="http://xidea.online粘贴进去，点激活" target="_blank" rel="noopener">http://xidea.online粘贴进去，点激活</a><br>2、<a href="http://idea.lanyus.com/" target="_blank" rel="noopener">http://idea.lanyus.com/</a><br>3、jar激活，<a href="https://www.jianshu.com/p/f404994e2843" target="_blank" rel="noopener">https://www.jianshu.com/p/f404994e2843</a></p>
 <h2 id="代码里的黄线"><a href="#代码里的黄线" class="headerlink" title="代码里的黄线"></a>代码里的黄线</h2><ol>
 <li>java代码的波浪线，在 setting 里面  inspections _ General _ Duplicated Code 取消勾选.提交之后就可以了.</li>
-<li>sql里的黄色背景：setting–>Spring–>Spring Core–>Code–>Autowring for Bean Class里的对号去掉，setting–>Spring–>SQL–>Code–>No data source configured 和 SQL dialect detection 里的对号去掉;</li>
+<li>sql里的黄色背景：editor–&gt;inspections–&gt;右边的 sql  里的 no data source configured sql dialect detecton 的对号去掉，setting–>Spring–>Spring Core–>Code–>Autowring for Bean Class里的对号去掉， editor–&gt;color Scheme—&gt;general–&gt;code–&gt;injected language fragment background去掉</li>
+<li>editor–&gt;general–&gt;code completion—&gt;match case 选择none，或者把对号都去掉</li>
+<li><a href="http://plugins.jetbrains.com/" target="_blank" rel="noopener">http://plugins.jetbrains.com/</a>  这个是插件的官网，先下载后选择离线安装</li>
 </ol>
 <h2 id="格式化jsp"><a href="#格式化jsp" class="headerlink" title="格式化jsp"></a>格式化jsp</h2><p><a href="http://blog.csdn.net/ieayoio/article/details/49930587" target="_blank" rel="noopener">http://blog.csdn.net/ieayoio/article/details/49930587</a></p>
 <h2 id="【链接】intellijIDEA如何设置默认的maven配置？"><a href="#【链接】intellijIDEA如何设置默认的maven配置？" class="headerlink" title="【链接】intellijIDEA如何设置默认的maven配置？"></a>【链接】intellijIDEA如何设置默认的maven配置？</h2><p><a href="http://www.oschina.net/question/948439\_243781" target="_blank" rel="noopener">http://www.oschina.net/question/948439\_243781</a></p>
@@ -205,6 +207,7 @@
 <p> -Xmx   Java Heap最大值，默认值为物理内存的1/4，最佳设值应该视物理内存大小及计算机内其他内存开销而定；<br>-Xms   Java Heap初始值，Server端JVM最好将-Xms和-Xmx设为相同值，开发测试机JVM可以保留默认值；<br>-Xmn   Java Heap Young区大小，不熟悉最好保留默认值；<br>-Xss   每个线程的Stack大小，不熟悉最好保留默认值；</p>
 <h3 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h3><ol>
 <li>comm+shiift+小键盘的*    option+鼠标左键</li>
+<li>control+option       删除无用的包</li>
 </ol>
 <h1 id="编译后的jsp文件路径"><a href="#编译后的jsp文件路径" class="headerlink" title="编译后的jsp文件路径"></a>编译后的jsp文件路径</h1><p>/Users/LXH/Library/Caches/IntelliJIdea2017.3/tomcat<br>路径里的具体文件名称对应不清楚，可以用工具直接进行搜索：</p>
 
@@ -516,15 +519,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">idea</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">springboot</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">aop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -537,6 +540,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">transactional</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">profile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -556,7 +563,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -564,7 +571,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
             
             <div class="clearfix"></div>

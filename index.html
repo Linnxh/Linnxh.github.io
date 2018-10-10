@@ -156,6 +156,275 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-java/spring的profile配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java/spring的profile配置/">spring的profile配置</a>
+    </h1>
+  
+
+        
+        <a href="/java/spring的profile配置/" class="archive-article-date">
+  	<time datetime="2018-10-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-10</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+       <!--  -->
+        <p>spring.profile是为了解决开发环境和生产环境对应的配置文件不一致，可以灵活使用对应的配置文件</p>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><h2 id="配置文件分为两份"><a href="#配置文件分为两份" class="headerlink" title="配置文件分为两份"></a>配置文件分为两份</h2><p><img src="http://p964q970y.bkt.clouddn.com/moreprofile1.png" alt="moreprofile"></p>
+<h2 id="applicationContext中配置两种环境的配置文件"><a href="#applicationContext中配置两种环境的配置文件" class="headerlink" title="applicationContext中配置两种环境的配置文件"></a>applicationContext中配置两种环境的配置文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 生产环境配置文件 --&gt;</span><br><span class="line">&lt;beans profile=&quot;product&quot;&gt;</span><br><span class="line">    &lt;context:property-placeholder location=&quot;classpath:properties/product/*.properties&quot; /&gt;</span><br><span class="line">&lt;/beans&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 开发环境配置文件 --&gt;</span><br><span class="line">&lt;beans profile=&quot;dev&quot;&gt;</span><br><span class="line">    &lt;context:property-placeholder location=&quot;classpath:properties/dev/*.properties&quot; /&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="web-xm中指定默认的配置文件时生产环境的"><a href="#web-xm中指定默认的配置文件时生产环境的" class="headerlink" title="web.xm中指定默认的配置文件时生产环境的"></a>web.xm中指定默认的配置文件时生产环境的</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 在上下文context-param中设置profile.default的默认值 --&gt;</span><br><span class="line">&lt;context-param&gt;</span><br><span class="line">    &lt;param-name&gt;spring.profiles.default&lt;/param-name&gt;</span><br><span class="line">    &lt;param-value&gt;product&lt;/param-value&gt;</span><br><span class="line">&lt;/context-param&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="代码中获取当前的环境"><a href="#代码中获取当前的环境" class="headerlink" title="代码中获取当前的环境"></a>代码中获取当前的环境</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public static String ENV;</span><br><span class="line"></span><br><span class="line">static &#123;</span><br><span class="line">    String env = System.getProperty(&quot;spring.profiles.active&quot;);</span><br><span class="line">    if (env == null) &#123;</span><br><span class="line">        PropUtils.ENV = &quot;product&quot;;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        PropUtils.ENV = env;</span><br><span class="line">    &#125;</span><br><span class="line">    PropertyConfigurator.configure(Thread.currentThread().getContextClassLoader().getResource(&quot;&quot;).getPath() + &quot;properties/&quot; + ENV + &quot;/log4j.properties&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="启动参数里可以指定加载配置文件"><a href="#启动参数里可以指定加载配置文件" class="headerlink" title="启动参数里可以指定加载配置文件"></a>启动参数里可以指定加载配置文件</h2><p>如：<br><code>-Dspring.profiles.active=&quot;product&quot;</code></p>
+<p>说明：<br>在Spring的Profile中，Profile存在两种状态，一种为默认加载的profile（spring.profiles.default），一种为指定激活的profile（spring.profiles.active）。如果程序未指定active状态的profile，那么执行default状态的profile，如果两种状态都指定，则优先执行或选择active状态的profile </p>
+<p>参考链接<br><a href="https://blog.csdn.net/xvshu/article/details/51133786" target="_blank" rel="noopener">通过 spring 容器内建的 profile 功能实现开发环境、测试环境、生产环境配置自动切换</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">profile</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/java/spring的profile配置/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-java/2018-09-28" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java/2018-09-28/">profiles多个环境</a>
+    </h1>
+  
+
+        
+        <a href="/java/2018-09-28/" class="archive-article-date">
+  	<time datetime="2018-09-27T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-28</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+       <!--  -->
+        <p>通过spring内建的profile功能实现开发环境，测试环境，生产环境配置</p>
+<p><img src="http://p964q970y.bkt.clouddn.com/moreprofile.png" alt="多profile"></p>
+<p>applicationContext配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 测试环境配置文件 --&gt;</span><br><span class="line">    &lt;beans profile=&quot;test&quot;&gt;</span><br><span class="line">        &lt;context:property-placeholder location=&quot;classpath:properties/test/*.properties&quot; /&gt;</span><br><span class="line">    &lt;/beans&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 本地环境配置文件 --&gt;</span><br><span class="line">    &lt;beans profile=&quot;local&quot;&gt;</span><br><span class="line">        &lt;context:property-placeholder location=&quot;classpath:properties/local/*.properties&quot; /&gt;</span><br><span class="line">    &lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<p>web.xml配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 在上下文context-param中设置profile.default的默认值 --&gt;</span><br><span class="line">  &lt;context-param&gt;</span><br><span class="line">      &lt;param-name&gt;spring.profiles.default&lt;/param-name&gt;</span><br><span class="line">      &lt;param-value&gt;test&lt;/param-value&gt;</span><br><span class="line">  &lt;/context-param&gt;</span><br></pre></td></tr></table></figure>
+<p>在 java 代码中继续通过该参数来区分不同的环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class Config &#123;</span><br><span class="line">    public static String ENV = &quot;development&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class InitConfigListener implements ServletContextListener &#123;</span><br><span class="line"></span><br><span class="line">    public void contextInitialized(ServletContextEvent sce) &#123; </span><br><span class="line">      //侦测jvm环境，并缓存到全局变量中        String env = System.getProperty(&quot;spring.profiles.active&quot;);        if(env == null) &#123;            Config.ENV = &quot;development&quot;;        &#125; else &#123;            Config.ENV = env;        &#125;    &#125;&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void contextDestroyed(ServletContextEvent servletContextEvent) &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/java/2018-09-28/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-java/2018-08-30" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+       <!--  -->
+        <p># </p>
+<p>B树即平衡查找树，一般理解为平衡多路查找树，是一种自平衡树状数据结构，能对存储的数据进行O(log n)的时间复杂度进行查找、插入和删除。B树一般较多用在存储系统上，比如数据库或文件系统。</p>
+<p><a href="https://juejin.im/post/5b873a1af265da43741e2328" target="_blank" rel="noopener">B树入门</a></p>
+<h1 id="Integer"><a href="#Integer" class="headerlink" title="Integer"></a>Integer</h1><p>Integer a=new Integer(127);<br>Integer b=new Integer(127);<br>a==b返回true</p>
+<p>Integer c=new Integer(128);<br>Integer d=new Integer(128);<br>c==d返回false</p>
+<p>JVM会自动维护八种基本类型的常量池，int常量池中初始化-128~127的范围，所以当为Integer i=127时，在自动装箱过程中是取自常量池中的数值，而当Integer i=128时，128不在常量池范围内，所以在自动装箱过程中需new 128，所以地址不一样。</p>
+<h1 id="java内存模型"><a href="#java内存模型" class="headerlink" title="java内存模型"></a>java内存模型</h1><p>方法区<br>堆内存</p>
+<h1 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h1><p><a href="https://www.jianshu.com/p/9b717551ee44" target="_blank" rel="noopener">https://www.jianshu.com/p/9b717551ee44</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@ResponseBody</span><br><span class="line">   @RequestMapping(&quot;/query&quot;)</span><br><span class="line">   public ResponseBean query(HttpServletRequest request, @RequestBody JSONObject p) &#123;</span><br><span class="line">   </span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>request 的流只能读取一次的问题</p>
+<p><a href="https://blog.csdn.net/qing_gee/article/details/47122227" target="_blank" rel="noopener">https://blog.csdn.net/qing_gee/article/details/47122227</a></p>
+<p>如果 mapper的入参只为一个参数，判空加法</p>
+<p>在t</p>
+<h1 id="tomcat-不打印日志"><a href="#tomcat-不打印日志" class="headerlink" title="tomcat 不打印日志"></a>tomcat 不打印日志</h1><p>该应用的WEB-INF/classes目录中新建一个logging.properties文件，再加上以下两句：</p>
+<p>org.apache.catalina.core.ContainerBase.[Catalina].level = INFO<br>org.apache.catalina.core.ContainerBase.[Catalina].handlers = java.util.logging.ConsoleHandler</p>
+<h1 id="jvm参数"><a href="#jvm参数" class="headerlink" title="jvm参数"></a>jvm参数</h1><h1 id="centos7-5-虚拟机不上网配置"><a href="#centos7-5-虚拟机不上网配置" class="headerlink" title="centos7.5 虚拟机不上网配置"></a>centos7.5 虚拟机不上网配置</h1><p><a href="https://blog.csdn.net/qian_xia_er/article/details/79953170" target="_blank" rel="noopener">https://blog.csdn.net/qian_xia_er/article/details/79953170</a></p>
+<h1 id="查看网络"><a href="#查看网络" class="headerlink" title="查看网络"></a>查看网络</h1><p>centos 7 <code>ip addr</code> 其他 <code>ifconfig</code></p>
+<p><a href="https://www.cnblogs.com/jtnote/p/6103754.html" target="_blank" rel="noopener">https://www.cnblogs.com/jtnote/p/6103754.html</a></p>
+<p><a href="https://blog.csdn.net/jamet/article/details/77508182" target="_blank" rel="noopener">https://blog.csdn.net/jamet/article/details/77508182</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/java/2018-08-30/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-java/Arrays和ArrayList对比" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -192,6 +461,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; strings = Arrays.asList(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;);</span><br><span class="line">List&lt;Double&gt; doubles = Arrays.asList(1.1,2.2,3.2);</span><br></pre></td></tr></table></figure>
 <h1 id="更新Arrays数据时"><a href="#更新Arrays数据时" class="headerlink" title="更新Arrays数据时"></a>更新Arrays数据时</h1><p>该方法，当使用asList()方法时，数组就和列表链接在一起了。当更新其中之一时，另一个将自动获得更新。因为asList获得的List实际引用的就是数组</p>
 <p><img src="http://p964q970y.bkt.clouddn.com/arrays%E5%92%8Carraylist%E5%AF%B9%E6%AF%941.png" alt=""></p>
+<h1 id="set"><a href="#set" class="headerlink" title="set"></a>set</h1><p>HashSet和TreeSet set中元素是不允许重复的，</p>
 
       
 
@@ -253,19 +523,19 @@
 
 
   
-    <article id="post-linux/2018-08-23" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-linux/shell总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/linux/2018-08-23/">shell总结</a>
+      <a class="article-title" href="/linux/shell总结/">shell总结</a>
     </h1>
   
 
         
-        <a href="/linux/2018-08-23/" class="archive-article-date">
+        <a href="/linux/shell总结/" class="archive-article-date">
   	<time datetime="2018-08-22T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-23</time>
 </a>
         
@@ -286,6 +556,8 @@
 <p>如果我直接运行./xxx.sh，首先你会查找脚本第一行是否指定了解释器，如果没指定，那么就用当前系统默认的shell(大多数linux默认是bash)，如果指定了解释器，那么就将该脚本交给指定的解释器<br>举例如下：<br>定义如下脚本，名字为a指定了这是一个python脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line">print(&quot;This is Python script&quot;)</span><br></pre></td></tr></table></figure></p>
 <p>./a.run，结果就是输出一行文字，但是如果你运行sh a.run，会报错</p>
 <p>sh是一个shell。运行sh xxx.sh，表示我使用sh来解释这个脚本,sh和source命令<br>一样，没有执行权限也可以运行脚本。</p>
+<h1 id="centos7-5-虚拟机不上网配置"><a href="#centos7-5-虚拟机不上网配置" class="headerlink" title="centos7.5 虚拟机不上网配置"></a>centos7.5 虚拟机不上网配置</h1><p><a href="https://blog.csdn.net/qian_xia_er/article/details/79953170" target="_blank" rel="noopener">https://blog.csdn.net/qian_xia_er/article/details/79953170</a></p>
+<h1 id="查看内存总数"><a href="#查看内存总数" class="headerlink" title="查看内存总数"></a>查看内存总数</h1><p><code>cat /proc/meminfo | grep MemTotal</code></p>
 
       
 
@@ -320,7 +592,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/linux/2018-08-23/">展开全文 >></a>
+          <a class="article-more-a" href="/linux/shell总结/">展开全文 >></a>
         </p>
       
 
@@ -498,11 +770,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mybatis</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mybatis</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sql</a>
         		</li>
       		
 		</ul>
@@ -941,280 +1213,6 @@
 
 
   
-    <article id="post-java/spring初探索" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java/spring初探索/">spring初探索</a>
-    </h1>
-  
-
-        
-        <a href="/java/spring初探索/" class="archive-article-date">
-  	<time datetime="2018-06-19T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-20</time>
-</a>
-        
-      </header>
-    
-   
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="spring"><a href="#spring" class="headerlink" title="spring"></a>spring</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><img src="http://p964q970y.bkt.clouddn.com/QQ20180524-094112@2x.png" alt="sping组成"></p>
-        
-          <a class="article-more-a" href="/java/spring初探索/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/java/spring初探索/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-sql/mongodb" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/sql/mongodb/">mongodb初印象</a>
-    </h1>
-  
-
-        
-        <a href="/sql/mongodb/" class="archive-article-date">
-  	<time datetime="2018-06-04T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-05</time>
-</a>
-        
-      </header>
-    
-   
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>之前只接触过一种数据库mysql，偶然间接到一个需求，发现数据是存在mongodb里的，接下来就记录一下我认识mongodb的过程。<br></p>
-        
-          <a class="article-more-a" href="/sql/mongodb/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/sql/mongodb/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-java/商品详情切换sku" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java/商品详情切换sku/">商品详情切换sku</a>
-    </h1>
-  
-
-        
-        <a href="/java/商品详情切换sku/" class="archive-article-date">
-  	<time datetime="2018-05-23T08:48:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-23</time>
-</a>
-        
-      </header>
-    
-   
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近公司在研发多规格的项目，我正好负责的是商品详情页面，针对详情页的多规格提出一些自己的见解<br></p>
-        
-          <a class="article-more-a" href="/java/商品详情切换sku/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">商品管理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sku</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/java/商品详情切换sku/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1324,15 +1322,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">idea</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">springboot</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">aop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1345,6 +1343,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">transactional</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">profile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1364,7 +1366,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1372,7 +1374,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
             
             <div class="clearfix"></div>
