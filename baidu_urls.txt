@@ -1,5 +1,6 @@
+http://linnxh.online/sql/mysql的性能优化/
 http://linnxh.online/java/spring的profile配置/
-http://linnxh.online/java/2018-09-28/
+http://linnxh.online/linux/2018-10-10/
 http://linnxh.online/java/2018-08-30/
 http://linnxh.online/java/Arrays和ArrayList对比/
 http://linnxh.online/linux/shell总结/

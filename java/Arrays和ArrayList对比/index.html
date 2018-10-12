@@ -16,7 +16,7 @@
 <meta property="og:description" content="源码对比ArrayList 和 Arrays 对比，后者不知处add、remove，支持set方法 首先看Arrays.asList的源代码： 12345@SafeVarargs@SuppressWarnings(&amp;quot;varargs&amp;quot;)public static &amp;lt;T&amp;gt; List&amp;lt;T&amp;gt; asList(T... a) &amp;#123;   return new">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://p964q970y.bkt.clouddn.com/arrays%E5%92%8Carraylist%E5%AF%B9%E6%AF%941.png">
-<meta property="og:updated_time" content="2018-09-29T05:40:44.831Z">
+<meta property="og:updated_time" content="2018-10-10T09:14:44.088Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Arrays和ArrayList对比">
 <meta name="twitter:description" content="源码对比ArrayList 和 Arrays 对比，后者不知处add、remove，支持set方法 首先看Arrays.asList的源代码： 12345@SafeVarargs@SuppressWarnings(&amp;quot;varargs&amp;quot;)public static &amp;lt;T&amp;gt; List&amp;lt;T&amp;gt; asList(T... a) &amp;#123;   return new">
@@ -185,6 +185,7 @@
         <h1 id="源码对比"><a href="#源码对比" class="headerlink" title="源码对比"></a>源码对比</h1><p>ArrayList 和 Arrays 对比，后者不知处add、remove，支持set方法</p>
 <p>首先看Arrays.asList的源代码：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@SafeVarargs</span><br><span class="line">@SuppressWarnings(&quot;varargs&quot;)</span><br><span class="line">public static &lt;T&gt; List&lt;T&gt; asList(T... a) &#123;</span><br><span class="line">   return new ArrayList&lt;&gt;(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>这里的ArrayList并非java.util工具包下的ArrayList，而是Arrays工具类自定义的一个内部静态类。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">private static class ArrayList&lt;E&gt; extends AbstractList&lt;E&gt;</span><br><span class="line">      implements RandomAccess, java.io.Serializable</span><br><span class="line">  &#123;</span><br><span class="line">      private static final long serialVersionUID = -2764017481108945198L;</span><br><span class="line">      private final E[] a;</span><br><span class="line"></span><br><span class="line">      ArrayList(E[] array) &#123;</span><br><span class="line">          a = Objects.requireNonNull(array);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 <p><code>Arrays$ArrayList</code>和<code>ArrayList</code>都是继承AbstractList，remove，add等method在AbstractList中是默认throw UnsupportedOperationException而且不作任何操作。ArrayList override这些method来对list进行操作，但是Arrays$ArrayList没有override remove()，add()等，所以throw UnsupportedOperationException。</p>
@@ -284,7 +285,7 @@
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          (no title)
+          Thu Aug 30 2018 00:00:00 GMT+0800 (CST)
         
       </div>
     </a>
@@ -506,10 +507,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">springboot</a>
               </li>
              
@@ -519,6 +516,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">idea</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -550,7 +551,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -558,7 +563,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
             
             <div class="clearfix"></div>
