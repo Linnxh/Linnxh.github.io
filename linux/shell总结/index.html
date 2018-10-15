@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Linnxh的博客">
 <meta property="og:description" content="项目根目录执行 ps -ef|grep tomcat|grep -v grep jar -cvf videostructure.war ./*rm -rf  文件名称 cp   a/b.war  c/d.war  把a目录下的b.war拷贝到c目录下，并重命名为d.war  tail -f filename | grep taskTimer    会把filename里最尾部的内容显示在屏幕上,并">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-29T03:33:28.549Z">
+<meta property="og:updated_time" content="2018-10-15T02:16:41.789Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="shell总结">
 <meta name="twitter:description" content="项目根目录执行 ps -ef|grep tomcat|grep -v grep jar -cvf videostructure.war ./*rm -rf  文件名称 cp   a/b.war  c/d.war  把a目录下的b.war拷贝到c目录下，并重命名为d.war  tail -f filename | grep taskTimer    会把filename里最尾部的内容显示在屏幕上,并">
@@ -194,6 +194,7 @@
 <p>sh是一个shell。运行sh xxx.sh，表示我使用sh来解释这个脚本,sh和source命令<br>一样，没有执行权限也可以运行脚本。</p>
 <h1 id="centos7-5-虚拟机不上网配置"><a href="#centos7-5-虚拟机不上网配置" class="headerlink" title="centos7.5 虚拟机不上网配置"></a>centos7.5 虚拟机不上网配置</h1><p><a href="https://blog.csdn.net/qian_xia_er/article/details/79953170" target="_blank" rel="noopener">https://blog.csdn.net/qian_xia_er/article/details/79953170</a></p>
 <h1 id="查看内存总数"><a href="#查看内存总数" class="headerlink" title="查看内存总数"></a>查看内存总数</h1><p><code>cat /proc/meminfo | grep MemTotal</code></p>
+<h1 id="查看某个端口的占用情况"><a href="#查看某个端口的占用情况" class="headerlink" title="查看某个端口的占用情况"></a>查看某个端口的占用情况</h1><p><code>netstat -anp|grep 80</code>查看80端口的占用情况</p>
 
       
 
@@ -326,7 +327,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#centos7-5-虚拟机不上网配置"><span class="toc-number">1.</span> <span class="toc-text">centos7.5 虚拟机不上网配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查看内存总数"><span class="toc-number">2.</span> <span class="toc-text">查看内存总数</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#centos7-5-虚拟机不上网配置"><span class="toc-number">1.</span> <span class="toc-text">centos7.5 虚拟机不上网配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查看内存总数"><span class="toc-number">2.</span> <span class="toc-text">查看内存总数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查看某个端口的占用情况"><span class="toc-number">3.</span> <span class="toc-text">查看某个端口的占用情况</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -514,19 +515,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">aop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">idea</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">aop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -558,10 +559,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
              
@@ -571,6 +568,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
             
             <div class="clearfix"></div>

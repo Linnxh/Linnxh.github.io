@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://p964q970y.bkt.clouddn.com/explain-like-x%25.png">
 <meta property="og:image" content="http://p964q970y.bkt.clouddn.com/expain-like-%25x.png">
 <meta property="og:image" content="http://p964q970y.bkt.clouddn.com/explain-like-%25x%25.png">
-<meta property="og:updated_time" content="2018-10-12T09:26:41.183Z">
+<meta property="og:updated_time" content="2018-10-15T03:21:41.329Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="实际开发中mysql的性能优化">
 <meta name="twitter:description" content="前言">
@@ -190,7 +190,7 @@
       
        <!--  -->
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><a id="more"></a>
-<h1 id="explain关键字"><a href="#explain关键字" class="headerlink" title="explain关键字"></a>explain关键字</h1><p>mysql优化在实际的开发中是很重要，有很多可以评估自己写的sql的质量与效率，mysql为我们提供了一个辅助武器explain，它向我们展示了mysql接收到一条sql语句的执行计划，根绝explain返回的结果可以知道sql写的怎样</p>
+<h1 id="explain关键字"><a href="#explain关键字" class="headerlink" title="explain关键字"></a>explain关键字</h1><p>mysql优化在实际的开发中是很重要，有很多可以评估自己写的sql的质量与效率，mysql为我们提供了一个辅助武器explain，它向我们展示了mysql接收到一条sql语句的执行计划，根绝explain返回的结果可以知道sql写的怎样,</p>
 <h2 id="demo数据库"><a href="#demo数据库" class="headerlink" title="demo数据库"></a>demo数据库</h2><p>建表语句</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE test (</span><br><span class="line">  id    INT(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  uname VARCHAR(255),</span><br><span class="line">  age int,</span><br><span class="line">  PRIMARY KEY (id)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">alter table test add index uname_index(uname);</span><br></pre></td></tr></table></figure>
 <p>表中数据如下</p>
@@ -308,6 +308,7 @@
 <td>1</td>
 <td>SIMPLE</td>
 <td>stu</td>
+<td>null</td>
 <td>const</td>
 <td>PRIMARY</td>
 <td>PRIMARY</td>
@@ -315,14 +316,29 @@
 <td>const</td>
 <td>1</td>
 <td>100</td>
+<td>null</td>
 </tr>
 </tbody>
 </table>
 <h3 id="key"><a href="#key" class="headerlink" title="key"></a>key</h3><p>查询使用到的索引，type类型为index_merge（查询使用了两个以上的索引）时，这里可能出现两个以上的索引，其他的select_type这里只会出现一个。</p>
-<h3 id="rows"><a href="#rows" class="headerlink" title="rows"></a>rows</h3><p>这里是执行计划中估算的扫描行数，不是精确值</p>
-<h2 id="索引覆盖"><a href="#索引覆盖" class="headerlink" title="索引覆盖"></a>索引覆盖</h2><h2 id="关于like关键字是否用到索引"><a href="#关于like关键字是否用到索引" class="headerlink" title="关于like关键字是否用到索引"></a>关于like关键字是否用到索引</h2><p><img src="http://p964q970y.bkt.clouddn.com/explain-like-x.png" alt=""></p>
+<h3 id="rows"><a href="#rows" class="headerlink" title="rows"></a>rows</h3><p>这里是执行计划中估算的扫描行数，不是精确值,值越小，代表效率越高</p>
+<h2 id="索引覆盖"><a href="#索引覆盖" class="headerlink" title="索引覆盖"></a>索引覆盖</h2><p>覆盖索引（covering index）指一个查询语句的执行只用从索引中就能够取得，不必从数据表中读取</p>
+<p>参考<br><a href="http://blog.jobbole.com/112704/" target="_blank" rel="noopener">MySQL SQL 优化之覆盖索引</a></p>
+<h2 id="关于like关键字是否用到索引"><a href="#关于like关键字是否用到索引" class="headerlink" title="关于like关键字是否用到索引"></a>关于like关键字是否用到索引</h2><p><img src="http://p964q970y.bkt.clouddn.com/explain-like-x.png" alt=""></p>
 <p><img src="http://p964q970y.bkt.clouddn.com/explain-like-x%25.png" alt=""></p>
 <p><img src="http://p964q970y.bkt.clouddn.com/expain-like-%25x.png" alt=""><br><img src="http://p964q970y.bkt.clouddn.com/explain-like-%25x%25.png" alt=""></p>
+<p>总结：like关键字是否使用索引的前提是做前缀原则，即‘x’和‘x%’是使用索引的，他们的执行计划中type都是range，rows都是比表的行数少的，而其他两个type都是index，这种情况叫，全索引扫描，具体介绍如下，<br>如果模糊查询时，查询是否包含某个字符串，可以采用locate函数，<code>select * from test where locate(&quot;x&quot;,uname);</code>查询test表中uname字段，含有字符串‘x’的数据。</p>
+<h2 id="mysql-全表扫描、全索引扫描、索引覆盖-覆盖索引"><a href="#mysql-全表扫描、全索引扫描、索引覆盖-覆盖索引" class="headerlink" title="mysql 全表扫描、全索引扫描、索引覆盖(覆盖索引)"></a>mysql 全表扫描、全索引扫描、索引覆盖(覆盖索引)</h2><p>full index scan：全索引扫描，查询时，遍历索引树来获取数据行。如果数据不是密集的会产生随机IO<br>在执行计划中是Type列，index</p>
+<p>full table scan：通过读物理表获取数据，顺序读磁盘上的文件。这种情况会顺序读磁盘上的文件。<br>在执行计划中是Type列，all</p>
+<p>covering index：覆盖索引，如果where条件的列和返回的数据在一个索引中，那么不需要回查表，那么就叫覆盖索引。<br>在执行计划中是extra那一列，using index</p>
+<h3 id="full-index-scan-vs-full-table-scan"><a href="#full-index-scan-vs-full-table-scan" class="headerlink" title="full index scan  vs full table scan"></a>full index scan  vs full table scan</h3><blockquote>
+<p>全索引扫描一般情况下比全表扫描好，但一定不是绝对的</p>
+</blockquote>
+<p>大多数数据是存在磁盘上的，读取磁盘的次数是影响效率的关键。<br>由于索引扫描后要利用索引中的指针去逐一访问记录，假设每个记录都使用索引访问，则读取磁盘的次数是查询包含的记录数T；<br>如果表扫描则读取磁盘的次数是存储记录的块数B；<br>如果T&gt;B 的话索引就没有优势了，对于大多数数据库来说，这个比例是10%（oracle，postgresql等），最终执行的时候，先对结果数量估算，如果小于（T&lt;B）这个比例用索引，大于的话即直接表扫描所以结果也就不一定咯。</p>
+<p>引用网上的一个例子<br>已知如下信息：<br>假设一张表含有10万行数据——–100000行<br>我们要读取其中20%(2万)行数据—-20000行<br>表中每行数据大小80字节———-80bytes<br>数据库中的数据块大小8K———-8000bytes<br>所以有以下结果：<br>每个数据块包含100行数据———100行（数据块大小/每行数据的大小 8000/80 ）<br>这张表一共有1000个数据块——–1000块(数据总条数/每个块包含的数据个数 100000/100)</p>
+<p>背后的故事：</p>
+<p>通过索引读取20000行数据 = 约20000个table access by rowid = 需要处理20000个块来执行这个查询（通过索引去读数据，在索引中找到一个键值，然后这个键值对应的rowid去读表数据，rowid只对应一条记录，所以读一个块也只是为了找到对应rowid的那条记录，所以一次在一个块中只读一条记录）<br>而如果是全表扫描呢，这个表一共是1000块，也就1000次读取，采用后者明显效率高。</p>
+<p><a href="http://inter12.iteye.com/blog/1430144" target="_blank" rel="noopener">http://inter12.iteye.com/blog/1430144</a></p>
 <p>参考链接：<br><a href="https://blog.csdn.net/dennis211/article/details/78170079" target="_blank" rel="noopener">mysql中explain的type的解释</a><br><a href="https://juejin.im/post/5bbd453ef265da0abc2b84ca" target="_blank" rel="noopener">你的like语句为啥没索引</a></p>
 
       
@@ -412,8 +428,8 @@
 <nav id="article-nav">
   
   
-    <a href="/java/spring的profile配置/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">spring的profile配置</div>
+    <a href="/linux/打包用到的脚本/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">打包用到的脚本</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -440,7 +456,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#explain关键字"><span class="toc-number">2.</span> <span class="toc-text">explain关键字</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#demo数据库"><span class="toc-number">2.1.</span> <span class="toc-text">demo数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#type"><span class="toc-number">2.1.1.</span> <span class="toc-text">type</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#all"><span class="toc-number">2.1.1.1.</span> <span class="toc-text">all</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#index"><span class="toc-number">2.1.1.2.</span> <span class="toc-text">index</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ref"><span class="toc-number">2.1.1.3.</span> <span class="toc-text">ref</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#eq-ref"><span class="toc-number">2.1.1.4.</span> <span class="toc-text">eq_ref</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#const"><span class="toc-number">2.1.1.5.</span> <span class="toc-text">const</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#key"><span class="toc-number">2.1.2.</span> <span class="toc-text">key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rows"><span class="toc-number">2.1.3.</span> <span class="toc-text">rows</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#索引覆盖"><span class="toc-number">2.2.</span> <span class="toc-text">索引覆盖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于like关键字是否用到索引"><span class="toc-number">2.3.</span> <span class="toc-text">关于like关键字是否用到索引</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#explain关键字"><span class="toc-number">2.</span> <span class="toc-text">explain关键字</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#demo数据库"><span class="toc-number">2.1.</span> <span class="toc-text">demo数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#type"><span class="toc-number">2.1.1.</span> <span class="toc-text">type</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#all"><span class="toc-number">2.1.1.1.</span> <span class="toc-text">all</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#index"><span class="toc-number">2.1.1.2.</span> <span class="toc-text">index</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ref"><span class="toc-number">2.1.1.3.</span> <span class="toc-text">ref</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#eq-ref"><span class="toc-number">2.1.1.4.</span> <span class="toc-text">eq_ref</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#const"><span class="toc-number">2.1.1.5.</span> <span class="toc-text">const</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#key"><span class="toc-number">2.1.2.</span> <span class="toc-text">key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rows"><span class="toc-number">2.1.3.</span> <span class="toc-text">rows</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#索引覆盖"><span class="toc-number">2.2.</span> <span class="toc-text">索引覆盖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于like关键字是否用到索引"><span class="toc-number">2.3.</span> <span class="toc-text">关于like关键字是否用到索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql-全表扫描、全索引扫描、索引覆盖-覆盖索引"><span class="toc-number">2.4.</span> <span class="toc-text">mysql 全表扫描、全索引扫描、索引覆盖(覆盖索引)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#full-index-scan-vs-full-table-scan"><span class="toc-number">2.4.1.</span> <span class="toc-text">full index scan  vs full table scan</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -628,19 +644,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">aop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">idea</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">aop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -672,10 +688,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
              
@@ -685,6 +697,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
             
             <div class="clearfix"></div>
