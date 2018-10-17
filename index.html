@@ -1021,19 +1021,19 @@
 
 
   
-    <article id="post-java/Aspect面向切面编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-java/Spring事务处理机制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/java/Aspect面向切面编程/">Aspect面向切面编程</a>
+      <a class="article-title" href="/java/Spring事务处理机制/">Spring事务处理机制</a>
     </h1>
   
 
         
-        <a href="/java/Aspect面向切面编程/" class="archive-article-date">
+        <a href="/java/Spring事务处理机制/" class="archive-article-date">
   	<time datetime="2018-07-05T08:48:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-05</time>
 </a>
         
@@ -1042,12 +1042,111 @@
    
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="AOP详解"><a href="#AOP详解" class="headerlink" title="AOP详解"></a>AOP详解</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>AOP（Aspect Orient Programming），我们一般称为面向方面（切面）编程，作为面向对象的一种补充，用于处理系统中分布于各个模块的横切关注点，比如事务管理、日志、缓存等等。</p>
-<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><ol>
-<li>静态代理，举例：AspectJ</li>
-<li>动态代理，举例：Spring AOP，Spring AOP中的动态代理主要有两种方式，JDK动态代理和CGLIB动态代理<br><a href="http://www.importnew.com/24305.html" target="_blank" rel="noopener">Spring AOP的实现原理</a><br>使用AspectJ的编译时增强实现AOP<br>之前提到，AspectJ是静态代理的增强，所谓的静态代理就是AOP框架会在编译阶段生成AOP代理类，因此也称为编译时增强。</li></ol>
+        <h1 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h1><p>它是一个操作序列，这些操作要么都执行，要么都不执行，它是一个不可分割的工作单位<br>事务的特性</p>
+<h2 id="isolation的参数有以下五种："><a href="#isolation的参数有以下五种：" class="headerlink" title="isolation的参数有以下五种："></a>isolation的参数有以下五种：</h2><ol>
+<li>Isolation.DEFAULT:为数据源的默认隔离级别</li>
+<li>isolation=Isolation.READ_UNCOMMITTED:未授权读取级别（一般采用这个策略）<br>以操作同一行数据为前提，读事务允许其他读事务和写事务，未提交的写事务禁止其他写事务（但允许其他读事务）。此隔离级别可以防止更新丢失，但不能防止脏读、不可重复读、幻读。此隔离级别可以通过“排他写锁”实现。</li>
+<li>iIsolation.READ_COMMITTED:授权读取级别<br>以操作同一行数据为前提，读事务允许其他读事务和写事务，未提交的写事务禁止其他读事务和写事务。此隔离级别可以防止更新丢失、脏读，但不能防止不可重复读、幻读。此隔离级别可以通过“瞬间共享读锁”和“排他写锁”实现。</li>
+<li>iIsolation.REPEATABLE_READ:可重复读取级别<br>以操作同一行数据为前提，读事务禁止其他写事务（但允许其他读事务），未提交的写事务禁止其他读事务和写事务。此隔离级别可以防止更新丢失、脏读、不可重复读，但不能防止幻读。此隔离级别可以通过“共享读锁”和“排他写锁”实现。</li>
+<li>iIsolation.SERIALIZABLE:序列化级别<br>提供严格的事务隔离。它要求事务序列化执行，事务只能一个接着一个地执行，不能并发执行。此隔离级别可以防止更新丢失、脏读、不可重复读、幻读。如果仅仅通过“行级锁”是无法实现事务序列化的，必须通过其他机制保证新插入的数据不会被刚执行查询操作的事务访问到。</li>
+</ol>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><ol>
+<li>原子性(Atomicity)：<br>事务是数据库的逻辑工作单位，它对数据库的修改要么全部执行，要么全部不执行。</li>
+<li>一致性(Consistemcy)：<br>事务前后，数据库的状态都满足所有的完整性约束。</li>
+<li>隔离性(Isolation)：<br>并发执行的事务是隔离的，一个不影响一个。如果有两个事务，运行在相同的时间内，执行相同的功能，事务的隔离性将确保每一事务在系统中认为只有该事务在使用系统。这种属性有时称为串行化，为了防止事务操作间的混淆，必须串行化或序列化请求，使得在同一时间仅有一个请求用于同一数据。通过设置数据库的隔离级别，可以达到不同的隔离效果。</li>
+<li>持久性(Durability)：<br>在事务完成以后，该事务所对数据库所作的更改便持久的保存在数据库之中，并不会被回滚。</li>
+</ol>
+<h3 id="其他的的特性"><a href="#其他的的特性" class="headerlink" title="其他的的特性"></a>其他的的特性</h3><ol>
+<li>更新丢失：<br>两个事务都同时更新一行数据，但是第二个事务却中途失败退出，导致对数据的两个修改都失效了。这是因为系统没有执行任何的锁操作，因此并发事务并没有被隔离开来。</li>
+<li>脏读：<br>脏读又称无效数据读出。一个事务读取另外一个事务还没有提交的数据叫脏读。<br>例如：事务T1修改了一行数据，但是还没有提交，这时候事务T2读取了被事务T1修改后的数据，之后事务T1因为某种原因Rollback了，那么事务T2读取的数据就是脏的。</li>
+<li>不可重复读：<br>不可重复读是指在同一个事务内，两个相同的查询返回了不同的结果。<br>例如：事务T1读取某一数据，事务T2读取并修改了该数据，T1为了对读取值进行检验而再次读取该数据，便得到了不同的结果。</li>
+<li>幻读：<br>事务在操作过程中进行两次查询，第二次查询的结果包含了第一次查询中未出现的数据或者缺少了第一次查询中出现的数据<br>例如：系统管理员A将数据库中所有学生的成绩从具体分数改为ABCDE等级，但是系统管理员B就在这个时候插入了一条具体分数的记录，当系统管理员A改结束后发现还有一条记录没有改过来，就好像发生了幻觉一样。这就叫幻读。</li>
+</ol>
+<h2 id="数据事务四种隔离机制和七种传播行为"><a href="#数据事务四种隔离机制和七种传播行为" class="headerlink" title="数据事务四种隔离机制和七种传播行为"></a>数据事务四种隔离机制和七种传播行为</h2><table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>READ_UNCOMMITTED</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>READ_COMMITTED</td>
+<td>X</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>REPEATABLE_READ</td>
+<td>X</td>
+<td>X</td>
+<td>√</td>
+</tr>
+<tr>
+<td>SERIALIZABLE</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+</tr>
+</tbody>
+</table>
+<p><img src="http://p964q970y.bkt.clouddn.com/%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%BC%A0%E6%92%AD%E8%A1%8C%E4%B8%BA.png" alt="事务的传播行为"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Transactional(rollbackFor = &#123;Exception.class&#125;, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)</span><br></pre></td></tr></table></figure>
+<h1 id="事务管理器"><a href="#事务管理器" class="headerlink" title="事务管理器"></a>事务管理器</h1><p>Spring对事务管理是通过事务管理器来实现的。Spring提供了许多内置事务管理器实现：</p>
+<p>事务管理器(org.springframework.*)使用场景</p>
+<table>
+<thead>
+<tr>
+<th>事务管理器器</th>
+<th>使用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DataSourceTransactionManager</td>
+<td>数据源事务管理器，提供对单个javax.sql.DataSource事务管理，用于Spring JDBC抽象框架、iBATIS或MyBatis框架的事务管理；</td>
+</tr>
+<tr>
+<td>JdoTransactionManager</td>
+<td>提供对单个javax.jdo.PersistenceManagerFactory事务管理，用于集成JDO框架时的事务管理；</td>
+</tr>
+<tr>
+<td>JpaTransactionManager</td>
+<td>提供对单个javax.persistence.EntityManagerFactory事务支持，用于集成JPA实现框架时的事务管理；</td>
+</tr>
+<tr>
+<td>HibernateTransactionManager</td>
+<td>提供对单个org.hibernate.SessionFactory事务支持，用于集成</td>
+<td>Hibernate框架时的事务管理；该事务管理器只支持Hibernate3+版本，且Spring3.0+版本只支持Hibernate 3.2+版本；</td>
+</tr>
+<tr>
+<td>JtaTransactionManager</td>
+<td>提供对分布式事务管理的支持，并将事务管理委托给Java EE应用服务器事务管理器；</td>
+</tr>
+<tr>
+<td>OC4JjtaTransactionManager</td>
+<td>Spring提供的对OC4J10.1.3+应用服务器事务管理器的适配器，此适配器用于对应用服务器提供的高级事务的支持；</td>
+</tr>
+<tr>
+<td>WebSphereUowTransactionManager</td>
+<td>Spring提供的对WebSphere 6.0+应用服务器事务管理器的适配器，此适配器用于对应用服务器提供的高级事务的支持；</td>
+</tr>
+<tr>
+<td>WebLogicJtaTransactionManager</td>
+<td>Spring提供的对WebLogic 8.1+应用服务器事务管理器的适配器，此适配器用于对应用服务器提供的高级事务的支持。</td>
+</tr>
+</tbody>
+</table>
         
-          <a class="article-more-a" href="/java/Aspect面向切面编程/#more">more >></a>
+          <a class="article-more-a" href="/java/Spring事务处理机制/#more">more >></a>
         
       
 
@@ -1061,11 +1160,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">springboot</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">aop</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">transactional</a>
         		</li>
       		
 		</ul>
@@ -1075,7 +1174,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/java/Aspect面向切面编程/">展开全文 >></a>
+          <a class="article-more-a" href="/java/Spring事务处理机制/">展开全文 >></a>
         </p>
       
 
@@ -1222,7 +1321,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">aop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1230,11 +1337,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">aop</a>
+                <a href="javascript:void(0)" class="js-tag color3">profile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1246,7 +1349,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">profile</a>
+                <a href="javascript:void(0)" class="js-tag color5">商品管理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sku</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1258,14 +1365,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">商品管理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sku</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
              
@@ -1274,11 +1373,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
             
             <div class="clearfix"></div>
