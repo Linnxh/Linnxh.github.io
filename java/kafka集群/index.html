@@ -16,7 +16,7 @@
 <meta property="og:description" content="zookeeper 集群搭建的方法/etc/profile 环境变量 123456789#javaexport JAVA_HOME=/lxhtest/jdkexport JRE_HOME=/lxhtest/jdk/jreexport CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/libexport PATH">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://p964q970y.bkt.clouddn.com/consumer-groups.png">
-<meta property="og:updated_time" content="2018-10-26T03:35:42.710Z">
+<meta property="og:updated_time" content="2018-10-26T03:36:05.476Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kafka集群">
 <meta name="twitter:description" content="zookeeper 集群搭建的方法/etc/profile 环境变量 123456789#javaexport JAVA_HOME=/lxhtest/jdkexport JRE_HOME=/lxhtest/jdk/jreexport CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/libexport PATH">
@@ -183,6 +183,8 @@
 <p>在zookeeper下新建data<br>mkdir data<br>touch myid 里面插入数字1，其他三台机器对应着2，3</p>
 <p>相关命令</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">zkServer.sh start (启动命令)</span><br><span class="line">zkServer.sh restart　　(重启)</span><br><span class="line">zkServer.sh status　　(查看状态)</span><br><span class="line">zkServer.sh stop　　(关闭)</span><br><span class="line">zkServer.sh start-foreground　　(以打印日志方式启动)</span><br></pre></td></tr></table></figure>
+<p>参考链接<br><a href="https://www.cnblogs.com/wrong5566/p/6056788.html" target="_blank" rel="noopener">https://www.cnblogs.com/wrong5566/p/6056788.html</a></p>
+<p>配置过程中出现错误如下<br>1、<br>invalid zoo.cfg<br>原因：我拷贝的文字，看起来没错，但是由于格式不同，server.1=192.168.3.129:2888:3888 后面还有些乱码（不显示，但是有占位符），去掉即可</p>
 <h1 id="kafka-集群搭建"><a href="#kafka-集群搭建" class="headerlink" title="kafka 集群搭建"></a>kafka 集群搭建</h1><p>参考文章<br><a href="https://www.jianshu.com/p/5297773fcc1b" target="_blank" rel="noopener">https://www.jianshu.com/p/5297773fcc1b</a><br><a href="http://blog.51cto.com/13323775/2063420" target="_blank" rel="noopener">http://blog.51cto.com/13323775/2063420</a></p>
 <p>tar -zxvf kafka_2.12-1.0.2.tgz.gz </p>
 <p>创建日志文件夹<br><code>mkdir kafka-logs</code></p>
@@ -556,7 +558,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -564,7 +566,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
