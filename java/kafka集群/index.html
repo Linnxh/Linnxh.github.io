@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://linnxh.online">
   <title>kafka集群 | Linnxh的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="kafka 集群搭建参考文章https://www.jianshu.com/p/5297773fcc1bhttp://blog.51cto.com/13323775/2063420 tar -zxvf kafka_2.12-1.0.2.tgz.gz  创建日志文件夹mkdir kafka-logs kafka 配置文件，server.proper 添加本机的ip地址 文件日志路径，需要新建文件夹">
+  <meta name="description" content="zookeeper 集群搭建的方法/etc/profile 环境变量 123456789#javaexport JAVA_HOME=/lxhtest/jdkexport JRE_HOME=/lxhtest/jdk/jreexport CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/libexport PATH">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kafka集群">
 <meta property="og:url" content="http://linnxh.online/java/kafka集群/index.html">
 <meta property="og:site_name" content="Linnxh的博客">
-<meta property="og:description" content="kafka 集群搭建参考文章https://www.jianshu.com/p/5297773fcc1bhttp://blog.51cto.com/13323775/2063420 tar -zxvf kafka_2.12-1.0.2.tgz.gz  创建日志文件夹mkdir kafka-logs kafka 配置文件，server.proper 添加本机的ip地址 文件日志路径，需要新建文件夹">
+<meta property="og:description" content="zookeeper 集群搭建的方法/etc/profile 环境变量 123456789#javaexport JAVA_HOME=/lxhtest/jdkexport JRE_HOME=/lxhtest/jdk/jreexport CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/libexport PATH">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://p964q970y.bkt.clouddn.com/consumer-groups.png">
-<meta property="og:updated_time" content="2018-10-26T03:35:07.237Z">
+<meta property="og:updated_time" content="2018-10-26T03:35:42.710Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kafka集群">
-<meta name="twitter:description" content="kafka 集群搭建参考文章https://www.jianshu.com/p/5297773fcc1bhttp://blog.51cto.com/13323775/2063420 tar -zxvf kafka_2.12-1.0.2.tgz.gz  创建日志文件夹mkdir kafka-logs kafka 配置文件，server.proper 添加本机的ip地址 文件日志路径，需要新建文件夹">
+<meta name="twitter:description" content="zookeeper 集群搭建的方法/etc/profile 环境变量 123456789#javaexport JAVA_HOME=/lxhtest/jdkexport JRE_HOME=/lxhtest/jdk/jreexport CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/libexport PATH">
 <meta name="twitter:image" content="http://p964q970y.bkt.clouddn.com/consumer-groups.png">
   
     <link rel="alternative" href="/atom.xml" title="Linnxh的博客" type="application/atom+xml">
@@ -174,7 +174,16 @@
     <div class="article-entry" itemprop="articleBody">
       
        <!--  -->
-        <h1 id="kafka-集群搭建"><a href="#kafka-集群搭建" class="headerlink" title="kafka 集群搭建"></a>kafka 集群搭建</h1><p>参考文章<br><a href="https://www.jianshu.com/p/5297773fcc1b" target="_blank" rel="noopener">https://www.jianshu.com/p/5297773fcc1b</a><br><a href="http://blog.51cto.com/13323775/2063420" target="_blank" rel="noopener">http://blog.51cto.com/13323775/2063420</a></p>
+        <h1 id="zookeeper-集群搭建的方法"><a href="#zookeeper-集群搭建的方法" class="headerlink" title="zookeeper 集群搭建的方法"></a>zookeeper 集群搭建的方法</h1><p>/etc/profile 环境变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#java</span><br><span class="line">export JAVA_HOME=/lxhtest/jdk</span><br><span class="line">export JRE_HOME=/lxhtest/jdk/jre</span><br><span class="line">export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib</span><br><span class="line">export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH</span><br><span class="line"></span><br><span class="line">#zookeeper</span><br><span class="line">export ZOOKEEPER_HOME=/lxhtest/zookeeper-3.4.12</span><br><span class="line">export PATH=$PATH:$ZOOKEEPER_HOME/bin:$ZOOKEEPER_HOME/conf</span><br></pre></td></tr></table></figure>
+<p>tar -zxvf zookeeper-3.4.12.tar.*gz  </p>
+<p>vi /etc/profile<br>source /etc/profile</p>
+<p>修改zoo.cfg</p>
+<p>修改如下<br>dataDir=/lxhtest/zookeeper-3.4.12/data<br>添加<br>server.1=192.168.3.129:2888:3888<br>server.2=192.168.3.120:2888:3888<br>server.3=192.168.3.142:2888:3888</p>
+<p>在zookeeper下新建data<br>mkdir data<br>touch myid 里面插入数字1，其他三台机器对应着2，3</p>
+<p>相关命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">zkServer.sh start (启动命令)</span><br><span class="line">zkServer.sh restart　　(重启)</span><br><span class="line">zkServer.sh status　　(查看状态)</span><br><span class="line">zkServer.sh stop　　(关闭)</span><br><span class="line">zkServer.sh start-foreground　　(以打印日志方式启动)</span><br></pre></td></tr></table></figure>
+<h1 id="kafka-集群搭建"><a href="#kafka-集群搭建" class="headerlink" title="kafka 集群搭建"></a>kafka 集群搭建</h1><p>参考文章<br><a href="https://www.jianshu.com/p/5297773fcc1b" target="_blank" rel="noopener">https://www.jianshu.com/p/5297773fcc1b</a><br><a href="http://blog.51cto.com/13323775/2063420" target="_blank" rel="noopener">http://blog.51cto.com/13323775/2063420</a></p>
 <p>tar -zxvf kafka_2.12-1.0.2.tgz.gz </p>
 <p>创建日志文件夹<br><code>mkdir kafka-logs</code></p>
 <p>kafka 配置文件，server.proper</p>
@@ -315,7 +324,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#kafka-集群搭建"><span class="toc-number">1.</span> <span class="toc-text">kafka 集群搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#消费者设计"><span class="toc-number">1.1.</span> <span class="toc-text">消费者设计</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#zookeeper-集群搭建的方法"><span class="toc-number">1.</span> <span class="toc-text">zookeeper 集群搭建的方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kafka-集群搭建"><span class="toc-number">2.</span> <span class="toc-text">kafka 集群搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#消费者设计"><span class="toc-number">2.1.</span> <span class="toc-text">消费者设计</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -547,7 +556,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -555,7 +564,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
              
               <li class="article-tag-list-item">
