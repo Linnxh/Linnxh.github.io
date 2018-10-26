@@ -16,7 +16,7 @@
 <meta property="og:description" content="zookeeper 集群搭建的方法/etc/profile 环境变量 123456789#javaexport JAVA_HOME=/lxhtest/jdkexport JRE_HOME=/lxhtest/jdk/jreexport CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/libexport PATH">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://p964q970y.bkt.clouddn.com/consumer-groups.png">
-<meta property="og:updated_time" content="2018-10-26T03:36:05.476Z">
+<meta property="og:updated_time" content="2018-10-26T03:37:13.047Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kafka集群">
 <meta name="twitter:description" content="zookeeper 集群搭建的方法/etc/profile 环境变量 123456789#javaexport JAVA_HOME=/lxhtest/jdkexport JRE_HOME=/lxhtest/jdk/jreexport CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/libexport PATH">
@@ -185,6 +185,8 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">zkServer.sh start (启动命令)</span><br><span class="line">zkServer.sh restart　　(重启)</span><br><span class="line">zkServer.sh status　　(查看状态)</span><br><span class="line">zkServer.sh stop　　(关闭)</span><br><span class="line">zkServer.sh start-foreground　　(以打印日志方式启动)</span><br></pre></td></tr></table></figure>
 <p>参考链接<br><a href="https://www.cnblogs.com/wrong5566/p/6056788.html" target="_blank" rel="noopener">https://www.cnblogs.com/wrong5566/p/6056788.html</a></p>
 <p>配置过程中出现错误如下<br>1、<br>invalid zoo.cfg<br>原因：我拷贝的文字，看起来没错，但是由于格式不同，server.1=192.168.3.129:2888:3888 后面还有些乱码（不显示，但是有占位符），去掉即可</p>
+<p>2、<br>zkServer.sh start-foreground 打印日志方式启动，发现是报找不到主机的路由异常<br>解决办法：我这边是防火墙没有关闭<br>centos7下查看防火墙状态的命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --state 如果是running，则代表防火墙没有关闭</span><br><span class="line">关闭防火墙的命令:</span><br><span class="line">systemctl stop firewalld.service</span><br><span class="line">systemctl disable firewalld.service   （禁止开机启动，永久关闭防火墙）</span><br></pre></td></tr></table></figure></p>
+<p>网上说产生这种情况还可能是由以下原因<br>1）：zoo.cfg配置文件中，server.x:2888:3888配置出现错误；<br>2）：myid文件内容和server.x不对应，或者myid不在data目录下；</p>
 <h1 id="kafka-集群搭建"><a href="#kafka-集群搭建" class="headerlink" title="kafka 集群搭建"></a>kafka 集群搭建</h1><p>参考文章<br><a href="https://www.jianshu.com/p/5297773fcc1b" target="_blank" rel="noopener">https://www.jianshu.com/p/5297773fcc1b</a><br><a href="http://blog.51cto.com/13323775/2063420" target="_blank" rel="noopener">http://blog.51cto.com/13323775/2063420</a></p>
 <p>tar -zxvf kafka_2.12-1.0.2.tgz.gz </p>
 <p>创建日志文件夹<br><code>mkdir kafka-logs</code></p>
