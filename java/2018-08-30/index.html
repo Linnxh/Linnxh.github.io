@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Linnxh的博客">
 <meta property="og:description" content="B树即平衡查找树，一般理解为平衡多路查找树，是一种自平衡树状数据结构，能对存储的数据进行O(log n)的时间复杂度进行查找、插入和删除。B树一般较多用在存储系统上，比如数据库或文件系统。 B树入门 IntegerInteger a=new Integer(127);Integer b=new Integer(127);a==b返回true Integer c=new Integer(128);I">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-10-12T09:20:27.481Z">
+<meta property="og:updated_time" content="2018-10-25T10:13:37.644Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Thu Aug 30 2018 00:00:00 GMT+0800 (CST)">
 <meta name="twitter:description" content="B树即平衡查找树，一般理解为平衡多路查找树，是一种自平衡树状数据结构，能对存储的数据进行O(log n)的时间复杂度进行查找、插入和删除。B树一般较多用在存储系统上，比如数据库或文件系统。 B树入门 IntegerInteger a=new Integer(127);Integer b=new Integer(127);a==b返回true Integer c=new Integer(128);I">
@@ -83,10 +83,6 @@
 				
 					<a class="github" target="_blank" href="https://github.com/Linnxh" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="https://weibo.com/2707587327/profile" title="weibo"><i class="icon-weibo"></i></a>
-		        
-					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/lin-xiu-hong-51/activities" title="zhihu"><i class="icon-zhihu"></i></a>
-		        
 			</div>
 		</nav>
 	</header>		
@@ -125,10 +121,6 @@
 				<div class="social">
 					
 						<a class="github" target="_blank" href="https://github.com/Linnxh" title="github"><i class="icon-github"></i></a>
-			        
-						<a class="weibo" target="_blank" href="https://weibo.com/2707587327/profile" title="weibo"><i class="icon-weibo"></i></a>
-			        
-						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/lin-xiu-hong-51/activities" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
 				</div>
 			</nav>
@@ -193,10 +185,20 @@
 <p>在t</p>
 <h1 id="tomcat-不打印日志"><a href="#tomcat-不打印日志" class="headerlink" title="tomcat 不打印日志"></a>tomcat 不打印日志</h1><p>该应用的WEB-INF/classes目录中新建一个logging.properties文件，再加上以下两句：</p>
 <p>org.apache.catalina.core.ContainerBase.[Catalina].level = INFO<br>org.apache.catalina.core.ContainerBase.[Catalina].handlers = java.util.logging.ConsoleHandler</p>
-<h1 id="jvm参数"><a href="#jvm参数" class="headerlink" title="jvm参数"></a>jvm参数</h1><h1 id="centos7-5-虚拟机不上网配置"><a href="#centos7-5-虚拟机不上网配置" class="headerlink" title="centos7.5 虚拟机不上网配置"></a>centos7.5 虚拟机不上网配置</h1><p><a href="https://blog.csdn.net/qian_xia_er/article/details/79953170" target="_blank" rel="noopener">https://blog.csdn.net/qian_xia_er/article/details/79953170</a></p>
+<h1 id="jvm参数"><a href="#jvm参数" class="headerlink" title="jvm参数"></a>jvm参数</h1><h1 id="centos7-5-虚拟机不上网配置"><a href="#centos7-5-虚拟机不上网配置" class="headerlink" title="centos7.5 虚拟机不上网配置"></a>centos7.5 虚拟机不上网配置</h1><p><a href="https://blog.csdn.net/qian_xia_er/article/details/79953170" target="_blank" rel="noopener">https://blog.csdn.net/qian_xia_er/article/details/79953170</a><br>2 配置虚拟机的网卡<br>1）按照下图配置虚拟机的网络<br>桥连网卡的链接方式</p>
+<p>其中，连接方式选择桥接网卡、界面名称选择你主机上网用的无线网卡、控制芯片选择桌面、混杂模式选择拒绝、勾选接入网络。<br>2）设置完成后，启动虚拟机<br>3 配置CentOS7的网络<br>1）修改网卡对应的配置文件，设置BOOTPROTO为dhcp，ONBOOT为yes<br><code>$ vi /etc/sysconfig/network-scripts/ifcfg-enp0s3</code></p>
+<p>2）修改网关，设置NETWORKING为yes，GATEWAY为VirtualBox虚拟网卡的ip地址<br><code>$ vi /etc/sysconfig/network</code><br>添加如下<br><code>NETWORKING =YES
+GATEWAY=192.168.0.110</code></p>
+<p>3）修改DNS，设置nameserver为host主机的nameserver<br><code>$ vi /etc/resolv.cof</code></p>
+<p><code>nameserver 192.168.0.1</code></p>
+<p>4) 重启网络服务，<br><code>$ service network restart</code><br>至此，整个配置就结束了，虚拟机也能上网了。</p>
+<p>如果还不行的话可以先将防火墙关掉<br><code>syetemctl stop firewalld</code></p>
 <h1 id="查看网络"><a href="#查看网络" class="headerlink" title="查看网络"></a>查看网络</h1><p>centos 7 <code>ip addr</code> 其他 <code>ifconfig</code></p>
+<p>查看系统版本 <code>cat /etc/redhat-release</code></p>
 <p><a href="https://www.cnblogs.com/jtnote/p/6103754.html" target="_blank" rel="noopener">https://www.cnblogs.com/jtnote/p/6103754.html</a></p>
 <p><a href="https://blog.csdn.net/jamet/article/details/77508182" target="_blank" rel="noopener">https://blog.csdn.net/jamet/article/details/77508182</a></p>
+<p>rm -rf  lxhtest/</p>
+<p>解决CentOS lspci（command not found）方法<br><a href="https://blog.csdn.net/hl449006540/article/details/79778748" target="_blank" rel="noopener">https://blog.csdn.net/hl449006540/article/details/79778748</a></p>
 
       
 
@@ -510,19 +512,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">aop</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">profile</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -534,11 +528,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">商品管理</a>
+                <a href="javascript:void(0)" class="js-tag color5">idea</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sku</a>
+                <a href="javascript:void(0)" class="js-tag color3">profile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -550,6 +544,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">商品管理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sku</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
              
@@ -558,11 +560,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
             
             <div class="clearfix"></div>

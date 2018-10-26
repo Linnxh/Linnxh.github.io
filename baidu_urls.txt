@@ -1,4 +1,4 @@
-http://linnxh.online/sql/mysql的性能优化/
+http://linnxh.online/sql/实际开发中mysql的性能优化/
 http://linnxh.online/linux/打包用到的脚本/
 http://linnxh.online/java/spring的profile配置/
 http://linnxh.online/java/2018-08-30/
@@ -13,7 +13,7 @@ http://linnxh.online/java/spring初探索/
 http://linnxh.online/sql/mongodb/
 http://linnxh.online/java/商品详情切换sku/
 http://linnxh.online/java/SpringBoot基础/
-http://linnxh.online/sql/sql/
+http://linnxh.online/sql/sql1/
 http://linnxh.online/java/java-18-01/
 http://linnxh.online/tools/ps修图/
 http://linnxh.online/java/java-17-10/
