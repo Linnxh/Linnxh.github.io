@@ -148,25 +148,996 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-java/kafka集群" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
   
-    
+    <h1 itemprop="name">
+      <a class="article-title" href="/java/kafka集群/">kafka集群</a>
+    </h1>
   
+
+        
+        <a href="/java/kafka集群/" class="archive-article-date">
+  	<time datetime="2018-10-25T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-26</time>
+</a>
+        
+      </header>
     
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        <h1 id="zookeeper-集群搭建的方法"><a href="#zookeeper-集群搭建的方法" class="headerlink" title="zookeeper 集群搭建的方法"></a>zookeeper 集群搭建的方法</h1><p>/etc/profile 环境变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#java</span><br><span class="line">export JAVA_HOME=/lxhtest/jdk</span><br><span class="line">export JRE_HOME=/lxhtest/jdk/jre</span><br><span class="line">export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib</span><br><span class="line">export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH</span><br><span class="line"></span><br><span class="line">#zookeeper</span><br><span class="line">export ZOOKEEPER_HOME=/lxhtest/zookeeper-3.4.12</span><br><span class="line">export PATH=$PATH:$ZOOKEEPER_HOME/bin:$ZOOKEEPER_HOME/conf</span><br></pre></td></tr></table></figure>
+<p>tar -zxvf zookeeper-3.4.12.tar.*gz  </p>
+<p>vi /etc/profile<br>source /etc/profile</p>
+<p>修改zoo.cfg</p>
+<p>修改如下<br>dataDir=/lxhtest/zookeeper-3.4.12/data<br>添加<br>server.1=192.168.3.129:2888:3888<br>server.2=192.168.3.120:2888:3888<br>server.3=192.168.3.142:2888:3888</p>
+<p>在zookeeper下新建data<br>mkdir data<br>touch myid 里面插入数字1，其他三台机器对应着2，3</p>
+<p>相关命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">zkServer.sh start (启动命令)</span><br><span class="line">zkServer.sh restart　　(重启)</span><br><span class="line">zkServer.sh status　　(查看状态)</span><br><span class="line">zkServer.sh stop　　(关闭)</span><br><span class="line">zkServer.sh start-foreground　　(以打印日志方式启动)</span><br></pre></td></tr></table></figure>
+<p>参考链接<br><a href="https://www.cnblogs.com/wrong5566/p/6056788.html" target="_blank" rel="noopener">https://www.cnblogs.com/wrong5566/p/6056788.html</a></p>
+<p>配置过程中出现错误如下<br>1、<br>invalid zoo.cfg<br>原因：我拷贝的文字，看起来没错，但是由于格式不同，server.1=192.168.3.129:2888:3888 后面还有些乱码（不显示，但是有占位符），去掉即可</p>
+<p>2、<br>zkServer.sh start-foreground 打印日志方式启动，发现是报找不到主机的路由异常<br>解决办法：我这边是防火墙没有关闭<br>centos7下查看防火墙状态的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --state 如果是running，则代表防火墙没有关闭</span><br><span class="line">关闭防火墙的命令:</span><br><span class="line">systemctl stop firewalld.service</span><br><span class="line">systemctl disable firewalld.service   （禁止开机启动，永久关闭防火墙）</span><br></pre></td></tr></table></figure>
+<p>网上说产生这种情况还可能是由以下原因<br>1）：zoo.cfg配置文件中，server.x:2888:3888配置出现错误；<br>2）：myid文件内容和server.x不对应，或者myid不在data目录下；</p>
+<h1 id="kafka-集群搭建"><a href="#kafka-集群搭建" class="headerlink" title="kafka 集群搭建"></a>kafka 集群搭建</h1><p>参考文章<br><a href="https://www.jianshu.com/p/5297773fcc1b" target="_blank" rel="noopener">https://www.jianshu.com/p/5297773fcc1b</a><br><a href="http://blog.51cto.com/13323775/2063420" target="_blank" rel="noopener">http://blog.51cto.com/13323775/2063420</a></p>
+<p>tar -zxvf kafka_2.12-1.0.2.tgz.gz </p>
+<p>创建日志文件夹<br><code>mkdir kafka-logs</code></p>
+<p>kafka 配置文件，server.proper</p>
+<p>添加本机的ip地址</p>
+<p>文件日志路径，需要新建文件夹  lxhtest/kafka_2.12-1.0.2/kafka-logs/kafka-logs</p>
+<p>允许删除topic delete.topic.enable=true<br><code>zookeeper.connect=192.168.3.129:2181,192.168.3.129:2181,192.168.3.142:2181</code></p>
+<p>拷贝文件从当前服务器到另一个服务器<br><code>scp -r /lxhtest/test-scp/ root@192.168.2.120:/lxhtest/test-scp</code></p>
+<p><code>scp -r /lxhtest/kafka_2.12-1.0.2/config/server.properties root@192.168.3.120:/lxhtest/kafka_2.12-1.0.2/config/server.properties</code></p>
+<p>配置环境变量</p>
+<p>命令行启动<br><code>kafka-server-start.sh $KAFKA_HOME/config/server.properties</code></p>
+<p>后台启动<br><code>kafka-server-start.sh $KAFKA_HOME/config/server.properties 1&gt;/dev/null 2&gt;&amp;1 &amp;</code></p>
+<p>测试集群</p>
+<p><code>kafka-topics.sh --create --zookeeper 192.168.3.129:2181,192.168.3.120:2181,192.168.3.142:2181 --replication-factor 1 --partitions 1 --topic test</code></p>
+<p>Kafka中主要有三种模式，<br>单机broker模式<br>单机多broker模式（伪分布式）<br>多机多broker模式（集群)<br>和hadoop一样，前两种多用于开发测试。第三种才是实际生产中可用的部署模式，下面介绍一下三节点kafka集群的部署流程</p>
+<p>常用的命令行<br>创建<br><code>kafka-topics.sh --create --zookeeper 192.168.0.10:2181 --replication-factor 3 --partitions 1 --topic test-replicated-topic</code></p>
+<p>删除<br><code>kafka-topics.sh --delete --zookeeper 192.168.3.129:2181 --topic test</code></p>
+<p>查看topic列表<br><code>kafka-topics.sh  --list --zookeeper 192.168.3.129:2181</code></p>
+<p>查看<br><code>kafka-topics.sh --describe --zookeeper 192.168.3.129:2181,192.168.3.120:2181,192.168.3.142:2181 --topic test</code></p>
+<p>生产者<br><code>kafka-console-producer.sh --broker-list 192.168.3.129:9092,192.168.3.120:9092,192.168.3.142:9092 --topic test</code></p>
+<p><code>kafka-console-producer.sh --broker-list 192.168.3.129:9092 --topic test</code></p>
+<p>启动生产者<br><code>kafka-topics.sh --describe --zookeeper 192.168.3.129:2181,192.168.1.12:2181,192.168.1.13:2181/kafka</code></p>
+<p>启动消费者，从头消费<br><code>kafka-console-consumer.sh --bootstrap-server 192.168.3.129:9092 --topic test --from-beginning</code></p>
+<p>原理<br>partition，分区</p>
+<p>基本概念<br>broker：Kafka服务器，负责消息存储和转发<br>topic：消息类别，Kafka按照topic来分类消息<br>partition：topic的分区，一个topic可以包含多个partition，topic消息保存在各个partition上<br>offset：消息在日志中的位置，可以理解是消息在partition上的偏移量，也是代表该消息的唯一序号<br>Producer：消息生产者<br>Consumer：消息消费者<br>Consumer Group：消费者分组，每个Consumer必须属于一个group<br>Zookeeper：保存着集群broker、topic、partition等meta数据；另外，还负责broker故障发现，partition leader选举，负载均衡等功能</p>
+<h2 id="消费者设计"><a href="#消费者设计" class="headerlink" title="消费者设计"></a>消费者设计</h2><p>消息中间件有两种模式队列模式和广播模式，kafka就是使用consumer group来实现了这两种模式</p>
+<p>任何Consumer必须属于一个Consumer Group<br>同一Consumer Group中的多个Consumer实例，不同时消费同一个partition，等效于队列模式。如下图groupA；<br>不同Consumer Group的Consumer实例可以同时消费同一个partition，等效于发布订阅模式。如下图groupA和groupB；<br>partition内消息是有序的，Consumer通过pull方式消费消息。<br>Kafka不删除已消费的消息</p>
+<p><img src="http://p964q970y.bkt.clouddn.com/consumer-groups.png" alt="consumer-groups设计"></p>
+<p>参考：<br><a href="https://cloud.tencent.com/developer/article/1005736" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1005736</a> (推荐)<br><a href="https://www.cnblogs.com/likehua/p/3999538.html" target="_blank" rel="noopener">https://www.cnblogs.com/likehua/p/3999538.html</a><br><a href="https://blog.csdn.net/tianyaleixiaowu/article/details/78977571" target="_blank" rel="noopener">https://blog.csdn.net/tianyaleixiaowu/article/details/78977571</a><br><a href="https://segmentfault.com/a/1190000011721643" target="_blank" rel="noopener">https://segmentfault.com/a/1190000011721643</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/java/kafka集群/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
   
+    <article id="post-sql/实际开发中mysql的性能优化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
   
-    
+    <h1 itemprop="name">
+      <a class="article-title" href="/sql/实际开发中mysql的性能优化/">实际开发中mysql的性能优化</a>
+    </h1>
   
+
+        
+        <a href="/sql/实际开发中mysql的性能优化/" class="archive-article-date">
+  	<time datetime="2018-10-12T01:03:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-12</time>
+</a>
+        
+      </header>
     
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1>
+        
+          <a class="article-more-a" href="/sql/实际开发中mysql的性能优化/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/sql/实际开发中mysql的性能优化/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
   
+    <article id="post-linux/打包用到的脚本" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
   
-    
+    <h1 itemprop="name">
+      <a class="article-title" href="/linux/打包用到的脚本/">打包用到的脚本</a>
+    </h1>
   
+
+        
+        <a href="/linux/打包用到的脚本/" class="archive-article-date">
+  	<time datetime="2018-10-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-10</time>
+</a>
+        
+      </header>
     
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>几个在开发中用到的shell脚本的demo</p>
+        
+          <a class="article-more-a" href="/linux/打包用到的脚本/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/linux//" class="article-tag-list-link color1">linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/linux/打包用到的脚本/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
   
+    <article id="post-java/spring的profile配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java/spring的profile配置/">spring的profile配置</a>
+    </h1>
+  
+
+        
+        <a href="/java/spring的profile配置/" class="archive-article-date">
+  	<time datetime="2018-10-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-10</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>spring.profile是为了解决开发环境和生产环境对应的配置文件不一致，可以灵活使用对应的配置文件</p>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><h2 id="配置文件分为两份"><a href="#配置文件分为两份" class="headerlink" title="配置文件分为两份"></a>配置文件分为两份</h2><p><img src="http://p964q970y.bkt.clouddn.com/moreprofile1.png" alt="moreprofile"><br></p>
+        
+          <a class="article-more-a" href="/java/spring的profile配置/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">profile</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/java/spring的profile配置/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-java/2018-08-30" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java/2018-08-30/">Thu Aug 30 2018 00:00:00 GMT+0800 (CST)</a>
+    </h1>
+  
+
+        
+        <a href="/java/2018-08-30/" class="archive-article-date">
+  	<time datetime="2018-08-29T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-30</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>B树即平衡查找树，一般理解为平衡多路查找树，是一种自平衡树状数据结构，能对存储的数据进行O(log n)的时间复杂度进行查找、插入和删除。B树一般较多用在存储系统上，比如数据库或文件系统。</p>
+<p><a href="https://juejin.im/post/5b873a1af265da43741e2328" target="_blank" rel="noopener">B树入门</a></p>
+<h1 id="Integer"><a href="#Integer" class="headerlink" title="Integer"></a>Integer</h1><p>Integer a=new Integer(127);<br>Integer b=new Integer(127);<br>a==b返回true</p>
+<p>Integer c=new Integer(128);<br>Integer d=new Integer(128);<br>c==d返回false<br></p>
+        
+          <a class="article-more-a" href="/java/2018-08-30/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/java/2018-08-30/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-java/Arrays和ArrayList对比" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java/Arrays和ArrayList对比/">Arrays和ArrayList对比</a>
+    </h1>
+  
+
+        
+        <a href="/java/Arrays和ArrayList对比/" class="archive-article-date">
+  	<time datetime="2018-08-27T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-28</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="源码对比"><a href="#源码对比" class="headerlink" title="源码对比"></a>源码对比</h1><p>ArrayList 和 Arrays 对比，后者不知处add、remove，支持set方法</p>
+<p>首先看Arrays.asList的源代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@SafeVarargs</span><br><span class="line">@SuppressWarnings(&quot;varargs&quot;)</span><br><span class="line">public static &lt;T&gt; List&lt;T&gt; asList(T... a) &#123;</span><br><span class="line">   return new ArrayList&lt;&gt;(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/java/Arrays和ArrayList对比/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/java/Arrays和ArrayList对比/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-linux/shell总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/linux/shell总结/">shell总结</a>
+    </h1>
+  
+
+        
+        <a href="/linux/shell总结/" class="archive-article-date">
+  	<time datetime="2018-08-22T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-23</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        <p>项目根目录执行</p>
+<p>ps -ef|grep tomcat|grep -v grep</p>
+<p>jar -cvf videostructure.war ./*<br>rm -rf  文件名称</p>
+<p>cp   a/b.war  c/d.war  把a目录下的b.war拷贝到c目录下，并重命名为d.war</p>
+<p> tail -f filename | grep taskTimer    会把filename里最尾部的内容显示在屏幕上,并且不但刷新,使你看到最新的文件内容. 过滤出含有taskTimer的文字<br> <code>tail -f ../logs/catalina.out</code> 直接在tomcat的bin目录下执行如下命令可直接查看启动情况，</p>
+<p>bin目录下执行命令</p>
+<p>tar -zxvf filename.tar.gz</p>
+<p>#sh 和 ./的区别</p>
+<p>如果我直接运行./xxx.sh，首先你会查找脚本第一行是否指定了解释器，如果没指定，那么就用当前系统默认的shell(大多数linux默认是bash)，如果指定了解释器，那么就将该脚本交给指定的解释器<br>举例如下：<br>定义如下脚本，名字为a指定了这是一个python脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line">print(&quot;This is Python script&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>./a.run，结果就是输出一行文字，但是如果你运行sh a.run，会报错</p>
+<p>sh是一个shell。运行sh xxx.sh，表示我使用sh来解释这个脚本,sh和source命令<br>一样，没有执行权限也可以运行脚本。</p>
+<h1 id="centos7-5-虚拟机不上网配置"><a href="#centos7-5-虚拟机不上网配置" class="headerlink" title="centos7.5 虚拟机不上网配置"></a>centos7.5 虚拟机不上网配置</h1><p><a href="https://blog.csdn.net/qian_xia_er/article/details/79953170" target="_blank" rel="noopener">https://blog.csdn.net/qian_xia_er/article/details/79953170</a></p>
+<h1 id="查看内存总数"><a href="#查看内存总数" class="headerlink" title="查看内存总数"></a>查看内存总数</h1><p><code>cat /proc/meminfo | grep MemTotal</code></p>
+<h1 id="查看某个端口的占用情况"><a href="#查看某个端口的占用情况" class="headerlink" title="查看某个端口的占用情况"></a>查看某个端口的占用情况</h1><p><code>netstat -anp|grep 80</code>查看80端口的占用情况</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/linux/shell总结/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-java/idea打war" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java/idea打war/">idea打war.md</a>
+    </h1>
+  
+
+        
+        <a href="/java/idea打war/" class="archive-article-date">
+  	<time datetime="2018-08-20T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-21</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        <p>idea中如果是javaee的web项目，要想打包成war的方法，参考方法如下，注：项目是eclipse下的项目，而且不是用mvn构建的</p>
+<p>file–open–选择项目所在路径，注意右边path中所对应的web.xml的路径<br>和下面的web resources directories 下面要对应到webcontent目录下</p>
+<p><img src="http://p964q970y.bkt.clouddn.com/ideabuildwar11.png" alt="idea"></p>
+<p>cmmon+;  快捷键发开项目project structure,<br>facets选项卡中添加web</p>
+<p>artifcats 选项卡，选择加号，<br><img src="http://p964q970y.bkt.clouddn.com/ideabuildwar22.png" alt="ideaa"></p>
+<p>如图所示，选择从项目添加，<br>注意输出路径，还有这个war包一定要包含，之前新建的项目<br><img src="http://p964q970y.bkt.clouddn.com/idea%E6%89%93%E6%88%90war3.png" alt="idr"></p>
+<p>build—&gt;build artifiacts  选择刚才新建的项目build，新项目即可打包</p>
+<p>参考<br><a href="https://blog.csdn.net/yabingshi_tech/article/details/60766877" target="_blank" rel="noopener">idea打成war</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">idea</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/java/idea打war/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-sql/mybatis得到解析后最终执行的sql" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/sql/mybatis得到解析后最终执行的sql/">mybatis得到解析后最终执行的sql</a>
+    </h1>
+  
+
+        
+        <a href="/sql/mybatis得到解析后最终执行的sql/" class="archive-article-date">
+  	<time datetime="2018-08-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-15</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        <p>我们在用mybatis的时候，经常会用xml来编写sql语句，但是这些xml中通常加了很多条件，很难拿到最终在数据库里执行的sql，如果想在控制台打印出最终执行的sql语句，其实是可以直接阅读mybatis的源码拿到</p>
+<p>DefaultSqlSession 的select方法<br> exector.query方法—–实现类baseExecutor中的query方法</p>
+<p>BaseStatementHandler  </p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sql</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mybatis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/sql/mybatis得到解析后最终执行的sql/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-java/分布式架构中的缓存" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java/分布式架构中的缓存/">分布式架构中的缓存</a>
+    </h1>
+  
+
+        
+        <a href="/java/分布式架构中的缓存/" class="archive-article-date">
+  	<time datetime="2018-07-09T02:03:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-09</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="缓存概述"><a href="#缓存概述" class="headerlink" title="缓存概述"></a>缓存概述</h1><p>缓存主要用于存储数据的硬件活软件的组成部分，以使得后续更快访问相应的数据；</p>
+<p>主要解决高并发，大数据场景下，热点数据访问的性能问题，提高高性能的数据快速访问</p>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><ol>
+<li>CDN缓存</li>
+<li>反向代理缓存</li>
+<li>本地应用缓存</li>
+<li>分布式缓存</li>
+</ol>
+<p><img src="http://p964q970y.bkt.clouddn.com/%E7%BC%93%E5%AD%98%E5%88%86%E5%B1%82%E6%9E%B6%E6%9E%84.png" alt="缓存的分层架构"></p>
+        
+          <a class="article-more-a" href="/java/分布式架构中的缓存/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">缓存</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/java/分布式架构中的缓存/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
   
   
     <nav id="page-nav">
@@ -281,11 +1252,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">aop</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color4">aop</a>
               </li>
              
               <li class="article-tag-list-item">

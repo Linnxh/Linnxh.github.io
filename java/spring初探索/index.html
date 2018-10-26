@@ -153,7 +153,378 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-java/spring初探索" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      spring初探索
+    </h1>
+  
+
+        
+        <a href="/java/spring初探索/" class="archive-article-date">
+  	<time datetime="2018-06-19T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-20</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        <h1 id="spring"><a href="#spring" class="headerlink" title="spring"></a>spring</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><img src="http://p964q970y.bkt.clouddn.com/QQ20180524-094112@2x.png" alt="sping组成"></p>
+<a id="more"></a>
+<p>具体作用</p>
+<ul>
+<li>core container<br>  spring-core和spring-beans：提供了框架的基础部分，包括反转控制和依赖注入功能。其中Bean Factory是容器核心，本质是“工厂设计模式”的实现，而且无需编程实现“单例设计模式”，单例完全由容器控制，而且提倡面向接口编程，而非面向实现编程；所有应用程序对象及对象间关系由框架管理，从而真正把你从程序逻辑中把维护对象之间的依赖关系提取出来，所有这些依赖关系都由BeanFactory来维护。<br>  spring-context：这个模块建立在core和bean模块提供坚实的基础上，集成Beans模块功能并添加资源绑定、数据验证、国际化、Java EE支持、容器生命周期、事件传播等；核心接口是ApplicationContext。<br>  spring-expression：提供强大的表达式语言支持，支持访问和修改属性值，方法调用，支持访问及修改数组、容器和索引器，命名变量，支持算数和逻辑运算，支持从Spring 容器获取Bean，它也支持列表投影、选择和一般的列表聚合等。</li>
+<li>spring-aop：Spring AOP模块提供了符合 AOP Alliance规范的面向方面的编程（aspect-oriented programming）实现，提供比如日志记录、权限控制、性能统计等通用功能和业务逻辑分离的技术，并且能动态的把这些功能添加到需要的代码中；这样各专其职，降低业务逻辑和通用功能的耦合。</li>
+<li>spring-instrument：在特定的应用程序服务器中支持类和类加载器的实现，比如Tomcat。</li>
+<li>Messaging，从Spring Framework 4开始集成了MessageChannel, MessageHandler等，用于消息传递的基础</li>
+<li>Data Access/Integration，包括了JDBC、ORM、OXM、JMS和事务管理。<br>spring-jdbc： 提供了一个JBDC的样例模板，使用这些模板能消除传统冗长的JDBC编码还有必须的事务控制，而且能享受到Spring管理事务的好处。<br>spring-orm： 提供与流行的“对象-关系”映射框架的无缝集成，包括Hibernate、JPA、Ibatiss等。而且可以使用Spring事务管理，无需额外控制事务。<br>spring-oxm： 提供了一个对Object/XML映射实现，将java对象映射成XML数据，或者将XML数据映射成java对象，Object/XML映射实现包括JAXB、Castor、XMLBeans和XStream。<br>spring-jms： 用于JMS(Java Messaging Service)，提供一套 “消息生产者、消息消费者”模板用于更加简单的使用JMS，JMS用于用于在两个应用程序之间，或分布式系统中发送消息，进行异步通信。</li>
+<li>Web，包含了spring-web, spring-webmvc, spring-websocket, and spring-webmvc-portlet几个模块。</li>
+</ul>
+<p><a href="http://www.jianshu.com/p/7b6a070119c7" target="_blank" rel="noopener">参考地址</a></p>
+<p>什么是spring框架</p>
+<blockquote>
+<p>spring是J2EE应用程序框架，是轻量级的IoC和AOP的容器框架，主要是针对javaBean的生命周期进行管理的轻量级容器，可以单独使用，也可以和Struts框架，ibatis框架等组合使用。</p>
+</blockquote>
+<h2 id="基本概念理解"><a href="#基本概念理解" class="headerlink" title="基本概念理解"></a>基本概念理解</h2><ol>
+<li>IoC(Inversion of Control)<br><img src="http://p964q970y.bkt.clouddn.com/15177964636988.jpg" alt=""></li>
+</ol>
+<p>如图1所示，对象A依赖于对象B，那么对象A在初始化或者运行到某一点的时候，自己必须主动去创建对象B或者使用已经创建的对象B。无论是创建还是使用对象B，控制权都在自己手上<br>如图2所示，由于IOC容器的加入，对象A与对象B之间失去了直接联系，所以，当对象A运行到需要对象B的时候，IOC容器会主动创建一个对象B注入到对象A需要的地方<br>综上：控制反转是一种在软件工程中解耦合的思想，调用类只依赖接口，而不依赖具体的实现类，减少了耦合。控制权交给了容器，在运行的时候才由容器决定将具体的实现动态的“注入”到调用类的对象中。</p>
+<p>spring中有三种注入方式，一种是set注入，一种是接口注入，另一种是构造方法注入。</p>
+<ol>
+<li>依赖注入</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class Human &#123;</span><br><span class="line">	    ...</span><br><span class="line">	    Father father;</span><br><span class="line">	    ...</span><br><span class="line">	    public Human() &#123;</span><br><span class="line">	        father = new Father();</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	public class Human &#123;</span><br><span class="line">	    ...</span><br><span class="line">	    Father father;</span><br><span class="line">	    ...</span><br><span class="line">	    public Human(Father father) &#123;</span><br><span class="line">	        this.father = father;</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>第二段代码中，我们将 father 对象作为构造函数的一个参数传入。在调用 Human 的构造方法之前外部就已经初始化好了 Father 对象。像这种非自己主动初始化依赖，而通过外部来传入依赖的方式，我们就称为依赖注入。<br>综上：依赖注入是一种设计模式，可以作为控制反转的一种实现方式。依赖注入就是将实例变量传入到一个对象中去(Dependency injection means giving an object its instance variables)。</p>
+<ol>
+<li>AOP面向切面编程<br>aop就是纵向的编程，业务1和业务2都需要一个共同的操作，与其往每个业务中都添加同样的代码，不如写一遍代码，让两个业务共同使用这段代码。</li>
+</ol>
+<p>下面是对应于传入的HTTP请求到DispatcherServlet的事件序列：</p>
+<ul>
+<li>接收HTTP请求后，DispatcherServlet 咨询 HandlerMapping 来调用相应的控制器。</li>
+<li>该控制器接受请求并调用基于使用GET或POST方法相应的服务方法。服务方法将基于定义的业务逻辑设置模型数据，并返回视图名到DispatcherServlet。</li>
+<li>DispatcherServlet将需要帮助的ViewResolver从拾取到该请求所定义的视图。</li>
+<li>一旦视图被敲定，DispatcherServlet会传递模型数据是在浏览器上最终呈现的视图。</li>
+</ul>
+<h2 id="AOP详解"><a href="#AOP详解" class="headerlink" title="AOP详解"></a>AOP详解</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>AOP（Aspect Orient Programming），我们一般称为面向方面（切面）编程，作为面向对象的一种补充，用于处理系统中分布于各个模块的横切关注点，比如事务管理、日志、缓存等等。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>AOP总的分类</p>
+<ul>
+<li>静态方式：AspectJ（在编译时就增强了目标对象）</li>
+<li>动态方式：JDK，CGLIB（每次运行时动态的增强，生成AOP代理对象）</li>
+</ul>
+<p>JDK动态代理的核心是InvocationHandler接口和Proxy类。如果目标类没有实现接口，那么Spring AOP会选择使<br>CGLIB核心类是MethodInterceptor和Enhancer类</p>
+<p>JDK只能针对所有接口的类的接口方法进行动态代理<br>CGLIB基于集成来实现，无法对private、static、final的类进行处理</p>
+<h2 id="搭建框架的基本步骤"><a href="#搭建框架的基本步骤" class="headerlink" title="搭建框架的基本步骤"></a>搭建框架的基本步骤</h2><ul>
+<li>首先，导入SpringMVC需要的jar包</li>
+<li>该框架将尝试从一个名为 [servlet-name]-servlet.xml位于应用程序 WebContent/WEB-INF 目录文件加载应用程序上下文。如果不想用默认文件名为[servlet-name]-servlet.xml和默认位置的WebContent/WEB-INF。 在 web.xml 文件中定义该文件的名称和位置如下： </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;  </span><br><span class="line">	&lt;web-app xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;  </span><br><span class="line">	    xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot; xmlns:web=&quot;http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&quot;  </span><br><span class="line">	    xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&quot;  </span><br><span class="line">	    id=&quot;WebApp_ID&quot; version=&quot;3.0&quot;&gt;  </span><br><span class="line">	    &lt;!-- SpringMVC的前端控制器 --&gt;  </span><br><span class="line">	    &lt;servlet&gt;  </span><br><span class="line">	        &lt;servlet-name&gt;Hello&lt;/servlet-name&gt;  </span><br><span class="line">	        &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;  </span><br><span class="line">	        &lt;!-- 设置自己定义的控制器xml文件 --&gt;  </span><br><span class="line">	        &lt;init-param&gt;  </span><br><span class="line">	            &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;  </span><br><span class="line">	            &lt;param-value&gt;/WEB-INF/Hello-servlet.xml&lt;/param-value&gt;  </span><br><span class="line">	        &lt;/init-param&gt;  </span><br><span class="line">	        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;  </span><br><span class="line">	    &lt;/servlet&gt;  </span><br><span class="line">	    &lt;!-- Spring MVC配置文件结束 --&gt;  </span><br><span class="line">	  </span><br><span class="line">	    &lt;!-- 拦截设置 --&gt;  </span><br><span class="line">	    &lt;servlet-mapping&gt;  </span><br><span class="line">	        &lt;servlet-name&gt;Hello&lt;/servlet-name&gt;  </span><br><span class="line">	        &lt;!-- 由SpringMVC拦截所有请求 --&gt;  </span><br><span class="line">	        &lt;url-pattern&gt;/&lt;/url-pattern&gt;  </span><br><span class="line">	    &lt;/servlet-mapping&gt;  </span><br><span class="line">	      </span><br><span class="line">	&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在src下添加Hello-servlet.xml配置文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">	&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:context=&quot;http://www.springframework.org/schema/context&quot; xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot; xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd&quot;&gt;</span><br><span class="line">	    &lt;!-- scan the package and the sub package --&gt;</span><br><span class="line">	    &lt;context:component-scan base-package=&quot;test.SpringMVC&quot; /&gt;</span><br><span class="line">	    &lt;!-- don&apos;t handle the static resource --&gt;</span><br><span class="line">	    &lt;mvc:default-servlet-handler /&gt;</span><br><span class="line">	    &lt;!-- if you use annotation you must configure following setting --&gt;</span><br><span class="line">	    &lt;mvc:annotation-driven /&gt;</span><br><span class="line">	    &lt;!-- configure the InternalResourceViewResolver --&gt;</span><br><span class="line">	    &lt;bean class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot; id=&quot;internalResourceViewResolver&quot;&gt;</span><br><span class="line">	        &lt;!-- 前缀 --&gt;</span><br><span class="line">	        &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot; /&gt;</span><br><span class="line">	        &lt;!-- 后缀 --&gt;</span><br><span class="line">	        &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot; /&gt; &lt;/bean&gt;</span><br><span class="line">	&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在WEB-INF文件夹下创建名为jsp的文件夹，用来存放jsp视图。创建一个hello.jsp，在body中添加“Hello World”。</li>
+<li>建立包及Controller，如下所示<br>图片描述</li>
+<li>编写Controller代码</li>
+</ul>
+<pre><code>@(java)
+public class mvcController {
+    @RequestMapping(&quot;/hello&quot;) public String hello() {
+        return &quot;hello&quot;;
+    }
+}
+</code></pre><blockquote>
+<p>其他注意事项</p>
+</blockquote>
+<ol>
+<li>在servlet的配置当中，<code>&lt;load-on-startup&gt;5&lt;/load-on-startup&gt;</code><br>的含义是：标记容器是否在启动的时候就加载这个servlet。<br>当值为0或者大于0时，表示容器在应用启动时就加载这个servlet；<br>当是一个负数时或者没有指定时，则指示容器在该servlet被选择时才加载。正数的值越小，启动该servlet的优先级越高。</li>
+<li>常用注解</li>
+</ol>
+<p><strong>@Controller</strong><br>负责注册一个bean 到spring 上下文中<br><strong>@RequestMapping</strong><br>注解为控制器指定可以处理哪些 URL 请求.<br><strong>@RequestBody</strong><br>该注解用于读取Request请求的body部分数据，使用系统默认配置的HttpMessageConverter进行解析，然后把相应的数据绑定到要返回的对象上 ，再把HttpMessageConverter返回的对象数据绑定到 controller中方法的参数上。<br><strong>@ResponseBody</strong><br>该注解用于将Controller的方法返回的对象，通过适当的HttpMessageConverter转换为指定格式后，写入到Response对象的body数据区。<br><strong>@ModelAttribute</strong>　<br>在方法定义上使用 @ModelAttribute 注解：Spring MVC 在调用目标处理方法前，会先逐个调用在方法级上标注了@ModelAttribute 的方法。<br>在方法的入参前使用 @ModelAttribute 注解：可以从隐含对象中获取隐含的模型数据中获取对象，再将请求参数–绑定到对象中，再传入入参将方法入参对象添加到模型中。<br><strong>@RequestParam</strong>　<br>在处理方法入参处使用 @RequestParam 可以把请求参 数传递给请求方法。<br><strong>@PathVariable</strong><br>绑定 URL 占位符到入参。<br><strong>@ExceptionHandler</strong><br>注解到方法上，出现异常时会执行该方法。<br><strong>@ControllerAdvice</strong><br>使一个Contoller成为全局的异常处理类，类中用@ExceptionHandler方法注解的方法可以处理所有Controller发生的异常<br><a href="http://www.imooc.com/article/1392" target="_blank" rel="noopener">参考地址</a></p>
+<p>1、<br><a href="http://wiki.jikexueyuan.com/project/spring/annotation-based-configuration/spring-autowired-annotation.html" target="_blank" rel="noopener">http://wiki.jikexueyuan.com/project/spring/annotation-based-configuration/spring-autowired-annotation.html</a><br>spring中注解的使用<br>@Autowired的用法和作用</p>
+<ul>
+<li><p>这个注解就是spring可以自动帮你把bean里面引用的对象的setter/getter方法省略，它会自动帮你set/get</p>
+</li>
+<li><p>@Autowired 对方法或构造函数进行标注，如果构造函数有两个入参，分别是 bean1 和 bean2，@Autowired 将分别寻找和它们类型匹配的 Bean，将它们作为 CountryService (Bean1 bean1 ,Bean2 bean2) 的入参来创建CountryService Bean,由于 Boss() 构造函数有两个入参，分别是 car 和 office，@Autowired 将分别寻找和它们类型匹配的 Bean，将它们作为 Boss(Car car ,Office office) 的入参来创建 Boss Bean。  </p>
+</li>
+<li>构造函数中的 @Autowired，你也可以在构造函数中使用 @Autowired。一个构造函数 @Autowired 说明当创建 bean 时，即使在 XML 文件中没有使用 元素配置 bean ，构造函数也会被自动连接</li>
+<li>@Autowired 的（required=false）选项默认情况下，@Autowired 注释意味着依赖是必须的，它类似于 @Required 注释，然而，你可以使用 @Autowired 的 （required=false） 选项关闭默认行为。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public class Boss &#123;    </span><br><span class="line">	</span><br><span class="line">	   private Car car;    </span><br><span class="line">	</span><br><span class="line">	   private Office office;    </span><br><span class="line">	</span><br><span class="line">	    @Autowired    </span><br><span class="line">	</span><br><span class="line">	   public void setCar(Car car) &#123;    </span><br><span class="line">	</span><br><span class="line">	       this.car = car;    </span><br><span class="line">	</span><br><span class="line">	   &#125;    </span><br><span class="line">	</span><br><span class="line">	   @Autowired   </span><br><span class="line">	</span><br><span class="line">	   public void setOffice(Office office) &#123;    </span><br><span class="line">	</span><br><span class="line">	       this.office = office;    </span><br><span class="line">	</span><br><span class="line">	   &#125;    </span><br><span class="line">	</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>这时，@Autowired 将查找被标注的方法的入参类型的 Bean，并调用方法自动注入这些 Bean。</p>
+<p>而下面的使用方法则对构造函数进行标注：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class Boss &#123;    </span><br><span class="line">	</span><br><span class="line">	   private Car car;    </span><br><span class="line">	</span><br><span class="line">	   private Office office;    </span><br><span class="line">	</span><br><span class="line">	  c   	</span><br><span class="line">	   @Autowired   </span><br><span class="line">	</span><br><span class="line">	   public Boss(Car car ,Office office)&#123;    </span><br><span class="line">	</span><br><span class="line">	       this.car = car;    </span><br><span class="line">	</span><br><span class="line">	       this.office = office ;    </span><br><span class="line">	</span><br><span class="line">	   &#125;   </span><br><span class="line">	</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>@Resource的作用和用法</p>
+<ul>
+<li>@Resource 的作用相当于 @Autowired，只不过 @Autowired 按 byType 自动注入，面 @Resource 默认按 byName自动注入罢了。</li>
+<li>@Resource 有两个属性是比较重要的，分别是 name和 type，Spring将 @Resource 注释的 name属性解析为 Bean的名字，</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class Boss&#123;   </span><br><span class="line">	</span><br><span class="line">	// 自动注入类型为 Car 的 Bean   </span><br><span class="line">	</span><br><span class="line">	@Resource   </span><br><span class="line">	</span><br><span class="line">	private Car car;   </span><br><span class="line">	</span><br><span class="line">	 // 自动注入 bean 名称为 office 的 Bean   </span><br><span class="line">	</span><br><span class="line">	@Resource(name = &quot;office&quot;)   </span><br><span class="line">	</span><br><span class="line">	private Office office;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>@Qualifier<br>当你创建多个具有相同类型的 bean 时，并且想要用一个属性只为它们其中的一个进行装配，在这种情况下，你可以使用 @Qualifier 注释和 @Autowired 注释通过指定哪一个真正的 bean 将会被装配来消除混乱<br>这里是 Student.java 文件的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">package com.tutorialspoint;</span><br><span class="line">	public class Student &#123;</span><br><span class="line">	   private Integer age;</span><br><span class="line">	   private String name;</span><br><span class="line">	   public void setAge(Integer age) &#123;</span><br><span class="line">	      this.age = age;</span><br><span class="line">	   &#125;   </span><br><span class="line">	   public Integer getAge() &#123;</span><br><span class="line">	      return age;</span><br><span class="line">	   &#125;</span><br><span class="line">	   public void setName(String name) &#123;</span><br><span class="line">	      this.name = name;</span><br><span class="line">	   &#125;  </span><br><span class="line">	   public String getName() &#123;</span><br><span class="line">	      return name;</span><br><span class="line">	   &#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>这里是 Profile.java 文件的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">package com.tutorialspoint;</span><br><span class="line">	import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">	import org.springframework.beans.factory.annotation.Qualifier;</span><br><span class="line">	public class Profile &#123;</span><br><span class="line">	   @Autowired</span><br><span class="line">	   @Qualifier(&quot;student1&quot;)</span><br><span class="line">	   private Student student;</span><br><span class="line">	   public Profile()&#123;</span><br><span class="line">	      System.out.println(&quot;Inside Profile constructor.&quot; );</span><br><span class="line">	   &#125;</span><br><span class="line">	   public void printAge() &#123;</span><br><span class="line">	      System.out.println(&quot;Age : &quot; + student.getAge() );</span><br><span class="line">	   &#125;</span><br><span class="line">	   public void printName() &#123;</span><br><span class="line">	      System.out.println(&quot;Name : &quot; + student.getName() );</span><br><span class="line">	   &#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>下面是 MainApp.java 文件的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">package com.tutorialspoint;</span><br><span class="line">	import org.springframework.context.ApplicationContext;</span><br><span class="line">	import org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line">	public class MainApp &#123;</span><br><span class="line">	   public static void main(String[] args) &#123;</span><br><span class="line">	      ApplicationContext context = new ClassPathXmlApplicationContext(&quot;Beans.xml&quot;);</span><br><span class="line">	      Profile profile = (Profile) context.getBean(&quot;profile&quot;);</span><br><span class="line">	      profile.printAge();</span><br><span class="line">	      profile.printName();</span><br><span class="line">	   &#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>考虑下面配置文件 Beans.xml 的示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">	    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">	    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">	    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">	    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd</span><br><span class="line">	    http://www.springframework.org/schema/context</span><br><span class="line">	    http://www.springframework.org/schema/context/spring-context-3.0.xsd&quot;&gt;</span><br><span class="line">	</span><br><span class="line">	   &lt;context:annotation-config/&gt;</span><br><span class="line">	</span><br><span class="line">	   &lt;!-- Definition for profile bean --&gt;</span><br><span class="line">	   &lt;bean id=&quot;profile&quot; class=&quot;com.tutorialspoint.Profile&quot;&gt;</span><br><span class="line">	   &lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">	   &lt;!-- Definition for student1 bean --&gt;</span><br><span class="line">	   &lt;bean id=&quot;student1&quot; class=&quot;com.tutorialspoint.Student&quot;&gt;</span><br><span class="line">	      &lt;property name=&quot;name&quot;  value=&quot;Zara&quot; /&gt;</span><br><span class="line">	      &lt;property name=&quot;age&quot;  value=&quot;11&quot;/&gt;</span><br><span class="line">	   &lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">	   &lt;!-- Definition for student2 bean --&gt;</span><br><span class="line">	   &lt;bean id=&quot;student2&quot; class=&quot;com.tutorialspoint.Student&quot;&gt;</span><br><span class="line">	      &lt;property name=&quot;name&quot;  value=&quot;Nuha&quot; /&gt;</span><br><span class="line">	      &lt;property name=&quot;age&quot;  value=&quot;2&quot;/&gt;</span><br><span class="line">	   &lt;/bean&gt;</span><br><span class="line"> </span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<p>一旦你在源文件和 bean 配置文件中完成了上面两处改变，让我们运行一下应用程序。如果你的应用程序一切都正常的话，这将会输出以下消息：</p>
+<p>Inside Profile constructor.<br>Age : 11<br>Name : Zara</p>
+<p>创建一个名称为spring-mvc-learning的maven项目，<br> mvn archetype:generate -DgroupId=imooc-lushaobin -DartifactId=spring-mvc-learning -DarchetypeArtifactId=maven-archetype-webapp</p>
+<p>表关系<br>一、什么是主键、外键：</p>
+<p>关系型数据库中的一条记录中有若干个属性，若其中某一个属性组(注意是组)能唯一标识一条记录，该属性组就可以成为一个主键<br>比如<br>学生表(学号，姓名，性别，班级)<br>其中每个学生的学号是唯一的，学号就是一个主键<br>课程表(课程编号,课程名,学分)<br>其中课程编号是唯一的,课程编号就是一个主键<br>成绩表(学号,课程号,成绩)<br>成绩表中单一一个属性无法唯一标识一条记录，学号和课程号的组合才可以唯一标识一条记录，所以 学号和课程号的属性组是一个主键 </p>
+<p>成绩表中的学号不是成绩表的主键，但它和学生表中的学号相对应，并且学生表中的学号是学生表的主键，则称成绩表中的学号是学生表的外键 </p>
+<p>同理 成绩表中的课程号是课程表的外键 </p>
+<p>定义主键和外键主要是为了维护关系数据库的完整性，总结一下：<br>主键是能确定一条记录的唯一标识，比如，一条记录包括身份正号，姓名，年龄。身份证号是唯一能确定你这个人的，其他都可能有重复，所以，身份证号是主键。<br>外键用于与另一张表的关联。是能确定另一张表记录的字段，用于保持数据的一致性。比如，A表中的一个字段，是B表的主键，那他就可以是A表的外键。二、  主键、外键和索引的区别 收藏<br>主键、外键和索引的区别？</p>
+<table>
+<thead>
+<tr>
+<th>lal</th>
+<th>主键</th>
+<th>外键</th>
+<th>索引</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>定义：</td>
+<td>唯一标识一条记录，不能有重复的，不允许为空</td>
+<td>表的外键是另一表的主键, 外键可以有重复的, 可以是空值</td>
+<td>该字段没有重复值，但可以有一个空值</td>
+</tr>
+<tr>
+<td>作用：</td>
+<td>用来保证数据完整性</td>
+<td>用来和其他表建立联系用的</td>
+<td>是提高查询排序的速度</td>
+</tr>
+<tr>
+<td>个数：</td>
+<td>主键只能有一个</td>
+<td>一个表可以有多个外键</td>
+<td>一个表可以有多个惟一索引</td>
+</tr>
+</tbody>
+</table>
+<p>给项目配置maven<br><a href="http://www.cnblogs.com/leiOOlei/p/3361633.html" target="_blank" rel="noopener">http://www.cnblogs.com/leiOOlei/p/3361633.html</a></p>
+<p>代码提示，自动补齐：optiong+/<br>opt+comm+L:选中但钱代码 Extract Local Variable</p>
+<p>修改完代码，一定要重启服务器、</p>
+<p>导入Struts2的包放到web-inf下面的lib下面，不要右键添加到build path，运行的时候提示找不到包</p>
+<p>新建项目jsp文件报错<br><a href="https://stackoverflow.com/questions/26936848/the-superclass-javax-servlet-http-httpservlet-was-not-found-on-the-java-build" target="_blank" rel="noopener">https://stackoverflow.com/questions/26936848/the-superclass-javax-servlet-http-httpservlet-was-not-found-on-the-java-build</a></p>
+<h2 id="spring-事务处理机制"><a href="#spring-事务处理机制" class="headerlink" title="spring 事务处理机制"></a>spring 事务处理机制</h2><p>spring还提供了一套标准的事务管理工作流程。简单的说，事务管理一共可分为三个步骤，分别是初始化事务、提交事务、回滚事务，然后每个步骤又可细分为若干小步骤。<br>Spring的PlatformTransactionManager是事务管理的顶层接口，其中定义的三个方法对应的就是上述的三个步骤，然后AbstractPlatformTransactionManager抽象类给出了三个步骤的具体实现</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://linnxh.online/java/spring初探索/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/java/Aspect面向切面编程/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Aspect面向切面编程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/sql/mongodb/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mongodb初印象</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#spring"><span class="toc-number">1.</span> <span class="toc-text">spring</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#概述"><span class="toc-number">1.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念理解"><span class="toc-number">1.2.</span> <span class="toc-text">基本概念理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AOP详解"><span class="toc-number">1.3.</span> <span class="toc-text">AOP详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#定义"><span class="toc-number">1.3.1.</span> <span class="toc-text">定义</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#搭建框架的基本步骤"><span class="toc-number">1.4.</span> <span class="toc-text">搭建框架的基本步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#spring-事务处理机制"><span class="toc-number">1.5.</span> <span class="toc-text">spring 事务处理机制</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="java/spring初探索" data-title="spring初探索" data-url="http://linnxh.online/java/spring初探索/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+  
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://linnxh.online/java/spring初探索/", 
+    sourceId: "java/spring初探索",
+    productKey: "true",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+  
+
+  
+
+  
+
+
+
+ 
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "YvrDo8i7S82D6P8Nkakr9gI2-gzGzoHsz",
+            app_key: "vw9R5Xqo4RvBGLy84umOsRlv",
+            placeholder: "欢迎评论",
+            avatar:"mm"
+        });
+    }
+</script>
+    </section>
+  
+
+
+
+
+
+
+
+
+
+
           </div>
         </div>
       </div>
@@ -260,11 +631,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">aop</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color4">aop</a>
               </li>
              
               <li class="article-tag-list-item">
