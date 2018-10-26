@@ -148,6 +148,118 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-java/kafka集群" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java/kafka集群/">kafka集群</a>
+    </h1>
+  
+
+        
+        <a href="/java/kafka集群/" class="archive-article-date">
+  	<time datetime="2018-10-25T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-26</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+       <!--  -->
+        <h1 id="kafka-集群搭建"><a href="#kafka-集群搭建" class="headerlink" title="kafka 集群搭建"></a>kafka 集群搭建</h1><p>参考文章<br><a href="https://www.jianshu.com/p/5297773fcc1b" target="_blank" rel="noopener">https://www.jianshu.com/p/5297773fcc1b</a><br><a href="http://blog.51cto.com/13323775/2063420" target="_blank" rel="noopener">http://blog.51cto.com/13323775/2063420</a></p>
+<p>tar -zxvf kafka_2.12-1.0.2.tgz.gz </p>
+<p>创建日志文件夹<br><code>mkdir kafka-logs</code></p>
+<p>kafka 配置文件，server.proper</p>
+<p>添加本机的ip地址</p>
+<p>文件日志路径，需要新建文件夹  lxhtest/kafka_2.12-1.0.2/kafka-logs/kafka-logs</p>
+<p>允许删除topic delete.topic.enable=true<br><code>zookeeper.connect=192.168.3.129:2181,192.168.3.129:2181,192.168.3.142:2181</code></p>
+<p>拷贝文件从当前服务器到另一个服务器<br><code>scp -r /lxhtest/test-scp/ root@192.168.2.120:/lxhtest/test-scp</code></p>
+<p><code>scp -r /lxhtest/kafka_2.12-1.0.2/config/server.properties root@192.168.3.120:/lxhtest/kafka_2.12-1.0.2/config/server.properties</code></p>
+<p>配置环境变量</p>
+<p>命令行启动<br><code>kafka-server-start.sh $KAFKA_HOME/config/server.properties</code></p>
+<p>后台启动<br><code>kafka-server-start.sh $KAFKA_HOME/config/server.properties 1&gt;/dev/null 2&gt;&amp;1 &amp;</code></p>
+<p>测试集群</p>
+<p><code>kafka-topics.sh --create --zookeeper 192.168.3.129:2181,192.168.3.120:2181,192.168.3.142:2181 --replication-factor 1 --partitions 1 --topic test</code></p>
+<p>Kafka中主要有三种模式，<br>单机broker模式<br>单机多broker模式（伪分布式）<br>多机多broker模式（集群)<br>和hadoop一样，前两种多用于开发测试。第三种才是实际生产中可用的部署模式，下面介绍一下三节点kafka集群的部署流程</p>
+<p>常用的命令行<br>创建<br><code>kafka-topics.sh --create --zookeeper 192.168.0.10:2181 --replication-factor 3 --partitions 1 --topic test-replicated-topic</code></p>
+<p>删除<br><code>kafka-topics.sh --delete --zookeeper 192.168.3.129:2181 --topic test</code></p>
+<p>查看topic列表<br><code>kafka-topics.sh  --list --zookeeper 192.168.3.129:2181</code></p>
+<p>查看<br><code>kafka-topics.sh --describe --zookeeper 192.168.3.129:2181,192.168.3.120:2181,192.168.3.142:2181 --topic test</code></p>
+<p>生产者<br><code>kafka-console-producer.sh --broker-list 192.168.3.129:9092,192.168.3.120:9092,192.168.3.142:9092 --topic test</code></p>
+<p><code>kafka-console-producer.sh --broker-list 192.168.3.129:9092 --topic test</code></p>
+<p>启动生产者<br><code>kafka-topics.sh --describe --zookeeper 192.168.3.129:2181,192.168.1.12:2181,192.168.1.13:2181/kafka</code></p>
+<p>启动消费者，从头消费<br><code>kafka-console-consumer.sh --bootstrap-server 192.168.3.129:9092 --topic test --from-beginning</code></p>
+<p>原理<br>partition，分区</p>
+<p>基本概念<br>broker：Kafka服务器，负责消息存储和转发<br>topic：消息类别，Kafka按照topic来分类消息<br>partition：topic的分区，一个topic可以包含多个partition，topic消息保存在各个partition上<br>offset：消息在日志中的位置，可以理解是消息在partition上的偏移量，也是代表该消息的唯一序号<br>Producer：消息生产者<br>Consumer：消息消费者<br>Consumer Group：消费者分组，每个Consumer必须属于一个group<br>Zookeeper：保存着集群broker、topic、partition等meta数据；另外，还负责broker故障发现，partition leader选举，负载均衡等功能</p>
+<h2 id="消费者设计"><a href="#消费者设计" class="headerlink" title="消费者设计"></a>消费者设计</h2><p>消息中间件有两种模式队列模式和广播模式，kafka就是使用consumer group来实现了这两种模式</p>
+<p>任何Consumer必须属于一个Consumer Group<br>同一Consumer Group中的多个Consumer实例，不同时消费同一个partition，等效于队列模式。如下图groupA；<br>不同Consumer Group的Consumer实例可以同时消费同一个partition，等效于发布订阅模式。如下图groupA和groupB；<br>partition内消息是有序的，Consumer通过pull方式消费消息。<br>Kafka不删除已消费的消息</p>
+<p><img src="http://p964q970y.bkt.clouddn.com/consumer-groups.png" alt="consumer-groups设计"></p>
+<p>参考：<br><a href="https://cloud.tencent.com/developer/article/1005736" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1005736</a> (推荐)<br><a href="https://www.cnblogs.com/likehua/p/3999538.html" target="_blank" rel="noopener">https://www.cnblogs.com/likehua/p/3999538.html</a><br><a href="https://blog.csdn.net/tianyaleixiaowu/article/details/78977571" target="_blank" rel="noopener">https://blog.csdn.net/tianyaleixiaowu/article/details/78977571</a><br><a href="https://segmentfault.com/a/1190000011721643" target="_blank" rel="noopener">https://segmentfault.com/a/1190000011721643</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/java/kafka集群/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-sql/实际开发中mysql的性能优化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -976,197 +1088,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/java/分布式架构中的缓存/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-java/Spring事务处理机制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java/Spring事务处理机制/">Spring事务处理机制</a>
-    </h1>
-  
-
-        
-        <a href="/java/Spring事务处理机制/" class="archive-article-date">
-  	<time datetime="2018-07-05T08:48:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-05</time>
-</a>
-        
-      </header>
-    
-   
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h1><p>它是一个操作序列，这些操作要么都执行，要么都不执行，它是一个不可分割的工作单位<br>事务的特性</p>
-<h2 id="isolation的参数有以下五种："><a href="#isolation的参数有以下五种：" class="headerlink" title="isolation的参数有以下五种："></a>isolation的参数有以下五种：</h2><ol>
-<li>Isolation.DEFAULT:为数据源的默认隔离级别</li>
-<li>isolation=Isolation.READ_UNCOMMITTED:未授权读取级别（一般采用这个策略）<br>以操作同一行数据为前提，读事务允许其他读事务和写事务，未提交的写事务禁止其他写事务（但允许其他读事务）。此隔离级别可以防止更新丢失，但不能防止脏读、不可重复读、幻读。此隔离级别可以通过“排他写锁”实现。</li>
-<li>iIsolation.READ_COMMITTED:授权读取级别<br>以操作同一行数据为前提，读事务允许其他读事务和写事务，未提交的写事务禁止其他读事务和写事务。此隔离级别可以防止更新丢失、脏读，但不能防止不可重复读、幻读。此隔离级别可以通过“瞬间共享读锁”和“排他写锁”实现。</li>
-<li>iIsolation.REPEATABLE_READ:可重复读取级别<br>以操作同一行数据为前提，读事务禁止其他写事务（但允许其他读事务），未提交的写事务禁止其他读事务和写事务。此隔离级别可以防止更新丢失、脏读、不可重复读，但不能防止幻读。此隔离级别可以通过“共享读锁”和“排他写锁”实现。</li>
-<li>iIsolation.SERIALIZABLE:序列化级别<br>提供严格的事务隔离。它要求事务序列化执行，事务只能一个接着一个地执行，不能并发执行。此隔离级别可以防止更新丢失、脏读、不可重复读、幻读。如果仅仅通过“行级锁”是无法实现事务序列化的，必须通过其他机制保证新插入的数据不会被刚执行查询操作的事务访问到。</li>
-</ol>
-<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><ol>
-<li>原子性(Atomicity)：<br>事务是数据库的逻辑工作单位，它对数据库的修改要么全部执行，要么全部不执行。</li>
-<li>一致性(Consistemcy)：<br>事务前后，数据库的状态都满足所有的完整性约束。</li>
-<li>隔离性(Isolation)：<br>并发执行的事务是隔离的，一个不影响一个。如果有两个事务，运行在相同的时间内，执行相同的功能，事务的隔离性将确保每一事务在系统中认为只有该事务在使用系统。这种属性有时称为串行化，为了防止事务操作间的混淆，必须串行化或序列化请求，使得在同一时间仅有一个请求用于同一数据。通过设置数据库的隔离级别，可以达到不同的隔离效果。</li>
-<li>持久性(Durability)：<br>在事务完成以后，该事务所对数据库所作的更改便持久的保存在数据库之中，并不会被回滚。</li>
-</ol>
-<h3 id="其他的的特性"><a href="#其他的的特性" class="headerlink" title="其他的的特性"></a>其他的的特性</h3><ol>
-<li>更新丢失：<br>两个事务都同时更新一行数据，但是第二个事务却中途失败退出，导致对数据的两个修改都失效了。这是因为系统没有执行任何的锁操作，因此并发事务并没有被隔离开来。</li>
-<li>脏读：<br>脏读又称无效数据读出。一个事务读取另外一个事务还没有提交的数据叫脏读。<br>例如：事务T1修改了一行数据，但是还没有提交，这时候事务T2读取了被事务T1修改后的数据，之后事务T1因为某种原因Rollback了，那么事务T2读取的数据就是脏的。</li>
-<li>不可重复读：<br>不可重复读是指在同一个事务内，两个相同的查询返回了不同的结果。<br>例如：事务T1读取某一数据，事务T2读取并修改了该数据，T1为了对读取值进行检验而再次读取该数据，便得到了不同的结果。</li>
-<li>幻读：<br>事务在操作过程中进行两次查询，第二次查询的结果包含了第一次查询中未出现的数据或者缺少了第一次查询中出现的数据<br>例如：系统管理员A将数据库中所有学生的成绩从具体分数改为ABCDE等级，但是系统管理员B就在这个时候插入了一条具体分数的记录，当系统管理员A改结束后发现还有一条记录没有改过来，就好像发生了幻觉一样。这就叫幻读。</li>
-</ol>
-<h2 id="数据事务四种隔离机制和七种传播行为"><a href="#数据事务四种隔离机制和七种传播行为" class="headerlink" title="数据事务四种隔离机制和七种传播行为"></a>数据事务四种隔离机制和七种传播行为</h2><table>
-<thead>
-<tr>
-<th>隔离级别</th>
-<th>脏读</th>
-<th>不可重复读</th>
-<th>幻读</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>READ_UNCOMMITTED</td>
-<td>√</td>
-<td>√</td>
-<td>√</td>
-</tr>
-<tr>
-<td>READ_COMMITTED</td>
-<td>X</td>
-<td>√</td>
-<td>√</td>
-</tr>
-<tr>
-<td>REPEATABLE_READ</td>
-<td>X</td>
-<td>X</td>
-<td>√</td>
-</tr>
-<tr>
-<td>SERIALIZABLE</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-</tr>
-</tbody>
-</table>
-<p><img src="http://p964q970y.bkt.clouddn.com/%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%BC%A0%E6%92%AD%E8%A1%8C%E4%B8%BA.png" alt="事务的传播行为"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Transactional(rollbackFor = &#123;Exception.class&#125;, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)</span><br></pre></td></tr></table></figure>
-<h1 id="事务管理器"><a href="#事务管理器" class="headerlink" title="事务管理器"></a>事务管理器</h1><p>Spring对事务管理是通过事务管理器来实现的。Spring提供了许多内置事务管理器实现：</p>
-<p>事务管理器(org.springframework.*)使用场景</p>
-<table>
-<thead>
-<tr>
-<th>事务管理器器</th>
-<th>使用场景</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>DataSourceTransactionManager</td>
-<td>数据源事务管理器，提供对单个javax.sql.DataSource事务管理，用于Spring JDBC抽象框架、iBATIS或MyBatis框架的事务管理；</td>
-</tr>
-<tr>
-<td>JdoTransactionManager</td>
-<td>提供对单个javax.jdo.PersistenceManagerFactory事务管理，用于集成JDO框架时的事务管理；</td>
-</tr>
-<tr>
-<td>JpaTransactionManager</td>
-<td>提供对单个javax.persistence.EntityManagerFactory事务支持，用于集成JPA实现框架时的事务管理；</td>
-</tr>
-<tr>
-<td>HibernateTransactionManager</td>
-<td>提供对单个org.hibernate.SessionFactory事务支持，用于集成</td>
-<td>Hibernate框架时的事务管理；该事务管理器只支持Hibernate3+版本，且Spring3.0+版本只支持Hibernate 3.2+版本；</td>
-</tr>
-<tr>
-<td>JtaTransactionManager</td>
-<td>提供对分布式事务管理的支持，并将事务管理委托给Java EE应用服务器事务管理器；</td>
-</tr>
-<tr>
-<td>OC4JjtaTransactionManager</td>
-<td>Spring提供的对OC4J10.1.3+应用服务器事务管理器的适配器，此适配器用于对应用服务器提供的高级事务的支持；</td>
-</tr>
-<tr>
-<td>WebSphereUowTransactionManager</td>
-<td>Spring提供的对WebSphere 6.0+应用服务器事务管理器的适配器，此适配器用于对应用服务器提供的高级事务的支持；</td>
-</tr>
-<tr>
-<td>WebLogicJtaTransactionManager</td>
-<td>Spring提供的对WebLogic 8.1+应用服务器事务管理器的适配器，此适配器用于对应用服务器提供的高级事务的支持。</td>
-</tr>
-</tbody>
-</table>
-        
-          <a class="article-more-a" href="/java/Spring事务处理机制/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">transactional</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/java/Spring事务处理机制/">展开全文 >></a>
         </p>
       
 

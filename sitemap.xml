@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://linnxh.online/java/kafka%E9%9B%86%E7%BE%A4/</loc>
+    
+    <lastmod>2018-10-26T03:35:07.237Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://linnxh.online/sql/mybatis%E5%BE%97%E5%88%B0%E8%A7%A3%E6%9E%90%E5%90%8E%E6%9C%80%E7%BB%88%E6%89%A7%E8%A1%8C%E7%9A%84sql/</loc>
+    
+    <lastmod>2018-10-26T03:33:06.124Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://linnxh.online/sql/mongodb/</loc>
     
     <lastmod>2018-10-26T03:21:25.003Z</lastmod>
@@ -19,13 +33,6 @@
     <loc>http://linnxh.online/sql/sql1/</loc>
     
     <lastmod>2018-10-26T03:05:27.940Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://linnxh.online/sql/mybatis%E5%BE%97%E5%88%B0%E8%A7%A3%E6%9E%90%E5%90%8E%E6%9C%80%E7%BB%88%E6%89%A7%E8%A1%8C%E7%9A%84sql/</loc>
-    
-    <lastmod>2018-10-26T02:53:58.641Z</lastmod>
     
   </url>
   
