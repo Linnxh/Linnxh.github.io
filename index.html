@@ -274,6 +274,132 @@
 
 
   
+    <article id="post-java/mongo千万级数据优化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java/mongo千万级数据优化/">mongo千万级数据优化</a>
+    </h1>
+  
+
+        
+        <a href="/java/mongo千万级数据优化/" class="archive-article-date">
+  	<time datetime="2018-10-25T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-26</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        <h1 id="千万级数据分页优化"><a href="#千万级数据分页优化" class="headerlink" title="千万级数据分页优化"></a>千万级数据分页优化</h1><blockquote>
+<p>mongo采用的是单机部署，数据量1千万，需求是实现分页面，按照capTime倒叙排列，每页数据20条</p>
+</blockquote>
+<ol>
+<li><p>skip+limit<br>这是最传统的数据查询方式，<code>db.getCollection(&#39;CapMotor&#39;).find().skip(9000000).sort({&#39;capTime&#39;:1}).limit(20);</code>skip后面是pageSize*pageIndex,limit后是pageSize<br>这种方式在数据量是百万的时候，还凑合着用，但是千万以后，就不可用了，我这边跟踪的查询时间是9s左右，明显不行，影响效率，建议采用第2中方法</p>
+</li>
+<li><p>前端传临界值id，查询添加条件，从当前位置往后截取，取20条</p>
+</li>
+</ol>
+<p>前端在查询下一页数据的时候讲，当前页数据的最后一条，capTime这个字段传过来，值是：1548482420，并且把该条数据对应的objectid也传过来，对应值：ObjectId(“5bc5ce033b071d2fa84e60f4”)，如果是相同的时间，对应的多条数据，要都传递过来，mongo查询的时候，添加条件capTime大于等于1548482420，并且不包含这几条数据，以下是对应的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//  数据查询下一页时：</span><br><span class="line">db.getCollection(&apos;CapMotor&apos;).find(&#123;</span><br><span class="line">    &quot;$and&quot;:[</span><br><span class="line">              &#123;&apos;capTime&apos; :&#123; &quot;$gte&quot; :1548482420&#125;&#125;,</span><br><span class="line">              &#123;&apos;_id&apos;:&#123;&quot;$ne&quot;:ObjectId(&quot;5bc5ce033b071d2fa84e60f4&quot;)&#125;&#125;</span><br><span class="line">          ]</span><br><span class="line">    &#125;)</span><br><span class="line">.sort(&#123;&apos;capTime&apos;:1&#125;).limit(20)</span><br></pre></td></tr></table></figure>
+<p> 注:以上是我考虑的按照某个字段排序，并且该字段的值有可能会有多个的情况，实际在开发中，该字段的值有可能是唯一的，对应的代码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//  数据查询下一页时：</span><br><span class="line">db.getCollection(&apos;CapMotor&apos;).find(&#123;&apos;capTime&apos; :&#123; &quot;$gt&quot; :1539582402&#125; &#125;).sort(&#123;&apos;capTime&apos;:1&#125;).limit(20)</span><br></pre></td></tr></table></figure>
+<p>第一种方法，前端可以指定调到首页，尾页，上下一页，中间指定页，但是前提是数据量不过百万的情况下；<br>第二种方法执行比较快，但是前端不能跳到指定的页数，首页，尾页，上下一页这种是可以的；</p>
+<h1 id="mongodb-分析器explain"><a href="#mongodb-分析器explain" class="headerlink" title="mongodb 分析器explain"></a>mongodb 分析器explain</h1><p>本次是以3.4.15-49-g4ef027f为例，各个版本的执行计划差异较大</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">/* 1 */</span><br><span class="line">&#123;</span><br><span class="line">    &quot;queryPlanner&quot; : &#123;</span><br><span class="line">        &quot;plannerVersion&quot; : 1,</span><br><span class="line">        &quot;namespace&quot; : &quot;bigdata.faceCapture&quot;,</span><br><span class="line">        &quot;indexFilterSet&quot; : false,</span><br><span class="line">        &quot;parsedQuery&quot; : &#123;</span><br><span class="line">            &quot;fcap_id&quot; : &#123;</span><br><span class="line">                &quot;$lt&quot; : &quot;fd129550-ced3-11e8-8ea8-1866daf63d9f&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;winningPlan&quot; : &#123;</span><br><span class="line">            &quot;stage&quot; : &quot;FETCH&quot;,</span><br><span class="line">            &quot;inputStage&quot; : &#123;</span><br><span class="line">                &quot;stage&quot; : &quot;IXSCAN&quot;,</span><br><span class="line">                &quot;keyPattern&quot; : &#123;</span><br><span class="line">                    &quot;fcap_id&quot; : 1</span><br><span class="line">                &#125;,</span><br><span class="line">                &quot;indexName&quot; : &quot;fcap_id_1&quot;,</span><br><span class="line">                &quot;isMultiKey&quot; : false,</span><br><span class="line">                &quot;multiKeyPaths&quot; : &#123;</span><br><span class="line">                    &quot;fcap_id&quot; : []</span><br><span class="line">                &#125;,</span><br><span class="line">                &quot;isUnique&quot; : false,</span><br><span class="line">                &quot;isSparse&quot; : false,</span><br><span class="line">                &quot;isPartial&quot; : false,</span><br><span class="line">                &quot;indexVersion&quot; : 2,</span><br><span class="line">                &quot;direction&quot; : &quot;forward&quot;,</span><br><span class="line">                &quot;indexBounds&quot; : &#123;</span><br><span class="line">                    &quot;fcap_id&quot; : [ </span><br><span class="line">                        &quot;[\&quot;\&quot;, \&quot;fd129550-ced3-11e8-8ea8-1866daf63d9f\&quot;)&quot;</span><br><span class="line">                    ]</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;rejectedPlans&quot; : []</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;serverInfo&quot; : &#123;</span><br><span class="line">        &quot;host&quot; : &quot;master&quot;,</span><br><span class="line">        &quot;port&quot; : 27017,</span><br><span class="line">        &quot;version&quot; : &quot;3.4.15-49-g4ef027f&quot;,</span><br><span class="line">        &quot;gitVersion&quot; : &quot;4ef027f98d5c00a0f4e507cbe39a22cab4c7a44c&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;ok&quot; : 1.0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>重点关注queryPlanner里的winningPlan即可，<br>explain.queryPlanner.winningPlan.stage:最优执行计划的stage，这里返回是FETCH，可以理解为通过返回的index位置去检索具体的文档（stage有数个模式，将在后文中进行详解）。</p>
+<p>Explain.queryPlanner.winningPlan.inputStage:用来描述子stage，并且为其父stage提供文档和索引关键字。</p>
+<p>explain.queryPlanner.winningPlan.stage的child stage，此处是IXSCAN，表示进行的是index scanning。</p>
+<p>state各个值的解释如下：<br>COLLSCAN ：全表扫描</p>
+<p>IXSCAN：索引扫描</p>
+<p>FETCH:：根据索引去检索指定document</p>
+<p>SHARD_MERGE：各个分片返回数据进行merge</p>
+<p>SORT：表明在内存中进行了排序（与前期版本的scanAndOrder:true一致）</p>
+<p>SORT_MERGE：表明在内存中进行了排序后再合并</p>
+<p>LIMIT：使用limit限制返回数</p>
+<p>SKIP：使用skip进行跳过</p>
+<p>IDHACK：针对_id进行查询</p>
+<p>SHARDING_FILTER：通过mongos对分片数据进行查询</p>
+<p>COUNT：利用db.coll.count()之类进行count运算</p>
+<p>COUNTSCAN：count不使用用Index进行count时的stage返回</p>
+<p>COUNT_SCAN：count使用了Index进行count时的stage返回</p>
+<p>SUBPLA：未使用到索引的$or查询的stage返回</p>
+<p>TEXT：使用全文索引进行查询时候的stage返回</p>
+<p>集合faceCapture中有数据1千万条以上的数据，有复合索引fcap_time、fcap_dcid、person_id</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;fcap_time&quot; : -1,</span><br><span class="line">    &quot;fcap_dcid&quot; : 1,</span><br><span class="line">    &quot;person_id&quot; : 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>单行索引fcap_time、fcap_id</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;fcap_time&quot; : 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;fcap_id&quot; : 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用关键字explain进行sql分析，发现如下问题：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 走的是复合索引 注意索引的顺序，fcap_time&quot; : -1,  &quot;fcap_dcid&quot; : 1,  &quot;person_id&quot; : 1</span><br><span class="line">db.getCollection(&apos;faceCapture&apos;).find(&#123;&apos;fcap_time&apos; :&#123; &quot;$gt&quot; :1539745381&#125;&#125;).explain()</span><br><span class="line">// 以下两个字段都是复合索引中，未走索引，</span><br><span class="line">db.getCollection(&apos;faceCapture&apos;).find(&#123;&apos;fcap_dcid&apos; :&#123; &quot;$lt&quot; :&quot;fd129550-ced3-11e8-8ea8-1866daf63d9f&quot;&#125;&#125;).explain()</span><br><span class="line">db.getCollection(&apos;faceCapture&apos;).find(&#123;&apos;person_id&apos; :&#123; &quot;$lt&quot; :&quot;fd129550-ced3-11e8-8ea8-1866daf63d9f&quot;&#125;&#125;).explain()</span><br><span class="line">// 走的是索引 fcap_id&quot; : -1, </span><br><span class="line">db.getCollection(&apos;faceCapture&apos;).find(&#123;&apos;fcap_id&apos; :&#123; &quot;$lt&quot; :&quot;fd129550-ced3-11e8-8ea8-1866daf63d9f&quot;&#125;&#125;).explain()</span><br><span class="line">db.getCollection(&apos;faceCapture&apos;).find(&#123;&apos;fcap_id&apos; :&#123; &quot;$lt&quot; :&quot;fd129550-ced3-11e8-8ea8-1866daf63d9f&quot;&#125;&#125;).count()</span><br></pre></td></tr></table></figure>
+<p>以下有如下结论</p>
+<p>mongodb的索引也有最前缀原则，类似于mysql中的like关键字；<br>复合索引和单列索引中都有同一列，并且该列是位于复合索引的第一个位置时，默认走的是复合索引；<br>复合索引的非首位查询时，默认不走索引；</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/java/mongo千万级数据优化/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-sql/实际开发中mysql的性能优化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -326,102 +452,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/sql/实际开发中mysql的性能优化/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-linux/打包用到的脚本" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/linux/打包用到的脚本/">打包用到的脚本</a>
-    </h1>
-  
-
-        
-        <a href="/linux/打包用到的脚本/" class="archive-article-date">
-  	<time datetime="2018-10-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-10</time>
-</a>
-        
-      </header>
-    
-   
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>几个在开发中用到的shell脚本的demo</p>
-        
-          <a class="article-more-a" href="/linux/打包用到的脚本/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/linux//" class="article-tag-list-link color1">linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/linux/打包用到的脚本/">展开全文 >></a>
         </p>
       
 
@@ -519,6 +549,102 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/java/spring的profile配置/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-linux/打包用到的脚本" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/linux/打包用到的脚本/">打包用到的脚本</a>
+    </h1>
+  
+
+        
+        <a href="/linux/打包用到的脚本/" class="archive-article-date">
+  	<time datetime="2018-10-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-10</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>几个在开发中用到的shell脚本的demo</p>
+        
+          <a class="article-more-a" href="/linux/打包用到的脚本/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/linux//" class="article-tag-list-link color1">linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/linux/打包用到的脚本/">展开全文 >></a>
         </p>
       
 
@@ -1042,103 +1168,6 @@
 
 
   
-    <article id="post-java/分布式架构中的缓存" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java/分布式架构中的缓存/">分布式架构中的缓存</a>
-    </h1>
-  
-
-        
-        <a href="/java/分布式架构中的缓存/" class="archive-article-date">
-  	<time datetime="2018-07-09T02:03:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-09</time>
-</a>
-        
-      </header>
-    
-   
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="缓存概述"><a href="#缓存概述" class="headerlink" title="缓存概述"></a>缓存概述</h1><p>缓存主要用于存储数据的硬件活软件的组成部分，以使得后续更快访问相应的数据；</p>
-<p>主要解决高并发，大数据场景下，热点数据访问的性能问题，提高高性能的数据快速访问</p>
-<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><ol>
-<li>CDN缓存</li>
-<li>反向代理缓存</li>
-<li>本地应用缓存</li>
-<li>分布式缓存</li>
-</ol>
-<p><img src="http://p964q970y.bkt.clouddn.com/%E7%BC%93%E5%AD%98%E5%88%86%E5%B1%82%E6%9E%B6%E6%9E%84.png" alt="缓存的分层架构"></p>
-        
-          <a class="article-more-a" href="/java/分布式架构中的缓存/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">缓存</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/java/分布式架构中的缓存/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1248,15 +1277,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">idea</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">springboot</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color4">aop</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">aop</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1268,19 +1301,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">profile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1289,6 +1310,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sku</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
               </li>
              
               <li class="article-tag-list-item">
