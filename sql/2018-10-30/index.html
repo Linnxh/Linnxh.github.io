@@ -6,19 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://linnxh.online">
-  <title>idea工具使用 | Linnxh的博客</title>
+  <title>mongo的Sharding+Replset集群 | Linnxh的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="java开发常用工具总结，intelljdea">
+  <meta name="description" content="本案例采用的是mongo分片模式中的replicat+sharding实现备份分片，采用的是三台虚拟机，    192.168.3.229 192.168.3.128 192.168.3.125     mongos mongos mongos   config server config server config server   shard server1 主节点 shard server1">
+<meta name="keywords" content="java,数据库,mongo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="idea工具使用">
-<meta property="og:url" content="http://linnxh.online/tools/idea工具使用/index.html">
+<meta property="og:title" content="mongo的Sharding+Replset集群">
+<meta property="og:url" content="http://linnxh.online/sql/2018-10-30/index.html">
 <meta property="og:site_name" content="Linnxh的博客">
-<meta property="og:description" content="java开发常用工具总结，intelljdea">
+<meta property="og:description" content="本案例采用的是mongo分片模式中的replicat+sharding实现备份分片，采用的是三台虚拟机，    192.168.3.229 192.168.3.128 192.168.3.125     mongos mongos mongos   config server config server config server   shard server1 主节点 shard server1">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-11T10:31:25.552Z">
+<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/mongodb%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9fenbu.png">
+<meta property="og:updated_time" content="2018-10-30T09:09:30.703Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="idea工具使用">
-<meta name="twitter:description" content="java开发常用工具总结，intelljdea">
+<meta name="twitter:title" content="mongo的Sharding+Replset集群">
+<meta name="twitter:description" content="本案例采用的是mongo分片模式中的replicat+sharding实现备份分片，采用的是三台虚拟机，    192.168.3.229 192.168.3.128 192.168.3.125     mongos mongos mongos   config server config server config server   shard server1 主节点 shard server1">
+<meta name="twitter:image" content="http://p964q970y.bkt.clouddn.com/mongodb%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9fenbu.png">
   
     <link rel="alternative" href="/atom.xml" title="Linnxh的博客" type="application/atom+xml">
   
@@ -150,20 +153,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-tools/idea工具使用" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-sql/2018-10-30" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      idea工具使用
+      mongo的Sharding+Replset集群
     </h1>
   
 
         
-        <a href="/tools/idea工具使用/" class="archive-article-date">
-  	<time datetime="2018-02-05T08:32:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-05</time>
+        <a href="/sql/2018-10-30/" class="archive-article-date">
+  	<time datetime="2018-10-30T01:03:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-30</time>
 </a>
         
       </header>
@@ -172,36 +175,128 @@
     <div class="article-entry" itemprop="articleBody">
       
       
-        <p>java开发常用工具总结，intelljdea<br><a id="more"></a></p>
-<h1 id="intelljdea"><a href="#intelljdea" class="headerlink" title="intelljdea"></a>intelljdea</h1><h2 id="【链接】-求助-IntelliJIDEA怎么破解"><a href="#【链接】-求助-IntelliJIDEA怎么破解" class="headerlink" title="【链接】[求助]IntelliJIDEA怎么破解"></a>【链接】[求助]IntelliJIDEA怎么破解</h2><p>1、<a href="http://bbs.feng.com/read-htm-tid-11256605.html" target="_blank" rel="noopener">http://bbs.feng.com/read-htm-tid-11256605.html</a><br>激活界面选license server，把<a href="http://xidea.online粘贴进去，点激活" target="_blank" rel="noopener">http://xidea.online粘贴进去，点激活</a><br>2、<a href="http://idea.lanyus.com/" target="_blank" rel="noopener">http://idea.lanyus.com/</a><br>3、jar激活，<a href="https://www.jianshu.com/p/f404994e2843" target="_blank" rel="noopener">https://www.jianshu.com/p/f404994e2843</a></p>
-<h2 id="代码里的黄线"><a href="#代码里的黄线" class="headerlink" title="代码里的黄线"></a>代码里的黄线</h2><ol>
-<li>java代码的波浪线，在 setting 里面  inspections _ General _ Duplicated Code 取消勾选.提交之后就可以了.</li>
-<li>sql里的黄色背景：editor–&gt;inspections–&gt;右边的 sql  里的 no data source configured sql dialect detecton 的对号去掉，setting–>Spring–>Spring Core–>Code–>Autowring for Bean Class里的对号去掉， editor–&gt;color Scheme—&gt;general–&gt;code–&gt;injected language fragment background去掉</li>
-<li>editor–&gt;general–&gt;code completion—&gt;match case 选择none，或者把对号都去掉</li>
-<li><a href="http://plugins.jetbrains.com/" target="_blank" rel="noopener">http://plugins.jetbrains.com/</a>  这个是插件的官网，先下载后选择离线安装</li>
-</ol>
-<h2 id="格式化jsp"><a href="#格式化jsp" class="headerlink" title="格式化jsp"></a>格式化jsp</h2><p><a href="http://blog.csdn.net/ieayoio/article/details/49930587" target="_blank" rel="noopener">http://blog.csdn.net/ieayoio/article/details/49930587</a></p>
-<h2 id="【链接】intellijIDEA如何设置默认的maven配置？"><a href="#【链接】intellijIDEA如何设置默认的maven配置？" class="headerlink" title="【链接】intellijIDEA如何设置默认的maven配置？"></a>【链接】intellijIDEA如何设置默认的maven配置？</h2><p><a href="http://www.oschina.net/question/948439\_243781" target="_blank" rel="noopener">http://www.oschina.net/question/948439\_243781</a></p>
-<h2 id="【链接】IntellijIDEA创建MavenWeb项目"><a href="#【链接】IntellijIDEA创建MavenWeb项目" class="headerlink" title="【链接】IntellijIDEA创建MavenWeb项目"></a>【链接】IntellijIDEA创建MavenWeb项目</h2><p> new project——maven——勾选 create from archetype 选中webap<br><a href="http://blog.csdn.net/gaokao2011/article/details/53995435" target="_blank" rel="noopener">http://blog.csdn.net/gaokao2011/article/details/53995435</a></p>
-<p><a href="https://www.zhihu.com/question/38595887" target="_blank" rel="noopener">https://www.zhihu.com/question/38595887</a><br> 命令行</p>
-<p>mvn archetype:generate -DgroupId=com.zhtxtest.lxh -DartifactId=commontest -DarchetypeArtifactId=maven-archetype-webapp -DinteractiveMode=false</p>
-<h2 id="【链接】Intelij导入maven项目并部署到tomcat"><a href="#【链接】Intelij导入maven项目并部署到tomcat" class="headerlink" title="【链接】Intelij导入maven项目并部署到tomcat"></a>【链接】Intelij导入maven项目并部署到tomcat</h2><p><a href="http://blog.csdn.net/txvaqh/article/details/52824492" target="_blank" rel="noopener">http://blog.csdn.net/txvaqh/article/details/52824492</a><br>release版本，对于发布状态的artifact（就是被依赖的jar包），如果版本号相同，即使我们内部的镜像服务器上的组件比本地新，maven也不会主动下载的。<br>intellj取出mybaits黄线警告<br><a href="http://blog.csdn.net/aubdiy/article/details/" target="_blank" rel="noopener">http://blog.csdn.net/aubdiy/article/details/</a></p>
-<h2 id="创建父子工程"><a href="#创建父子工程" class="headerlink" title="创建父子工程"></a>创建父子工程</h2><p><a href="http://blog.csdn.net/aiu\_iu/article/details/71844568?utm\_source=itdadao&amp;utm\_medium=referral" target="_blank" rel="noopener">http://blog.csdn.net/aiu\_iu/article/details/71844568?utm\_source=itdadao&amp;utm\_medium=referral</a><br>若提示。。。Failed to create a Maven project:’’ already exists in VFS<br>创建子工程在最后选择路径的时候添加”/“,指定路径即可</p>
-<h2 id="新建maven项目"><a href="#新建maven项目" class="headerlink" title="新建maven项目"></a>新建maven项目</h2><p><a href="http://blog.csdn.net/myarrow/article/details/50824793" target="_blank" rel="noopener">http://blog.csdn.net/myarrow/article/details/50824793</a><br>intellij idea 导入maven项目<br>file-new-project from existing source<br>intellj修改js不重启<br><a href="http://www.oschina.net/question/194770\_91781?sort=time&amp;p=1" target="_blank" rel="noopener">http://www.oschina.net/question/194770\_91781?sort=time&amp;p=1</a><br>快捷键<br>Option+/<br>代码助手“智能提示”<br>Command+1<br>快速修复<br><a href="http://blog.csdn.net/feng2qing/article/details/70344832" target="_blank" rel="noopener">http://blog.csdn.net/feng2qing/article/details/70344832</a></p>
-<h2 id="使用小提示"><a href="#使用小提示" class="headerlink" title="使用小提示"></a>使用小提示</h2><h3 id="如果项目长时间没有启动"><a href="#如果项目长时间没有启动" class="headerlink" title="如果项目长时间没有启动"></a>如果项目长时间没有启动</h3><ol>
-<li>看一下debug的断点设置，不能打在实体和sql上，或者为了保险起见，先注释掉；</li>
-<li>maven project面板将项目重现导入编辑一下，toggle offline mode切换一下<h3 id="设置idea的运行内存；"><a href="#设置idea的运行内存；" class="headerlink" title="设置idea的运行内存；"></a>设置idea的运行内存；</h3>mac为例,<br>应用程序–>idea–>显示包内容–>Contents–>bin–>idea.vmoptions  打开文件，我的显示如下，</li>
-</ol>
-<p> -Xms1024m<br>-Xmx4096m<br>-XX:ReservedCodeCacheSize=1024m<br>-XX:+UseCompressedOops<br>-Dfile.encoding=UTF-8<br>-XX:+UseConcMarkSweepGC<br>-XX:SoftRefLRUPolicyMSPerMB=50<br>-ea<br>-Dsun.io.useCanonCaches=false<br>-Djava.net.preferIPv4Stack=true<br>-XX:+HeapDumpOnOutOfMemoryError<br>-XX:-OmitStackTraceInFastThrow<br>-Xverify:none<br>-XX:ErrorFile=$USER_HOME/java_error_in_idea_%p.log<br>-XX:HeapDumpPath=$USER_HOME/java_error_in_idea.hprof<br>-Xbootclasspath/a:../lib/boot.jar<br>-javaagent:/Users/LXH/Library/Java/JetbrainsLicense.jar</p>
-<blockquote>
-<p>参数解释</p>
-</blockquote>
-<p> -Xmx   Java Heap最大值，默认值为物理内存的1/4，最佳设值应该视物理内存大小及计算机内其他内存开销而定；<br>-Xms   Java Heap初始值，Server端JVM最好将-Xms和-Xmx设为相同值，开发测试机JVM可以保留默认值；<br>-Xmn   Java Heap Young区大小，不熟悉最好保留默认值；<br>-Xss   每个线程的Stack大小，不熟悉最好保留默认值；</p>
-<h3 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h3><ol>
-<li>comm+shiift+小键盘的*    option+鼠标左键</li>
-<li>control+option       删除无用的包</li>
-</ol>
-<h1 id="编译后的jsp文件路径"><a href="#编译后的jsp文件路径" class="headerlink" title="编译后的jsp文件路径"></a>编译后的jsp文件路径</h1><p>/Users/LXH/Library/Caches/IntelliJIdea2017.3/tomcat<br>路径里的具体文件名称对应不清楚，可以用工具直接进行搜索：</p>
+        <p>本案例采用的是mongo分片模式中的replicat+sharding实现备份分片，采用的是三台虚拟机，</p>
+<table>
+<thead>
+<tr>
+<th>192.168.3.229</th>
+<th>192.168.3.128</th>
+<th>192.168.3.125</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mongos</td>
+<td>mongos</td>
+<td>mongos</td>
+</tr>
+<tr>
+<td>config server</td>
+<td>config server</td>
+<td>config server</td>
+</tr>
+<tr>
+<td>shard server1 主节点</td>
+<td>shard server1 仲裁</td>
+<td>shard server1 从节点</td>
+</tr>
+<tr>
+<td>shard server2 副节点</td>
+<td>shard server2 主节点</td>
+<td>shard server2 仲裁</td>
+</tr>
+<tr>
+<td>shard server3 仲裁</td>
+<td>shard server3 从节点</td>
+<td>shard server3 主节点</td>
+</tr>
+</tbody>
+</table>
+<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p><strong>mongos</strong><br>数据库集群请求的入口，是请求的分发中心，负责把请求转发到对应的shard服务器上，生产环境下，一般有多个座位请求入口，防止其中一个挂掉</p>
+<p><strong>config server</strong><br>mongod实例，存储了整个 ClusterMetadata，其中包括 chunk信息。<br><strong>shard</strong><br>用于存储实际的数据块，实际生产环境中一个shard server角色可由几台机器组个一个relica set承担，防止主机单点故障<br><strong>replica set</strong><br>中文翻译副本集，其实就是shard的备份，防止shard挂掉之后数据丢失。复制提供了数据的冗余备份，并在多个服务器上存储数据副本，提高了数据的可用性， 并可以保证数据的安全性。</p>
+<p><strong>Arbiter</strong><br>仲裁者，是复制集中的一个MongoDB实例，它并不保存数据。仲裁节点使用最小的资源并且不要求硬件设备，不能将Arbiter部署在同一个数据集节点中，可以部署在其他应用服务器或者监视服务器中，也可部署在单独的虚拟机中。为了确保复制集中有奇数的投票成员（包括primary），需要添加仲裁节点做为投票，否则primary不能运行时不会自动切换primary</p>
+<h1 id="准备工作如下"><a href="#准备工作如下" class="headerlink" title="准备工作如下"></a>准备工作如下</h1><p>三台虚拟机，ip如下，编号分别为1到3号虚拟机，192.168.3.229 、 192.168.3.128 、192.168.3.125<br>linux版本是：centos7.5<br>mongo版本是：v3.4-latest<br>各个端口的描述如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mongos：20000    路由服务器</span><br><span class="line">config：21000    配置服务器</span><br><span class="line">shard1：27001    分片服务器 1</span><br><span class="line">shard2：27002    分片服务器 2</span><br><span class="line">shard3：27003    分片服务器 3</span><br></pre></td></tr></table></figure>
+<p>三台虚拟机，根目录下新建文件夹</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /lxhtext/</span><br><span class="line">cd /lxhtest/</span><br></pre></td></tr></table></figure>
+<p>现在其中一台服务器上操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mkdir mongodb</span><br><span class="line">mkdir -p /lxhtext/mongodb/conf \</span><br><span class="line">mkdir -p /lxhtext/mongodb/mongos/log \</span><br><span class="line">mkdir -p /lxhtext/mongodb/config/data \</span><br><span class="line">mkdir -p /lxhtext/mongodb/config/log \</span><br><span class="line">mkdir -p /lxhtext/mongodb/shard1/data \</span><br><span class="line">mkdir -p /lxhtext/mongodb/shard1/log \</span><br><span class="line">mkdir -p /lxhtext/mongodb/shard2/data \</span><br><span class="line">mkdir -p /lxhtext/mongodb/shard2/log \</span><br><span class="line">mkdir -p /lxhtext/mongodb/shard3/data \</span><br><span class="line">mkdir -p /lxhtext/mongodb/shard3/log</span><br></pre></td></tr></table></figure>
+<p>将mongo的包解压到/lxhtext/mongodb，<br>/lxhtext/mongodb的文件信息如下：<br><img src="http://p964q970y.bkt.clouddn.com/mongodb%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9fenbu.png" alt="mongodb的文件分布"><br>其中红框的部分是我们新建的，其他的是mongo解压的</p>
+<p>5分配置文件</p>
+<p>/lxhtext/mongodb/conf/config.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">## 配置文件内容</span><br><span class="line">pidfilepath = /lxhtest/mongodb/config/log/configsrv.pid</span><br><span class="line">dbpath = /lxhtest/mongodb/config/data</span><br><span class="line">logpath = /lxhtest/mongodb/config/log/congigsrv.log</span><br><span class="line">logappend = true</span><br><span class="line"> </span><br><span class="line">bind_ip = 0.0.0.0</span><br><span class="line">port = 21000</span><br><span class="line">fork = true</span><br><span class="line"> </span><br><span class="line">#declare this is a config db of a cluster;</span><br><span class="line">configsvr = true</span><br><span class="line"> </span><br><span class="line">#副本集名称</span><br><span class="line">replSet = configs</span><br><span class="line"> </span><br><span class="line">#设置最大连接数</span><br><span class="line">maxConns = 20000</span><br></pre></td></tr></table></figure>
+<p>/lxhtext/mongodb/conf/mongos.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#内容</span><br><span class="line">pidfilepath = /lxhtest/mongodb/mongos/log/mongos.pid</span><br><span class="line">logpath = /lxhtest/mongodb/mongos/log/mongos.log</span><br><span class="line">logappend = true</span><br><span class="line"> </span><br><span class="line">bind_ip = 0.0.0.0</span><br><span class="line">port = 20000</span><br><span class="line">fork = true</span><br><span class="line"> </span><br><span class="line">#监听的配置服务器,只能有1个或者3个 configs为配置服务器的副本集名字</span><br><span class="line">configdb = configs/192.168.3.229:21000,192.168.3.128:21000,192.168.3.91129:21000</span><br><span class="line"> </span><br><span class="line">#设置最大连接数</span><br><span class="line">maxConns = 20000</span><br></pre></td></tr></table></figure>
+<p>/lxhtext/mongodb/conf/shard1.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#配置文件内容</span><br><span class="line">#——————————————–</span><br><span class="line">pidfilepath = /lxhtest/mongodb/shard1/log/shard1.pid</span><br><span class="line">dbpath = /lxhtest/mongodb/shard1/data</span><br><span class="line">logpath = /lxhtest/mongodb/shard1/log/shard1.log</span><br><span class="line">logappend = true</span><br><span class="line"> </span><br><span class="line">bind_ip = 0.0.0.0</span><br><span class="line">port = 27001</span><br><span class="line">fork = true</span><br><span class="line"> </span><br><span class="line">#副本集名称</span><br><span class="line">replSet = shard1</span><br><span class="line"> </span><br><span class="line">#declare this is a shard db of a cluster;</span><br><span class="line">shardsvr = true</span><br><span class="line"> </span><br><span class="line">#设置最大连接数</span><br><span class="line">maxConns = 20000</span><br></pre></td></tr></table></figure>
+<p>其他两个shard2和shard3 和上面的类似</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#配置文件内容</span><br><span class="line">#——————————————–</span><br><span class="line">pidfilepath = /lxhtest/mongodb/shard2/log/shard2.pid</span><br><span class="line">dbpath = /lxhtest/mongodb/shard2/data</span><br><span class="line">logpath = /lxhtest/mongodb/shard2/log/shard2.log</span><br><span class="line">logappend = true</span><br><span class="line"> </span><br><span class="line">bind_ip = 0.0.0.0</span><br><span class="line">port = 27002</span><br><span class="line">fork = true</span><br><span class="line"> </span><br><span class="line">#副本集名称</span><br><span class="line">replSet = shard2</span><br><span class="line"> </span><br><span class="line">#declare this is a shard db of a cluster;</span><br><span class="line">shardsvr = true</span><br><span class="line"> </span><br><span class="line">#设置最大连接数</span><br><span class="line">maxConns = 20000</span><br></pre></td></tr></table></figure>
+<p>/lxhtext/mongodb/conf/shard3.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#配置文件内容</span><br><span class="line">#——————————————–</span><br><span class="line">pidfilepath = /lxhtest/mongodb/shard3/log/shard3.pid</span><br><span class="line">dbpath = /lxhtest/mongodb/shard3/data</span><br><span class="line">logpath = /lxhtest/mongodb/shard3/log/shard3.log</span><br><span class="line">logappend = true</span><br><span class="line"> </span><br><span class="line">bind_ip = 0.0.0.0</span><br><span class="line">port = 27003</span><br><span class="line">fork = true</span><br><span class="line"> </span><br><span class="line">#副本集名称</span><br><span class="line">replSet = shard3</span><br><span class="line"> </span><br><span class="line">#declare this is a shard db of a cluster;</span><br><span class="line">shardsvr = true</span><br><span class="line"> </span><br><span class="line">#设置最大连接数</span><br><span class="line">maxConns = 20000</span><br></pre></td></tr></table></figure>
+<p>将上面的5个配置文件上传到 /lxhtext/mongodb/conf 目录下，<br>再利用命令行将这些文件拷贝到其他服务器上<br><code>scp -r /lxhtest/* root@192.168.3.128:/lxhtest/</code><br>会要求你输入128机器的密码</p>
+<h1 id="添加环境变量"><a href="#添加环境变量" class="headerlink" title="添加环境变量"></a>添加环境变量</h1><p>三台虚拟机都添加如下的环境变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile</span><br><span class="line"># 添加代码如下，注意等号左右不能加空格</span><br><span class="line">export MONGO_HOME=/lxhtest/mongodb</span><br><span class="line">export PATH=$MONGO_HOME/bin:$PATH</span><br><span class="line">#让配置文件立马生效，如果配置出现问题，执行下面操作会报错</span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+<h1 id="启动config-server"><a href="#启动config-server" class="headerlink" title="启动config server"></a>启动config server</h1><p>三台服务器分别启动<code>mongod -f /lxhtest/mongodb/conf/config.conf</code><br>连接到任一一台服务器，<code>mongo --port 21000</code>初始化副本集</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">use admin</span><br><span class="line">config = &#123;</span><br><span class="line">    _id : &quot;configs&quot;,</span><br><span class="line">    members : [</span><br><span class="line">    &#123;_id : 0, host : &quot;192.168.3.229:21000&quot; &#125;,</span><br><span class="line">    &#123;_id : 1, host : &quot;192.168.3.128:21000&quot; &#125;,</span><br><span class="line">    &#123;_id : 2, host : &quot;192.168.3.125:21000&quot; &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line">rs.initiate(config)</span><br><span class="line"># 查看是否添加成功，一主两副，_id : 0的服务器为主机</span><br><span class="line">rs.status()</span><br></pre></td></tr></table></figure>
+<p>在配置过程中应该会配到防火墙问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">关闭防火墙命令：systemctl stop firewalld.service</span><br><span class="line">开启防火墙：systemctl start firewalld.service</span><br><span class="line">关闭开机自启动：systemctl disable firewalld.service</span><br><span class="line">开启开机启动：systemctl enable firewalld.service</span><br></pre></td></tr></table></figure>
+<h1 id="分别启动三个分片副本集"><a href="#分别启动三个分片副本集" class="headerlink" title="分别启动三个分片副本集"></a>分别启动三个分片副本集</h1><p><strong>shard1</strong></p>
+<p>启动三台服务器的shard1 server <code>mongod -f /lxhtest/mongodb/conf/shard1.conf</code></p>
+<p>登陆任意一台服务器，初始化副本集(除了已经进行分片的服务器以外，假设192.168.9.85已经进行分片，那么，再次登录192.168.9.85服务器初始化副本集进行分片会报错【id：X不可用】)——具体待验证<br> 连接第一台服务器 shard1的mongo实例，<code>mongo --port 27001</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">use admin</span><br><span class="line"># priority 是指定优先级，优先级越大，则优先被选为主节点</span><br><span class="line"># arbiterOnly: true，设置为仲裁节点</span><br><span class="line">config = &#123;</span><br><span class="line">    _id : &quot;shard1&quot;,</span><br><span class="line">     members : [</span><br><span class="line">         &#123;_id : 0, host : &quot;192.168.3.229:27001&quot;,priority:2&#125;,</span><br><span class="line">         &#123;_id : 1, host : &quot;192.168.3.128:27001&quot;,arbiterOnly: true&#125;,</span><br><span class="line">         &#123;_id : 2, host : &quot;192.168.3.125:27001&quot; , priority:1 &#125;</span><br><span class="line">     ]</span><br><span class="line"> &#125;</span><br><span class="line"> rs.initiate(config)</span><br></pre></td></tr></table></figure>
+<p><strong>shard2</strong><br>三台服务器分别启动 <code>mongod -f /lxhtest/mongodb/conf/shard2.conf</code><br>进入第二台机器<br><code>mongo --port 27002</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">use admin</span><br><span class="line">config2 = &#123;</span><br><span class="line">    _id : &quot;shard2&quot;,</span><br><span class="line">     members : [</span><br><span class="line">         &#123;_id : 0, host : &quot;192.168.3.229:27002&quot;, priority:1&#125;,</span><br><span class="line">         &#123;_id : 1, host : &quot;192.168.3.128:27002&quot;,priority:2&#125;,</span><br><span class="line">         &#123;_id : 2, host : &quot;192.168.3.125:27002&quot; ,arbiterOnly: true&#125;</span><br><span class="line">     ]</span><br><span class="line"> &#125;</span><br><span class="line">  rs.initiate(config)</span><br></pre></td></tr></table></figure>
+<p><strong>shard3</strong><br>三台服务器分别启动 <code>mongod -f /lxhtest/mongodb/conf/shard3.conf</code><br>进入第三台机器<br><code>mongo --port 27003</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">use admin</span><br><span class="line">config = &#123;</span><br><span class="line">    _id : &quot;shard3&quot;,</span><br><span class="line">     members : [</span><br><span class="line">         &#123;_id : 0, host : &quot;192.168.3.229:27003&quot; ,arbiterOnly: true &#125;,</span><br><span class="line">         &#123;_id : 1, host : &quot;192.168.3.128:27003&quot; ,priority:1&#125;,</span><br><span class="line">         &#123;_id : 2, host : &quot;192.168.3.125:27003&quot; ,priority:2 &#125;</span><br><span class="line">     ]</span><br><span class="line"> &#125;</span><br><span class="line">  rs.initiate(config)</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>192.168.3.229</th>
+<th>192.168.3.128</th>
+<th>192.168.3.125</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mongos</td>
+<td>mongos</td>
+<td>mongos</td>
+</tr>
+<tr>
+<td>config server</td>
+<td>config server</td>
+<td>config server</td>
+</tr>
+<tr>
+<td>shard server1 主节点</td>
+<td>shard server1 仲裁</td>
+<td>shard server1 从节点</td>
+</tr>
+<tr>
+<td>shard server2 副节点</td>
+<td>shard server2 主节点</td>
+<td>shard server2 仲裁</td>
+</tr>
+<tr>
+<td>shard server3 仲裁</td>
+<td>shard server3 从节点</td>
+<td>shard server3 主节点</td>
+</tr>
+</tbody>
+</table>
+<p>端口配置如下<br>mongos：20000    路由服务器<br>config：21000    配置服务器<br>shard1：27001    分片服务器 1<br>shard2：27002    分片服务器 2<br>shard3：27003    分片服务器 3</p>
+<h1 id="启动路由服务器mongos"><a href="#启动路由服务器mongos" class="headerlink" title="启动路由服务器mongos"></a>启动路由服务器mongos</h1><p>启动三台机器mongo<br><code>mongos -f /lxhtest/mongodb/conf/mongos.conf</code></p>
+<p>目前搭建了mongodb配置服务器、路由服务器，各个分片服务器，不过应用程序连接到mongos路由服务器并不能使用分片机制，还需要在程序里设置分片配置，让分片生效</p>
+<p>登陆任意一台mongos<code>mongo --port 20000</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">use  admin</span><br><span class="line">sh.addShard(&quot;shard1/192.168.3.229:27001,192.168.3.128:27001,192.168.3.125:27001&quot;);</span><br><span class="line">sh.addShard(&quot;shard2/192.168.3.229:27002,192.168.3.128:27002,192.168.3.125:27002&quot;);</span><br><span class="line">sh.addShard(&quot;shard3/192.168.3.229:27003,192.168.3.128:27003,192.168.3.125:27003&quot;);</span><br><span class="line">sh.status()</span><br></pre></td></tr></table></figure>
+<h1 id="插入数据测试"><a href="#插入数据测试" class="headerlink" title="插入数据测试"></a>插入数据测试</h1><p>登陆任意一台mongos<code>mongo --port 20000</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">use admin</span><br><span class="line">db.runCommand( &#123; enablesharding :&quot;testdb&quot;&#125;);</span><br><span class="line">db.runCommand( &#123; shardcollection : &quot;testdb.table1&quot;,key : &#123;&quot;id&quot;: &quot;hashed&quot;&#125; &#125; );</span><br><span class="line">use  testdb;</span><br><span class="line">for(i=1;i&lt;=100;i++)&#123;db.table1.insert(&#123;&quot;id&quot;:i,&quot;name&quot;:&quot;lxh&quot;&#125;)&#125;; #循环插入100条数据</span><br><span class="line"># 查看数据的分布情况</span><br><span class="line">db.table1.stats();</span><br></pre></td></tr></table></figure>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>mongodb的启动顺序是，先启动配置服务器，在启动分片，最后启动mongos.</p>
+<p>关闭mongo进程顺序，关闭顺序为路由节点 -&gt; 配置节点 -&gt; 分片节点的顺序</p>
+<p>三台服务器，如何 查看那个是主节点，副本节点，仲裁节点</p>
+<p>在任意一台服务器上都可以连接每个分片的实例<br><code>mongo --port 27001</code>连接shard1的实例，如果这个地方是在第一台虚拟机上，由于它是shard1的主节点，<br>显示的是<code>shard1:PRIMARY&gt;</code>这种前缀，代表他是shard1的主节点<br>注：<br>路由服务器上通过<code>sh.status()</code>,其中的shards里的<code>&quot;host&quot; : &quot;shard1/192.168.3.125:27001,192.168.3.229:27001&quot;</code>,代表shard1的节点是这两个，主副节点的顺序和这个地方的顺序没有关系</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">--- Sharding Status ---</span><br><span class="line">  sharding version: &#123;</span><br><span class="line">        &quot;_id&quot; : 1,</span><br><span class="line">        &quot;minCompatibleVersion&quot; : 5,</span><br><span class="line">        &quot;currentVersion&quot; : 6,</span><br><span class="line">        &quot;clusterId&quot; : ObjectId(&quot;5bd7c6c0cfb9e5b595589b37&quot;)</span><br><span class="line">  &#125;</span><br><span class="line">  shards:</span><br><span class="line">        &#123;  &quot;_id&quot; : &quot;shard1&quot;,  &quot;host&quot; : &quot;shard1/192.168.3.125:27001,192.168.3.229:27001&quot;,  &quot;state&quot; : 1 &#125;</span><br><span class="line">        &#123;  &quot;_id&quot; : &quot;shard2&quot;,  &quot;host&quot; : &quot;shard2/192.168.3.128:27002,192.168.3.229:27002&quot;,  &quot;state&quot; : 1 &#125;</span><br><span class="line">        &#123;  &quot;_id&quot; : &quot;shard3&quot;,  &quot;host&quot; : &quot;shard3/192.168.3.125:27003,192.168.3.128:27003&quot;,  &quot;state&quot; : 1 &#125;</span><br><span class="line">  active mongoses:</span><br><span class="line">        &quot;3.4.15-49-g4ef027f&quot; : 1</span><br><span class="line">  autosplit:</span><br><span class="line">        Currently enabled: yes</span><br><span class="line">  balancer:</span><br><span class="line">        Currently enabled:  yes</span><br><span class="line">        Currently running:  no</span><br><span class="line">NaN</span><br><span class="line">        Failed balancer rounds in last 5 attempts:  0</span><br><span class="line">        Migration Results for the last 24 hours:</span><br><span class="line">                2 : Success</span><br><span class="line">  databases:</span><br><span class="line">        &#123;  &quot;_id&quot; : &quot;testdb&quot;,  &quot;primary&quot; : &quot;shard1&quot;,  &quot;partitioned&quot; : true &#125;</span><br><span class="line">                testdb.table1</span><br><span class="line">                        shard key: &#123; &quot;id&quot; : &quot;hashed&quot; &#125;</span><br><span class="line">                        unique: false</span><br><span class="line">                        balancing: true</span><br><span class="line">                        chunks:</span><br><span class="line">                                shard1  2</span><br><span class="line">                                shard2  2</span><br><span class="line">                                shard3  2</span><br><span class="line">                        &#123; &quot;id&quot; : &#123; &quot;$minKey&quot; : 1 &#125; &#125; --&gt;&gt; &#123; &quot;id&quot; : NumberLong(&quot;-6148914691236517204&quot;) &#125; on : shard1 Timestamp(3, 2)</span><br><span class="line">                        &#123; &quot;id&quot; : NumberLong(&quot;-6148914691236517204&quot;) &#125; --&gt;&gt; &#123; &quot;id&quot; : NumberLong(&quot;-3074457345618258602&quot;) &#125; on : shard1 Timestamp(3, 3)</span><br><span class="line">                        &#123; &quot;id&quot; : NumberLong(&quot;-3074457345618258602&quot;) &#125; --&gt;&gt; &#123; &quot;id&quot; : NumberLong(0) &#125; on : shard2 Timestamp(3, 4)</span><br><span class="line">                        &#123; &quot;id&quot; : NumberLong(0) &#125; --&gt;&gt; &#123; &quot;id&quot; : NumberLong(&quot;3074457345618258602&quot;) &#125; on : shard2 Timestamp(3, 5)</span><br><span class="line">                        &#123; &quot;id&quot; : NumberLong(&quot;3074457345618258602&quot;) &#125; --&gt;&gt; &#123; &quot;id&quot; : NumberLong(&quot;6148914691236517204&quot;) &#125; on : shard3 Timestamp(3, 6)</span><br><span class="line">                        &#123; &quot;id&quot; : NumberLong(&quot;6148914691236517204&quot;) &#125; --&gt;&gt; &#123; &quot;id&quot; : &#123; &quot;$maxKey&quot; : 1 &#125; &#125; on : shard3 Timestamp(3, 7)</span><br></pre></td></tr></table></figure>
+<p>参考地址<br><a href="http://www.ityouknow.com/mongodb/2017/08/05/mongodb-cluster-setup.html" target="_blank" rel="noopener">mongodb 3.4 集群搭建：分片+副本集</a><br><a href="https://blog.csdn.net/pittpakk/article/details/79385561" target="_blank" rel="noopener">mongodb分片集群搭建</a></p>
 
       
 
@@ -210,18 +305,26 @@
     <div class="article-info article-info-index">
       
       
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/tools//" class="article-tag-list-link color1">tools</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mongo</a>
         		</li>
       		
 		</ul>
 	</div>
 
+      
 
       
 
@@ -271,7 +374,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://linnxh.online/tools/idea工具使用/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://linnxh.online/sql/2018-10-30/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -285,18 +388,9 @@
   
 <nav id="article-nav">
   
-    <a href="/java/java-17-10/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          java-17-10
-        
-      </div>
-    </a>
   
-  
-    <a href="/README/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">hexo搭建博客注意事项</div>
+    <a href="/java/kafka集群/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">kafka集群</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -323,7 +417,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#intelljdea"><span class="toc-number">1.</span> <span class="toc-text">intelljdea</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#【链接】-求助-IntelliJIDEA怎么破解"><span class="toc-number">1.1.</span> <span class="toc-text">【链接】[求助]IntelliJIDEA怎么破解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码里的黄线"><span class="toc-number">1.2.</span> <span class="toc-text">代码里的黄线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#格式化jsp"><span class="toc-number">1.3.</span> <span class="toc-text">格式化jsp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#【链接】intellijIDEA如何设置默认的maven配置？"><span class="toc-number">1.4.</span> <span class="toc-text">【链接】intellijIDEA如何设置默认的maven配置？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#【链接】IntellijIDEA创建MavenWeb项目"><span class="toc-number">1.5.</span> <span class="toc-text">【链接】IntellijIDEA创建MavenWeb项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#【链接】Intelij导入maven项目并部署到tomcat"><span class="toc-number">1.6.</span> <span class="toc-text">【链接】Intelij导入maven项目并部署到tomcat</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建父子工程"><span class="toc-number">1.7.</span> <span class="toc-text">创建父子工程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新建maven项目"><span class="toc-number">1.8.</span> <span class="toc-text">新建maven项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用小提示"><span class="toc-number">1.9.</span> <span class="toc-text">使用小提示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#如果项目长时间没有启动"><span class="toc-number">1.9.1.</span> <span class="toc-text">如果项目长时间没有启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置idea的运行内存；"><span class="toc-number">1.9.2.</span> <span class="toc-text">设置idea的运行内存；</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#快捷键"><span class="toc-number">1.9.3.</span> <span class="toc-text">快捷键</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#编译后的jsp文件路径"><span class="toc-number">2.</span> <span class="toc-text">编译后的jsp文件路径</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基本概念"><span class="toc-number">1.</span> <span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#准备工作如下"><span class="toc-number">2.</span> <span class="toc-text">准备工作如下</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#添加环境变量"><span class="toc-number">3.</span> <span class="toc-text">添加环境变量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#启动config-server"><span class="toc-number">4.</span> <span class="toc-text">启动config server</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#分别启动三个分片副本集"><span class="toc-number">5.</span> <span class="toc-text">分别启动三个分片副本集</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#启动路由服务器mongos"><span class="toc-number">6.</span> <span class="toc-text">启动路由服务器mongos</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#插入数据测试"><span class="toc-number">7.</span> <span class="toc-text">插入数据测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#其他"><span class="toc-number">8.</span> <span class="toc-text">其他</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -337,7 +431,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="tools/idea工具使用" data-title="idea工具使用" data-url="http://linnxh.online/tools/idea工具使用/"></div>
+	<div class="ds-thread" data-thread-key="sql/2018-10-30" data-title="mongo的Sharding+Replset集群" data-url="http://linnxh.online/sql/2018-10-30/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -360,8 +454,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://linnxh.online/tools/idea工具使用/", 
-    sourceId: "tools/idea工具使用",
+    url: "http://linnxh.online/sql/2018-10-30/", 
+    sourceId: "sql/2018-10-30",
     productKey: "true",
     target: "cloud-tie-wrapper"
   };

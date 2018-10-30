@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Linnxh的博客">
 <meta property="og:description" content="千万级数据分页优化 mongo采用的是单机部署，数据量1千万，需求是实现分页面，按照capTime倒叙排列，每页数据20条   skip+limit这是最传统的数据查询方式，db.getCollection(&amp;#39;CapMotor&amp;#39;).find().skip(9000000).sort({&amp;#39;capTime&amp;#39;:1}).limit(20);skip后面是pageSize*p">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-10-26T03:43:12.895Z">
+<meta property="og:updated_time" content="2018-10-29T05:45:54.111Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mongo千万级数据优化">
 <meta name="twitter:description" content="千万级数据分页优化 mongo采用的是单机部署，数据量1千万，需求是实现分页面，按照capTime倒叙排列，每页数据20条   skip+limit这是最传统的数据查询方式，db.getCollection(&amp;#39;CapMotor&amp;#39;).find().skip(9000000).sort({&amp;#39;capTime&amp;#39;:1}).limit(20);skip后面是pageSize*p">
@@ -179,9 +179,10 @@
 <li><p>skip+limit<br>这是最传统的数据查询方式，<code>db.getCollection(&#39;CapMotor&#39;).find().skip(9000000).sort({&#39;capTime&#39;:1}).limit(20);</code>skip后面是pageSize*pageIndex,limit后是pageSize<br>这种方式在数据量是百万的时候，还凑合着用，但是千万以后，就不可用了，我这边跟踪的查询时间是9s左右，明显不行，影响效率，建议采用第2中方法</p>
 </li>
 <li><p>前端传临界值id，查询添加条件，从当前位置往后截取，取20条</p>
+<a id="more"></a>
+<p>前端在查询下一页数据的时候讲，当前页数据的最后一条，capTime这个字段传过来，值是：1548482420，并且把该条数据对应的objectid也传过来，对应值：ObjectId(“5bc5ce033b071d2fa84e60f4”)，如果是相同的时间，对应的多条数据，要都传递过来，mongo查询的时候，添加条件capTime大于等于1548482420，并且不包含这几条数据，以下是对应的代码</p>
 </li>
 </ol>
-<p>前端在查询下一页数据的时候讲，当前页数据的最后一条，capTime这个字段传过来，值是：1548482420，并且把该条数据对应的objectid也传过来，对应值：ObjectId(“5bc5ce033b071d2fa84e60f4”)，如果是相同的时间，对应的多条数据，要都传递过来，mongo查询的时候，添加条件capTime大于等于1548482420，并且不包含这几条数据，以下是对应的代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//  数据查询下一页时：</span><br><span class="line">db.getCollection(&apos;CapMotor&apos;).find(&#123;</span><br><span class="line">    &quot;$and&quot;:[</span><br><span class="line">              &#123;&apos;capTime&apos; :&#123; &quot;$gte&quot; :1548482420&#125;&#125;,</span><br><span class="line">              &#123;&apos;_id&apos;:&#123;&quot;$ne&quot;:ObjectId(&quot;5bc5ce033b071d2fa84e60f4&quot;)&#125;&#125;</span><br><span class="line">          ]</span><br><span class="line">    &#125;)</span><br><span class="line">.sort(&#123;&apos;capTime&apos;:1&#125;).limit(20)</span><br></pre></td></tr></table></figure>
 <p> 注:以上是我考虑的按照某个字段排序，并且该字段的值有可能会有多个的情况，实际在开发中，该字段的值有可能是唯一的，对应的代码如下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//  数据查询下一页时：</span><br><span class="line">db.getCollection(&apos;CapMotor&apos;).find(&#123;&apos;capTime&apos; :&#123; &quot;$gt&quot; :1539582402&#125; &#125;).sort(&#123;&apos;capTime&apos;:1&#125;).limit(20)</span><br></pre></td></tr></table></figure>
@@ -524,7 +525,31 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -548,7 +573,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">idea</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">profile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -557,30 +590,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sku</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
             
             <div class="clearfix"></div>
