@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Linnxh的博客">
 <meta property="og:description" content="千万级数据分页优化 mongo采用的是单机部署，数据量1千万，需求是实现分页面，按照capTime倒叙排列，每页数据20条  skip+limit这是最传统的数据查询方式，db.getCollection(&amp;#39;CapMotor&amp;#39;).find().skip(9000000).sort({&amp;#39;capTime&amp;#39;:1}).limit(20);skip后面是pageSize*pa">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-29T06:40:33.756Z">
+<meta property="og:updated_time" content="2018-11-29T06:44:09.868Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mongo千万级数据优化">
 <meta name="twitter:description" content="千万级数据分页优化 mongo采用的是单机部署，数据量1千万，需求是实现分页面，按照capTime倒叙排列，每页数据20条  skip+limit这是最传统的数据查询方式，db.getCollection(&amp;#39;CapMotor&amp;#39;).find().skip(9000000).sort({&amp;#39;capTime&amp;#39;:1}).limit(20);skip后面是pageSize*pa">
@@ -183,13 +183,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//  数据查询下一页时：</span><br><span class="line">db.getCollection(&apos;CapMotor&apos;).find(&#123;&apos;capTime&apos; :&#123; &quot;$lt&quot; :1539582402&#125; &#125;).sort(&#123;&apos;capTime&apos;:1&#125;,&quot;file&quot;:-1).limit(20)</span><br></pre></td></tr></table></figure>
 <p>如果是要取前一页数据，就比较困难了，按照这个道理，是需要大于某个时间并且是按照时间正序排列，不可取</p>
 <p>注意之前想的思路是如下的：<br>如果是按照上面的意思，取上一条数据时<code>db.test.find({capTime:{$gt:当前页第一条数据的时间}}).sort({capTime:1}).limit(20)</code><br>这样其实是错的，这样要求sort排序是-1，和原来的想反，不可取</p>
-<h2 id="截取方法"><a href="#截取方法" class="headerlink" title="截取方法"></a>截取方法</h2><p>执行比较快，但是前端不能跳到指定的页数或者是1到10页之间可以跳转，11到20页得下次跳转才能点到，首页，尾页，上下一页这种是可以的，这种方法有个条件是，时间的唯一性很难保证，有提议说是可以用_id,但是分布式的机器上，_id很难保证有序；</p>
-<p>首先，屏蔽掉支持用户手动指定翻页页数的功能，当用户目前处在第5页时，导航条只显示最多前后10页的导航栏</p>
+<h2 id="截取方法"><a href="#截取方法" class="headerlink" title="截取方法"></a>截取方法</h2><p>首先，屏蔽掉支持用户手动指定翻页页数的功能，当用户目前处在第5页时，导航条只显示最多前后10页的导航栏<br>要求前端保存每一页的最后一条数据的queryID</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt; 1 2 3 4 5 6 7 8 9 10 &gt;</span><br></pre></td></tr></table></figure>
 <p><strong>点击下一页或者5之前的页数</strong><br>然后你必须能够获取本页最后一条数据的相应排序条件的数据信息，比如查询是以ID排序的，就需要知道本页最后一条数据的ID值，设为queryID。</p>
 <p>假设每页显示20条，用户翻到10页，那么执行：</p>
-<p><code>db.test.find({ID:{$gt:queryID}}).sort({ID:1}).limit(20*4)</code></p>
-<p>$gt 是大于的意思</p>
+<p><code>db.test.find({ID:{$gt:queryID}}).sort({ID:1}).limit(20*4)</code><br>$gt 是大于的意思</p>
 <p>取最后的20条就可以了。</p>
 <p><strong>点击上一页或者5之前的页数</strong><br>加入之前是从第1页调到第5页，然后需要从第5页调到第3页，如何处理</p>
 <p><code>db.test.find({ID:{$gt:第1页的最后一条记录的queryID}}).sort({ID:1}).limit(20*2)</code><br>然后取20条</p>
@@ -544,15 +542,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">transactional</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">idea</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -588,7 +586,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -596,11 +598,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
             
             <div class="clearfix"></div>
