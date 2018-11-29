@@ -6,24 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://linnxh.online">
-  <title>idea打war.md | Linnxh的博客</title>
+  <title>quartz集群配置 | Linnxh的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="idea中如果是javaee的web项目，要想打包成war的方法，参考方法如下，注：项目是eclipse下的项目，而且不是用mvn构建的 file–open–选择项目所在路径，注意右边path中所对应的web.xml的路径和下面的web resources directories 下面要对应到webcontent目录下  cmmon+;  快捷键发开项目project structure,face">
-<meta name="keywords" content="idea">
+  <meta name="description" content="quartz集群配置（集群方式，单机的不建议采用）java定时任务开源框架常用的是：Quartz和spring taskQuartzspring对quartz进行了封装，完整支持cron表达式，而且具有很多高级特性，如JDBCJobStore（作业仓库）、集群模式 spring task独立实现了定时任务的调度器,相对较为简单，cron表达式不支持L W(这个月最后一周的工作日) 分布式定时任务开">
+<meta name="keywords" content="spring,quartz">
 <meta property="og:type" content="article">
-<meta property="og:title" content="idea打war.md">
-<meta property="og:url" content="http://linnxh.online/java/idea打war/index.html">
+<meta property="og:title" content="quartz集群配置">
+<meta property="og:url" content="http://linnxh.online/java/quartz集群配置/index.html">
 <meta property="og:site_name" content="Linnxh的博客">
-<meta property="og:description" content="idea中如果是javaee的web项目，要想打包成war的方法，参考方法如下，注：项目是eclipse下的项目，而且不是用mvn构建的 file–open–选择项目所在路径，注意右边path中所对应的web.xml的路径和下面的web resources directories 下面要对应到webcontent目录下  cmmon+;  快捷键发开项目project structure,face">
+<meta property="og:description" content="quartz集群配置（集群方式，单机的不建议采用）java定时任务开源框架常用的是：Quartz和spring taskQuartzspring对quartz进行了封装，完整支持cron表达式，而且具有很多高级特性，如JDBCJobStore（作业仓库）、集群模式 spring task独立实现了定时任务的调度器,相对较为简单，cron表达式不支持L W(这个月最后一周的工作日) 分布式定时任务开">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/ideabuildwar11.png">
-<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/ideabuildwar22.png">
-<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/idea%E6%89%93%E6%88%90war3.png">
-<meta property="og:updated_time" content="2018-09-12T07:17:18.914Z">
+<meta property="og:updated_time" content="2018-11-22T03:21:00.594Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="idea打war.md">
-<meta name="twitter:description" content="idea中如果是javaee的web项目，要想打包成war的方法，参考方法如下，注：项目是eclipse下的项目，而且不是用mvn构建的 file–open–选择项目所在路径，注意右边path中所对应的web.xml的路径和下面的web resources directories 下面要对应到webcontent目录下  cmmon+;  快捷键发开项目project structure,face">
-<meta name="twitter:image" content="http://p964q970y.bkt.clouddn.com/ideabuildwar11.png">
+<meta name="twitter:title" content="quartz集群配置">
+<meta name="twitter:description" content="quartz集群配置（集群方式，单机的不建议采用）java定时任务开源框架常用的是：Quartz和spring taskQuartzspring对quartz进行了封装，完整支持cron表达式，而且具有很多高级特性，如JDBCJobStore（作业仓库）、集群模式 spring task独立实现了定时任务的调度器,相对较为简单，cron表达式不支持L W(这个月最后一周的工作日) 分布式定时任务开">
   
     <link rel="alternative" href="/atom.xml" title="Linnxh的博客" type="application/atom+xml">
   
@@ -155,20 +151,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-java/idea打war" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-java/quartz集群配置" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      idea打war.md
+      quartz集群配置
     </h1>
   
 
         
-        <a href="/java/idea打war/" class="archive-article-date">
-  	<time datetime="2018-08-20T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-21</time>
+        <a href="/java/quartz集群配置/" class="archive-article-date">
+  	<time datetime="2018-11-11T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-12</time>
 </a>
         
       </header>
@@ -177,14 +173,41 @@
     <div class="article-entry" itemprop="articleBody">
       
       
-        <p>idea中如果是javaee的web项目，要想打包成war的方法，参考方法如下，注：项目是eclipse下的项目，而且不是用mvn构建的</p>
-<p>file–open–选择项目所在路径，注意右边path中所对应的web.xml的路径<br>和下面的web resources directories 下面要对应到webcontent目录下</p>
-<p><img src="http://p964q970y.bkt.clouddn.com/ideabuildwar11.png" alt="idea"></p>
-<p>cmmon+;  快捷键发开项目project structure,<br>facets选项卡中添加web</p>
-<p>artifcats 选项卡，选择加号，<br><img src="http://p964q970y.bkt.clouddn.com/ideabuildwar22.png" alt="ideaa"></p>
-<p>如图所示，选择从项目添加，<br>注意输出路径，还有这个war包一定要包含，之前新建的项目<br><img src="http://p964q970y.bkt.clouddn.com/idea%E6%89%93%E6%88%90war3.png" alt="idr"></p>
-<p>build—&gt;build artifiacts  选择刚才新建的项目build，新项目即可打包</p>
-<p>参考<br><a href="https://blog.csdn.net/yabingshi_tech/article/details/60766877" target="_blank" rel="noopener">idea打成war</a></p>
+        <h1 id="quartz集群配置（集群方式，单机的不建议采用）"><a href="#quartz集群配置（集群方式，单机的不建议采用）" class="headerlink" title="quartz集群配置（集群方式，单机的不建议采用）"></a>quartz集群配置（集群方式，单机的不建议采用）</h1><p><strong>java定时任务开源框架常用的是：Quartz和spring task</strong><br>Quartz<br>spring对quartz进行了封装，完整支持cron表达式，而且具有很多高级特性，如JDBCJobStore（作业仓库）、集群模式</p>
+<p>spring task<br>独立实现了定时任务的调度器,相对较为简单，cron表达式不支持L W(这个月最后一周的工作日)</p>
+<p><strong>分布式定时任务开源框架</strong><br>Elastic-Job（当当网）<br>light-task-scheduler<br>clover<br>TBSchedule（阿里）<br>niubi-job<br>Uncode-Schedule</p>
+<p>本篇的重点是Quartz的集群部署<br>一个 Quartz 集群中的每个节点是一个独立的 Quartz 应用，它又管理着其他的节点。意思是你必须对每个节点分别启动或停止。不像许多应用服务器的集群，独立的 Quartz 节点并不与另一其的节点或是管理节点通信。Quartz 应用是通过数据库表来感知到另一应用的。</p>
+<h2 id="添加maven配置"><a href="#添加maven配置" class="headerlink" title="添加maven配置"></a>添加maven配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.quartz-scheduler&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;quartz&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.2.1&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.quartz-scheduler&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;quartz-jobs&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.2.1&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="导入对应的表"><a href="#导入对应的表" class="headerlink" title="导入对应的表"></a>导入对应的表</h2><p>创建quartz要用的数据库表，此sql文件在：quartz-2.2.3\docs\dbTables。此文件夹下有各个数据库的sql文件，mysql选择tables_mysql_innodb.sql</p>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>quartz.properties的配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#调度标识名 集群中每一个实例都必须使用相同的名称</span><br><span class="line">org.quartz.scheduler.instanceName = MyScheduler</span><br><span class="line">#线程数量</span><br><span class="line">org.quartz.threadPool.threadCount = 10</span><br><span class="line">#线程优先级</span><br><span class="line">org.quartz.threadPool.threadPriority = 5</span><br><span class="line">#数据保存方式为持久化</span><br><span class="line">org.quartz.jobStore.class = org.quartz.impl.jdbcjobstore.JobStoreTX</span><br><span class="line">#数据库平台</span><br><span class="line">org.quartz.jobStore.driverDelegateClass = org.quartz.impl.jdbcjobstore.StdJDBCDelegate</span><br><span class="line">#表的前缀</span><br><span class="line">org.quartz.jobStore.tablePrefix = QRTZ_</span><br><span class="line">#库的别名</span><br><span class="line">org.quartz.jobStore.dataSource = myDS</span><br><span class="line"># Cluster开启集群</span><br><span class="line">org.quartz.jobStore.isClustered = true</span><br><span class="line">#ID设置为自动获取 每一个必须不同</span><br><span class="line">org.quartz.scheduler.instanceId = AUTO</span><br><span class="line"></span><br><span class="line">org.quartz.dataSource.myDS.driver = com.mysql.jdbc.Driver</span><br><span class="line">org.quartz.dataSource.myDS.URL = jdbc:mysql://localhost:3306/lxhtest?characterEncoding=utf-8</span><br><span class="line">org.quartz.dataSource.myDS.user = root</span><br><span class="line">org.quartz.dataSource.myDS.password = 123123</span><br><span class="line">org.quartz.dataSource.myDS.maxConnections = 5</span><br></pre></td></tr></table></figure>
+<p>quartz.xml的配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">       xmlns:p=&quot;http://www.springframework.org/schema/p&quot;</span><br><span class="line">       xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;</span><br><span class="line">       xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;</span><br><span class="line">       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;</span><br><span class="line">       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd</span><br><span class="line">        http://www.springframework.org/schema/context</span><br><span class="line">        http://www.springframework.org/schema/context/spring-context.xsd</span><br><span class="line">        http://www.springframework.org/schema/mvc</span><br><span class="line">        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- #####################################单节点部署的项目 start##################################### --&gt;</span><br><span class="line">    &lt;bean name=&quot;exampleJobDetail&quot; class=&quot;org.springframework.scheduling.quartz.JobDetailFactoryBean&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;jobClass&quot; value=&quot;com.task.ExampleJob&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;jobDataAsMap&quot;&gt;</span><br><span class="line">            &lt;map&gt;</span><br><span class="line">                &lt;entry key=&quot;timeout&quot; value=&quot;5&quot;/&gt;</span><br><span class="line">            &lt;/map&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">    &lt;bean id=&quot;exampleJobTrigger&quot;</span><br><span class="line">          class=&quot;org.springframework.scheduling.quartz.SimpleTriggerFactoryBean&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;jobDetail&quot; ref=&quot;exampleJobDetail&quot;/&gt;</span><br><span class="line">        &lt;!-- 延迟触发时间，延迟10秒进行触发 --&gt;</span><br><span class="line">        &lt;property name=&quot;startDelay&quot; value=&quot;10000&quot;/&gt;</span><br><span class="line">        &lt;!-- 重复触发的时间间隔，5秒 --&gt;</span><br><span class="line">        &lt;property name=&quot;repeatInterval&quot; value=&quot;5000&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean class=&quot;org.springframework.scheduling.quartz.SchedulerFactoryBean&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;triggers&quot;&gt;</span><br><span class="line">            &lt;list&gt;</span><br><span class="line">                &lt;ref bean=&quot;exampleJobTrigger&quot;/&gt;</span><br><span class="line">            &lt;/list&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &lt;bean id=&quot;exampleJob2&quot; class=&quot;com.task.ExampleJob2&quot;&gt;&lt;/bean&gt;</span><br><span class="line">    &lt;bean id=&quot;exampleJob2Detail&quot;</span><br><span class="line">          class=&quot;org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean&quot;&gt;</span><br><span class="line">        &lt;!-- 指定任务类 --&gt;</span><br><span class="line">        &lt;property name=&quot;targetObject&quot; ref=&quot;exampleJob2&quot;/&gt;</span><br><span class="line">        &lt;!-- 指定任务执行的方法 --&gt;</span><br><span class="line">        &lt;property name=&quot;targetMethod&quot; value=&quot;execute&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">    &lt;bean id=&quot;exampleJob2Trigger&quot;</span><br><span class="line">          class=&quot;org.springframework.scheduling.quartz.CronTriggerFactoryBean&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;jobDetail&quot; ref=&quot;exampleJob2Detail&quot;/&gt;</span><br><span class="line">        &lt;!-- 每10秒运行一次 --&gt;</span><br><span class="line">        &lt;property name=&quot;cronExpression&quot; value=&quot;0/10 * * * * ?&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean class=&quot;org.springframework.scheduling.quartz.SchedulerFactoryBean&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;triggers&quot;&gt;</span><br><span class="line">            &lt;list&gt;</span><br><span class="line">                &lt;!-- &lt;ref bean=&quot;exampleJobTrigger&quot; /&gt; --&gt;</span><br><span class="line">                &lt;ref bean=&quot;exampleJob2Trigger&quot;/&gt;</span><br><span class="line">            &lt;/list&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">    &lt;!-- #####################################单节点部署的项目 end##################################### --&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &lt;!-- #####################################多节点部署的项目 start##################################### --&gt;</span><br><span class="line">    &lt;!-- 定义调用对象和调用对象的方法 --&gt;</span><br><span class="line">    &lt;bean id=&quot;SpringQtzJobDetail&quot;</span><br><span class="line">          class=&quot;org.springframework.scheduling.quartz.JobDetailFactoryBean&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;jobClass&quot;  value=&quot;com.task.SpringQtz&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;durability&quot; value=&quot;true&quot;/&gt;</span><br><span class="line"></span><br><span class="line">        &lt;property name=&quot;group&quot; value=&quot;job_work&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;name&quot; value=&quot;job_work_name&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">    &lt;bean id=&quot;SpringQtzJobDetail1&quot;</span><br><span class="line">          class=&quot;org.springframework.scheduling.quartz.JobDetailFactoryBean&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;jobClass&quot; value=&quot;com.task.SpringQtzDemo&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;durability&quot; value=&quot;true&quot;/&gt;</span><br><span class="line"></span><br><span class="line">        &lt;property name=&quot;group&quot; value=&quot;job_work1&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;name&quot; value=&quot;job_work_name1&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &lt;!-- ======================== 调度触发器 ======================== --&gt;</span><br><span class="line">    &lt;bean id=&quot;CronTriggerBean&quot;</span><br><span class="line">          class=&quot;org.springframework.scheduling.quartz.CronTriggerFactoryBean&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;jobDetail&quot; ref=&quot;SpringQtzJobDetail&quot;&gt;&lt;/property&gt;</span><br><span class="line">        &lt;!-- cron表达式 --&gt;</span><br><span class="line">        &lt;property name=&quot;cronExpression&quot; value=&quot;0/20 * * * * ?&quot;&gt;&lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id=&quot;CronTriggerBean1&quot;</span><br><span class="line">          class=&quot;org.springframework.scheduling.quartz.CronTriggerFactoryBean&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;jobDetail&quot; ref=&quot;SpringQtzJobDetail1&quot;&gt;&lt;/property&gt;</span><br><span class="line">        &lt;!-- cron表达式 --&gt;</span><br><span class="line">        &lt;property name=&quot;cronExpression&quot; value=&quot;0/30 * * * * ?&quot;&gt;&lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- ======================== 调度工厂 ======================== --&gt;</span><br><span class="line">    &lt;bean id=&quot;SpringJobSchedulerFactoryBean&quot;</span><br><span class="line">          class=&quot;org.springframework.scheduling.quartz.SchedulerFactoryBean&quot;&gt;</span><br><span class="line"></span><br><span class="line">        &lt;property name=&quot;dataSource&quot;&gt;</span><br><span class="line">            &lt;ref bean=&quot;mySqlDataSource&quot;/&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">        &lt;property name=&quot;applicationContextSchedulerContextKey&quot; value=&quot;applicationContext&quot; /&gt;</span><br><span class="line">        &lt;property name=&quot;configLocation&quot; value=&quot;WEB-INF/config/quartz.properties&quot;/&gt;</span><br><span class="line">        &lt;!--启动时更新己存在的Job，这样就不用每次修改targetObject后删除qrtz_job_details表对应记录了--&gt;</span><br><span class="line">        &lt;property name=&quot;overwriteExistingJobs&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;triggers&quot;&gt;</span><br><span class="line">            &lt;list&gt;</span><br><span class="line">                &lt;ref bean=&quot;CronTriggerBean&quot; /&gt;</span><br><span class="line">                &lt;ref bean=&quot;CronTriggerBean1&quot; /&gt;</span><br><span class="line">            &lt;/list&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">        &lt;property name=&quot;jobDetails&quot;&gt;</span><br><span class="line">            &lt;list&gt;</span><br><span class="line">                &lt;ref bean=&quot;SpringQtzJobDetail&quot; /&gt;</span><br><span class="line">                &lt;ref bean=&quot;SpringQtzJobDetail1&quot; /&gt;</span><br><span class="line">            &lt;/list&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">    &lt;!-- #####################################多节点部署的项目 end##################################### --&gt;</span><br><span class="line">  </span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<p>在applicontext.xml或者spring-servlet.xml中导入quartz.xml文件</p>
+<h2 id="具体-的执行类"><a href="#具体-的执行类" class="headerlink" title="具体 的执行类"></a>具体 的执行类</h2><p>SpringQtz类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class SpringQtz extends QuartzJobBean &#123;</span><br><span class="line"></span><br><span class="line">    static Logger logger = LoggerFactory.getLogger(SpringQtz.class);</span><br><span class="line"></span><br><span class="line">    private static int counter = 0;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException &#123;</span><br><span class="line">        long ms = System.currentTimeMillis();</span><br><span class="line">//        System.out.println(&quot; SpringQtz start  执行&quot;);</span><br><span class="line">        System.out.println(&quot;SpringQtz-------&quot;+new SimpleDateFormat(&quot;yyyy-MM-dd hh:mm:ss&quot;).format(new Date(ms))+&quot;  &quot;+&quot;(&quot; + counter++ + &quot;)&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>SpringQtzDemo类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class SpringQtzDemo extends QuartzJobBean &#123;</span><br><span class="line"></span><br><span class="line">    private static final Log log = LogFactory.getLog(SpringQtzDemo.class);</span><br><span class="line"></span><br><span class="line">    static Logger logger = LoggerFactory.getLogger(SpringQtzDemo.class);</span><br><span class="line"></span><br><span class="line">    private static int counter = 0;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException &#123;</span><br><span class="line">        long ms = System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">//        System.out.println(&quot; SpringQtzDemo start  执行&quot;);</span><br><span class="line">        System.out.println(&quot;SpringQtzDemo**********&quot; + new SimpleDateFormat(&quot;yyyy-MM-dd hh:mm:ss&quot;).format(new Date(ms)) + &quot;  &quot; + &quot;(&quot; + counter++ + &quot;)&quot;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此处是写了两个实例</p>
+<h2 id="启动项目测试"><a href="#启动项目测试" class="headerlink" title="启动项目测试"></a>启动项目测试</h2><p>启动一个tomcat观察，该服务器定期执行操作，结果如下<br>tomcatA</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">SpringQtz-------2018-11-06 03:03:40  (0)</span><br><span class="line">SpringQtzDemo**********2018-11-06 03:04:00  (1)</span><br><span class="line">SpringQtz-------2018-11-06 03:04:00  (1)</span><br><span class="line">SpringQtz-------2018-11-06 03:04:20  (2)</span><br><span class="line">SpringQtzDemo**********2018-11-06 03:04:30  (2)</span><br><span class="line">SpringQtz-------2018-11-06 03:04:40  (3)</span><br><span class="line">SpringQtz-------2018-11-06 03:05:00  (4)</span><br><span class="line">SpringQtzDemo**********2018-11-06 03:05:00  (3)</span><br><span class="line">SpringQtz-------2018-11-06 03:05:20  (5)</span><br><span class="line">SpringQtzDemo**********2018-11-06 03:05:30  (4)</span><br></pre></td></tr></table></figure>
+<p>在启动tomcat，发现他是两个窗口分别执行任务的，结果如下<br>tomcatA</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">SpringQtzDemo**********2018-11-06 03:06:00  (5)</span><br><span class="line">SpringQtz-------2018-11-06 03:06:00  (7)</span><br><span class="line">SpringQtz-------2018-11-06 03:06:20  (8)</span><br><span class="line">SpringQtzDemo**********2018-11-06 03:06:30  (6)</span><br><span class="line">SpringQtzDemo**********2018-11-06 03:07:00  (7)</span><br><span class="line">SpringQtz-------2018-11-06 03:07:20  (9)</span><br><span class="line">SpringQtz-------2018-11-06 03:07:40  (10)</span><br><span class="line">SpringQtz-------2018-11-06 03:08:00  (11)</span><br><span class="line">SpringQtz-------2018-11-06 03:08:20  (12)</span><br><span class="line">SpringQtz-------2018-11-06 03:08:40  (13)</span><br></pre></td></tr></table></figure>
+<p>tomcatB</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SpringQtz-------2018-11-06 03:06:40  (0)</span><br><span class="line">SpringQtz-------2018-11-06 03:07:00  (1)</span><br><span class="line">SpringQtzDemo**********2018-11-06 03:07:30  (0)</span><br><span class="line">SpringQtzDemo**********2018-11-06 03:08:00  (1)</span><br><span class="line">SpringQtzDemo**********2018-11-06 03:08:30  (2)</span><br><span class="line">SpringQtzDemo**********2018-11-06 03:09:00  (3)</span><br></pre></td></tr></table></figure>
+<p>注意一个问题</p>
+<blockquote>
+<p>The load balancing mechanism is near-random for busy schedulers (lots of triggers) but favors the same node that just was just active for non-busy (e.g. one or two triggers) schedulers.</p>
+</blockquote>
+<p>负载平衡机制对于繁忙的调度器(很多触发器)几乎是随机的，但是对于非繁忙的调度器(例如，一个或两个触发器)，负载平衡机制倾向于相同的节点。</p>
+<h1 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h1><blockquote>
+<p>遗留问题，想象一下如果这个定时任务如果想随时修改这种方法，或者是一个图形化的管理界面，可能方式可能就不太实用了，可以尝试用如下的思路</p>
+</blockquote>
+<p>1、将要执行的方法定义成服务的形式，向外暴露接口，调用该接口时，QuartzServiceHelper的线程池中会加入刚才的接口<br>2、新建一张task任务表，表信息是名称，要执行的方法，cron表达式等信息，这个表对应的是图形化的管理界面，可以增删改查操作<br>3、定义一个类继承org.quartz.Job类，如childJob,实现他的execute方法，这个方法中可以取出之前加入的task类信息（下面会提到），因为之前把要执行的方法暴露成接口的形式，这个地方可以直接post或者get直接请求对应的接口即可；</p>
+<p>4、写一个单独的项目quartzservice，并且打包成jar的形式，有一个main方法，执行一个定时器timer，每5000ms从某task表取出所有的列表信息静态变量quartList，每次拿到的列表都删选一遍看一下，是否已经添加到quartList中，删选出要删除的，要增加的，不变的（要注意一下crom表达式是否有变化），</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">JobDetail jobDetail = JobBuilder.newJob(childJob).withIdentity(jobName, jobGroupName).build();// 任务名，任务组，任务执行类</span><br><span class="line">JobDetailImpl detial=(JobDetailImpl)jobDetail;</span><br><span class="line">//上面提到的将task类的信息塞入到hashmap，放入到jobDetail中</span><br><span class="line">detial.getJobDataMap().putAll(paramMap);</span><br></pre></td></tr></table></figure>
+<p>5、将quartzservice 这个项目导出成一个可执行的main方法，java -jar quartzservice.jar 执行项目里的main方法</p>
+<p><strong>项目中这个jar只需要在一台机器执行，多台没有必要，如果是到了要执行任务A的时候，就会执行相应的post请求，由于A项目是被部署到多台机器上的，但是他最终请求是会落在某一台机器上的，该方法就被放到QuartzServiceHelper的线程池中执行的，这样就保证了唯一性</strong><br><strong>暴露出的接口，即定时任务要处理的事情，这个接口是加redis，防止套圈</strong></p>
 
       
 
@@ -198,7 +221,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">idea</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">quartz</a>
         		</li>
       		
 		</ul>
@@ -265,7 +292,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://linnxh.online/java/idea打war/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://linnxh.online/java/quartz集群配置/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -279,18 +306,9 @@
   
 <nav id="article-nav">
   
-    <a href="/linux/shell总结/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          shell总结
-        
-      </div>
-    </a>
   
-  
-    <a href="/sql/mybatis得到解析后最终执行的sql/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">mybatis得到解析后最终执行的sql</div>
+    <a href="/sql/mongo的Sharding+Replset集群/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mongo的Sharding+Replset集群</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -317,7 +335,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    目录，不存在的…
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#quartz集群配置（集群方式，单机的不建议采用）"><span class="toc-number">1.</span> <span class="toc-text">quartz集群配置（集群方式，单机的不建议采用）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#添加maven配置"><span class="toc-number">1.1.</span> <span class="toc-text">添加maven配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#导入对应的表"><span class="toc-number">1.2.</span> <span class="toc-text">导入对应的表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置文件"><span class="toc-number">1.3.</span> <span class="toc-text">配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#具体-的执行类"><span class="toc-number">1.4.</span> <span class="toc-text">具体 的执行类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动项目测试"><span class="toc-number">1.5.</span> <span class="toc-text">启动项目测试</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#扩展"><span class="toc-number">2.</span> <span class="toc-text">扩展</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -331,7 +349,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="java/idea打war" data-title="idea打war.md" data-url="http://linnxh.online/java/idea打war/"></div>
+	<div class="ds-thread" data-thread-key="java/quartz集群配置" data-title="quartz集群配置" data-url="http://linnxh.online/java/quartz集群配置/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -354,8 +372,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://linnxh.online/java/idea打war/", 
-    sourceId: "java/idea打war",
+    url: "http://linnxh.online/java/quartz集群配置/", 
+    sourceId: "java/quartz集群配置",
     productKey: "true",
     target: "cloud-tie-wrapper"
   };
@@ -517,6 +535,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">idea</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
@@ -525,7 +547,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
+                <a href="javascript:void(0)" class="js-tag color2">quartz</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -549,14 +571,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
              
@@ -565,11 +579,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
             
             <div class="clearfix"></div>

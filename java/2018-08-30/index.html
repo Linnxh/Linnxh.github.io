@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Linnxh的博客">
 <meta property="og:description" content="B树即平衡查找树，一般理解为平衡多路查找树，是一种自平衡树状数据结构，能对存储的数据进行O(log n)的时间复杂度进行查找、插入和删除。B树一般较多用在存储系统上，比如数据库或文件系统。 B树入门 IntegerInteger a=new Integer(127);Integer b=new Integer(127);a==b返回true Integer c=new Integer(128);I">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-10-29T09:03:49.329Z">
+<meta property="og:updated_time" content="2018-11-28T03:40:34.563Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Thu Aug 30 2018 00:00:00 GMT+0800 (CST)">
 <meta name="twitter:description" content="B树即平衡查找树，一般理解为平衡多路查找树，是一种自平衡树状数据结构，能对存储的数据进行O(log n)的时间复杂度进行查找、插入和删除。B树一般较多用在存储系统上，比如数据库或文件系统。 B树入门 IntegerInteger a=new Integer(127);Integer b=new Integer(127);a==b返回true Integer c=new Integer(128);I">
@@ -175,7 +175,11 @@
         <p>B树即平衡查找树，一般理解为平衡多路查找树，是一种自平衡树状数据结构，能对存储的数据进行O(log n)的时间复杂度进行查找、插入和删除。B树一般较多用在存储系统上，比如数据库或文件系统。</p>
 <p><a href="https://juejin.im/post/5b873a1af265da43741e2328" target="_blank" rel="noopener">B树入门</a></p>
 <h1 id="Integer"><a href="#Integer" class="headerlink" title="Integer"></a>Integer</h1><p>Integer a=new Integer(127);<br>Integer b=new Integer(127);<br>a==b返回true</p>
-<p>Integer c=new Integer(128);<br>Integer d=new Integer(128);<br>c==d返回false<br><a id="more"></a><br>JVM会自动维护八种基本类型的常量池，int常量池中初始化-128~127的范围，所以当为Integer i=127时，在自动装箱过程中是取自常量池中的数值，而当Integer i=128时，128不在常量池范围内，所以在自动装箱过程中需new 128，所以地址不一样。</p>
+<p>Integer c=new Integer(128);<br>Integer d=new Integer(128);<br>c==d返回false</p>
+<p>Integer e=new Integer(128);<br>int f=128;<br>e==f返回true,<br>什么时候会拆箱？——基本数据类型和引用数据类型做运算时<br>什么时候会装箱？——基本数据类型赋值给引用数据类型的时候</p>
+<a id="more"></a>
+<p>JVM会自动维护八种基本类型的常量池，int常量池中初始化-128~127的范围，所以当为Integer i=127时，在自动装箱过程中是取自常量池中的数值，而当Integer i=128时，128不在常量池范围内，所以在自动装箱过程中需new 128，所以地址不一样。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public class TestInteger &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        int i = 128;</span><br><span class="line">        Integer i2 = 128;</span><br><span class="line">        Integer i3 = new Integer(128);</span><br><span class="line">        //Integer会自动拆箱为int，所以为true</span><br><span class="line">        System.out.println(i == i2);  //true</span><br><span class="line">        System.out.println(i == i3);  //true</span><br><span class="line">        System.out.println(&quot;**************&quot;);</span><br><span class="line">        Integer i5 = 127;//java在编译的时候,被翻译成-&gt; Integer i5 = Integer.valueOf(127);</span><br><span class="line">        Integer i6 = 127;</span><br><span class="line">        System.out.println(i5 == i6);//true</span><br><span class="line">        /*Integer i5 = 128;</span><br><span class="line">        Integer i6 = 128;</span><br><span class="line">        System.out.println(i5 == i6);//false</span><br><span class="line">*/        Integer ii5 = new Integer(127);</span><br><span class="line">        System.out.println(i5 == ii5); //false</span><br><span class="line">        Integer i7 = new Integer(128);</span><br><span class="line">        Integer i8 = new Integer(128);</span><br><span class="line">        System.out.println(i7 == i8);  //false</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="java内存模型"><a href="#java内存模型" class="headerlink" title="java内存模型"></a>java内存模型</h1><p>方法区<br>堆内存</p>
 <h1 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h1><p><a href="https://www.jianshu.com/p/9b717551ee44" target="_blank" rel="noopener">https://www.jianshu.com/p/9b717551ee44</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@ResponseBody</span><br><span class="line">   @RequestMapping(&quot;/query&quot;)</span><br><span class="line">   public ResponseBean query(HttpServletRequest request, @RequestBody JSONObject p) &#123;</span><br><span class="line">   </span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
@@ -200,6 +204,54 @@ GATEWAY=192.168.0.110</code></p>
 <p>rm -rf  lxhtest/</p>
 <p>解决CentOS lspci（command not found）方法<br><a href="https://blog.csdn.net/hl449006540/article/details/79778748" target="_blank" rel="noopener">https://blog.csdn.net/hl449006540/article/details/79778748</a></p>
 <p>查看系统的内存占用问题<br>top命令</p>
+<h1 id="hashmap源码"><a href="#hashmap源码" class="headerlink" title="hashmap源码"></a>hashmap源码</h1><p><a href="https://www.cnblogs.com/chengxiao/p/6059914.html" target="_blank" rel="noopener">https://www.cnblogs.com/chengxiao/p/6059914.html</a></p>
+<p>任务调度</p>
+<p><a href="https://blog.csdn.net/u013294278/article/details/77414887" target="_blank" rel="noopener">https://blog.csdn.net/u013294278/article/details/77414887</a></p>
+<p><a href="https://www.jianshu.com/p/e0e7e8494d96" target="_blank" rel="noopener">https://www.jianshu.com/p/e0e7e8494d96</a></p>
+<p>4.1 Quartz：</p>
+<p>Quartz是Java领域最著名的开源任务调度工具。Quartz提供了极为广泛的特性如持久化任务，集群和分布式任务<br>特点：<br>完全由Java写成，同时可以很方便的和java的另外一个框架spring集成；<br>强大的调度功能：支持丰富多样的调度方法，可以满足各种常规及特殊需求；<br>灵活的应用方式：支持任务和调度的多种组合方式，支持调度数据的多种存储方式；<br>分布式和集群能力，负载均衡和高可用性；<br>4.2 Elastic-job:</p>
+<p>Elastic-Job是ddframe中dd-job的作业模块中分离出来的分布式弹性作业框架。去掉了和dd-job中的监控和ddframe接入规范部分。该项目基于成熟的开源产品Quartz和 Zookeeper及其客户端Curator进行二次开发</p>
+<p>项目开源地址：<a href="https://github.com/dangdangdotcom/elastic-job" target="_blank" rel="noopener">https://github.com/dangdangdotcom/elastic-job</a></p>
+<p>特点：</p>
+<p>定时任务：基于成熟的定时任务作业框架Quartz cron表达式执行定时任务；<br>作业注册中心：基于Zookeeper和其客户端Curator实现全局作业注册控制中心。用于注册，控制和协调分布式作业执行。<br>作业分片：将要给任务分片成多个小任务项到多服务器上同时执行；<br>弹性扩容缩容：运行中的作业服务器崩溃，或新增N台作业服务器，作业框架将在下次作业执行前重新分片，不影响当前作业执行；<br>支持多种作业执行模式：支持OneOff，Perpetual和SequenecePerpetual三种作业模式；</p>
+<p>失效转移：运行中的作业服务器崩溃不会导致重新分片，只会在下次作业启动时分片。启用失效转移功能可以在本次作业执行过程中，监测其他作业服务器空闲，抓取未完成的孤儿分片项 执行；</p>
+<p>运行时状态收集：监控作业运行时状态，统计最近一段时间处理的数据成功和失败数量，记录作业上次运行开始时间，结束时间和下次运行时间；</p>
+<p>作业停止，恢复和禁用：用于操作作业启动和停止，并可以禁止某作业运行，一般在上线时常用；</p>
+<p>被错过执行的作业重触发：自动记录错过执行的作业，并在上次作业完成后自动触发。</p>
+<p>多线程快速处理数据：使用多线程处理抓取到的数据，提升吞吐量；</p>
+<p>幂等性：重复作业任务项判定，不重复执行已运行的作业任务项；</p>
+<p>容错处理：作业服务器和Zookeeper服务器通信失败后则立即停止作业运行，防止作业注册中心将失效的分片分项配给其他作业服务器，而当前作业服务器任在执行任务，导致重复执行。</p>
+<p>Spring支持：支持Spring容器，自定义命名空间，支持占位符；</p>
+<p>运维平台：提供了运维平台，可以管理作业和注册中心。</p>
+<p>从以上可以看出Elastic-job是在Quartz的基础上又做了一次全面的升级，做了配套的周边基础服务工作，完全成为了一个成熟的分布式定时任务框架。后面会分别介绍Quartz和 Elastic-job的详细原理和具体的使用方法。</p>
+<p><a href="http://gong1208.iteye.com/blog/1773177" target="_blank" rel="noopener">http://gong1208.iteye.com/blog/1773177</a></p>
+<ol>
+<li>java定时任务开源框架（常用）<br>3.1. Quartz（java定时任务的标准）<br>3.2. spring task<br>在spring中实现定时任务有两种方式，一是spring对quartz进行了封装，二是独立实现了定时任务的调度器称为spring task。其中spring task相对较为简单，cron表达式不支持L W；而quartz不但完整支持cron表达式，而且具有很多高级特性，如JDBCJobStore（作业仓库）、集群模式。</li>
+</ol>
+<ol>
+<li>分布式定时任务开源框架<br>4.1. Elastic-Job（当当网）<br>4.2. light-task-scheduler<br>4.3. clover<br>4.4. TBSchedule（阿里）<br>4.5. niubi-job<br>4.6. Uncode-Schedule</li>
+</ol>
+<ul>
+<li>1.全局锁机制</li>
+<li>对于只需要执行一次初始化的操作，在全局缓存中设置一个全局锁，拿到这个锁的节点执行相应的任务。如：redis</li>
+<li>2.数据库层面的状态标记</li>
+<li>对于有些定时任务，我们只希望执行一次，也就是说多个节点，只有一个节点在执行这个定时任务</li>
+<li>可以在数据库对这个任务进行状态标记，根据状态来调节节点间定时任务的执行</li>
+<li>3.代码分离</li>
+<li>如果有可能，将定时任务独立出来，成为一个单独的项目工程，部署单节点，避免集群部署</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 总核数 = 物理CPU个数 X 每颗物理CPU的核数 </span><br><span class="line"># 总逻辑CPU数 = 物理CPU个数 X 每颗物理CPU的核数 X 超线程数</span><br><span class="line"></span><br><span class="line"># 查看物理CPU个数</span><br><span class="line">cat /proc/cpuinfo| grep &quot;physical id&quot;| sort| uniq| wc -l</span><br><span class="line"></span><br><span class="line"># 查看每个物理CPU中core的个数(即核数)</span><br><span class="line">cat /proc/cpuinfo| grep &quot;cpu cores&quot;| uniq</span><br><span class="line"></span><br><span class="line"># 查看逻辑CPU的个数</span><br><span class="line">cat /proc/cpuinfo| grep &quot;processor&quot;| wc -l</span><br></pre></td></tr></table></figure>
+<p><a href="https://blog.csdn.net/weixin_41202187/article/details/78982939" target="_blank" rel="noopener">https://blog.csdn.net/weixin_41202187/article/details/78982939</a></p>
+<p>搭建私服推荐</p>
+<p>linux上下载maven和nexus，nexus默认密码 admin/admin123</p>
+<p>setting.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;server&gt;</span><br><span class="line">     &lt;id&gt;releases&lt;/id&gt;</span><br><span class="line">     &lt;username&gt;admin&lt;/username&gt;</span><br><span class="line">     &lt;password&gt;admin123&lt;/password&gt;</span><br><span class="line">   &lt;/server&gt;</span><br><span class="line">   &lt;server&gt;</span><br><span class="line">     &lt;id&gt;snapshots&lt;/id&gt;</span><br><span class="line">     &lt;username&gt;admin&lt;/username&gt;</span><br><span class="line">     &lt;password&gt;admin123&lt;/password&gt;</span><br><span class="line">   &lt;/server&gt;</span><br></pre></td></tr></table></figure>
+<p>pom.xml文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//project下面一层即可</span><br><span class="line"> &lt;distributionManagement&gt;</span><br><span class="line">        &lt;repository&gt;</span><br><span class="line">            &lt;id&gt;releases&lt;/id&gt;</span><br><span class="line">            &lt;url&gt;http://192.168.3.173:8081/repository/maven-releases/&lt;/url&gt;</span><br><span class="line">        &lt;/repository&gt;</span><br><span class="line">        &lt;snapshotRepository&gt;</span><br><span class="line">            &lt;id&gt;snapshots&lt;/id&gt;</span><br><span class="line">            &lt;url&gt;http://192.168.3.173:8081/repository/maven-snapshots/&lt;/url&gt;</span><br><span class="line">        &lt;/snapshotRepository&gt;</span><br><span class="line">    &lt;/distributionManagement&gt;</span><br></pre></td></tr></table></figure>
+<p>mybatis 的xml里可以进行递归查询<br><a href="https://www.cnblogs.com/yansum/p/5819973.html" target="_blank" rel="noopener">https://www.cnblogs.com/yansum/p/5819973.html</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//用户实体想把他关联的文章也查询出来</span><br><span class="line">private String id;//主键</span><br><span class="line">private String userName;//用户姓名</span><br><span class="line">//此处查询的是集合，xml中resultmap中使用collection，如果查询结果是字符串，resultmap中使用association</span><br><span class="line">private List&lt;Article&gt; articleList;</span><br><span class="line"></span><br><span class="line">&lt;!--mybatis的.xml文件--&gt;</span><br><span class="line">&lt;resultMap id=&quot;userResultMap&quot; type=&quot;test.mybatis.entity.User&quot;&gt;</span><br><span class="line">    &lt;id column=&quot;id&quot; property=&quot;id&quot; jdbcType=&quot;VARCHAR&quot; javaType=&quot;java.lang.String&quot;/&gt;</span><br><span class="line">    &lt;result column=&quot;userName&quot; property=&quot;userName&quot; jdbcType=&quot;VARCHAR&quot; javaType=&quot;java.lang.String&quot;/&gt;</span><br><span class="line">    &lt;collection property=&quot;articleList&quot; column=&quot;id&quot; select=&quot;test.mybatis.dao.articleMapper.selectArticleListByUserId&quot; /&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--关联上面的selectArticleListByUserId--&gt;</span><br><span class="line">&lt;select id=&quot;selectArticleByUserId&quot; parameterType=&quot;java.lang.String&quot; resultMap=&quot;ArticleResultMap&quot; &gt;</span><br><span class="line">    select * from tb_article where userId=#&#123;userId&#125; </span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<p>java代码的比较逻辑</p>
+<p><a href="https://blog.csdn.net/wqh8522/article/details/79745350" target="_blank" rel="noopener">https://blog.csdn.net/wqh8522/article/details/79745350</a></p>
 
       
 
@@ -283,11 +335,11 @@ GATEWAY=192.168.0.110</code></p>
   
 <nav id="article-nav">
   
-    <a href="/linux/打包用到的脚本/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/java/spring的profile配置/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          打包用到的脚本
+          spring的profile配置
         
       </div>
     </a>
@@ -321,7 +373,7 @@ GATEWAY=192.168.0.110</code></p>
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Integer"><span class="toc-number">1.</span> <span class="toc-text">Integer</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#java内存模型"><span class="toc-number">2.</span> <span class="toc-text">java内存模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RequestBody"><span class="toc-number">3.</span> <span class="toc-text">@RequestBody</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tomcat-不打印日志"><span class="toc-number">4.</span> <span class="toc-text">tomcat 不打印日志</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#jvm参数"><span class="toc-number">5.</span> <span class="toc-text">jvm参数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#centos7-5-虚拟机不上网配置"><span class="toc-number">6.</span> <span class="toc-text">centos7.5 虚拟机不上网配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查看网络"><span class="toc-number">7.</span> <span class="toc-text">查看网络</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Integer"><span class="toc-number">1.</span> <span class="toc-text">Integer</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#java内存模型"><span class="toc-number">2.</span> <span class="toc-text">java内存模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RequestBody"><span class="toc-number">3.</span> <span class="toc-text">@RequestBody</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tomcat-不打印日志"><span class="toc-number">4.</span> <span class="toc-text">tomcat 不打印日志</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#jvm参数"><span class="toc-number">5.</span> <span class="toc-text">jvm参数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#centos7-5-虚拟机不上网配置"><span class="toc-number">6.</span> <span class="toc-text">centos7.5 虚拟机不上网配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查看网络"><span class="toc-number">7.</span> <span class="toc-text">查看网络</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#hashmap源码"><span class="toc-number">8.</span> <span class="toc-text">hashmap源码</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -521,6 +573,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">idea</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
@@ -529,7 +585,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
+                <a href="javascript:void(0)" class="js-tag color2">quartz</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -553,14 +609,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
              
@@ -569,11 +617,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
             
             <div class="clearfix"></div>

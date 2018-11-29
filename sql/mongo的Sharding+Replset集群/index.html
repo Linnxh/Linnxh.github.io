@@ -17,7 +17,7 @@
 <meta property="og:description" content="本案例采用的是mongo分片模式中的replicat+sharding实现备份分片，采用的是三台虚拟机，    192.168.3.229 192.168.3.128 192.168.3.125     mongos mongos mongos   config server config server config server   shard server1 主节点 shard server1">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://p964q970y.bkt.clouddn.com/mongodb%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9fenbu.png">
-<meta property="og:updated_time" content="2018-10-30T09:11:22.110Z">
+<meta property="og:updated_time" content="2018-11-22T03:21:06.394Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mongo的Sharding+Replset集群">
 <meta name="twitter:description" content="本案例采用的是mongo分片模式中的replicat+sharding实现备份分片，采用的是三台虚拟机，    192.168.3.229 192.168.3.128 192.168.3.125     mongos mongos mongos   config server config server config server   shard server1 主节点 shard server1">
@@ -290,13 +290,17 @@
 <p>登陆任意一台mongos<code>mongo --port 20000</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">use  admin</span><br><span class="line">sh.addShard(&quot;shard1/192.168.3.229:27001,192.168.3.128:27001,192.168.3.125:27001&quot;);</span><br><span class="line">sh.addShard(&quot;shard2/192.168.3.229:27002,192.168.3.128:27002,192.168.3.125:27002&quot;);</span><br><span class="line">sh.addShard(&quot;shard3/192.168.3.229:27003,192.168.3.128:27003,192.168.3.125:27003&quot;);</span><br><span class="line">sh.status()</span><br></pre></td></tr></table></figure>
 <h1 id="插入数据测试"><a href="#插入数据测试" class="headerlink" title="插入数据测试"></a>插入数据测试</h1><p>登陆任意一台mongos<code>mongo --port 20000</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">use admin</span><br><span class="line">db.runCommand( &#123; enablesharding :&quot;testdb&quot;&#125;);</span><br><span class="line">db.runCommand( &#123; shardcollection : &quot;testdb.table1&quot;,key : &#123;&quot;id&quot;: &quot;hashed&quot;&#125; &#125; );</span><br><span class="line">use  testdb;</span><br><span class="line">for(i=1;i&lt;=100;i++)&#123;db.table1.insert(&#123;&quot;id&quot;:i,&quot;name&quot;:&quot;lxh&quot;&#125;)&#125;; #循环插入100条数据</span><br><span class="line"># 查看数据的分布情况</span><br><span class="line">db.table1.stats();</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">use admin</span><br><span class="line">db.runCommand( &#123; enablesharding :&quot;testdb&quot;&#125;);</span><br><span class="line">db.runCommand( &#123; shardcollection : &quot;testdb.table1&quot;,key : &#123;&quot;id&quot;: &quot;hashed&quot;&#125; &#125; );</span><br><span class="line">use  testdb;</span><br><span class="line">for(i=1;i&lt;=100;i++)&#123;db.table3.insert(&#123;&quot;id&quot;:i,&quot;name&quot;:&quot;lxh&quot;&#125;)&#125;; #循环插入100条数据</span><br><span class="line"># 查看数据的分布情况</span><br><span class="line">db.table1.stats();</span><br></pre></td></tr></table></figure>
 <h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>mongodb的启动顺序是，先启动配置服务器，在启动分片，最后启动mongos.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mongod -f /lxhtest/mongodb/conf/config.conf</span><br><span class="line">mongod -f /lxhtest/mongodb/conf/shard1.conf</span><br><span class="line">mongod -f /lxhtest/mongodb/conf/shard2.conf</span><br><span class="line">mongod -f /lxhtest/mongodb/conf/shard3.conf</span><br><span class="line">mongod -f /lxhtest/mongodb/conf/shard4.conf</span><br><span class="line">mongos -f /lxhtest/mongodb/conf/mongos.conf</span><br></pre></td></tr></table></figure>
 <p>关闭mongo进程顺序，关闭顺序为路由节点 -&gt; 配置节点 -&gt; 分片节点的顺序</p>
 <p>三台服务器，如何 查看那个是主节点，副本节点，仲裁节点</p>
 <p>在任意一台服务器上都可以连接每个分片的实例<br><code>mongo --port 27001</code>连接shard1的实例，如果这个地方是在第一台虚拟机上，由于它是shard1的主节点，<br>显示的是<code>shard1:PRIMARY&gt;</code>这种前缀，代表他是shard1的主节点<br>注：<br>路由服务器上通过<code>sh.status()</code>,其中的shards里的<code>&quot;host&quot; : &quot;shard1/192.168.3.125:27001,192.168.3.229:27001&quot;</code>,代表shard1的节点是这两个，主副节点的顺序和这个地方的顺序没有关系</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">--- Sharding Status ---</span><br><span class="line">  sharding version: &#123;</span><br><span class="line">        &quot;_id&quot; : 1,</span><br><span class="line">        &quot;minCompatibleVersion&quot; : 5,</span><br><span class="line">        &quot;currentVersion&quot; : 6,</span><br><span class="line">        &quot;clusterId&quot; : ObjectId(&quot;5bd7c6c0cfb9e5b595589b37&quot;)</span><br><span class="line">  &#125;</span><br><span class="line">  shards:</span><br><span class="line">        &#123;  &quot;_id&quot; : &quot;shard1&quot;,  &quot;host&quot; : &quot;shard1/192.168.3.125:27001,192.168.3.229:27001&quot;,  &quot;state&quot; : 1 &#125;</span><br><span class="line">        &#123;  &quot;_id&quot; : &quot;shard2&quot;,  &quot;host&quot; : &quot;shard2/192.168.3.128:27002,192.168.3.229:27002&quot;,  &quot;state&quot; : 1 &#125;</span><br><span class="line">        &#123;  &quot;_id&quot; : &quot;shard3&quot;,  &quot;host&quot; : &quot;shard3/192.168.3.125:27003,192.168.3.128:27003&quot;,  &quot;state&quot; : 1 &#125;</span><br><span class="line">  active mongoses:</span><br><span class="line">        &quot;3.4.15-49-g4ef027f&quot; : 1</span><br><span class="line">  autosplit:</span><br><span class="line">        Currently enabled: yes</span><br><span class="line">  balancer:</span><br><span class="line">        Currently enabled:  yes</span><br><span class="line">        Currently running:  no</span><br><span class="line">NaN</span><br><span class="line">        Failed balancer rounds in last 5 attempts:  0</span><br><span class="line">        Migration Results for the last 24 hours:</span><br><span class="line">                2 : Success</span><br><span class="line">  databases:</span><br><span class="line">        &#123;  &quot;_id&quot; : &quot;testdb&quot;,  &quot;primary&quot; : &quot;shard1&quot;,  &quot;partitioned&quot; : true &#125;</span><br><span class="line">                testdb.table1</span><br><span class="line">                        shard key: &#123; &quot;id&quot; : &quot;hashed&quot; &#125;</span><br><span class="line">                        unique: false</span><br><span class="line">                        balancing: true</span><br><span class="line">                        chunks:</span><br><span class="line">                                shard1  2</span><br><span class="line">                                shard2  2</span><br><span class="line">                                shard3  2</span><br><span class="line">                        &#123; &quot;id&quot; : &#123; &quot;$minKey&quot; : 1 &#125; &#125; --&gt;&gt; &#123; &quot;id&quot; : NumberLong(&quot;-6148914691236517204&quot;) &#125; on : shard1 Timestamp(3, 2)</span><br><span class="line">                        &#123; &quot;id&quot; : NumberLong(&quot;-6148914691236517204&quot;) &#125; --&gt;&gt; &#123; &quot;id&quot; : NumberLong(&quot;-3074457345618258602&quot;) &#125; on : shard1 Timestamp(3, 3)</span><br><span class="line">                        &#123; &quot;id&quot; : NumberLong(&quot;-3074457345618258602&quot;) &#125; --&gt;&gt; &#123; &quot;id&quot; : NumberLong(0) &#125; on : shard2 Timestamp(3, 4)</span><br><span class="line">                        &#123; &quot;id&quot; : NumberLong(0) &#125; --&gt;&gt; &#123; &quot;id&quot; : NumberLong(&quot;3074457345618258602&quot;) &#125; on : shard2 Timestamp(3, 5)</span><br><span class="line">                        &#123; &quot;id&quot; : NumberLong(&quot;3074457345618258602&quot;) &#125; --&gt;&gt; &#123; &quot;id&quot; : NumberLong(&quot;6148914691236517204&quot;) &#125; on : shard3 Timestamp(3, 6)</span><br><span class="line">                        &#123; &quot;id&quot; : NumberLong(&quot;6148914691236517204&quot;) &#125; --&gt;&gt; &#123; &quot;id&quot; : &#123; &quot;$maxKey&quot; : 1 &#125; &#125; on : shard3 Timestamp(3, 7)</span><br></pre></td></tr></table></figure>
+<h2 id="增加分片"><a href="#增加分片" class="headerlink" title="增加分片"></a>增加分片</h2><p>启动片4的 mongo实例，<code>mongod -f /lxhtest/mongodb/conf/shard4.conf</code>,登录任意一台服务器，初始化信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">config = &#123;</span><br><span class="line">    _id : &quot;shard4”,</span><br><span class="line">     members : [</span><br><span class="line">         &#123;_id : 0, host : &quot;192.168.3.229:27004” ,arbiterOnly: true &#125;,</span><br><span class="line">         &#123;_id : 1, host : &quot;192.168.3.128:27004” ,priority:1&#125;,</span><br><span class="line">         &#123;_id : 2, host : &quot;192.168.3.125:27004” ,priority:2 &#125;</span><br><span class="line">     ]</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 <p>参考地址<br><a href="http://www.ityouknow.com/mongodb/2017/08/05/mongodb-cluster-setup.html" target="_blank" rel="noopener">mongodb 3.4 集群搭建：分片+副本集</a><br><a href="https://blog.csdn.net/pittpakk/article/details/79385561" target="_blank" rel="noopener">mongodb分片集群搭建</a></p>
+<p><a href="https://www.cnblogs.com/ddbear/p/7767121.html" target="_blank" rel="noopener">https://www.cnblogs.com/ddbear/p/7767121.html</a></p>
 
       
 
@@ -388,9 +392,18 @@
   
 <nav id="article-nav">
   
+    <a href="/java/quartz集群配置/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          quartz集群配置
+        
+      </div>
+    </a>
   
-    <a href="/java/kafka集群/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">kafka集群</div>
+  
+    <a href="/java/mongo千万级数据优化/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mongo千万级数据优化</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -417,7 +430,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基本概念"><span class="toc-number">1.</span> <span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#准备工作如下"><span class="toc-number">2.</span> <span class="toc-text">准备工作如下</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#添加环境变量"><span class="toc-number">3.</span> <span class="toc-text">添加环境变量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#启动config-server"><span class="toc-number">4.</span> <span class="toc-text">启动config server</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#分别启动三个分片副本集"><span class="toc-number">5.</span> <span class="toc-text">分别启动三个分片副本集</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#启动路由服务器mongos"><span class="toc-number">6.</span> <span class="toc-text">启动路由服务器mongos</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#插入数据测试"><span class="toc-number">7.</span> <span class="toc-text">插入数据测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#其他"><span class="toc-number">8.</span> <span class="toc-text">其他</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基本概念"><span class="toc-number">1.</span> <span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#准备工作如下"><span class="toc-number">2.</span> <span class="toc-text">准备工作如下</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#添加环境变量"><span class="toc-number">3.</span> <span class="toc-text">添加环境变量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#启动config-server"><span class="toc-number">4.</span> <span class="toc-text">启动config server</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#分别启动三个分片副本集"><span class="toc-number">5.</span> <span class="toc-text">分别启动三个分片副本集</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#启动路由服务器mongos"><span class="toc-number">6.</span> <span class="toc-text">启动路由服务器mongos</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#插入数据测试"><span class="toc-number">7.</span> <span class="toc-text">插入数据测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#其他"><span class="toc-number">8.</span> <span class="toc-text">其他</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#增加分片"><span class="toc-number">8.1.</span> <span class="toc-text">增加分片</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -617,6 +630,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">idea</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
@@ -625,7 +642,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
+                <a href="javascript:void(0)" class="js-tag color2">quartz</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -649,14 +666,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
              
@@ -665,11 +674,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
             
             <div class="clearfix"></div>

@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://linnxh.online">
   <title>mongo千万级数据优化 | Linnxh的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="千万级数据分页优化 mongo采用的是单机部署，数据量1千万，需求是实现分页面，按照capTime倒叙排列，每页数据20条   skip+limit这是最传统的数据查询方式，db.getCollection(&amp;#39;CapMotor&amp;#39;).find().skip(9000000).sort({&amp;#39;capTime&amp;#39;:1}).limit(20);skip后面是pageSize*p">
+  <meta name="description" content="千万级数据分页优化 mongo采用的是单机部署，数据量1千万，需求是实现分页面，按照capTime倒叙排列，每页数据20条  skip+limit这是最传统的数据查询方式，db.getCollection(&amp;#39;CapMotor&amp;#39;).find().skip(9000000).sort({&amp;#39;capTime&amp;#39;:1}).limit(20);skip后面是pageSize*pa">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mongo千万级数据优化">
 <meta property="og:url" content="http://linnxh.online/java/mongo千万级数据优化/index.html">
 <meta property="og:site_name" content="Linnxh的博客">
-<meta property="og:description" content="千万级数据分页优化 mongo采用的是单机部署，数据量1千万，需求是实现分页面，按照capTime倒叙排列，每页数据20条   skip+limit这是最传统的数据查询方式，db.getCollection(&amp;#39;CapMotor&amp;#39;).find().skip(9000000).sort({&amp;#39;capTime&amp;#39;:1}).limit(20);skip后面是pageSize*p">
+<meta property="og:description" content="千万级数据分页优化 mongo采用的是单机部署，数据量1千万，需求是实现分页面，按照capTime倒叙排列，每页数据20条  skip+limit这是最传统的数据查询方式，db.getCollection(&amp;#39;CapMotor&amp;#39;).find().skip(9000000).sort({&amp;#39;capTime&amp;#39;:1}).limit(20);skip后面是pageSize*pa">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-10-29T05:45:54.111Z">
+<meta property="og:updated_time" content="2018-11-29T06:40:33.756Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mongo千万级数据优化">
-<meta name="twitter:description" content="千万级数据分页优化 mongo采用的是单机部署，数据量1千万，需求是实现分页面，按照capTime倒叙排列，每页数据20条   skip+limit这是最传统的数据查询方式，db.getCollection(&amp;#39;CapMotor&amp;#39;).find().skip(9000000).sort({&amp;#39;capTime&amp;#39;:1}).limit(20);skip后面是pageSize*p">
+<meta name="twitter:description" content="千万级数据分页优化 mongo采用的是单机部署，数据量1千万，需求是实现分页面，按照capTime倒叙排列，每页数据20条  skip+limit这是最传统的数据查询方式，db.getCollection(&amp;#39;CapMotor&amp;#39;).find().skip(9000000).sort({&amp;#39;capTime&amp;#39;:1}).limit(20);skip后面是pageSize*pa">
   
     <link rel="alternative" href="/atom.xml" title="Linnxh的博客" type="application/atom+xml">
   
@@ -175,18 +175,25 @@
         <h1 id="千万级数据分页优化"><a href="#千万级数据分页优化" class="headerlink" title="千万级数据分页优化"></a>千万级数据分页优化</h1><blockquote>
 <p>mongo采用的是单机部署，数据量1千万，需求是实现分页面，按照capTime倒叙排列，每页数据20条</p>
 </blockquote>
-<ol>
-<li><p>skip+limit<br>这是最传统的数据查询方式，<code>db.getCollection(&#39;CapMotor&#39;).find().skip(9000000).sort({&#39;capTime&#39;:1}).limit(20);</code>skip后面是pageSize*pageIndex,limit后是pageSize<br>这种方式在数据量是百万的时候，还凑合着用，但是千万以后，就不可用了，我这边跟踪的查询时间是9s左右，明显不行，影响效率，建议采用第2中方法</p>
-</li>
-<li><p>前端传临界值id，查询添加条件，从当前位置往后截取，取20条</p>
-<a id="more"></a>
+<h2 id="skip-limit"><a href="#skip-limit" class="headerlink" title="skip+limit"></a>skip+limit</h2><p>这是最传统的数据查询方式，<code>db.getCollection(&#39;CapMotor&#39;).find().skip(9000000).sort({&#39;capTime&#39;:1}).limit(20);</code>skip后面是pageSize*pageIndex,limit后是pageSize<br>这种方式在数据量是百万的时候，还凑合着用，但是千万以后，就不可用了，我这边跟踪的查询时间是9s左右，明显不行，影响效率，建议采用第2中方法</p>
+<h2 id="前端传临界值id，查询添加条件，从当前位置往后截取，取20条"><a href="#前端传临界值id，查询添加条件，从当前位置往后截取，取20条" class="headerlink" title="前端传临界值id，查询添加条件，从当前位置往后截取，取20条"></a>前端传临界值id，查询添加条件，从当前位置往后截取，取20条</h2><a id="more"></a>
 <p>前端在查询下一页数据的时候讲，当前页数据的最后一条，capTime这个字段传过来，值是：1548482420，并且把该条数据对应的objectid也传过来，对应值：ObjectId(“5bc5ce033b071d2fa84e60f4”)，如果是相同的时间，对应的多条数据，要都传递过来，mongo查询的时候，添加条件capTime大于等于1548482420，并且不包含这几条数据，以下是对应的代码</p>
-</li>
-</ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//  数据查询下一页时：</span><br><span class="line">db.getCollection(&apos;CapMotor&apos;).find(&#123;</span><br><span class="line">    &quot;$and&quot;:[</span><br><span class="line">              &#123;&apos;capTime&apos; :&#123; &quot;$gte&quot; :1548482420&#125;&#125;,</span><br><span class="line">              &#123;&apos;_id&apos;:&#123;&quot;$ne&quot;:ObjectId(&quot;5bc5ce033b071d2fa84e60f4&quot;)&#125;&#125;</span><br><span class="line">          ]</span><br><span class="line">    &#125;)</span><br><span class="line">.sort(&#123;&apos;capTime&apos;:1&#125;).limit(20)</span><br></pre></td></tr></table></figure>
-<p> 注:以上是我考虑的按照某个字段排序，并且该字段的值有可能会有多个的情况，实际在开发中，该字段的值有可能是唯一的，对应的代码如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//  数据查询下一页时：</span><br><span class="line">db.getCollection(&apos;CapMotor&apos;).find(&#123;&apos;capTime&apos; :&#123; &quot;$gt&quot; :1539582402&#125; &#125;).sort(&#123;&apos;capTime&apos;:1&#125;).limit(20)</span><br></pre></td></tr></table></figure>
-<p>第一种方法，前端可以指定调到首页，尾页，上下一页，中间指定页，但是前提是数据量不过百万的情况下；<br>第二种方法执行比较快，但是前端不能跳到指定的页数，首页，尾页，上下一页这种是可以的；</p>
+<p> 注:以上是我考虑的按照某个字段排序，并且该字段的值有可能会有多个的情况，可以采用辅助字段file进行排序，对应的代码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//  数据查询下一页时：</span><br><span class="line">db.getCollection(&apos;CapMotor&apos;).find(&#123;&apos;capTime&apos; :&#123; &quot;$lt&quot; :1539582402&#125; &#125;).sort(&#123;&apos;capTime&apos;:1&#125;,&quot;file&quot;:-1).limit(20)</span><br></pre></td></tr></table></figure>
+<p>如果是要取前一页数据，就比较困难了，按照这个道理，是需要大于某个时间并且是按照时间正序排列，不可取</p>
+<p>注意之前想的思路是如下的：<br>如果是按照上面的意思，取上一条数据时<code>db.test.find({capTime:{$gt:当前页第一条数据的时间}}).sort({capTime:1}).limit(20)</code><br>这样其实是错的，这样要求sort排序是-1，和原来的想反，不可取</p>
+<h2 id="截取方法"><a href="#截取方法" class="headerlink" title="截取方法"></a>截取方法</h2><p>执行比较快，但是前端不能跳到指定的页数或者是1到10页之间可以跳转，11到20页得下次跳转才能点到，首页，尾页，上下一页这种是可以的，这种方法有个条件是，时间的唯一性很难保证，有提议说是可以用_id,但是分布式的机器上，_id很难保证有序；</p>
+<p>首先，屏蔽掉支持用户手动指定翻页页数的功能，当用户目前处在第5页时，导航条只显示最多前后10页的导航栏</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt; 1 2 3 4 5 6 7 8 9 10 &gt;</span><br></pre></td></tr></table></figure>
+<p><strong>点击下一页或者5之前的页数</strong><br>然后你必须能够获取本页最后一条数据的相应排序条件的数据信息，比如查询是以ID排序的，就需要知道本页最后一条数据的ID值，设为queryID。</p>
+<p>假设每页显示20条，用户翻到10页，那么执行：</p>
+<p><code>db.test.find({ID:{$gt:queryID}}).sort({ID:1}).limit(20*4)</code></p>
+<p>$gt 是大于的意思</p>
+<p>取最后的20条就可以了。</p>
+<p><strong>点击上一页或者5之前的页数</strong><br>加入之前是从第1页调到第5页，然后需要从第5页调到第3页，如何处理</p>
+<p><code>db.test.find({ID:{$gt:第1页的最后一条记录的queryID}}).sort({ID:1}).limit(20*2)</code><br>然后取20条</p>
+<h2 id="固定值显示前几页数据"><a href="#固定值显示前几页数据" class="headerlink" title="固定值显示前几页数据"></a>固定值显示前几页数据</h2><p>固定限制只显示20页,每页50条，这样避免了count(),skip效率不会太低。<br>通过观察谷歌搜索可以发现他也一般只给了前20条的结果，其他的就自动忽略了，一般只有前几页数据才是真正关注的，翻到后几页的时候就可以调试建议缩小查询范围了，</p>
 <h1 id="mongodb-分析器explain"><a href="#mongodb-分析器explain" class="headerlink" title="mongodb 分析器explain"></a>mongodb 分析器explain</h1><p>本次是以3.4.15-49-g4ef027f为例，各个版本的执行计划差异较大</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">/* 1 */</span><br><span class="line">&#123;</span><br><span class="line">    &quot;queryPlanner&quot; : &#123;</span><br><span class="line">        &quot;plannerVersion&quot; : 1,</span><br><span class="line">        &quot;namespace&quot; : &quot;bigdata.faceCapture&quot;,</span><br><span class="line">        &quot;indexFilterSet&quot; : false,</span><br><span class="line">        &quot;parsedQuery&quot; : &#123;</span><br><span class="line">            &quot;fcap_id&quot; : &#123;</span><br><span class="line">                &quot;$lt&quot; : &quot;fd129550-ced3-11e8-8ea8-1866daf63d9f&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;winningPlan&quot; : &#123;</span><br><span class="line">            &quot;stage&quot; : &quot;FETCH&quot;,</span><br><span class="line">            &quot;inputStage&quot; : &#123;</span><br><span class="line">                &quot;stage&quot; : &quot;IXSCAN&quot;,</span><br><span class="line">                &quot;keyPattern&quot; : &#123;</span><br><span class="line">                    &quot;fcap_id&quot; : 1</span><br><span class="line">                &#125;,</span><br><span class="line">                &quot;indexName&quot; : &quot;fcap_id_1&quot;,</span><br><span class="line">                &quot;isMultiKey&quot; : false,</span><br><span class="line">                &quot;multiKeyPaths&quot; : &#123;</span><br><span class="line">                    &quot;fcap_id&quot; : []</span><br><span class="line">                &#125;,</span><br><span class="line">                &quot;isUnique&quot; : false,</span><br><span class="line">                &quot;isSparse&quot; : false,</span><br><span class="line">                &quot;isPartial&quot; : false,</span><br><span class="line">                &quot;indexVersion&quot; : 2,</span><br><span class="line">                &quot;direction&quot; : &quot;forward&quot;,</span><br><span class="line">                &quot;indexBounds&quot; : &#123;</span><br><span class="line">                    &quot;fcap_id&quot; : [ </span><br><span class="line">                        &quot;[\&quot;\&quot;, \&quot;fd129550-ced3-11e8-8ea8-1866daf63d9f\&quot;)&quot;</span><br><span class="line">                    ]</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;rejectedPlans&quot; : []</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;serverInfo&quot; : &#123;</span><br><span class="line">        &quot;host&quot; : &quot;master&quot;,</span><br><span class="line">        &quot;port&quot; : 27017,</span><br><span class="line">        &quot;version&quot; : &quot;3.4.15-49-g4ef027f&quot;,</span><br><span class="line">        &quot;gitVersion&quot; : &quot;4ef027f98d5c00a0f4e507cbe39a22cab4c7a44c&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;ok&quot; : 1.0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>重点关注queryPlanner里的winningPlan即可，<br>explain.queryPlanner.winningPlan.stage:最优执行计划的stage，这里返回是FETCH，可以理解为通过返回的index位置去检索具体的文档（stage有数个模式，将在后文中进行详解）。</p>
@@ -299,18 +306,18 @@
   
 <nav id="article-nav">
   
-    <a href="/java/kafka集群/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/sql/mongo的Sharding+Replset集群/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          kafka集群
+          mongo的Sharding+Replset集群
         
       </div>
     </a>
   
   
-    <a href="/sql/实际开发中mysql的性能优化/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">实际开发中mysql的性能优化</div>
+    <a href="/java/kafka集群/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">kafka集群</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -337,7 +344,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#千万级数据分页优化"><span class="toc-number">1.</span> <span class="toc-text">千万级数据分页优化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mongodb-分析器explain"><span class="toc-number">2.</span> <span class="toc-text">mongodb 分析器explain</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#千万级数据分页优化"><span class="toc-number">1.</span> <span class="toc-text">千万级数据分页优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#skip-limit"><span class="toc-number">1.1.</span> <span class="toc-text">skip+limit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#前端传临界值id，查询添加条件，从当前位置往后截取，取20条"><span class="toc-number">1.2.</span> <span class="toc-text">前端传临界值id，查询添加条件，从当前位置往后截取，取20条</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#截取方法"><span class="toc-number">1.3.</span> <span class="toc-text">截取方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#固定值显示前几页数据"><span class="toc-number">1.4.</span> <span class="toc-text">固定值显示前几页数据</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mongodb-分析器explain"><span class="toc-number">2.</span> <span class="toc-text">mongodb 分析器explain</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -537,6 +544,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">idea</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
@@ -545,7 +556,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
+                <a href="javascript:void(0)" class="js-tag color2">quartz</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -569,14 +580,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
              
@@ -585,11 +588,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
             
             <div class="clearfix"></div>
