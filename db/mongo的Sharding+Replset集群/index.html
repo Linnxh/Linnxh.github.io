@@ -12,12 +12,12 @@
 <meta name="keywords" content="java,数据库,mongo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mongo的Sharding+Replset集群">
-<meta property="og:url" content="http://linnxh.online/sql/mongo的Sharding+Replset集群/index.html">
+<meta property="og:url" content="http://linnxh.online/db/mongo的Sharding+Replset集群/index.html">
 <meta property="og:site_name" content="Linnxh的博客">
 <meta property="og:description" content="本案例采用的是mongo分片模式中的replicat+sharding实现备份分片，采用的是三台虚拟机，    192.168.3.229 192.168.3.128 192.168.3.125     mongos mongos mongos   config server config server config server   shard server1 主节点 shard server1">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://p964q970y.bkt.clouddn.com/mongodb%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9fenbu.png">
-<meta property="og:updated_time" content="2019-01-16T05:57:36.082Z">
+<meta property="og:updated_time" content="2019-02-22T07:02:12.343Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mongo的Sharding+Replset集群">
 <meta name="twitter:description" content="本案例采用的是mongo分片模式中的replicat+sharding实现备份分片，采用的是三台虚拟机，    192.168.3.229 192.168.3.128 192.168.3.125     mongos mongos mongos   config server config server config server   shard server1 主节点 shard server1">
@@ -64,9 +64,9 @@
 	        
 				<li><a href="/categories/java">java</a></li>
 	        
-				<li><a href="/categories/sql">sql</a></li>
+				<li><a href="/categories/db">db</a></li>
 	        
-				<li><a href="/categories/其他">其他</a></li>
+				<li><a href="/categories/else">else</a></li>
 	        
 			</ul>
 		</nav>
@@ -136,9 +136,9 @@
 		        
 					<li style="width: 25%"><a href="/categories/java">java</a></li>
 		        
-					<li style="width: 25%"><a href="/categories/sql">sql</a></li>
+					<li style="width: 25%"><a href="/categories/db">db</a></li>
 		        
-					<li style="width: 25%"><a href="/categories/其他">其他</a></li>
+					<li style="width: 25%"><a href="/categories/else">else</a></li>
 		        
 				</ul>
 			</nav>
@@ -153,7 +153,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-sql/mongo的Sharding+Replset集群" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-db/mongo的Sharding+Replset集群" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -165,7 +165,7 @@
   
 
         
-        <a href="/sql/mongo的Sharding+Replset集群/" class="archive-article-date">
+        <a href="/db/mongo的Sharding+Replset集群/" class="archive-article-date">
   	<time datetime="2018-10-30T01:03:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-30</time>
 </a>
         
@@ -212,6 +212,7 @@
 </tr>
 </tbody>
 </table>
+<a id="more"></a>
 <h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p><strong>mongos</strong><br>数据库集群请求的入口，是请求的分发中心，负责把请求转发到对应的shard服务器上，生产环境下，一般有多个座位请求入口，防止其中一个挂掉</p>
 <p><strong>config server</strong><br>mongod实例，存储了整个 ClusterMetadata，其中包括 chunk信息。<br><strong>shard</strong><br>用于存储实际的数据块，实际生产环境中一个shard server角色可由几台机器组个一个relica set承担，防止主机单点故障<br><strong>replica set</strong><br>中文翻译副本集，其实就是shard的备份，防止shard挂掉之后数据丢失。复制提供了数据的冗余备份，并在多个服务器上存储数据副本，提高了数据的可用性， 并可以保证数据的安全性。</p>
 <p><strong>Arbiter</strong><br>仲裁者，是复制集中的一个MongoDB实例，它并不保存数据。仲裁节点使用最小的资源并且不要求硬件设备，不能将Arbiter部署在同一个数据集节点中，可以部署在其他应用服务器或者监视服务器中，也可部署在单独的虚拟机中。为了确保复制集中有奇数的投票成员（包括primary），需要添加仲裁节点做为投票，否则primary不能运行时不会自动切换primary</p>
@@ -378,7 +379,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://linnxh.online/sql/mongo的Sharding+Replset集群/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://linnxh.online/db/mongo的Sharding+Replset集群/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -444,7 +445,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="sql/mongo的Sharding+Replset集群" data-title="mongo的Sharding+Replset集群" data-url="http://linnxh.online/sql/mongo的Sharding+Replset集群/"></div>
+	<div class="ds-thread" data-thread-key="db/mongo的Sharding+Replset集群" data-title="mongo的Sharding+Replset集群" data-url="http://linnxh.online/db/mongo的Sharding+Replset集群/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -467,8 +468,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://linnxh.online/sql/mongo的Sharding+Replset集群/", 
-    sourceId: "sql/mongo的Sharding+Replset集群",
+    url: "http://linnxh.online/db/mongo的Sharding+Replset集群/", 
+    sourceId: "db/mongo的Sharding+Replset集群",
     productKey: "true",
     target: "cloud-tie-wrapper"
   };
@@ -618,51 +619,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color4">sql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">transactional</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">quartz</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">aop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">profile</a>
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">商品管理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sku</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -678,15 +647,47 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+                <a href="javascript:void(0)" class="js-tag color5">idea</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sql</a>
+                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
+                <a href="javascript:void(0)" class="js-tag color4">aop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">transactional</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">profile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">quartz</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">商品管理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sku</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
               </li>
             
             <div class="clearfix"></div>

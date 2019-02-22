@@ -6,24 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://linnxh.online">
-  <title>mongodb初印象 | Linnxh的博客</title>
+  <title>mybatis得到解析后最终执行的sql | Linnxh的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="之前只接触过一种数据库mysql，偶然间接到一个需求，发现数据是存在mongodb里的，接下来就记录一下我认识mongodb的过程。">
-<meta name="keywords" content="mongodb,sql">
+  <meta name="description" content="我们在用mybatis的时候，经常会用xml来编写sql语句，但是这些xml中通常加了很多条件，很难拿到最终在数据库里执行的sql，如果想在控制台打印出最终执行的sql语句，其实是可以直接阅读mybatis的源码拿到 DefaultSqlSession 的select方法 exector.query方法—–实现类baseExecutor中的query方法 BaseStatementHandler">
+<meta name="keywords" content="mybatis,sql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mongodb初印象">
-<meta property="og:url" content="http://linnxh.online/sql/mongodb/index.html">
+<meta property="og:title" content="mybatis得到解析后最终执行的sql">
+<meta property="og:url" content="http://linnxh.online/db/mybatis得到解析后最终执行的sql/index.html">
 <meta property="og:site_name" content="Linnxh的博客">
-<meta property="og:description" content="之前只接触过一种数据库mysql，偶然间接到一个需求，发现数据是存在mongodb里的，接下来就记录一下我认识mongodb的过程。">
+<meta property="og:description" content="我们在用mybatis的时候，经常会用xml来编写sql语句，但是这些xml中通常加了很多条件，很难拿到最终在数据库里执行的sql，如果想在控制台打印出最终执行的sql语句，其实是可以直接阅读mybatis的源码拿到 DefaultSqlSession 的select方法 exector.query方法—–实现类baseExecutor中的query方法 BaseStatementHandler">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/QQ20180605-143022.png">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3500794-79054c824a019c4c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3500794-f8386fd06726f3ba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-10-29T10:33:06.790Z">
+<meta property="og:updated_time" content="2018-10-29T07:35:05.283Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mongodb初印象">
-<meta name="twitter:description" content="之前只接触过一种数据库mysql，偶然间接到一个需求，发现数据是存在mongodb里的，接下来就记录一下我认识mongodb的过程。">
-<meta name="twitter:image" content="http://p964q970y.bkt.clouddn.com/QQ20180605-143022.png">
+<meta name="twitter:title" content="mybatis得到解析后最终执行的sql">
+<meta name="twitter:description" content="我们在用mybatis的时候，经常会用xml来编写sql语句，但是这些xml中通常加了很多条件，很难拿到最终在数据库里执行的sql，如果想在控制台打印出最终执行的sql语句，其实是可以直接阅读mybatis的源码拿到 DefaultSqlSession 的select方法 exector.query方法—–实现类baseExecutor中的query方法 BaseStatementHandler">
   
     <link rel="alternative" href="/atom.xml" title="Linnxh的博客" type="application/atom+xml">
   
@@ -66,9 +62,9 @@
 	        
 				<li><a href="/categories/java">java</a></li>
 	        
-				<li><a href="/categories/sql">sql</a></li>
+				<li><a href="/categories/db">db</a></li>
 	        
-				<li><a href="/categories/其他">其他</a></li>
+				<li><a href="/categories/else">else</a></li>
 	        
 			</ul>
 		</nav>
@@ -138,9 +134,9 @@
 		        
 					<li style="width: 25%"><a href="/categories/java">java</a></li>
 		        
-					<li style="width: 25%"><a href="/categories/sql">sql</a></li>
+					<li style="width: 25%"><a href="/categories/db">db</a></li>
 		        
-					<li style="width: 25%"><a href="/categories/其他">其他</a></li>
+					<li style="width: 25%"><a href="/categories/else">else</a></li>
 		        
 				</ul>
 			</nav>
@@ -155,20 +151,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-sql/mongodb" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-db/mybatis得到解析后最终执行的sql" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      mongodb初印象
+      mybatis得到解析后最终执行的sql
     </h1>
   
 
         
-        <a href="/sql/mongodb/" class="archive-article-date">
-  	<time datetime="2018-06-04T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-05</time>
+        <a href="/db/mybatis得到解析后最终执行的sql/" class="archive-article-date">
+  	<time datetime="2018-08-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-15</time>
 </a>
         
       </header>
@@ -177,54 +173,9 @@
     <div class="article-entry" itemprop="articleBody">
       
       
-        <p>之前只接触过一种数据库mysql，偶然间接到一个需求，发现数据是存在mongodb里的，接下来就记录一下我认识mongodb的过程。</p>
-<a id="more"></a>
-<h1 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h1><p>MongoDB 是一个基于分布式文件存储的数据库。由 C++ 语言编写。旨在为 WEB 应用提供可扩展的高性能数据存储解决方案。</p>
-<p>MongoDB 是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。</p>
-<h1 id="二、特性"><a href="#二、特性" class="headerlink" title="二、特性"></a>二、特性</h1><ul>
-<li>更高的写入负载</li>
-<li>高可用性，面向集合存储，易于存储对象类型的数据，对象的类型可以不明确</li>
-<li>支持数据量较大的情况，mysql中单表达到5-10G时就会出现性能问题，mongo本身则可以利用分片技术</li>
-<li>支持完全索引，包含内部对象</li>
-<li>支持复制和故障恢复，mongo的复制集（master-slave），mongo可以快速的相应单节点故障</li>
-</ul>
-<h1 id="三、MongoDB基本概念"><a href="#三、MongoDB基本概念" class="headerlink" title="三、MongoDB基本概念"></a>三、MongoDB基本概念</h1><ol>
-<li>文档：是MongoDB中数据的基本单元，非常类似于关系型数据库系统中的行（但是比行要复杂很多）</li>
-<li>集合：就是一组文档，如果说MongoDB中的文档类似于关系型数据库中的行，那么集合就如同表</li>
-<li>MongoDB的单个计算机可以容纳多个独立的数据库，每一个数据库都有自己的集合和权限</li>
-<li>MongoDB自带简洁但功能强大的JavaScript shell，这个工具对于管理MongoDB实例和操作数据库作用非常大</li>
-<li>每一个文档都有一个特殊的键”_id”,它在文档所处的集合中是唯一的，相当于关系数据库中的表的主键</li>
-</ol>
-<p><img src="http://p964q970y.bkt.clouddn.com/QQ20180605-143022.png" alt="mongodb和mysql对比"></p>
-<h1 id="四、安装注意事项"><a href="#四、安装注意事项" class="headerlink" title="四、安装注意事项"></a>四、安装注意事项</h1><p>因为我的虚拟机好像内存不够了，用<code>mongod</code>启动提示内存不足什么的，改用<code>mongod --smallfiles</code>的方式启动mongo就可以了</p>
-<p>如果界面一直卡在<br>wating for 2110端口上，表示已经开启了mongodb，新开一个命令行输入mongo即可进入</p>
-<h1 id="五、基本操作"><a href="#五、基本操作" class="headerlink" title="五、基本操作"></a>五、基本操作</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">show dbs    show databases  //显示所有数据库</span><br><span class="line">use lxhtest  //如果存在该数据库就使用该数据库，否则就创建该数据库</span><br><span class="line">show collections  //显示所有集合（mysql，显示所有表）</span><br><span class="line"></span><br><span class="line">//查</span><br><span class="line">db.lxhtest.find().pretty()  //查询出lxhtest的所有行</span><br><span class="line">db.lxhtest.find(&#123;“name”:&quot;test-lxh&quot;&#125;).pretty() </span><br><span class="line"></span><br><span class="line">//增</span><br><span class="line">db.createCollection(&quot;runnoob&quot;)  //创建名称为runnoob的集合（mysql中的数据库）</span><br><span class="line">db.runnoob.insert(&#123;&quot;name&quot;:&quot;test-lxh&quot;&#125;)  //向集合名称为runnoob中插入该条数据</span><br><span class="line"></span><br><span class="line">//删 </span><br><span class="line">db.runnoob.drop()  //删除runnoob集合（mysql中删除表）</span><br><span class="line">use lxhtest2   </span><br><span class="line">db.dropDatabase()   //删除lxhtest2数据库</span><br><span class="line"></span><br><span class="line">//改</span><br><span class="line">db.runnoob.update(&#123;&apos;name&apos;:&apos;test-lxh&apos;&#125;,&#123;$set:&#123;&apos;name&apos;:&apos;test-lxh&apos;&#125;&#125;)  //以上语句只会修改第一条发现的文档，如果你要修改多条相同的文档，则需要设置 multi 参数为 true。</span><br><span class="line">db.runnoob.update(&#123;&apos;name&apos;:&apos;test-lxh&apos;&#125;,&#123;$set:&#123;&apos;name&apos;:&apos;test-lxh&apos;&#125;&#125;,&#123;multi:true&#125;)</span><br><span class="line">db.col.save(&#123; &quot;_id&quot; : ObjectId(&quot;56064f89ade2f21f36b03136&quot;), &quot;name&quot; : &quot;test-lxh2222&quot;&#125;)//将id为56064f89ade2f21f36b03136数据修改为。。。</span><br><span class="line"></span><br><span class="line">//数量</span><br><span class="line">db.users.find().count();</span><br><span class="line"></span><br><span class="line">db.users.find().limit(10)</span><br></pre></td></tr></table></figure>
-<h1 id="六、分片存储"><a href="#六、分片存储" class="headerlink" title="六、分片存储"></a>六、分片存储</h1><p>Shard:<br>用于存储实际的数据块，实际生产环境中一个shard server角色可由几台机器组个一个replica set承担，防止主机单点故障<br>Config Server:<br>mongod实例，存储了整个 ClusterMetadata，其中包括 chunk信息。<br>Query Routers:<br>前端路由，客户端由此接入，且让整个集群看上去像单一数据库，前端应用可以透明使用。</p>
-<p>规划5个组件对应的端口号，由于一个机器需要同时部署 mongos、config server 、shard1、shard2、shard3，所以需要用端口进行区分。<br>这个端口可以自由定义，</p>
-<p>在本文 mongos为 20000（前端暴露的路由）， config server 为 21000， shard1为 22001（第一个主机）， shard2为22002（第二个主机）</p>
-<p><a href="https://www.jianshu.com/p/fcdc82939dd4" target="_blank" rel="noopener">https://www.jianshu.com/p/fcdc82939dd4</a><br><a href="https://www.jianshu.com/p/eb1c397fa6d3" target="_blank" rel="noopener">https://www.jianshu.com/p/eb1c397fa6d3</a> （安装mongodb）</p>
-<p>安装mongo<br>分别在三台机器上创建如下的文件夹<br>分别在mdb1,mdb2 三台机器上执行以下命令:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#建立mongos及日志目录</span><br><span class="line">sudo  mkdir -p /data/mongodb/mongos/log</span><br><span class="line">#建立config server 数据文件存放目录</span><br><span class="line">sudo mkdir -p /data/mongodb/config/data</span><br><span class="line">#建立config server 日志文件存放目录</span><br><span class="line">sudo mkdir -p /data/mongodb/config/log</span><br><span class="line">#建立shard1 数据文件存放目录</span><br><span class="line">sudo mkdir -p /data/mongodb/shard1/data</span><br><span class="line">#建立shard1 日志文件存放目录</span><br><span class="line">sudo mkdir -p /data/mongodb/shard1/log</span><br><span class="line">#建立shard2 数据文件存放目录</span><br><span class="line">sudo mkdir -p /data/mongodb/shard2/data</span><br><span class="line">#建立shard2 日志文件存放目录</span><br><span class="line">sudo mkdir -p /data/mongodb/shard2/log</span><br></pre></td></tr></table></figure>
-<p>每台服务器执行如下命令<br>/lxhtest/mongodb/bin/mongod –configsvr –replSet lxhReplSet –dbpath=/data/mongodb/config/data –port 21000 -logpath=/data/mongodb/config/log/config.log –fork</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> (这里可以随便连接一台服务器,我这里就连接第一台了)执行.下面语句</span><br><span class="line">/lxhtest/mongodb/bin/mongo --host 192.168.3.129 --port 21000 </span><br><span class="line">   rs.initiate(&#123;_id:&quot;lxhReplSet&quot;,configsvr:true,</span><br><span class="line">             members:[&#123;_id:0,host:&quot;192.168.3.129:21000&quot;&#125;,</span><br><span class="line">                      &#123;_id:1,host:&quot;192.168.3.120:21000&quot;&#125;]&#125;)</span><br><span class="line"></span><br><span class="line"> rs.initiate(&#123;_id:&quot;cfgRepliSet&quot;,configsvr:true,members:[&#123;_id:0,host:&quot;192.168.3.129:21000&quot;&#125;,&#123;_id:1,host:&quot;192.168.3.120:21000&quot;&#125;]&#125;)</span><br></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3500794-79054c824a019c4c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="执行成功"></p>
-<p>4、在每一台服务器分别启动分片及副本集。（后台运行）在每一台服务器分别以副本集方式启动分片,执行以下命令</p>
-<p>sudo /lxhtest/mongodb/bin/mongod –shardsvr –replSet shard1ReplSet –port 22001 –dbpath /data/mongodb/shard1/data –logpath /data/mongodb/shard1/log/shard1.log –fork –nojournal</p>
-<p>sudo /lxhtest/mongodb/bin/mongod –shardsvr –replSet shard2ReplSet –port 22002 –dbpath /data/mongodb/shard2/data –logpath /data/mongodb/shard2/log/shard2.log –fork –nojournal</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/3500794-f8386fd06726f3ba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="执行完毕"></p>
-<p>执行完毕之后,随便连接一台服务器,,这里连接的是</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br></pre></td><td class="code"><pre><span class="line">sudo /lxhtest/mongodb/bin/mongo --host 192.168.3.129 --port 22001</span><br><span class="line"></span><br><span class="line">rs.initiate(&#123;_id:&quot;shard1ReplSet&quot;, members:[&#123;_id:0,host:&quot;192.168.3.129:22001&quot;&#125;]&#125;)</span><br><span class="line"></span><br><span class="line">rs.initiate(&#123;_id:&quot;shard1ReplSet&quot;, members:[&#123;_id:0,host:&quot;192.168.3.129:22001&quot;&#125;, &#123;_id:1,host:&quot;192.168.3.120:22001&quot;&#125;]&#125;)</span><br><span class="line">其次执行 sudo /lxhtest/mongodb/bin/mongo --host 192.168.3.129 --port 22002 </span><br><span class="line">rs.initiate(&#123;_id:&quot;shard2ReplSet&quot;,</span><br><span class="line">         members:[&#123;_id:0,host:&quot;192.168.3.129:22002&quot;&#125;,</span><br><span class="line">                  &#123;_id:1,host:&quot;192.168.3.120:22002&quot;&#125;]&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">rs.initiate(&#123;_id:&quot;shard2ReplSet&quot;, members:[&#123;_id:1,host:&quot;192.168.3.120:22002&quot;&#125;]&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mdb1  </span><br><span class="line">首先执行 sudo /usr/local/server/mongodb/bin/mongo --host mdb1 --port 22001  </span><br><span class="line">rs.initiate(&#123;_id:&quot;shard1ReplSet&quot;,</span><br><span class="line">         members:[&#123;_id:0,host:&quot;mdb1:22001&quot;&#125;,</span><br><span class="line">                  &#123;_id:1,host:&quot;mdb2:22001&quot;&#125;,</span><br><span class="line">                  &#123;_id:2,host:&quot;mdb3:22001&quot;&#125;]&#125;)</span><br><span class="line">其次执行 sudo /usr/local/server/mongodb/bin/mongo --host mdb1 --port 22002 </span><br><span class="line">rs.initiate(&#123;_id:&quot;shard2ReplSet&quot;,</span><br><span class="line">         members:[&#123;_id:0,host:&quot;mdb1:22002&quot;&#125;,</span><br><span class="line">                  &#123;_id:1,host:&quot;mdb2:22002&quot;&#125;,</span><br><span class="line">                  &#123;_id:2,host:&quot;mdb3:22002&quot;&#125;]&#125;)</span><br><span class="line">最后执行 sudo /usr/local/server/mongodb/bin/mongo --host mdb1 --port 22003 </span><br><span class="line">rs.initiate(&#123;_id:&quot;shard3ReplSet&quot;,</span><br><span class="line">         members:[&#123;_id:0,host:&quot;mdb1:22003&quot;&#125;,</span><br><span class="line">                  &#123;_id:1,host:&quot;mdb2:22003&quot;&#125;,</span><br><span class="line">                  &#123;_id:2,host:&quot;mdb3:22003&quot;&#125;]&#125;)</span><br><span class="line">```   </span><br><span class="line"></span><br><span class="line">下面是执行效果</span><br><span class="line"></span><br><span class="line">![首先](http://upload-images.jianshu.io/upload_images/3500794-20012f87ec076cc3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line">![其次](http://upload-images.jianshu.io/upload_images/3500794-60c6e457ebbea866.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">![最后](http://upload-images.jianshu.io/upload_images/3500794-203720d60e51f1e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">5、选择一台服务器当做 mongos路由服务</span><br><span class="line"></span><br><span class="line">/lxhtest/mongodb/bin/mongos  --configdb lxhReplSet/192.168.3.129:21000,192.168.3.120:21000 --port 20000  --logpath  /data/mongodb/mongos/log/mongos.log --fork </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">     sudo  /usr/local/server/mongodb/bin/mongos  --configdb cfgReplSet/mdb1:21000,mdb2:21000,mdb3:21000 --port  20000  --logpath  /data/mongodb/mongos/log/mongos.log --fork </span><br><span class="line">执行效果图</span><br><span class="line"></span><br><span class="line">![选举路由服务.png](http://upload-images.jianshu.io/upload_images/3500794-fec0ee5531c6fe6b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line">连接路由服务</span><br><span class="line"></span><br><span class="line">/lxhtest/mongodb/bin/mongo --host 192.168.3.129 --port 20000</span><br><span class="line"></span><br><span class="line">db.runCommand( &#123; removeshard: &quot;cfgRepliSet&quot; &#125; ) </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">       /usr/local/server/mongodb/bin/mongo --host mdb1 --port 20000</span><br><span class="line"></span><br><span class="line">![登录路由服务](http://upload-images.jianshu.io/upload_images/3500794-7e500ac963b6b790.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line">   </span><br><span class="line">    执行以下命令,添加分片到集群</span><br><span class="line">    sh.addShard(&quot;shard1ReplSet/192.168.3.129:22001,192.168.3.120:22001&quot;)</span><br><span class="line">sh.addShard(&quot;shard2ReplSet/192.168.3.129:22002,192.168.3.120:22002&quot;)</span><br><span class="line"></span><br><span class="line">   sh.addShard(&quot;shard1ReplSet/192.168.3.129:22001&quot;)</span><br><span class="line">sh.addShard(&quot;shard2ReplSet/192.168.3.120:22002&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    sh.addShard(&quot;shard1ReplSet/mdb1:22001,mdb2:22001,mdb3:22001&quot;)</span><br><span class="line">    sh.addShard(&quot;shard2ReplSet/mdb1:22002,mdb2:22002,mdb3:22002&quot;)</span><br><span class="line">    sh.addShard(&quot;shard3ReplSet/mdb1:22003,mdb2:22003,mdb3:22003&quot;)</span><br><span class="line"></span><br><span class="line">![执行成功](http://upload-images.jianshu.io/upload_images/3500794-a9eb667a767104f2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">下面进行测试,,</span><br><span class="line"></span><br><span class="line">![通过客户端](http://upload-images.jianshu.io/upload_images/3500794-90177876cb3e82d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line">从图片中可以看出 分片1的数据非常的巨大,可以说是全部数据都在这里了..</span><br><span class="line">下面我们做下改变 </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">![改变之后的.png](http://upload-images.jianshu.io/upload_images/3500794-dbb5b8dd2b0c1796.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line">![改变之后的.png](http://upload-images.jianshu.io/upload_images/3500794-c03119d9781c8f44.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">到这里基本上就已经成功了..是不是很简单呢... 其实摸索之后就感觉非常简单呢. 但是我这却摸索了一下午. 不过也算是有收获吧..小伙伴们赶紧抓紧搭建一下吧.</span><br><span class="line"></span><br><span class="line">这里使用的是 java 语言.. springboot 框架</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   spring.data.mongodb.authentication-database=admin</span><br><span class="line">   spring.data.mongodb.database=mdb</span><br><span class="line">   spring.data.mongodb.host=172.16.174.147</span><br><span class="line">   spring.data.mongodb.port=20000  #这里端口就写路由的端口.</span><br><span class="line">   spring.data.mongodb.username=root</span><br><span class="line">   spring.data.mongodb.password=root</span><br><span class="line">   spring.data.mongodb.write-concern=SAFE</span><br><span class="line">   spring.data.mongodb.connections-per-host=10</span><br><span class="line">   spring.data.mongodb.threads-allowed-to-block-for-connection-multiplier=5</span><br><span class="line">   spring.data.mongodb.connect-timeout=5000</span><br><span class="line">   spring.data.mongodb.heartbeat-frequency=2000</span><br><span class="line">   spring.data.mongodb.heartbeat-connect-timeout=10000</span><br><span class="line">   spring.data.mongodb.heartbeat-socket-timeout=10000</span><br><span class="line">   spring.data.mongodb.socket-timeout=0</span><br><span class="line">   spring.data.mongodb.max-wait-time=1500</span><br><span class="line">   mongodb.socket-keep-alive=true</span><br><span class="line"></span><br><span class="line">![连接成功.png](http://upload-images.jianshu.io/upload_images/3500794-fe94e91d14a6b297.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line">![保存并查询完毕](http://upload-images.jianshu.io/upload_images/3500794-7bdee586f75bce2f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line">完毕了..</span><br><span class="line">这里搭建我遇到了很多未知的问题, 谷歌了很久,看官方文档学习,但还是错误摆出,但是这些并不能磨灭我的意志,最终功夫不负有心人啊..还是让我给搭建成功了...小伙伴们赶紧试试吧.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">创建表tables4，数据分区方式是hash，</span><br><span class="line"> db.runCommand(&#123;shardcollection:&quot;testdb.table4&quot;,key:&#123;id:&quot;hashed&quot;&#125;&#125;) </span><br><span class="line"> 分区方式是以范围为基础</span><br><span class="line">db.runCommand(&#123;shardcollection:&quot;testdb.table4&quot;,key:&#123;id:1&#125;&#125;) </span><br><span class="line"></span><br><span class="line">存储数据</span><br><span class="line">for (var i = 1;i&lt;=10000;i++) db.table1.save(&#123;id:i,&quot;test1&quot;:&quot;item1&quot;&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">https://yq.aliyun.com/articles/60096</span><br><span class="line"></span><br><span class="line">如何确定 shard、mongos 数量？</span><br><span class="line">假设单个 shard 最大 qps 为 M，单个 mongos 最大 qps 为 Ms，需要总的 qps 为 Q。 (注：mongos、mongod 的服务能力，需要用户根据访问特性来实测得出）</span><br><span class="line">numberOfShards = Q / M  / 0.75    （假设负载水位线为75%）</span><br><span class="line">numberOfMongos = Q / Ms / 0.75 </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">https://blog.csdn.net/pittpakk/article/details/79385561</span><br><span class="line">https://blog.csdn.net/supermapsupport/article/details/78953080</span><br><span class="line">http://www.linuxeye.com/database/mongodb-sharding.html</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">定义副本集配置</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">config = &#123;</span><br><span class="line">    _id : &quot;shard1&quot;,</span><br><span class="line">     members : [</span><br><span class="line">         &#123;_id : 0, host : &quot;192.168.9.85:27001&quot;,priority:1 &#125;,</span><br><span class="line">         &#123;_id : 1, host : &quot;192.168.9.90:27001&quot; ,priority:2&#125;,</span><br><span class="line">         &#123;_id : 2, host : &quot;192.168.9.91:27001&quot; , arbiterOnly: true &#125;</span><br><span class="line">     ]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 七、千万级数据分页优化</span><br><span class="line"></span><br><span class="line">&gt;mongo采用的是单机部署，数据量1千万，需求是实现分页面，按照capTime倒叙排列，每页数据20条</span><br><span class="line"></span><br><span class="line">1. skip+limit </span><br><span class="line">这是最传统的数据查询方式，`db.getCollection(&apos;CapMotor&apos;).find().skip(9000000).sort(&#123;&apos;capTime&apos;:-1&#125;).limit(20);</span><br><span class="line">`skip后面是pageSize*pageIndex,limit后是pageSize</span><br><span class="line">这种方式在数据量是百万的时候，还凑合着用，但是千万以后，就不可用了，我这边跟踪的查询时间是9s左右，明显不行，影响效率，建议采用第2中方法</span><br><span class="line"></span><br><span class="line">2. 前端传临界值id，查询添加条件，从当前位置往后截取，取20条</span><br><span class="line"></span><br><span class="line">前端在查询下一页数据的时候讲，当前页数据的最后一条，capTime这个字段传过来，值是：1548482420，并且把该条数据对应的objectid也传过来，对应值：ObjectId(&quot;5bc5ce033b071d2fa84e60f4&quot;)，如果是相同的时间，对应的多条数据，要都传递过来，mongo查询的时候，添加条件capTime小于等于1548482420，并且不包含这几条数据，以下是对应的代码</span><br></pre></td></tr></table></figure>
-<p>//  数据查询下一页时：<br>db.getCollection(‘CapMotor’).find({<br>    “$and”:[<br>              {‘capTime’ :{ “$lte” :1548482420}},<br>              {‘_id’:{“$ne”:ObjectId(“5bc5ce033b071d2fa84e60f4”)}}<br>          ]<br>    })<br>.sort({‘capTime’:-1}).limit(20)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">注:以上是我考虑的按照某个字段排序，并且该字段的值有可能会有多个的情况，实际在开发中，该字段的值有可能是唯一的，对应的代码如下</span><br></pre></td></tr></table></figure>
-<p>//  数据查询下一页时：<br>db.getCollection(‘CapMotor’).find({‘capTime’ :{ “$gt” :1539582402} }).sort({‘capTime’:1}).limit(20)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">第一种方法，前端可以指定调到首页，尾页，上下一页，中间指定页，但是前提是数据量不过百万的情况下；</span><br><span class="line">第二种方法执行比较快，但是前端不能跳到指定的页数，首页，尾页，上下一页这种是可以的；</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># mongodb 分析器explain</span><br><span class="line">本次是以3.4.15-49-g4ef027f为例，各个版本的执行计划差异较大</span><br></pre></td></tr></table></figure></p>
-<p>/<em> 1 </em>/<br>{<br>    “queryPlanner” : {<br>        “plannerVersion” : 1,<br>        “namespace” : “bigdata.faceCapture”,<br>        “indexFilterSet” : false,<br>        “parsedQuery” : {<br>            “fcap_id” : {<br>                “$lt” : “fd129550-ced3-11e8-8ea8-1866daf63d9f”<br>            }<br>        },<br>        “winningPlan” : {<br>            “stage” : “FETCH”,<br>            “inputStage” : {<br>                “stage” : “IXSCAN”,<br>                “keyPattern” : {<br>                    “fcap_id” : 1<br>                },<br>                “indexName” : “fcap_id_1”,<br>                “isMultiKey” : false,<br>                “multiKeyPaths” : {<br>                    “fcap_id” : []<br>                },<br>                “isUnique” : false,<br>                “isSparse” : false,<br>                “isPartial” : false,<br>                “indexVersion” : 2,<br>                “direction” : “forward”,<br>                “indexBounds” : {<br>                    “fcap_id” : [<br>                        “[\”\”, \”fd129550-ced3-11e8-8ea8-1866daf63d9f\”)”<br>                    ]<br>                }<br>            }<br>        },<br>        “rejectedPlans” : []<br>    },<br>    “serverInfo” : {<br>        “host” : “master”,<br>        “port” : 27017,<br>        “version” : “3.4.15-49-g4ef027f”,<br>        “gitVersion” : “4ef027f98d5c00a0f4e507cbe39a22cab4c7a44c”<br>    },<br>    “ok” : 1.0<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">重点关注queryPlanner里的winningPlan即可，</span><br><span class="line">explain.queryPlanner.winningPlan.stage:最优执行计划的stage，这里返回是FETCH，可以理解为通过返回的index位置去检索具体的文档（stage有数个模式，将在后文中进行详解）。</span><br><span class="line"></span><br><span class="line">Explain.queryPlanner.winningPlan.inputStage:用来描述子stage，并且为其父stage提供文档和索引关键字。</span><br><span class="line"></span><br><span class="line">explain.queryPlanner.winningPlan.stage的child stage，此处是IXSCAN，表示进行的是index scanning。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">state各个值的解释如下：</span><br><span class="line">COLLSCAN ：全表扫描</span><br><span class="line"></span><br><span class="line">IXSCAN：索引扫描</span><br><span class="line"></span><br><span class="line">FETCH:：根据索引去检索指定document</span><br><span class="line"></span><br><span class="line">SHARD_MERGE：各个分片返回数据进行merge</span><br><span class="line"></span><br><span class="line">SORT：表明在内存中进行了排序（与前期版本的scanAndOrder:true一致）</span><br><span class="line"></span><br><span class="line">SORT_MERGE：表明在内存中进行了排序后再合并</span><br><span class="line"></span><br><span class="line">LIMIT：使用limit限制返回数</span><br><span class="line"></span><br><span class="line">SKIP：使用skip进行跳过</span><br><span class="line"></span><br><span class="line">IDHACK：针对_id进行查询</span><br><span class="line"></span><br><span class="line">SHARDING_FILTER：通过mongos对分片数据进行查询</span><br><span class="line"></span><br><span class="line">COUNT：利用db.coll.count()之类进行count运算</span><br><span class="line"></span><br><span class="line">COUNTSCAN：count不使用用Index进行count时的stage返回</span><br><span class="line"></span><br><span class="line">COUNT_SCAN：count使用了Index进行count时的stage返回</span><br><span class="line"></span><br><span class="line">SUBPLA：未使用到索引的$or查询的stage返回</span><br><span class="line"></span><br><span class="line">TEXT：使用全文索引进行查询时候的stage返回</span><br><span class="line"></span><br><span class="line">集合faceCapture中有数据1千万条以上的数据，有复合索引fcap_time、fcap_dcid、person_id</span><br></pre></td></tr></table></figure></p>
-<p>{<br>    “fcap_time” : -1,<br>    “fcap_dcid” : 1,<br>    “person_id” : 1<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">单行索引fcap_time、fcap_id</span><br></pre></td></tr></table></figure></p>
-<p>{<br>    “fcap_time” : 1<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">&#123;</span><br><span class="line">    &quot;fcap_id&quot; : 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>用关键字explain进行sql分析，发现如下问题：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 走的是复合索引 注意索引的顺序，fcap_time&quot; : -1,  &quot;fcap_dcid&quot; : 1,  &quot;person_id&quot; : 1</span><br><span class="line">db.getCollection(&apos;faceCapture&apos;).find(&#123;&apos;fcap_time&apos; :&#123; &quot;$gt&quot; :1539745381&#125;&#125;).explain()</span><br><span class="line">// 以下两个字段都是复合索引中，未走索引，</span><br><span class="line">db.getCollection(&apos;faceCapture&apos;).find(&#123;&apos;fcap_dcid&apos; :&#123; &quot;$lt&quot; :&quot;fd129550-ced3-11e8-8ea8-1866daf63d9f&quot;&#125;&#125;).explain()</span><br><span class="line">db.getCollection(&apos;faceCapture&apos;).find(&#123;&apos;person_id&apos; :&#123; &quot;$lt&quot; :&quot;fd129550-ced3-11e8-8ea8-1866daf63d9f&quot;&#125;&#125;).explain()</span><br><span class="line">// 走的是索引 fcap_id&quot; : -1, </span><br><span class="line">db.getCollection(&apos;faceCapture&apos;).find(&#123;&apos;fcap_id&apos; :&#123; &quot;$lt&quot; :&quot;fd129550-ced3-11e8-8ea8-1866daf63d9f&quot;&#125;&#125;).explain()</span><br><span class="line">db.getCollection(&apos;faceCapture&apos;).find(&#123;&apos;fcap_id&apos; :&#123; &quot;$lt&quot; :&quot;fd129550-ced3-11e8-8ea8-1866daf63d9f&quot;&#125;&#125;).count()</span><br></pre></td></tr></table></figure>
-<p>以下有如下结论</p>
-<p>mongodb的索引也有最前缀原则，类似于mysql中的like关键字；<br>复合索引和单列索引中都有同一列，并且该列是位于复合索引的第一个位置时，默认走的是复合索引；<br>复合索引的非首位查询时，默认不走索引；</p>
-<h1 id="mysql和mongo对比"><a href="#mysql和mongo对比" class="headerlink" title="mysql和mongo对比"></a>mysql和mongo对比</h1><p>mongo特性</p>
+        <p>我们在用mybatis的时候，经常会用xml来编写sql语句，但是这些xml中通常加了很多条件，很难拿到最终在数据库里执行的sql，如果想在控制台打印出最终执行的sql语句，其实是可以直接阅读mybatis的源码拿到</p>
+<p>DefaultSqlSession 的select方法<br> exector.query方法—–实现类baseExecutor中的query方法</p>
+<p>BaseStatementHandler  </p>
 
       
 
@@ -238,7 +189,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mybatis</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -309,7 +260,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://linnxh.online/sql/mongodb/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://linnxh.online/db/mybatis得到解析后最终执行的sql/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -323,18 +274,18 @@
   
 <nav id="article-nav">
   
-    <a href="/java/spring初探索/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/java/idea打包问题/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          spring初探索
+          idea打包问题.md
         
       </div>
     </a>
   
   
-    <a href="/java/商品详情切换sku/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">商品详情切换sku</div>
+    <a href="/java/分布式架构中的缓存/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">分布式架构中的缓存</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -361,7 +312,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、介绍"><span class="toc-number">1.</span> <span class="toc-text">一、介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、特性"><span class="toc-number">2.</span> <span class="toc-text">二、特性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、MongoDB基本概念"><span class="toc-number">3.</span> <span class="toc-text">三、MongoDB基本概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、安装注意事项"><span class="toc-number">4.</span> <span class="toc-text">四、安装注意事项</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五、基本操作"><span class="toc-number">5.</span> <span class="toc-text">五、基本操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六、分片存储"><span class="toc-number">6.</span> <span class="toc-text">六、分片存储</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql和mongo对比"><span class="toc-number">7.</span> <span class="toc-text">mysql和mongo对比</span></a></li></ol>
+                    目录，不存在的…
                     </div>
                 </span>
             </div>
@@ -375,7 +326,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="sql/mongodb" data-title="mongodb初印象" data-url="http://linnxh.online/sql/mongodb/"></div>
+	<div class="ds-thread" data-thread-key="db/mybatis得到解析后最终执行的sql" data-title="mybatis得到解析后最终执行的sql" data-url="http://linnxh.online/db/mybatis得到解析后最终执行的sql/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -398,8 +349,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://linnxh.online/sql/mongodb/", 
-    sourceId: "sql/mongodb",
+    url: "http://linnxh.online/db/mybatis得到解析后最终执行的sql/", 
+    sourceId: "db/mybatis得到解析后最终执行的sql",
     productKey: "true",
     target: "cloud-tie-wrapper"
   };
@@ -549,51 +500,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color4">sql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">transactional</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">quartz</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">aop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">profile</a>
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">商品管理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sku</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -609,15 +528,47 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+                <a href="javascript:void(0)" class="js-tag color5">idea</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sql</a>
+                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
+                <a href="javascript:void(0)" class="js-tag color4">aop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">transactional</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">profile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">quartz</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">商品管理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sku</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
               </li>
             
             <div class="clearfix"></div>

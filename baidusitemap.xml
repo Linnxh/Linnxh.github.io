@@ -4,13 +4,55 @@
 
     
   <url>
-    <loc>http://linnxh.online/java/java%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2019-02-22T05:58:32.674Z</lastmod>
+    <loc>http://linnxh.online/db/sql%E7%BB%83%E4%B9%A0%E9%A2%98/</loc>
+    <lastmod>2019-02-22T07:03:22.675Z</lastmod>
     <data>
         <display>
-        <title>java基础</title>
-        <pubTime>2018-08-29T16:00:00.000Z</pubTime>
+        <title>sql练习题</title>
+        <pubTime>2019-02-22T01:03:22.000Z</pubTime>
         
+        <tag>sql</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://linnxh.online/db/mongo%E7%9A%84Sharding+Replset%E9%9B%86%E7%BE%A4/</loc>
+    <lastmod>2019-02-22T07:02:12.343Z</lastmod>
+    <data>
+        <display>
+        <title>mongo的Sharding+Replset集群</title>
+        <pubTime>2018-10-30T01:03:22.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>数据库</tag>
+         
+        <tag>mongo</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://linnxh.online/db/mongodb/</loc>
+    <lastmod>2019-02-22T07:02:04.979Z</lastmod>
+    <data>
+        <display>
+        <title>mongodb初印象</title>
+        <pubTime>2018-06-04T16:00:00.000Z</pubTime>
+        
+        <tag>sql</tag>
+         
+        <tag>mongodb</tag>
+         
          
            
              
@@ -22,8 +64,26 @@
 
     
   <url>
+    <loc>http://linnxh.online/db/sql1/</loc>
+    <lastmod>2019-02-22T06:47:50.320Z</lastmod>
+    <data>
+        <display>
+        <title>sql1</title>
+        <pubTime>2018-03-22T06:25:45.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="sql" url="http://linnxh.online/categories/sql/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://linnxh.online/linux/shell%E6%80%BB%E7%BB%93/</loc>
-    <lastmod>2019-02-20T03:45:48.870Z</lastmod>
+    <lastmod>2019-02-22T06:44:41.393Z</lastmod>
     <data>
         <display>
         <title>shell总结</title>
@@ -31,6 +91,44 @@
         
         <tag>shell</tag>
          
+         
+           
+             
+              <breadCrumb title="java" url="http://linnxh.online/categories/java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://linnxh.online/linux/%E6%89%93%E5%8C%85%E7%94%A8%E5%88%B0%E7%9A%84%E8%84%9A%E6%9C%AC/</loc>
+    <lastmod>2019-02-22T06:33:48.720Z</lastmod>
+    <data>
+        <display>
+        <title>jenkins打包用到的脚本</title>
+        <pubTime>2018-10-09T16:00:00.000Z</pubTime>
+        
+        <tag>shell</tag>
+         
+         
+           
+             
+              <breadCrumb title="linux" url="http://linnxh.online/categories/linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://linnxh.online/java/java%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2019-02-22T06:27:01.727Z</lastmod>
+    <data>
+        <display>
+        <title>java基础</title>
+        <pubTime>2018-08-29T16:00:00.000Z</pubTime>
+        
          
            
              
@@ -78,26 +176,6 @@
 
     
   <url>
-    <loc>http://linnxh.online/linux/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
-    <lastmod>2019-02-15T08:41:04.242Z</lastmod>
-    <data>
-        <display>
-        <title>linux常用命令</title>
-        <pubTime>2019-02-14T16:00:00.000Z</pubTime>
-        
-        <tag>shell</tag>
-         
-         
-           
-             
-              <breadCrumb title="linux" url="http://linnxh.online/categories/linux/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://linnxh.online/java/java-18-01/</loc>
     <lastmod>2019-01-16T05:57:37.620Z</lastmod>
     <data>
@@ -109,45 +187,6 @@
            
              
               <breadCrumb title="java" url="http://linnxh.online/categories/java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://linnxh.online/sql/mongo%E7%9A%84Sharding+Replset%E9%9B%86%E7%BE%A4/</loc>
-    <lastmod>2019-01-16T05:57:36.082Z</lastmod>
-    <data>
-        <display>
-        <title>mongo的Sharding+Replset集群</title>
-        <pubTime>2018-10-30T01:03:22.000Z</pubTime>
-        
-        <tag>java</tag>
-         
-        <tag>数据库</tag>
-         
-        <tag>mongo</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://linnxh.online/sql/sql1/</loc>
-    <lastmod>2019-01-14T07:26:56.528Z</lastmod>
-    <data>
-        <display>
-        <title>sql1</title>
-        <pubTime>2018-03-22T06:25:45.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="sql" url="http://linnxh.online/categories/sql/"/>
           
         </display>
     </data>
@@ -168,26 +207,6 @@
          
          
            
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://linnxh.online/linux/%E6%89%93%E5%8C%85%E7%94%A8%E5%88%B0%E7%9A%84%E8%84%9A%E6%9C%AC/</loc>
-    <lastmod>2018-12-29T07:08:26.583Z</lastmod>
-    <data>
-        <display>
-        <title>jenkins打包用到的脚本</title>
-        <pubTime>2018-10-09T16:00:00.000Z</pubTime>
-        
-        <tag>shell</tag>
-         
-         
-           
-             
-              <breadCrumb title="linux" url="http://linnxh.online/categories/linux/"/>
-          
         </display>
     </data>
     </url>
@@ -269,7 +288,7 @@
 
     
   <url>
-    <loc>http://linnxh.online/sql/%E5%AE%9E%E9%99%85%E5%BC%80%E5%8F%91%E4%B8%ADmysql%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</loc>
+    <loc>http://linnxh.online/db/%E5%AE%9E%E9%99%85%E5%BC%80%E5%8F%91%E4%B8%ADmysql%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</loc>
     <lastmod>2018-11-06T06:18:04.960Z</lastmod>
     <data>
         <display>
@@ -288,38 +307,16 @@
 
     
   <url>
-    <loc>http://linnxh.online/sql/mongodb/</loc>
-    <lastmod>2018-10-29T10:33:06.790Z</lastmod>
-    <data>
-        <display>
-        <title>mongodb初印象</title>
-        <pubTime>2018-06-04T16:00:00.000Z</pubTime>
-        
-        <tag>mongodb</tag>
-         
-        <tag>sql</tag>
-         
-         
-           
-             
-              <breadCrumb title="java" url="http://linnxh.online/categories/java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://linnxh.online/sql/mybatis%E5%BE%97%E5%88%B0%E8%A7%A3%E6%9E%90%E5%90%8E%E6%9C%80%E7%BB%88%E6%89%A7%E8%A1%8C%E7%9A%84sql/</loc>
+    <loc>http://linnxh.online/db/mybatis%E5%BE%97%E5%88%B0%E8%A7%A3%E6%9E%90%E5%90%8E%E6%9C%80%E7%BB%88%E6%89%A7%E8%A1%8C%E7%9A%84sql/</loc>
     <lastmod>2018-10-29T07:35:05.283Z</lastmod>
     <data>
         <display>
         <title>mybatis得到解析后最终执行的sql</title>
         <pubTime>2018-08-14T16:00:00.000Z</pubTime>
         
-        <tag>sql</tag>
-         
         <tag>mybatis</tag>
+         
+        <tag>sql</tag>
          
          
            
