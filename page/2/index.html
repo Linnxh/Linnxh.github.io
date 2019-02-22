@@ -148,20 +148,20 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-tools/idea工具使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-linux/shell总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/tools/idea工具使用/">idea工具使用</a>
+      <a class="article-title" href="/linux/shell总结/">shell总结</a>
     </h1>
   
 
         
-        <a href="/tools/idea工具使用/" class="archive-article-date">
-  	<time datetime="2018-02-05T08:32:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-05</time>
+        <a href="/linux/shell总结/" class="archive-article-date">
+  	<time datetime="2018-08-22T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-23</time>
 </a>
         
       </header>
@@ -169,10 +169,25 @@
    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>java开发常用工具总结，intelljdea<br></p>
-        
-          <a class="article-more-a" href="/tools/idea工具使用/#more">more >></a>
-        
+      
+        <p>项目根目录执行</p>
+<p>ps -ef|grep tomcat|grep -v grep</p>
+<p>jar -cvf videostructure.war ./*<br>rm -rf  文件名称</p>
+<p>cp   a/b.war  c/d.war  把a目录下的b.war拷贝到c目录下，并重命名为d.war</p>
+<p> tail -f filename | grep taskTimer    会把filename里最尾部的内容显示在屏幕上,并且不但刷新,使你看到最新的文件内容. 过滤出含有taskTimer的文字<br> <code>tail -f ../logs/catalina.out</code> 直接在tomcat的bin目录下执行如下命令可直接查看启动情况，</p>
+<p>bin目录下执行命令</p>
+<p>tar -zxvf filename.tar.gz</p>
+<p>#sh 和 ./的区别</p>
+<p>如果我直接运行./xxx.sh，首先你会查找脚本第一行是否指定了解释器，如果没指定，那么就用当前系统默认的shell(大多数linux默认是bash)，如果指定了解释器，那么就将该脚本交给指定的解释器<br>举例如下：<br>定义如下脚本，名字为a指定了这是一个python脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line">print(&quot;This is Python script&quot;)</span><br></pre></td></tr></table></figure>
+<p>./a.run，结果就是输出一行文字，但是如果你运行sh a.run，会报错</p>
+<p>sh是一个shell。运行sh xxx.sh，表示我使用sh来解释这个脚本,sh和source命令<br>一样，没有执行权限也可以运行脚本。</p>
+<h1 id="centos7-5-虚拟机不上网配置"><a href="#centos7-5-虚拟机不上网配置" class="headerlink" title="centos7.5 虚拟机不上网配置"></a>centos7.5 虚拟机不上网配置</h1><p><a href="https://blog.csdn.net/qian_xia_er/article/details/79953170" target="_blank" rel="noopener">https://blog.csdn.net/qian_xia_er/article/details/79953170</a></p>
+<h1 id="查看内存总数"><a href="#查看内存总数" class="headerlink" title="查看内存总数"></a>查看内存总数</h1><p><code>cat /proc/meminfo | grep MemTotal</code></p>
+<h1 id="查看某个端口的占用情况"><a href="#查看某个端口的占用情况" class="headerlink" title="查看某个端口的占用情况"></a>查看某个端口的占用情况</h1><p><code>netstat -anp|grep 80</code>查看80端口的占用情况</p>
+<h1 id="查看程序占用情况"><a href="#查看程序占用情况" class="headerlink" title="查看程序占用情况"></a>查看程序占用情况</h1><p>输入top，然后输入大写P，就是按照cpu占用情况倒叙，输入大写M，按照memory排序，</p>
+<h1 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h1><p>find / |grep tomcat   在更目录下查找名称为tomcat的文件</p>
+
       
 
       
@@ -180,13 +195,24 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/tools//" class="article-tag-list-link color1">tools</a>
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
         		</li>
       		
 		</ul>
@@ -195,7 +221,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/tools/idea工具使用/">展开全文 >></a>
+          <a class="article-more-a" href="/linux/shell总结/">展开全文 >></a>
         </p>
       
 
@@ -233,20 +259,20 @@
 
 
   
-    <article id="post-README" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-java/idea打包问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/README/">hexo搭建博客注意事项</a>
+      <a class="article-title" href="/java/idea打包问题/">idea打包问题.md</a>
     </h1>
   
 
         
-        <a href="/README/" class="archive-article-date">
-  	<time datetime="2018-02-05T07:10:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-05</time>
+        <a href="/java/idea打包问题/" class="archive-article-date">
+  	<time datetime="2018-08-20T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-21</time>
 </a>
         
       </header>
@@ -254,9 +280,638 @@
    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>摘要:hexo的基本使用<br></p>
+      
+        <h1 id="idea-打成war"><a href="#idea-打成war" class="headerlink" title="idea 打成war"></a>idea 打成war</h1><p>idea中如果是javaee的web项目，要想打包成war的方法，参考方法如下，注：项目是eclipse下的项目，而且不是用mvn构建的</p>
+<p>file–open–选择项目所在路径，注意右边path中所对应的web.xml的路径<br>和下面的web resources directories 下面要对应到webcontent目录下</p>
+<p><img src="http://p964q970y.bkt.clouddn.com/ideabuildwar11.png" alt="idea"></p>
+<p>cmmon+;  快捷键发开项目project structure,<br>facets选项卡中添加web</p>
+<p>artifcats 选项卡，选择加号，<br><img src="http://p964q970y.bkt.clouddn.com/ideabuildwar22.png" alt="ideaa"></p>
+<p>如图所示，选择从项目添加，<br>注意输出路径，还有这个war包一定要包含，之前新建的项目<br><img src="http://p964q970y.bkt.clouddn.com/idea%E6%89%93%E6%88%90war3.png" alt="idr"></p>
+<p>build—&gt;build artifiacts  选择刚才新建的项目build，新项目即可打包</p>
+<p>参考<br><a href="https://blog.csdn.net/yabingshi_tech/article/details/60766877" target="_blank" rel="noopener">idea打成war</a></p>
+<h1 id="idea打成jar包"><a href="#idea打成jar包" class="headerlink" title="idea打成jar包"></a>idea打成jar包</h1><p>idea 打成jar包，并且制定可执行的main方法</p>
+<p>项目右键—&gt;project structure—&gt;Artifacts–&gt;点击中间栏的加号，选择jar，选择from Module..—-&gt;选择MainClass—-&gt;ok</p>
+<p>配置好以后，在主菜单选择，build—&gt;build artifacts,,,等几分钟就编译好了jar文件，置于位置，，Output directory路径上，</p>
+<blockquote>
+<p>网上提示说还有其他的方法，在maven里配置一下（再议）</p>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">idea</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/java/idea打包问题/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
         
-          <a class="article-more-a" href="/README/#more">more >></a>
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-sql/mybatis得到解析后最终执行的sql" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/sql/mybatis得到解析后最终执行的sql/">mybatis得到解析后最终执行的sql</a>
+    </h1>
+  
+
+        
+        <a href="/sql/mybatis得到解析后最终执行的sql/" class="archive-article-date">
+  	<time datetime="2018-08-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-15</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        <p>我们在用mybatis的时候，经常会用xml来编写sql语句，但是这些xml中通常加了很多条件，很难拿到最终在数据库里执行的sql，如果想在控制台打印出最终执行的sql语句，其实是可以直接阅读mybatis的源码拿到</p>
+<p>DefaultSqlSession 的select方法<br> exector.query方法—–实现类baseExecutor中的query方法</p>
+<p>BaseStatementHandler  </p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sql</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mybatis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/sql/mybatis得到解析后最终执行的sql/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-java/分布式架构中的缓存" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java/分布式架构中的缓存/">分布式架构中的缓存</a>
+    </h1>
+  
+
+        
+        <a href="/java/分布式架构中的缓存/" class="archive-article-date">
+  	<time datetime="2018-07-09T02:03:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-09</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="缓存概述"><a href="#缓存概述" class="headerlink" title="缓存概述"></a>缓存概述</h1><p>缓存主要用于存储数据的硬件活软件的组成部分，以使得后续更快访问相应的数据；</p>
+<p>主要解决高并发，大数据场景下，热点数据访问的性能问题，提高高性能的数据快速访问</p>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><ol>
+<li>CDN缓存</li>
+<li>反向代理缓存</li>
+<li>本地应用缓存</li>
+<li>分布式缓存</li>
+</ol>
+<p><img src="http://p964q970y.bkt.clouddn.com/%E7%BC%93%E5%AD%98%E5%88%86%E5%B1%82%E6%9E%B6%E6%9E%84.png" alt="缓存的分层架构"></p>
+        
+          <a class="article-more-a" href="/java/分布式架构中的缓存/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">缓存</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/java/分布式架构中的缓存/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-java/Spring事务处理机制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java/Spring事务处理机制/">Spring事务处理机制</a>
+    </h1>
+  
+
+        
+        <a href="/java/Spring事务处理机制/" class="archive-article-date">
+  	<time datetime="2018-07-05T08:48:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-05</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h1><p>它是一个操作序列，这些操作要么都执行，要么都不执行，它是一个不可分割的工作单位<br>事务的特性</p>
+<h2 id="isolation的参数有以下五种："><a href="#isolation的参数有以下五种：" class="headerlink" title="isolation的参数有以下五种："></a>isolation的参数有以下五种：</h2><ol>
+<li>Isolation.DEFAULT:为数据源的默认隔离级别</li>
+<li>isolation=Isolation.READ_UNCOMMITTED:未授权读取级别（一般采用这个策略）<br>以操作同一行数据为前提，读事务允许其他读事务和写事务，未提交的写事务禁止其他写事务（但允许其他读事务）。此隔离级别可以防止更新丢失，但不能防止脏读、不可重复读、幻读。此隔离级别可以通过“排他写锁”实现。</li>
+<li>iIsolation.READ_COMMITTED:授权读取级别<br>以操作同一行数据为前提，读事务允许其他读事务和写事务，未提交的写事务禁止其他读事务和写事务。此隔离级别可以防止更新丢失、脏读，但不能防止不可重复读、幻读。此隔离级别可以通过“瞬间共享读锁”和“排他写锁”实现。</li>
+<li>iIsolation.REPEATABLE_READ:可重复读取级别<br>以操作同一行数据为前提，读事务禁止其他写事务（但允许其他读事务），未提交的写事务禁止其他读事务和写事务。此隔离级别可以防止更新丢失、脏读、不可重复读，但不能防止幻读。此隔离级别可以通过“共享读锁”和“排他写锁”实现。</li>
+<li>iIsolation.SERIALIZABLE:序列化级别<br>提供严格的事务隔离。它要求事务序列化执行，事务只能一个接着一个地执行，不能并发执行。此隔离级别可以防止更新丢失、脏读、不可重复读、幻读。如果仅仅通过“行级锁”是无法实现事务序列化的，必须通过其他机制保证新插入的数据不会被刚执行查询操作的事务访问到。</li>
+</ol>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><ol>
+<li>原子性(Atomicity)：<br>事务是数据库的逻辑工作单位，它对数据库的修改要么全部执行，要么全部不执行。</li>
+<li>一致性(Consistemcy)：<br>事务前后，数据库的状态都满足所有的完整性约束。</li>
+<li>隔离性(Isolation)：<br>并发执行的事务是隔离的，一个不影响一个。如果有两个事务，运行在相同的时间内，执行相同的功能，事务的隔离性将确保每一事务在系统中认为只有该事务在使用系统。这种属性有时称为串行化，为了防止事务操作间的混淆，必须串行化或序列化请求，使得在同一时间仅有一个请求用于同一数据。通过设置数据库的隔离级别，可以达到不同的隔离效果。</li>
+<li>持久性(Durability)：<br>在事务完成以后，该事务所对数据库所作的更改便持久的保存在数据库之中，并不会被回滚。</li>
+</ol>
+<h3 id="其他的的特性"><a href="#其他的的特性" class="headerlink" title="其他的的特性"></a>其他的的特性</h3><ol>
+<li>更新丢失：<br>两个事务都同时更新一行数据，但是第二个事务却中途失败退出，导致对数据的两个修改都失效了。这是因为系统没有执行任何的锁操作，因此并发事务并没有被隔离开来。</li>
+<li>脏读：<br>脏读又称无效数据读出。一个事务读取另外一个事务还没有提交的数据叫脏读。<br>例如：事务T1修改了一行数据，但是还没有提交，这时候事务T2读取了被事务T1修改后的数据，之后事务T1因为某种原因Rollback了，那么事务T2读取的数据就是脏的。</li>
+<li>不可重复读：<br>不可重复读是指在同一个事务内，两个相同的查询返回了不同的结果。<br>例如：事务T1读取某一数据，事务T2读取并修改了该数据，T1为了对读取值进行检验而再次读取该数据，便得到了不同的结果。</li>
+<li>幻读：<br>事务在操作过程中进行两次查询，第二次查询的结果包含了第一次查询中未出现的数据或者缺少了第一次查询中出现的数据<br>例如：系统管理员A将数据库中所有学生的成绩从具体分数改为ABCDE等级，但是系统管理员B就在这个时候插入了一条具体分数的记录，当系统管理员A改结束后发现还有一条记录没有改过来，就好像发生了幻觉一样。这就叫幻读。</li>
+</ol>
+<h2 id="数据事务四种隔离机制和七种传播行为"><a href="#数据事务四种隔离机制和七种传播行为" class="headerlink" title="数据事务四种隔离机制和七种传播行为"></a>数据事务四种隔离机制和七种传播行为</h2><p>四种隔离级别</p>
+<table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>READ_UNCOMMITTED</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>READ_COMMITTED</td>
+<td>X</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>REPEATABLE_READ</td>
+<td>X</td>
+<td>X</td>
+<td>√</td>
+</tr>
+<tr>
+<td>SERIALIZABLE</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+</tr>
+</tbody>
+</table>
+<p>七中事务的传播行为</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>处理方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PROPAGATION_REQUIRED</td>
+<td>默认事务类型，如果没有，就新建一个事务；如果有，就加入当前事务。适合绝大多数情况。</td>
+</tr>
+<tr>
+<td>PROPAGATION_REQUIRES_NEW</td>
+<td>如果没有，就新建一个事务；如果有，就将当前事务挂起。</td>
+</tr>
+<tr>
+<td>PROPAGATION_NESTED</td>
+<td>如果没有，就新建一个事务；如果有，就在当前事务中嵌套其他事务。</td>
+</tr>
+<tr>
+<td>PROPAGATION_SUPPORTS</td>
+<td>如果没有，就以非事务方式执行；如果有，就使用当前事务。</td>
+</tr>
+<tr>
+<td>PROPAGATION_NOT_SUPPORTED</td>
+<td>如果没有，就以非事务方式执行；如果有，就将当前事务挂起。即无论如何不支持事务。</td>
+</tr>
+<tr>
+<td>PROPAGATION_NEVER</td>
+<td>如果没有，就以非事务方式执行；如果有，就抛出异常。</td>
+</tr>
+<tr>
+<td>ROPAGATION_MANDATORY</td>
+<td>如果没有，就抛出异常；如果有，就使用当前事务。</td>
+</tr>
+</tbody>
+</table>
+<p><img src="http://p964q970y.bkt.clouddn.com/%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%BC%A0%E6%92%AD%E8%A1%8C%E4%B8%BA.png" alt="事务的传播行为"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Transactional(rollbackFor = &#123;Exception.class&#125;, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)</span><br></pre></td></tr></table></figure>
+<h1 id="事务管理器"><a href="#事务管理器" class="headerlink" title="事务管理器"></a>事务管理器</h1><p>Spring对事务管理是通过事务管理器来实现的。Spring提供了许多内置事务管理器实现：</p>
+<p>事务管理器(org.springframework.*)使用场景</p>
+<table>
+<thead>
+<tr>
+<th>事务管理器器</th>
+<th>使用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DataSourceTransactionManager</td>
+<td>数据源事务管理器，提供对单个javax.sql.DataSource事务管理，用于Spring JDBC抽象框架、iBATIS或MyBatis框架的事务管理；</td>
+</tr>
+<tr>
+<td>JdoTransactionManager</td>
+<td>提供对单个javax.jdo.PersistenceManagerFactory事务管理，用于集成JDO框架时的事务管理；</td>
+</tr>
+<tr>
+<td>JpaTransactionManager</td>
+<td>提供对单个javax.persistence.EntityManagerFactory事务支持，用于集成JPA实现框架时的事务管理；</td>
+</tr>
+<tr>
+<td>HibernateTransactionManager</td>
+<td>提供对单个org.hibernate.SessionFactory事务支持，用于集成</td>
+<td>Hibernate框架时的事务管理；该事务管理器只支持Hibernate3+版本，且Spring3.0+版本只支持Hibernate 3.2+版本；</td>
+</tr>
+<tr>
+<td>JtaTransactionManager</td>
+<td>提供对分布式事务管理的支持，并将事务管理委托给Java EE应用服务器事务管理器；</td>
+</tr>
+<tr>
+<td>OC4JjtaTransactionManager</td>
+<td>Spring提供的对OC4J10.1.3+应用服务器事务管理器的适配器，此适配器用于对应用服务器提供的高级事务的支持；</td>
+</tr>
+<tr>
+<td>WebSphereUowTransactionManager</td>
+<td>Spring提供的对WebSphere 6.0+应用服务器事务管理器的适配器，此适配器用于对应用服务器提供的高级事务的支持；</td>
+</tr>
+<tr>
+<td>WebLogicJtaTransactionManager</td>
+<td>Spring提供的对WebLogic 8.1+应用服务器事务管理器的适配器，此适配器用于对应用服务器提供的高级事务的支持。</td>
+</tr>
+</tbody>
+</table>
+        
+          <a class="article-more-a" href="/java/Spring事务处理机制/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">transactional</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/java/Spring事务处理机制/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-java/Aspect面向切面编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java/Aspect面向切面编程/">Aspect面向切面编程</a>
+    </h1>
+  
+
+        
+        <a href="/java/Aspect面向切面编程/" class="archive-article-date">
+  	<time datetime="2018-07-05T08:48:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-05</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="AOP详解"><a href="#AOP详解" class="headerlink" title="AOP详解"></a>AOP详解</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>AOP（Aspect Orient Programming），我们一般称为面向方面（切面）编程，作为面向对象的一种补充，用于处理系统中分布于各个模块的横切关注点，比如事务管理、日志、缓存等等。</p>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><ol>
+<li>静态代理，举例：AspectJ</li>
+<li>动态代理，举例：Spring AOP，Spring AOP中的动态代理主要有两种方式，JDK动态代理和CGLIB动态代理<br><a href="http://www.importnew.com/24305.html" target="_blank" rel="noopener">Spring AOP的实现原理</a><br>使用AspectJ的编译时增强实现AOP<br>之前提到，AspectJ是静态代理的增强，所谓的静态代理就是AOP框架会在编译阶段生成AOP代理类，因此也称为编译时增强。</li></ol>
+        
+          <a class="article-more-a" href="/java/Aspect面向切面编程/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">springboot</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">aop</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/java/Aspect面向切面编程/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-java/spring初探索" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java/spring初探索/">spring初探索</a>
+    </h1>
+  
+
+        
+        <a href="/java/spring初探索/" class="archive-article-date">
+  	<time datetime="2018-06-19T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-20</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="spring"><a href="#spring" class="headerlink" title="spring"></a>spring</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><img src="http://p964q970y.bkt.clouddn.com/QQ20180524-094112@2x.png" alt="sping组成"></p>
+        
+          <a class="article-more-a" href="/java/spring初探索/#more">more >></a>
         
       
 
@@ -266,10 +921,310 @@
       
       
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/README/">展开全文 >></a>
+          <a class="article-more-a" href="/java/spring初探索/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-sql/mongodb" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/sql/mongodb/">mongodb初印象</a>
+    </h1>
+  
+
+        
+        <a href="/sql/mongodb/" class="archive-article-date">
+  	<time datetime="2018-06-04T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-05</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>之前只接触过一种数据库mysql，偶然间接到一个需求，发现数据是存在mongodb里的，接下来就记录一下我认识mongodb的过程。</p>
+        
+          <a class="article-more-a" href="/sql/mongodb/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/sql/mongodb/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-java/商品详情切换sku" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java/商品详情切换sku/">商品详情切换sku</a>
+    </h1>
+  
+
+        
+        <a href="/java/商品详情切换sku/" class="archive-article-date">
+  	<time datetime="2018-05-23T08:48:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-23</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近公司在研发多规格的项目，我正好负责的是商品详情页面，针对详情页的多规格提出一些自己的见解<br></p>
+        
+          <a class="article-more-a" href="/java/商品详情切换sku/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">商品管理</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sku</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/java/商品详情切换sku/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-java/SpringBoot基础" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java/SpringBoot基础/">SpringBoot基础</a>
+    </h1>
+  
+
+        
+        <a href="/java/SpringBoot基础/" class="archive-article-date">
+  	<time datetime="2018-05-15T07:45:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-15</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h1><p>本人使用的mac idea版本，intellij idea 2017.3.3(ultimate edition),破解方法，[idea 破解方法见链接][1]<br></p>
+        
+          <a class="article-more-a" href="/java/SpringBoot基础/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">springboot</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/java/SpringBoot基础/">展开全文 >></a>
         </p>
       
 
@@ -309,7 +1264,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 
@@ -416,7 +1371,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color5">idea</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">transactional</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -424,7 +1387,35 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">quartz</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">aop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">profile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">商品管理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sku</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -436,15 +1427,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
