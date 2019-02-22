@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Linnxh的博客">
 <meta property="og:description" content="项目根目录执行 ps -ef|grep tomcat|grep -v grep jar -cvf videostructure.war ./*rm -rf  文件名称 cp   a/b.war  c/d.war  把a目录下的b.war拷贝到c目录下，并重命名为d.war  tail -f filename | grep taskTimer    会把filename里最尾部的内容显示在屏幕上,并">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-09T06:40:58.232Z">
+<meta property="og:updated_time" content="2019-02-20T03:45:48.870Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="shell总结">
 <meta name="twitter:description" content="项目根目录执行 ps -ef|grep tomcat|grep -v grep jar -cvf videostructure.war ./*rm -rf  文件名称 cp   a/b.war  c/d.war  把a目录下的b.war拷贝到c目录下，并重命名为d.war  tail -f filename | grep taskTimer    会把filename里最尾部的内容显示在屏幕上,并">
@@ -189,6 +189,7 @@
 <h1 id="查看内存总数"><a href="#查看内存总数" class="headerlink" title="查看内存总数"></a>查看内存总数</h1><p><code>cat /proc/meminfo | grep MemTotal</code></p>
 <h1 id="查看某个端口的占用情况"><a href="#查看某个端口的占用情况" class="headerlink" title="查看某个端口的占用情况"></a>查看某个端口的占用情况</h1><p><code>netstat -anp|grep 80</code>查看80端口的占用情况</p>
 <h1 id="查看程序占用情况"><a href="#查看程序占用情况" class="headerlink" title="查看程序占用情况"></a>查看程序占用情况</h1><p>输入top，然后输入大写P，就是按照cpu占用情况倒叙，输入大写M，按照memory排序，</p>
+<h1 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h1><p>find / |grep tomcat   在更目录下查找名称为tomcat的文件</p>
 
       
 
@@ -283,18 +284,18 @@
   
 <nav id="article-nav">
   
-    <a href="/java/Arrays和ArrayList对比/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/linux/打包用到的脚本/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Arrays和ArrayList对比
+          jenkins打包用到的脚本
         
       </div>
     </a>
   
   
-    <a href="/java/idea打包问题/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">idea打包问题.md</div>
+    <a href="/sql/mybatis得到解析后最终执行的sql/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mybatis得到解析后最终执行的sql</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -321,7 +322,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#centos7-5-虚拟机不上网配置"><span class="toc-number">1.</span> <span class="toc-text">centos7.5 虚拟机不上网配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查看内存总数"><span class="toc-number">2.</span> <span class="toc-text">查看内存总数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查看某个端口的占用情况"><span class="toc-number">3.</span> <span class="toc-text">查看某个端口的占用情况</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查看程序占用情况"><span class="toc-number">4.</span> <span class="toc-text">查看程序占用情况</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#centos7-5-虚拟机不上网配置"><span class="toc-number">1.</span> <span class="toc-text">centos7.5 虚拟机不上网配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查看内存总数"><span class="toc-number">2.</span> <span class="toc-text">查看内存总数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查看某个端口的占用情况"><span class="toc-number">3.</span> <span class="toc-text">查看某个端口的占用情况</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查看程序占用情况"><span class="toc-number">4.</span> <span class="toc-text">查看程序占用情况</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查找"><span class="toc-number">5.</span> <span class="toc-text">查找</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -414,7 +415,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 LXH
+    		&copy; 2019 LXH
         <span>
   Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
  </span>
@@ -509,51 +510,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">aop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">transactional</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">quartz</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">profile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">商品管理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sku</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -562,6 +519,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">

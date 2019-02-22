@@ -148,20 +148,20 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-java/quartz集群配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-linux/linux常用命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/java/quartz集群配置/">quartz集群配置</a>
+      <a class="article-title" href="/linux/linux常用命令/">linux常用命令</a>
     </h1>
   
 
         
-        <a href="/java/quartz集群配置/" class="archive-article-date">
-  	<time datetime="2018-11-11T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-12</time>
+        <a href="/linux/linux常用命令/" class="archive-article-date">
+  	<time datetime="2019-02-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-15</time>
 </a>
         
       </header>
@@ -170,41 +170,7 @@
     <div class="article-entry" itemprop="articleBody">
       
       
-        <h1 id="quartz集群配置（集群方式，单机的不建议采用）"><a href="#quartz集群配置（集群方式，单机的不建议采用）" class="headerlink" title="quartz集群配置（集群方式，单机的不建议采用）"></a>quartz集群配置（集群方式，单机的不建议采用）</h1><p><strong>java定时任务开源框架常用的是：Quartz和spring task</strong><br>Quartz<br>spring对quartz进行了封装，完整支持cron表达式，而且具有很多高级特性，如JDBCJobStore（作业仓库）、集群模式</p>
-<p>spring task<br>独立实现了定时任务的调度器,相对较为简单，cron表达式不支持L W(这个月最后一周的工作日)</p>
-<p><strong>分布式定时任务开源框架</strong><br>Elastic-Job（当当网）<br>light-task-scheduler<br>clover<br>TBSchedule（阿里）<br>niubi-job<br>Uncode-Schedule</p>
-<p>本篇的重点是Quartz的集群部署<br>一个 Quartz 集群中的每个节点是一个独立的 Quartz 应用，它又管理着其他的节点。意思是你必须对每个节点分别启动或停止。不像许多应用服务器的集群，独立的 Quartz 节点并不与另一其的节点或是管理节点通信。Quartz 应用是通过数据库表来感知到另一应用的。</p>
-<h2 id="添加maven配置"><a href="#添加maven配置" class="headerlink" title="添加maven配置"></a>添加maven配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.quartz-scheduler&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;quartz&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.2.1&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.quartz-scheduler&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;quartz-jobs&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.2.1&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="导入对应的表"><a href="#导入对应的表" class="headerlink" title="导入对应的表"></a>导入对应的表</h2><p>创建quartz要用的数据库表，此sql文件在：quartz-2.2.3\docs\dbTables。此文件夹下有各个数据库的sql文件，mysql选择tables_mysql_innodb.sql</p>
-<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>quartz.properties的配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#调度标识名 集群中每一个实例都必须使用相同的名称</span><br><span class="line">org.quartz.scheduler.instanceName = MyScheduler</span><br><span class="line">#线程数量</span><br><span class="line">org.quartz.threadPool.threadCount = 10</span><br><span class="line">#线程优先级</span><br><span class="line">org.quartz.threadPool.threadPriority = 5</span><br><span class="line">#数据保存方式为持久化</span><br><span class="line">org.quartz.jobStore.class = org.quartz.impl.jdbcjobstore.JobStoreTX</span><br><span class="line">#数据库平台</span><br><span class="line">org.quartz.jobStore.driverDelegateClass = org.quartz.impl.jdbcjobstore.StdJDBCDelegate</span><br><span class="line">#表的前缀</span><br><span class="line">org.quartz.jobStore.tablePrefix = QRTZ_</span><br><span class="line">#库的别名</span><br><span class="line">org.quartz.jobStore.dataSource = myDS</span><br><span class="line"># Cluster开启集群</span><br><span class="line">org.quartz.jobStore.isClustered = true</span><br><span class="line">#ID设置为自动获取 每一个必须不同</span><br><span class="line">org.quartz.scheduler.instanceId = AUTO</span><br><span class="line"></span><br><span class="line">org.quartz.dataSource.myDS.driver = com.mysql.jdbc.Driver</span><br><span class="line">org.quartz.dataSource.myDS.URL = jdbc:mysql://localhost:3306/lxhtest?characterEncoding=utf-8</span><br><span class="line">org.quartz.dataSource.myDS.user = root</span><br><span class="line">org.quartz.dataSource.myDS.password = 123123</span><br><span class="line">org.quartz.dataSource.myDS.maxConnections = 5</span><br></pre></td></tr></table></figure>
-<p>quartz.xml的配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">       xmlns:p=&quot;http://www.springframework.org/schema/p&quot;</span><br><span class="line">       xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;</span><br><span class="line">       xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;</span><br><span class="line">       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;</span><br><span class="line">       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd</span><br><span class="line">        http://www.springframework.org/schema/context</span><br><span class="line">        http://www.springframework.org/schema/context/spring-context.xsd</span><br><span class="line">        http://www.springframework.org/schema/mvc</span><br><span class="line">        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- #####################################单节点部署的项目 start##################################### --&gt;</span><br><span class="line">    &lt;bean name=&quot;exampleJobDetail&quot; class=&quot;org.springframework.scheduling.quartz.JobDetailFactoryBean&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;jobClass&quot; value=&quot;com.task.ExampleJob&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;jobDataAsMap&quot;&gt;</span><br><span class="line">            &lt;map&gt;</span><br><span class="line">                &lt;entry key=&quot;timeout&quot; value=&quot;5&quot;/&gt;</span><br><span class="line">            &lt;/map&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">    &lt;bean id=&quot;exampleJobTrigger&quot;</span><br><span class="line">          class=&quot;org.springframework.scheduling.quartz.SimpleTriggerFactoryBean&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;jobDetail&quot; ref=&quot;exampleJobDetail&quot;/&gt;</span><br><span class="line">        &lt;!-- 延迟触发时间，延迟10秒进行触发 --&gt;</span><br><span class="line">        &lt;property name=&quot;startDelay&quot; value=&quot;10000&quot;/&gt;</span><br><span class="line">        &lt;!-- 重复触发的时间间隔，5秒 --&gt;</span><br><span class="line">        &lt;property name=&quot;repeatInterval&quot; value=&quot;5000&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean class=&quot;org.springframework.scheduling.quartz.SchedulerFactoryBean&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;triggers&quot;&gt;</span><br><span class="line">            &lt;list&gt;</span><br><span class="line">                &lt;ref bean=&quot;exampleJobTrigger&quot;/&gt;</span><br><span class="line">            &lt;/list&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &lt;bean id=&quot;exampleJob2&quot; class=&quot;com.task.ExampleJob2&quot;&gt;&lt;/bean&gt;</span><br><span class="line">    &lt;bean id=&quot;exampleJob2Detail&quot;</span><br><span class="line">          class=&quot;org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean&quot;&gt;</span><br><span class="line">        &lt;!-- 指定任务类 --&gt;</span><br><span class="line">        &lt;property name=&quot;targetObject&quot; ref=&quot;exampleJob2&quot;/&gt;</span><br><span class="line">        &lt;!-- 指定任务执行的方法 --&gt;</span><br><span class="line">        &lt;property name=&quot;targetMethod&quot; value=&quot;execute&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">    &lt;bean id=&quot;exampleJob2Trigger&quot;</span><br><span class="line">          class=&quot;org.springframework.scheduling.quartz.CronTriggerFactoryBean&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;jobDetail&quot; ref=&quot;exampleJob2Detail&quot;/&gt;</span><br><span class="line">        &lt;!-- 每10秒运行一次 --&gt;</span><br><span class="line">        &lt;property name=&quot;cronExpression&quot; value=&quot;0/10 * * * * ?&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean class=&quot;org.springframework.scheduling.quartz.SchedulerFactoryBean&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;triggers&quot;&gt;</span><br><span class="line">            &lt;list&gt;</span><br><span class="line">                &lt;!-- &lt;ref bean=&quot;exampleJobTrigger&quot; /&gt; --&gt;</span><br><span class="line">                &lt;ref bean=&quot;exampleJob2Trigger&quot;/&gt;</span><br><span class="line">            &lt;/list&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">    &lt;!-- #####################################单节点部署的项目 end##################################### --&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &lt;!-- #####################################多节点部署的项目 start##################################### --&gt;</span><br><span class="line">    &lt;!-- 定义调用对象和调用对象的方法 --&gt;</span><br><span class="line">    &lt;bean id=&quot;SpringQtzJobDetail&quot;</span><br><span class="line">          class=&quot;org.springframework.scheduling.quartz.JobDetailFactoryBean&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;jobClass&quot;  value=&quot;com.task.SpringQtz&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;durability&quot; value=&quot;true&quot;/&gt;</span><br><span class="line"></span><br><span class="line">        &lt;property name=&quot;group&quot; value=&quot;job_work&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;name&quot; value=&quot;job_work_name&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">    &lt;bean id=&quot;SpringQtzJobDetail1&quot;</span><br><span class="line">          class=&quot;org.springframework.scheduling.quartz.JobDetailFactoryBean&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;jobClass&quot; value=&quot;com.task.SpringQtzDemo&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;durability&quot; value=&quot;true&quot;/&gt;</span><br><span class="line"></span><br><span class="line">        &lt;property name=&quot;group&quot; value=&quot;job_work1&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;name&quot; value=&quot;job_work_name1&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &lt;!-- ======================== 调度触发器 ======================== --&gt;</span><br><span class="line">    &lt;bean id=&quot;CronTriggerBean&quot;</span><br><span class="line">          class=&quot;org.springframework.scheduling.quartz.CronTriggerFactoryBean&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;jobDetail&quot; ref=&quot;SpringQtzJobDetail&quot;&gt;&lt;/property&gt;</span><br><span class="line">        &lt;!-- cron表达式 --&gt;</span><br><span class="line">        &lt;property name=&quot;cronExpression&quot; value=&quot;0/20 * * * * ?&quot;&gt;&lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id=&quot;CronTriggerBean1&quot;</span><br><span class="line">          class=&quot;org.springframework.scheduling.quartz.CronTriggerFactoryBean&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;jobDetail&quot; ref=&quot;SpringQtzJobDetail1&quot;&gt;&lt;/property&gt;</span><br><span class="line">        &lt;!-- cron表达式 --&gt;</span><br><span class="line">        &lt;property name=&quot;cronExpression&quot; value=&quot;0/30 * * * * ?&quot;&gt;&lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- ======================== 调度工厂 ======================== --&gt;</span><br><span class="line">    &lt;bean id=&quot;SpringJobSchedulerFactoryBean&quot;</span><br><span class="line">          class=&quot;org.springframework.scheduling.quartz.SchedulerFactoryBean&quot;&gt;</span><br><span class="line"></span><br><span class="line">        &lt;property name=&quot;dataSource&quot;&gt;</span><br><span class="line">            &lt;ref bean=&quot;mySqlDataSource&quot;/&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">        &lt;property name=&quot;applicationContextSchedulerContextKey&quot; value=&quot;applicationContext&quot; /&gt;</span><br><span class="line">        &lt;property name=&quot;configLocation&quot; value=&quot;WEB-INF/config/quartz.properties&quot;/&gt;</span><br><span class="line">        &lt;!--启动时更新己存在的Job，这样就不用每次修改targetObject后删除qrtz_job_details表对应记录了--&gt;</span><br><span class="line">        &lt;property name=&quot;overwriteExistingJobs&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;triggers&quot;&gt;</span><br><span class="line">            &lt;list&gt;</span><br><span class="line">                &lt;ref bean=&quot;CronTriggerBean&quot; /&gt;</span><br><span class="line">                &lt;ref bean=&quot;CronTriggerBean1&quot; /&gt;</span><br><span class="line">            &lt;/list&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">        &lt;property name=&quot;jobDetails&quot;&gt;</span><br><span class="line">            &lt;list&gt;</span><br><span class="line">                &lt;ref bean=&quot;SpringQtzJobDetail&quot; /&gt;</span><br><span class="line">                &lt;ref bean=&quot;SpringQtzJobDetail1&quot; /&gt;</span><br><span class="line">            &lt;/list&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">    &lt;!-- #####################################多节点部署的项目 end##################################### --&gt;</span><br><span class="line">  </span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
-<p>在applicontext.xml或者spring-servlet.xml中导入quartz.xml文件</p>
-<h2 id="具体-的执行类"><a href="#具体-的执行类" class="headerlink" title="具体 的执行类"></a>具体 的执行类</h2><p>SpringQtz类</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class SpringQtz extends QuartzJobBean &#123;</span><br><span class="line"></span><br><span class="line">    static Logger logger = LoggerFactory.getLogger(SpringQtz.class);</span><br><span class="line"></span><br><span class="line">    private static int counter = 0;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException &#123;</span><br><span class="line">        long ms = System.currentTimeMillis();</span><br><span class="line">//        System.out.println(&quot; SpringQtz start  执行&quot;);</span><br><span class="line">        System.out.println(&quot;SpringQtz-------&quot;+new SimpleDateFormat(&quot;yyyy-MM-dd hh:mm:ss&quot;).format(new Date(ms))+&quot;  &quot;+&quot;(&quot; + counter++ + &quot;)&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>SpringQtzDemo类</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class SpringQtzDemo extends QuartzJobBean &#123;</span><br><span class="line"></span><br><span class="line">    private static final Log log = LogFactory.getLog(SpringQtzDemo.class);</span><br><span class="line"></span><br><span class="line">    static Logger logger = LoggerFactory.getLogger(SpringQtzDemo.class);</span><br><span class="line"></span><br><span class="line">    private static int counter = 0;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException &#123;</span><br><span class="line">        long ms = System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">//        System.out.println(&quot; SpringQtzDemo start  执行&quot;);</span><br><span class="line">        System.out.println(&quot;SpringQtzDemo**********&quot; + new SimpleDateFormat(&quot;yyyy-MM-dd hh:mm:ss&quot;).format(new Date(ms)) + &quot;  &quot; + &quot;(&quot; + counter++ + &quot;)&quot;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此处是写了两个实例</p>
-<h2 id="启动项目测试"><a href="#启动项目测试" class="headerlink" title="启动项目测试"></a>启动项目测试</h2><p>启动一个tomcat观察，该服务器定期执行操作，结果如下<br>tomcatA</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">SpringQtz-------2018-11-06 03:03:40  (0)</span><br><span class="line">SpringQtzDemo**********2018-11-06 03:04:00  (1)</span><br><span class="line">SpringQtz-------2018-11-06 03:04:00  (1)</span><br><span class="line">SpringQtz-------2018-11-06 03:04:20  (2)</span><br><span class="line">SpringQtzDemo**********2018-11-06 03:04:30  (2)</span><br><span class="line">SpringQtz-------2018-11-06 03:04:40  (3)</span><br><span class="line">SpringQtz-------2018-11-06 03:05:00  (4)</span><br><span class="line">SpringQtzDemo**********2018-11-06 03:05:00  (3)</span><br><span class="line">SpringQtz-------2018-11-06 03:05:20  (5)</span><br><span class="line">SpringQtzDemo**********2018-11-06 03:05:30  (4)</span><br></pre></td></tr></table></figure>
-<p>在启动tomcat，发现他是两个窗口分别执行任务的，结果如下<br>tomcatA</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">SpringQtzDemo**********2018-11-06 03:06:00  (5)</span><br><span class="line">SpringQtz-------2018-11-06 03:06:00  (7)</span><br><span class="line">SpringQtz-------2018-11-06 03:06:20  (8)</span><br><span class="line">SpringQtzDemo**********2018-11-06 03:06:30  (6)</span><br><span class="line">SpringQtzDemo**********2018-11-06 03:07:00  (7)</span><br><span class="line">SpringQtz-------2018-11-06 03:07:20  (9)</span><br><span class="line">SpringQtz-------2018-11-06 03:07:40  (10)</span><br><span class="line">SpringQtz-------2018-11-06 03:08:00  (11)</span><br><span class="line">SpringQtz-------2018-11-06 03:08:20  (12)</span><br><span class="line">SpringQtz-------2018-11-06 03:08:40  (13)</span><br></pre></td></tr></table></figure>
-<p>tomcatB</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SpringQtz-------2018-11-06 03:06:40  (0)</span><br><span class="line">SpringQtz-------2018-11-06 03:07:00  (1)</span><br><span class="line">SpringQtzDemo**********2018-11-06 03:07:30  (0)</span><br><span class="line">SpringQtzDemo**********2018-11-06 03:08:00  (1)</span><br><span class="line">SpringQtzDemo**********2018-11-06 03:08:30  (2)</span><br><span class="line">SpringQtzDemo**********2018-11-06 03:09:00  (3)</span><br></pre></td></tr></table></figure>
-<p>注意一个问题</p>
-<blockquote>
-<p>The load balancing mechanism is near-random for busy schedulers (lots of triggers) but favors the same node that just was just active for non-busy (e.g. one or two triggers) schedulers.</p>
-</blockquote>
-<p>负载平衡机制对于繁忙的调度器(很多触发器)几乎是随机的，但是对于非繁忙的调度器(例如，一个或两个触发器)，负载平衡机制倾向于相同的节点。</p>
-<h1 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h1><blockquote>
-<p>遗留问题，想象一下如果这个定时任务如果想随时修改这种方法，或者是一个图形化的管理界面，可能方式可能就不太实用了，可以尝试用如下的思路</p>
-</blockquote>
-<p>1、将要执行的方法定义成服务的形式，向外暴露接口，调用该接口时，QuartzServiceHelper的线程池中会加入刚才的接口<br>2、新建一张task任务表，表信息是名称，要执行的方法，cron表达式等信息，这个表对应的是图形化的管理界面，可以增删改查操作<br>3、定义一个类继承org.quartz.Job类，如childJob,实现他的execute方法，这个方法中可以取出之前加入的task类信息（下面会提到），因为之前把要执行的方法暴露成接口的形式，这个地方可以直接post或者get直接请求对应的接口即可；</p>
-<p>4、写一个单独的项目quartzservice，并且打包成jar的形式，有一个main方法，执行一个定时器timer，每5000ms从某task表取出所有的列表信息静态变量quartList，每次拿到的列表都删选一遍看一下，是否已经添加到quartList中，删选出要删除的，要增加的，不变的（要注意一下crom表达式是否有变化），</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">JobDetail jobDetail = JobBuilder.newJob(childJob).withIdentity(jobName, jobGroupName).build();// 任务名，任务组，任务执行类</span><br><span class="line">JobDetailImpl detial=(JobDetailImpl)jobDetail;</span><br><span class="line">//上面提到的将task类的信息塞入到hashmap，放入到jobDetail中</span><br><span class="line">detial.getJobDataMap().putAll(paramMap);</span><br></pre></td></tr></table></figure>
-<p>5、将quartzservice 这个项目导出成一个可执行的main方法，java -jar quartzservice.jar 执行项目里的main方法</p>
-<p><strong>项目中这个jar只需要在一台机器执行，多台没有必要，如果是到了要执行任务A的时候，就会执行相应的post请求，由于A项目是被部署到多台机器上的，但是他最终请求是会落在某一台机器上的，该方法就被放到QuartzServiceHelper的线程池中执行的，这样就保证了唯一性</strong><br><strong>暴露出的接口，即定时任务要处理的事情，这个接口是加redis，防止套圈</strong></p>
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
       
 
@@ -218,11 +184,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">quartz</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
         		</li>
       		
 		</ul>
@@ -234,7 +196,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        			<a href="/categories/linux//" class="article-tag-list-link color1">linux</a>
         		</li>
       		
 		</ul>
@@ -243,7 +205,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/java/quartz集群配置/">展开全文 >></a>
+          <a class="article-more-a" href="/linux/linux常用命令/">展开全文 >></a>
         </p>
       
 
@@ -498,181 +460,6 @@
 
 
   
-    <article id="post-java/mongo千万级数据优化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java/mongo千万级数据优化/">mongo千万级数据优化</a>
-    </h1>
-  
-
-        
-        <a href="/java/mongo千万级数据优化/" class="archive-article-date">
-  	<time datetime="2018-10-25T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-26</time>
-</a>
-        
-      </header>
-    
-   
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="千万级数据分页优化"><a href="#千万级数据分页优化" class="headerlink" title="千万级数据分页优化"></a>千万级数据分页优化</h1><blockquote>
-<p>mongo采用的是单机部署，数据量1千万，需求是实现分页面，按照capTime倒叙排列，每页数据20条</p>
-</blockquote>
-<h2 id="skip-limit"><a href="#skip-limit" class="headerlink" title="skip+limit"></a>skip+limit</h2><p>这是最传统的数据查询方式，<code>db.getCollection(&#39;CapMotor&#39;).find().skip(9000000).sort({&#39;capTime&#39;:1}).limit(20);</code>skip后面是pageSize*pageIndex,limit后是pageSize<br>这种方式在数据量是百万的时候，还凑合着用，但是千万以后，就不可用了，我这边跟踪的查询时间是9s左右，明显不行，影响效率，建议采用第2中方法</p>
-<h2 id="前端传临界值id，查询添加条件，从当前位置往后截取，取20条"><a href="#前端传临界值id，查询添加条件，从当前位置往后截取，取20条" class="headerlink" title="前端传临界值id，查询添加条件，从当前位置往后截取，取20条"></a>前端传临界值id，查询添加条件，从当前位置往后截取，取20条</h2>
-        
-          <a class="article-more-a" href="/java/mongo千万级数据优化/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/java/mongo千万级数据优化/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-java/kafka集群" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java/kafka集群/">kafka集群</a>
-    </h1>
-  
-
-        
-        <a href="/java/kafka集群/" class="archive-article-date">
-  	<time datetime="2018-10-25T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-26</time>
-</a>
-        
-      </header>
-    
-   
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="zookeeper-集群搭建的方法"><a href="#zookeeper-集群搭建的方法" class="headerlink" title="zookeeper 集群搭建的方法"></a>zookeeper 集群搭建的方法</h1><p>/etc/profile 环境变量</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#java</span><br><span class="line">export JAVA_HOME=/lxhtest/jdk</span><br><span class="line">export JRE_HOME=/lxhtest/jdk/jre</span><br><span class="line">export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib</span><br><span class="line">export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH</span><br><span class="line"></span><br><span class="line">#zookeeper</span><br><span class="line">export ZOOKEEPER_HOME=/lxhtest/zookeeper-3.4.12</span><br><span class="line">export PATH=$PATH:$ZOOKEEPER_HOME/bin:$ZOOKEEPER_HOME/conf</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/java/kafka集群/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/java/kafka集群/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-sql/实际开发中mysql的性能优化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -769,7 +556,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/linux/打包用到的脚本/">打包用到的脚本</a>
+      <a class="article-title" href="/linux/打包用到的脚本/">jenkins打包用到的脚本</a>
     </h1>
   
 
@@ -858,279 +645,6 @@
 
 
   
-    <article id="post-java/spring的profile配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java/spring的profile配置/">spring的profile配置</a>
-    </h1>
-  
-
-        
-        <a href="/java/spring的profile配置/" class="archive-article-date">
-  	<time datetime="2018-10-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-10</time>
-</a>
-        
-      </header>
-    
-   
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>spring.profile是为了解决开发环境和生产环境对应的配置文件不一致，可以灵活使用对应的配置文件</p>
-<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><h2 id="配置文件分为两份"><a href="#配置文件分为两份" class="headerlink" title="配置文件分为两份"></a>配置文件分为两份</h2><p><img src="http://p964q970y.bkt.clouddn.com/moreprofile1.png" alt="moreprofile"><br></p>
-        
-          <a class="article-more-a" href="/java/spring的profile配置/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">profile</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/java/spring的profile配置/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-java/2018-08-30" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java/2018-08-30/">Thu Aug 30 2018 00:00:00 GMT+0800 (CST)</a>
-    </h1>
-  
-
-        
-        <a href="/java/2018-08-30/" class="archive-article-date">
-  	<time datetime="2018-08-29T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-30</time>
-</a>
-        
-      </header>
-    
-   
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>B树即平衡查找树，一般理解为平衡多路查找树，是一种自平衡树状数据结构，能对存储的数据进行O(log n)的时间复杂度进行查找、插入和删除。B树一般较多用在存储系统上，比如数据库或文件系统。</p>
-<p><a href="https://juejin.im/post/5b873a1af265da43741e2328" target="_blank" rel="noopener">B树入门</a></p>
-<h1 id="Integer"><a href="#Integer" class="headerlink" title="Integer"></a>Integer</h1><p>Integer a=new Integer(127);<br>Integer b=new Integer(127);<br>a==b返回true</p>
-<p>Integer c=new Integer(128);<br>Integer d=new Integer(128);<br>c==d返回false</p>
-<p>Integer e=new Integer(128);<br>int f=128;<br>e==f返回true,<br>什么时候会拆箱？——基本数据类型和引用数据类型做运算时<br>什么时候会装箱？——基本数据类型赋值给引用数据类型的时候</p>
-        
-          <a class="article-more-a" href="/java/2018-08-30/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/java/2018-08-30/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-java/Arrays和ArrayList对比" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java/Arrays和ArrayList对比/">Arrays和ArrayList对比</a>
-    </h1>
-  
-
-        
-        <a href="/java/Arrays和ArrayList对比/" class="archive-article-date">
-  	<time datetime="2018-08-27T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-28</time>
-</a>
-        
-      </header>
-    
-   
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="源码对比"><a href="#源码对比" class="headerlink" title="源码对比"></a>源码对比</h1><p>ArrayList 和 Arrays 对比，后者不知处add、remove，支持set方法</p>
-<p>首先看Arrays.asList的源代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@SafeVarargs</span><br><span class="line">@SuppressWarnings(&quot;varargs&quot;)</span><br><span class="line">public static &lt;T&gt; List&lt;T&gt; asList(T... a) &#123;</span><br><span class="line">   return new ArrayList&lt;&gt;(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/java/Arrays和ArrayList对比/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/java/Arrays和ArrayList对比/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-linux/shell总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1169,6 +683,7 @@
 <h1 id="查看内存总数"><a href="#查看内存总数" class="headerlink" title="查看内存总数"></a>查看内存总数</h1><p><code>cat /proc/meminfo | grep MemTotal</code></p>
 <h1 id="查看某个端口的占用情况"><a href="#查看某个端口的占用情况" class="headerlink" title="查看某个端口的占用情况"></a>查看某个端口的占用情况</h1><p><code>netstat -anp|grep 80</code>查看80端口的占用情况</p>
 <h1 id="查看程序占用情况"><a href="#查看程序占用情况" class="headerlink" title="查看程序占用情况"></a>查看程序占用情况</h1><p>输入top，然后输入大写P，就是按照cpu占用情况倒叙，输入大写M，按照memory排序，</p>
+<h1 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h1><p>find / |grep tomcat   在更目录下查找名称为tomcat的文件</p>
 
       
 
@@ -1241,9 +756,465 @@
 
 
   
+    <article id="post-sql/mybatis得到解析后最终执行的sql" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/sql/mybatis得到解析后最终执行的sql/">mybatis得到解析后最终执行的sql</a>
+    </h1>
+  
+
+        
+        <a href="/sql/mybatis得到解析后最终执行的sql/" class="archive-article-date">
+  	<time datetime="2018-08-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-15</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        <p>我们在用mybatis的时候，经常会用xml来编写sql语句，但是这些xml中通常加了很多条件，很难拿到最终在数据库里执行的sql，如果想在控制台打印出最终执行的sql语句，其实是可以直接阅读mybatis的源码拿到</p>
+<p>DefaultSqlSession 的select方法<br> exector.query方法—–实现类baseExecutor中的query方法</p>
+<p>BaseStatementHandler  </p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sql</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mybatis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/sql/mybatis得到解析后最终执行的sql/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-sql/mongodb" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/sql/mongodb/">mongodb初印象</a>
+    </h1>
+  
+
+        
+        <a href="/sql/mongodb/" class="archive-article-date">
+  	<time datetime="2018-06-04T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-05</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>之前只接触过一种数据库mysql，偶然间接到一个需求，发现数据是存在mongodb里的，接下来就记录一下我认识mongodb的过程。</p>
+        
+          <a class="article-more-a" href="/sql/mongodb/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/sql/mongodb/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-sql/sql1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/sql/sql1/">sql1</a>
+    </h1>
+  
+
+        
+        <a href="/sql/sql1/" class="archive-article-date">
+  	<time datetime="2018-03-22T06:25:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-22</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>摘要:常用sql的总结<br></p>
+        
+          <a class="article-more-a" href="/sql/sql1/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/sql//" class="article-tag-list-link color4">sql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/sql/sql1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-tools/ps修图" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/tools/ps修图/">ps修图</a>
+    </h1>
+  
+
+        
+        <a href="/tools/ps修图/" class="archive-article-date">
+  	<time datetime="2018-02-12T03:42:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-12</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ps的工具的基本使用，实现改字改背景的功能<br></p>
+        
+          <a class="article-more-a" href="/tools/ps修图/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/其他//" class="article-tag-list-link color3">其他</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/tools/ps修图/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-tools/idea工具使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/tools/idea工具使用/">idea工具使用</a>
+    </h1>
+  
+
+        
+        <a href="/tools/idea工具使用/" class="archive-article-date">
+  	<time datetime="2018-02-05T08:32:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-05</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>java开发常用工具总结，intelljdea<br></p>
+        
+          <a class="article-more-a" href="/tools/idea工具使用/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/tools//" class="article-tag-list-link color1">tools</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/tools/idea工具使用/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -1255,7 +1226,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 LXH
+    		&copy; 2019 LXH
         <span>
   Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
  </span>
@@ -1350,51 +1321,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">aop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">transactional</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">quartz</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">profile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">商品管理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sku</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1403,6 +1330,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">

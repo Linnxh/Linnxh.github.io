@@ -6,21 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://linnxh.online">
-  <title>kafka集群 | Linnxh的博客</title>
+  <title>Archives: 2019/2 | Linnxh的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="zookeeper 集群搭建的方法/etc/profile 环境变量 123456789#javaexport JAVA_HOME=/lxhtest/jdkexport JRE_HOME=/lxhtest/jdk/jreexport CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/libexport PATH">
-<meta property="og:type" content="article">
-<meta property="og:title" content="kafka集群">
-<meta property="og:url" content="http://linnxh.online/java/kafka集群/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Linnxh的博客">
+<meta property="og:url" content="http://linnxh.online/archives/2019/02/index.html">
 <meta property="og:site_name" content="Linnxh的博客">
-<meta property="og:description" content="zookeeper 集群搭建的方法/etc/profile 环境变量 123456789#javaexport JAVA_HOME=/lxhtest/jdkexport JRE_HOME=/lxhtest/jdk/jreexport CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/libexport PATH">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/consumer-groups.png">
-<meta property="og:updated_time" content="2018-10-26T06:27:59.782Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="kafka集群">
-<meta name="twitter:description" content="zookeeper 集群搭建的方法/etc/profile 环境变量 123456789#javaexport JAVA_HOME=/lxhtest/jdkexport JRE_HOME=/lxhtest/jdk/jreexport CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/libexport PATH">
-<meta name="twitter:image" content="http://p964q970y.bkt.clouddn.com/consumer-groups.png">
+<meta name="twitter:title" content="Linnxh的博客">
   
     <link rel="alternative" href="/atom.xml" title="Linnxh的博客" type="application/atom+xml">
   
@@ -152,277 +146,71 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-java/kafka集群" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      kafka集群
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/linux/linux常用命令/" class="archive-article-date">
+  	<time datetime="2019-02-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-15</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/linux/linux常用命令/">linux常用命令</a>
     </h1>
   
 
-        
-        <a href="/java/kafka集群/" class="archive-article-date">
-  	<time datetime="2018-10-25T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-26</time>
-</a>
-        
-      </header>
-    
-   
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-        <h1 id="zookeeper-集群搭建的方法"><a href="#zookeeper-集群搭建的方法" class="headerlink" title="zookeeper 集群搭建的方法"></a>zookeeper 集群搭建的方法</h1><p>/etc/profile 环境变量</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#java</span><br><span class="line">export JAVA_HOME=/lxhtest/jdk</span><br><span class="line">export JRE_HOME=/lxhtest/jdk/jre</span><br><span class="line">export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib</span><br><span class="line">export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH</span><br><span class="line"></span><br><span class="line">#zookeeper</span><br><span class="line">export ZOOKEEPER_HOME=/lxhtest/zookeeper-3.4.12</span><br><span class="line">export PATH=$PATH:$ZOOKEEPER_HOME/bin:$ZOOKEEPER_HOME/conf</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>tar -zxvf zookeeper-3.4.12.tar.*gz  </p>
-<p>vi /etc/profile<br>source /etc/profile</p>
-<p>修改zoo.cfg</p>
-<p>修改如下<br>dataDir=/lxhtest/zookeeper-3.4.12/data<br>添加<br>server.1=192.168.3.129:2888:3888<br>server.2=192.168.3.120:2888:3888<br>server.3=192.168.3.142:2888:3888</p>
-<p>在zookeeper下新建data<br>mkdir data<br>touch myid 里面插入数字1，其他三台机器对应着2，3</p>
-<p>相关命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">zkServer.sh start (启动命令)</span><br><span class="line">zkServer.sh restart　　(重启)</span><br><span class="line">zkServer.sh status　　(查看状态)</span><br><span class="line">zkServer.sh stop　　(关闭)</span><br><span class="line">zkServer.sh start-foreground　　(以打印日志方式启动)</span><br></pre></td></tr></table></figure>
-<p>参考链接<br><a href="https://www.cnblogs.com/wrong5566/p/6056788.html" target="_blank" rel="noopener">https://www.cnblogs.com/wrong5566/p/6056788.html</a></p>
-<p>配置过程中出现错误如下<br>1、<br>invalid zoo.cfg<br>原因：我拷贝的文字，看起来没错，但是由于格式不同，server.1=192.168.3.129:2888:3888 后面还有些乱码（不显示，但是有占位符），去掉即可</p>
-<p>2、<br>zkServer.sh start-foreground 打印日志方式启动，发现是报找不到主机的路由异常<br>解决办法：我这边是防火墙没有关闭<br>centos7下查看防火墙状态的命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --state 如果是running，则代表防火墙没有关闭</span><br><span class="line">关闭防火墙的命令:</span><br><span class="line">systemctl stop firewalld.service</span><br><span class="line">systemctl disable firewalld.service   （禁止开机启动，永久关闭防火墙）</span><br></pre></td></tr></table></figure>
-<p>网上说产生这种情况还可能是由以下原因<br>1）：zoo.cfg配置文件中，server.x:2888:3888配置出现错误；<br>2）：myid文件内容和server.x不对应，或者myid不在data目录下；</p>
-<h1 id="kafka-集群搭建"><a href="#kafka-集群搭建" class="headerlink" title="kafka 集群搭建"></a>kafka 集群搭建</h1><p>参考文章<br><a href="https://www.jianshu.com/p/5297773fcc1b" target="_blank" rel="noopener">https://www.jianshu.com/p/5297773fcc1b</a><br><a href="http://blog.51cto.com/13323775/2063420" target="_blank" rel="noopener">http://blog.51cto.com/13323775/2063420</a></p>
-<p>tar -zxvf kafka_2.12-1.0.2.tgz.gz </p>
-<p>创建日志文件夹<br><code>mkdir kafka-logs</code></p>
-<p>kafka 配置文件，server.proper</p>
-<p>添加本机的ip地址</p>
-<p>文件日志路径，需要新建文件夹  lxhtest/kafka_2.12-1.0.2/kafka-logs/kafka-logs</p>
-<p>允许删除topic delete.topic.enable=true<br><code>zookeeper.connect=192.168.3.129:2181,192.168.3.129:2181,192.168.3.142:2181</code></p>
-<p>拷贝文件从当前服务器到另一个服务器<br><code>scp -r /lxhtest/test-scp/ root@192.168.2.120:/lxhtest/test-scp</code></p>
-<p><code>scp -r /lxhtest/kafka_2.12-1.0.2/config/server.properties root@192.168.3.120:/lxhtest/kafka_2.12-1.0.2/config/server.properties</code></p>
-<p>配置环境变量</p>
-<p>命令行启动<br><code>kafka-server-start.sh $KAFKA_HOME/config/server.properties</code></p>
-<p>后台启动<br><code>kafka-server-start.sh $KAFKA_HOME/config/server.properties 1&gt;/dev/null 2&gt;&amp;1 &amp;</code></p>
-<p>测试集群</p>
-<p><code>kafka-topics.sh --create --zookeeper 192.168.3.129:2181,192.168.3.120:2181,192.168.3.142:2181 --replication-factor 1 --partitions 1 --topic test</code></p>
-<p>Kafka中主要有三种模式，<br>单机broker模式<br>单机多broker模式（伪分布式）<br>多机多broker模式（集群)<br>和hadoop一样，前两种多用于开发测试。第三种才是实际生产中可用的部署模式，下面介绍一下三节点kafka集群的部署流程</p>
-<p>常用的命令行<br>创建<br><code>kafka-topics.sh --create --zookeeper 192.168.0.10:2181 --replication-factor 3 --partitions 1 --topic test-replicated-topic</code></p>
-<p>删除<br><code>kafka-topics.sh --delete --zookeeper 192.168.3.129:2181 --topic test</code></p>
-<p>查看topic列表<br><code>kafka-topics.sh  --list --zookeeper 192.168.3.129:2181</code></p>
-<p>查看<br><code>kafka-topics.sh --describe --zookeeper 192.168.3.129:2181,192.168.3.120:2181,192.168.3.142:2181 --topic test</code></p>
-<p>生产者<br><code>kafka-console-producer.sh --broker-list 192.168.3.129:9092,192.168.3.120:9092,192.168.3.142:9092 --topic test</code></p>
-<p><code>kafka-console-producer.sh --broker-list 192.168.3.129:9092 --topic test</code></p>
-<p>启动生产者<br><code>kafka-topics.sh --describe --zookeeper 192.168.3.129:2181,192.168.1.12:2181,192.168.1.13:2181/kafka</code></p>
-<p>启动消费者，从头消费<br><code>kafka-console-consumer.sh --bootstrap-server 192.168.3.129:9092 --topic test --from-beginning</code></p>
-<p>原理<br>partition，分区</p>
-<p>基本概念<br>broker：Kafka服务器，负责消息存储和转发<br>topic：消息类别，Kafka按照topic来分类消息<br>partition：topic的分区，一个topic可以包含多个partition，topic消息保存在各个partition上<br>offset：消息在日志中的位置，可以理解是消息在partition上的偏移量，也是代表该消息的唯一序号<br>Producer：消息生产者<br>Consumer：消息消费者<br>Consumer Group：消费者分组，每个Consumer必须属于一个group<br>Zookeeper：保存着集群broker、topic、partition等meta数据；另外，还负责broker故障发现，partition leader选举，负载均衡等功能</p>
-<h2 id="消费者设计"><a href="#消费者设计" class="headerlink" title="消费者设计"></a>消费者设计</h2><p>消息中间件有两种模式队列模式和广播模式，kafka就是使用consumer group来实现了这两种模式</p>
-<p>任何Consumer必须属于一个Consumer Group<br>同一Consumer Group中的多个Consumer实例，不同时消费同一个partition，等效于队列模式。如下图groupA；<br>不同Consumer Group的Consumer实例可以同时消费同一个partition，等效于发布订阅模式。如下图groupA和groupB；<br>partition内消息是有序的，Consumer通过pull方式消费消息。<br>Kafka不删除已消费的消息</p>
-<p><img src="http://p964q970y.bkt.clouddn.com/consumer-groups.png" alt="consumer-groups设计"></p>
-<p>参考：<br><a href="https://cloud.tencent.com/developer/article/1005736" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1005736</a> (推荐)<br><a href="https://www.cnblogs.com/likehua/p/3999538.html" target="_blank" rel="noopener">https://www.cnblogs.com/likehua/p/3999538.html</a><br><a href="https://blog.csdn.net/tianyaleixiaowu/article/details/78977571" target="_blank" rel="noopener">https://blog.csdn.net/tianyaleixiaowu/article/details/78977571</a><br><a href="https://segmentfault.com/a/1190000011721643" target="_blank" rel="noopener">https://segmentfault.com/a/1190000011721643</a></p>
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
+        		</li>
+      		
+		</ul>
+	</div>
 
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
+          
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        			<a href="/categories/linux//" class="article-tag-list-link color1">linux</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://linnxh.online/java/kafka集群/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/java/mongo千万级数据优化/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          mongo千万级数据优化
-        
-      </div>
-    </a>
   
   
-    <a href="/sql/实际开发中mysql的性能优化/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">实际开发中mysql的性能优化</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#zookeeper-集群搭建的方法"><span class="toc-number">1.</span> <span class="toc-text">zookeeper 集群搭建的方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kafka-集群搭建"><span class="toc-number">2.</span> <span class="toc-text">kafka 集群搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#消费者设计"><span class="toc-number">2.1.</span> <span class="toc-text">消费者设计</span></a></li></ol></li></ol>
-                    </div>
-                </span>
-            </div>
-        </div>
-        
-    </div>
-</aside>
-
-
-
-  
-  <div class="duoshuo">
-	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="java/kafka集群" data-title="kafka集群" data-url="http://linnxh.online/java/kafka集群/"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"true"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-	<!-- 多说公共JS代码 end -->
-</div>
-
-  
-  
-  
-  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
-<script>
-  var cloudTieConfig = {
-    url: "http://linnxh.online/java/kafka集群/", 
-    sourceId: "java/kafka集群",
-    productKey: "true",
-    target: "cloud-tie-wrapper"
-  };
-</script>
-<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+    </div></section>
   
 
-  
-
-  
-
-  
-
-
-
- 
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "YvrDo8i7S82D6P8Nkakr9gI2-gzGzoHsz",
-            app_key: "vw9R5Xqo4RvBGLy84umOsRlv",
-            placeholder: "欢迎评论",
-            avatar:"mm"
-        });
-    }
-</script>
-    </section>
-  
-
-
-
-
-
-
-
-
+    
 
 
           </div>
@@ -432,7 +220,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 LXH
+    		&copy; 2019 LXH
         <span>
   Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
  </span>
@@ -465,8 +253,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
@@ -527,51 +315,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">aop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">transactional</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">quartz</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">profile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">商品管理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sku</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -580,6 +324,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">

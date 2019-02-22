@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Linnxh的博客">
 <meta property="og:description" content="摘要:常用sql的总结">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-10-26T03:05:27.940Z">
+<meta property="og:updated_time" content="2019-01-14T07:26:56.528Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sql1">
 <meta name="twitter:description" content="摘要:常用sql的总结">
@@ -338,6 +338,11 @@ show variables like &apos;%storage_engine%&apos;;
 <p><code>SELECT id FROM A WHERE year(addate) &lt;2016</code> 优化成：<code>SELECT id FROM A where addate&lt;&#39;2016-01-01&#39;</code></p>
 <h2 id="Inner-join-和-left-join、right-join、子查询"><a href="#Inner-join-和-left-join、right-join、子查询" class="headerlink" title="Inner join 和 left join、right join、子查询"></a>Inner join 和 left join、right join、子查询</h2><p>第一：inner join内连接也叫等值连接，left/rightjoin是外连接。<br>inner join(join) 效率比left join和right join要高<br>第二：子查询的性能又比外连接性能慢，尽量用外连接来替换子查询<br><code>Select* from A where exists (select * from B where id&gt;=3000 and A.uuid=B.uuid);</code><br>代替如下<br><code>Select* from A inner join B ON A.uuid=B.uuid using(uuid) where b.uuid&gt;=3000;</code><br>第三：使用JOIN时候，应该用小的结果驱动打的结果（left join 左边表结果尽量小，如果有条件应该放到左边先处理，right join同理反向），同时尽量把牵涉到多表联合的查询拆分多个query  (多个表查询效率低，容易锁表和阻塞)。如：<br><code>Select * from A left join B A.id=B.ref_id where  A.id&gt;10;</code><br>可以优化为：<br><code>select * from (select * from A wehre id &gt;10) T1 left join B on T1.id=B.ref_id;</code></p>
 <h1 id="修改数据库字符集"><a href="#修改数据库字符集" class="headerlink" title="修改数据库字符集"></a>修改数据库字符集</h1><p><code>alter database dbname default character set utf8;</code></p>
+<h1 id="sql嵌套"><a href="#sql嵌套" class="headerlink" title="sql嵌套"></a>sql嵌套</h1><p>商品表sku，sku里有商品对应的属性分类一，分类二。。。。。<br>需求是，首页的数据楼层展示，一级分类数量少固定都显示，一级下关联的多个二级分类有多个，显示要求是<br>按照该二级分类下关联商品数量由多到少排序，如商品数量相同，按照二级分类id正序排序，同一个一级分类下最多显示5个二级分类;</p>
+<p>如果展示某一个单一的一级分类下的二级分类产品可以用如下sql，<br>按照分类二进行分组，并且按照数量进行排序倒序，拿到集合后在进行筛选取前5个即可；<br>这种方法比较传统，sql执行次数太多，后端还要进行过滤，比较麻烦</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">select sp.cat_two_name, sp.cat_two_id, sp.cat_one_id, count(*)</span><br><span class="line">from spu sp</span><br><span class="line">       JOIN sku sk ON sp.id = sk.spu_id</span><br><span class="line">where sp.ss_id = 4</span><br><span class="line">  AND sp.shelves = 1</span><br><span class="line">  AND sp.audit_status = 1</span><br><span class="line">  AND sp.is_del = 0</span><br><span class="line">  AND sp.is_hidden = 0</span><br><span class="line">  AND sp.sale_model = 0</span><br><span class="line">  -- IN放的是某一个一级分类下二级分类的id，</span><br><span class="line">  and sp.cat_two_id IN</span><br><span class="line">      (</span><br><span class="line">          2</span><br><span class="line">          ,</span><br><span class="line">          3</span><br><span class="line">          ,</span><br><span class="line">          4</span><br><span class="line">          ,</span><br><span class="line">          41</span><br><span class="line">          ,</span><br><span class="line">          51</span><br><span class="line">          ,</span><br><span class="line">          63</span><br><span class="line">          ,</span><br><span class="line">          139</span><br><span class="line">          ,</span><br><span class="line">          152</span><br><span class="line">          ,</span><br><span class="line">          182</span><br><span class="line">          ,</span><br><span class="line">          220</span><br><span class="line">          ,</span><br><span class="line">          480</span><br><span class="line">          ,</span><br><span class="line">          622</span><br><span class="line"></span><br><span class="line">          )</span><br><span class="line">group by sp.cat_two_id</span><br><span class="line">order by count(1) desc,sp.cat_one_id asc</span><br></pre></td></tr></table></figure>
+<p>通过如下一条sql，就可以直接把所有的一级分类下的二级分类都检索出来</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">SELECT cat_two_name name, cat_two_id id, cat_one_id pid, sort, rank</span><br><span class="line">FROM (SELECT tmp.cat_two_name,</span><br><span class="line">             tmp.cat_two_id,</span><br><span class="line">             tmp.cat_one_id,</span><br><span class="line">             tmp.sort,</span><br><span class="line">             -- 返回数据行数</span><br><span class="line">             @rownum := @rownum + 1,</span><br><span class="line">             -- if条件，如果满足exp1,就返回exp2，否则返回exp3，该字段标记的是同一个一级分类下二级分类商品数量</span><br><span class="line">             IF(@cat_one_id = tmp.cat_one_id ,</span><br><span class="line">                @rank := @rank + 1,</span><br><span class="line">                @rank := 1) AS rank,</span><br><span class="line">                # 给cat_one_id赋初始值</span><br><span class="line">                @cat_one_id := tmp.cat_one_id</span><br><span class="line">      FROM (SELECT sp.cat_two_name, sp.cat_two_id, sp.cat_one_id, count(cat_two_id) sort</span><br><span class="line">            FROM spu sp</span><br><span class="line">                   JOIN sku sk ON sp.id = sk.spu_id</span><br><span class="line">            WHERE sp.ss_id = 4</span><br><span class="line">              AND sp.shelves = 1</span><br><span class="line">              AND sp.audit_status = 1</span><br><span class="line">              AND sp.is_del = 0</span><br><span class="line">              AND sp.is_hidden = 0</span><br><span class="line">              AND sp.sale_model = 0</span><br><span class="line">              -- IN下放的是所有的一级分类下二级分类的id</span><br><span class="line">              AND sp.cat_two_id IN</span><br><span class="line">                  (</span><br><span class="line">                      2</span><br><span class="line">                      ,</span><br><span class="line">                      3</span><br><span class="line">                      ,</span><br><span class="line">                      4</span><br><span class="line">                      ,</span><br><span class="line">                      41</span><br><span class="line">                      ,</span><br><span class="line">                      51</span><br><span class="line">                      ,</span><br><span class="line">                      63</span><br><span class="line">                      ,</span><br><span class="line">                      139</span><br><span class="line">                      ,</span><br><span class="line">                      152</span><br><span class="line">                      ,</span><br><span class="line">                      182</span><br><span class="line">                      ,</span><br><span class="line">                      220</span><br><span class="line">                      ,</span><br><span class="line">                      480</span><br><span class="line">                      ,</span><br><span class="line">                      622</span><br><span class="line"></span><br><span class="line">                      )</span><br><span class="line"></span><br><span class="line">            GROUP BY sp.cat_two_id, sp.cat_one_id</span><br><span class="line">            ORDER BY sp.cat_one_id ASC, sort DESC, sp.cat_two_id ASC) tmp,</span><br><span class="line">            -- 此处是给rownum 和cat_one_id cat_two_id赋初始值 </span><br><span class="line">            (SELECT @rownum := 0, @cat_one_id := NULL, @cat_two_id := NULL, @rank := 1) a) result</span><br><span class="line">-- 如果一级分类下二级分类的数量过多直接去掉，只取前5</span><br><span class="line">HAVING rank &lt;= 5;</span><br></pre></td></tr></table></figure>
 
       
 
@@ -421,18 +426,18 @@ show variables like &apos;%storage_engine%&apos;;
   
 <nav id="article-nav">
   
-    <a href="/java/SpringBoot基础/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/sql/mongodb/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          SpringBoot基础
+          mongodb初印象
         
       </div>
     </a>
   
   
-    <a href="/java/java-18-01/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">java-18-01</div>
+    <a href="/tools/ps修图/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ps修图</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -459,7 +464,7 @@ show variables like &apos;%storage_engine%&apos;;
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#create-schema"><span class="toc-number">1.</span> <span class="toc-text">create schema</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据库"><span class="toc-number">2.</span> <span class="toc-text">数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#悲观锁-Pessimistic-Locking"><span class="toc-number">2.1.</span> <span class="toc-text">悲观锁(Pessimistic Locking):</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#乐观锁（-Optimistic-Locking-）"><span class="toc-number">2.2.</span> <span class="toc-text">乐观锁（ Optimistic Locking ）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MYSQL基本操作"><span class="toc-number">3.</span> <span class="toc-text">MYSQL基本操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#select-1-from-table"><span class="toc-number">4.</span> <span class="toc-text">select 1 from table</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JDBC"><span class="toc-number">5.</span> <span class="toc-text">JDBC</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#索引"><span class="toc-number">6.</span> <span class="toc-text">索引</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常用sql语句"><span class="toc-number">7.</span> <span class="toc-text">常用sql语句</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#存储过程："><span class="toc-number">8.</span> <span class="toc-text">存储过程：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sql引擎"><span class="toc-number">9.</span> <span class="toc-text">sql引擎</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sql优化"><span class="toc-number">10.</span> <span class="toc-text">sql优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#索引-1"><span class="toc-number">10.1.</span> <span class="toc-text">索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#like语句"><span class="toc-number">10.2.</span> <span class="toc-text">like语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#where语句使用in和not-in-也要慎用，否则也会导致全表扫描"><span class="toc-number">10.3.</span> <span class="toc-text">where语句使用in和not in 也要慎用，否则也会导致全表扫描</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#union-union-all"><span class="toc-number">10.4.</span> <span class="toc-text">union union all</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#where子句中对字段进行表达式操作的优化"><span class="toc-number">10.5.</span> <span class="toc-text">where子句中对字段进行表达式操作的优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Inner-join-和-left-join、right-join、子查询"><span class="toc-number">10.6.</span> <span class="toc-text">Inner join 和 left join、right join、子查询</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#修改数据库字符集"><span class="toc-number">11.</span> <span class="toc-text">修改数据库字符集</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#create-schema"><span class="toc-number">1.</span> <span class="toc-text">create schema</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据库"><span class="toc-number">2.</span> <span class="toc-text">数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#悲观锁-Pessimistic-Locking"><span class="toc-number">2.1.</span> <span class="toc-text">悲观锁(Pessimistic Locking):</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#乐观锁（-Optimistic-Locking-）"><span class="toc-number">2.2.</span> <span class="toc-text">乐观锁（ Optimistic Locking ）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MYSQL基本操作"><span class="toc-number">3.</span> <span class="toc-text">MYSQL基本操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#select-1-from-table"><span class="toc-number">4.</span> <span class="toc-text">select 1 from table</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JDBC"><span class="toc-number">5.</span> <span class="toc-text">JDBC</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#索引"><span class="toc-number">6.</span> <span class="toc-text">索引</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常用sql语句"><span class="toc-number">7.</span> <span class="toc-text">常用sql语句</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#存储过程："><span class="toc-number">8.</span> <span class="toc-text">存储过程：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sql引擎"><span class="toc-number">9.</span> <span class="toc-text">sql引擎</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sql优化"><span class="toc-number">10.</span> <span class="toc-text">sql优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#索引-1"><span class="toc-number">10.1.</span> <span class="toc-text">索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#like语句"><span class="toc-number">10.2.</span> <span class="toc-text">like语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#where语句使用in和not-in-也要慎用，否则也会导致全表扫描"><span class="toc-number">10.3.</span> <span class="toc-text">where语句使用in和not in 也要慎用，否则也会导致全表扫描</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#union-union-all"><span class="toc-number">10.4.</span> <span class="toc-text">union union all</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#where子句中对字段进行表达式操作的优化"><span class="toc-number">10.5.</span> <span class="toc-text">where子句中对字段进行表达式操作的优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Inner-join-和-left-join、right-join、子查询"><span class="toc-number">10.6.</span> <span class="toc-text">Inner join 和 left join、right join、子查询</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#修改数据库字符集"><span class="toc-number">11.</span> <span class="toc-text">修改数据库字符集</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sql嵌套"><span class="toc-number">12.</span> <span class="toc-text">sql嵌套</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -552,7 +557,7 @@ show variables like &apos;%storage_engine%&apos;;
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 LXH
+    		&copy; 2019 LXH
         <span>
   Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
  </span>
@@ -647,51 +652,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">aop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">transactional</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">quartz</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">profile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">商品管理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sku</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -700,6 +661,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
