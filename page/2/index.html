@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://linnxh.online">
   <title>Linnxh的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -33,7 +33,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -160,7 +160,7 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-linux/shell总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-linux/shell总结" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -188,6 +188,9 @@
 <h1 id="跨机拷贝命令"><a href="#跨机拷贝命令" class="headerlink" title="跨机拷贝命令"></a>跨机拷贝命令</h1><p>拷贝命令，在本机上执行如下命令，将tar从本机拷贝到217上，执行如下命令会要求输入密码<br><code>scp captureserver_vi-v5.1.5-20190214112039.tar.gz  root@192.168.1.217:/sensing/captureservers/</code></p>
 <h1 id="实时输出文件"><a href="#实时输出文件" class="headerlink" title="实时输出文件"></a>实时输出文件</h1><p> tail -f filename | grep taskTimer    会把filename里最尾部的内容显示在屏幕上,并且不但刷新,使你看到最新的文件内容. 过滤出含有taskTimer的文字<br> <code>tail -f ../logs/catalina.out</code> 直接在tomcat的bin目录下执行如下命令可直接查看启动情况，</p>
 <h1 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h1><p><code>tar -zxvf filename.tar.gz</code></p>
+<h1 id="压缩"><a href="#压缩" class="headerlink" title="压缩"></a>压缩</h1><p>将dist及其下的所有文件都打包<br><code>tar -zcvf dist-test.tar.gz dist/*</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-c: 建立压缩档案</span><br><span class="line">-x：解压</span><br><span class="line">-t：查看内容</span><br><span class="line">-r：向压缩归档文件末尾追加文件</span><br><span class="line">-u：更新原压缩包中的文件</span><br><span class="line">这五个是独立的命令，压缩解压都要用到其中一个，可以和别的命令连用但只能用其中一个</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.cnblogs.com/lhm166/articles/6604852.html" target="_blank" rel="noopener">tar常见命令</a></p>
 <p>#sh 和 ./的区别<br>如果我直接运行./xxx.sh，首先你会查找脚本第一行是否指定了解释器，如果没指定，那么就用当前系统默认的shell(大多数linux默认是bash)，如果指定了解释器，那么就将该脚本交给指定的解释器<br>举例如下：<br>定义如下脚本，名字为a指定了这是一个python脚本</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line">print(&quot;This is Python script&quot;)</span><br></pre></td></tr></table></figure>
 <p>./a.run，结果就是输出一行文字，但是如果你运行sh a.run，会报错</p>
@@ -199,6 +202,11 @@
 <h1 id="查找名称为XXX的文件"><a href="#查找名称为XXX的文件" class="headerlink" title="查找名称为XXX的文件"></a>查找名称为XXX的文件</h1><p><code>find / |grep tomcat</code>   在更目录下查找名称为tomcat的文件</p>
 <h1 id="查找大文件"><a href="#查找大文件" class="headerlink" title="查找大文件"></a>查找大文件</h1><p>linux查看根目录下所有文件夹大小的方法如下：<br>1、进入根目录：<code>cd /</code><br>2、使用命令 ： <code>du -sh *</code> 查看根目录下每个文件夹的大小<br>3、进入占用空间比较大的文件夹，然后再使用2中命令查找大文件</p>
 <h1 id="过滤输出"><a href="#过滤输出" class="headerlink" title="过滤输出"></a>过滤输出</h1><p><code>cat cata.out |gre error</code>  过滤输出</p>
+<p><a href="https://www.jianshu.com/p/18a14fb5bf22" target="_blank" rel="noopener">https://www.jianshu.com/p/18a14fb5bf22</a></p>
+<h1 id="linux链接"><a href="#linux链接" class="headerlink" title="linux链接"></a>linux链接</h1><p>当我们需要在不同的目录，用到相同的文件时，我们不需要在每一个需要的目录下都放一个必须相同的文件，我们只要在某个固定的目录，放上该文件，然后在其它的 目录下用ln命令链接（link）它就可以，不必重复的占用磁盘空间，这个命令最常用的参数是-s,具体用法是：ln -s 源文件 目标文件<br><code>sudo ln -s /opt/software/node-v10.15.2-linux-x64/bin/npm /usr/bin/npm</code><br>查看某个命令下的软连接的实际位置<br><code>cd /usr/bin</code> 输入 ls -al |grep npm 过滤输出 npm 软连接的实际位置</p>
+<h1 id="提示-Permission-denied"><a href="#提示-Permission-denied" class="headerlink" title="提示 Permission denied"></a>提示 Permission denied</h1><p><code>sudo chmod -R 777 某一目录</code></p>
+<p>-R 是指级联应用到目录里的所有子目录和文件,777 是所有用户都拥有最高权限</p>
+<h1 id="linux-npm-install-报错"><a href="#linux-npm-install-报错" class="headerlink" title="linux npm install 报错"></a>linux npm install 报错</h1><p>sudo npm install</p>
 
       
 
@@ -271,7 +279,7 @@
 
 
   
-    <article id="post-java/idea打包问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-java/idea打包问题" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -379,7 +387,7 @@
 
 
   
-    <article id="post-db/mybatis得到解析后最终执行的sql" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-db/mybatis得到解析后最终执行的sql" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -480,7 +488,7 @@
 
 
   
-    <article id="post-java/分布式架构中的缓存" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-java/分布式架构中的缓存" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -588,7 +596,110 @@
 
 
   
-    <article id="post-java/Spring事务处理机制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-java/Aspect面向切面编程" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java/Aspect面向切面编程/">Aspect面向切面编程</a>
+    </h1>
+  
+
+        
+        <a href="/java/Aspect面向切面编程/" class="archive-article-date">
+  	<time datetime="2018-07-05T08:48:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-05</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="AOP详解"><a href="#AOP详解" class="headerlink" title="AOP详解"></a>AOP详解</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>AOP（Aspect Orient Programming），我们一般称为面向方面（切面）编程，作为面向对象的一种补充，用于处理系统中分布于各个模块的横切关注点，比如事务管理、日志、缓存等等。</p>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><ol>
+<li>静态代理，举例：AspectJ</li>
+<li>动态代理，举例：Spring AOP，Spring AOP中的动态代理主要有两种方式，JDK动态代理和CGLIB动态代理<br><a href="http://www.importnew.com/24305.html" target="_blank" rel="noopener">Spring AOP的实现原理</a><br>使用AspectJ的编译时增强实现AOP<br>之前提到，AspectJ是静态代理的增强，所谓的静态代理就是AOP框架会在编译阶段生成AOP代理类，因此也称为编译时增强。</li></ol>
+        
+          <a class="article-more-a" href="/java/Aspect面向切面编程/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">springboot</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">aop</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/java/Aspect面向切面编程/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-java/Spring事务处理机制" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -830,110 +941,7 @@
 
 
   
-    <article id="post-java/Aspect面向切面编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java/Aspect面向切面编程/">Aspect面向切面编程</a>
-    </h1>
-  
-
-        
-        <a href="/java/Aspect面向切面编程/" class="archive-article-date">
-  	<time datetime="2018-07-05T08:48:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-05</time>
-</a>
-        
-      </header>
-    
-   
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="AOP详解"><a href="#AOP详解" class="headerlink" title="AOP详解"></a>AOP详解</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>AOP（Aspect Orient Programming），我们一般称为面向方面（切面）编程，作为面向对象的一种补充，用于处理系统中分布于各个模块的横切关注点，比如事务管理、日志、缓存等等。</p>
-<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><ol>
-<li>静态代理，举例：AspectJ</li>
-<li>动态代理，举例：Spring AOP，Spring AOP中的动态代理主要有两种方式，JDK动态代理和CGLIB动态代理<br><a href="http://www.importnew.com/24305.html" target="_blank" rel="noopener">Spring AOP的实现原理</a><br>使用AspectJ的编译时增强实现AOP<br>之前提到，AspectJ是静态代理的增强，所谓的静态代理就是AOP框架会在编译阶段生成AOP代理类，因此也称为编译时增强。</li></ol>
-        
-          <a class="article-more-a" href="/java/Aspect面向切面编程/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">springboot</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">aop</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/java/Aspect面向切面编程/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-java/spring初探索" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-java/spring初探索" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1018,7 +1026,7 @@
 
 
   
-    <article id="post-db/mongodb" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-db/mongodb" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1118,7 +1126,7 @@
 
 
   
-    <article id="post-java/商品详情切换sku" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-java/商品详情切换sku" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1218,7 +1226,7 @@
 
 
   
-    <article id="post-java/SpringBoot基础" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-java/SpringBoot基础" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1439,14 +1447,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
@@ -1459,31 +1459,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">aop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">transactional</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">idea</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">profile</a>
+                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">quartz</a>
+                <a href="javascript:void(0)" class="js-tag color3">profile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1495,7 +1479,31 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">aop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">quartz</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">transactional</a>
               </li>
             
             <div class="clearfix"></div>
@@ -1503,7 +1511,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:
