@@ -5,12 +5,12 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link rel="dns-prefetch" href="http://linnxh.online">
+  <link rel="dns-prefetch" href="http://linnxh.cn">
   <title>Linnxh的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="Linnxh的博客">
-<meta property="og:url" content="http://linnxh.online/page/2/index.html">
+<meta property="og:url" content="http://linnxh.cn/page/2/index.html">
 <meta property="og:site_name" content="Linnxh的博客">
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
@@ -206,7 +206,8 @@
 <h1 id="linux链接"><a href="#linux链接" class="headerlink" title="linux链接"></a>linux链接</h1><p>当我们需要在不同的目录，用到相同的文件时，我们不需要在每一个需要的目录下都放一个必须相同的文件，我们只要在某个固定的目录，放上该文件，然后在其它的 目录下用ln命令链接（link）它就可以，不必重复的占用磁盘空间，这个命令最常用的参数是-s,具体用法是：ln -s 源文件 目标文件<br><code>sudo ln -s /opt/software/node-v10.15.2-linux-x64/bin/npm /usr/bin/npm</code><br>查看某个命令下的软连接的实际位置<br><code>cd /usr/bin</code> 输入 ls -al |grep npm 过滤输出 npm 软连接的实际位置</p>
 <h1 id="提示-Permission-denied"><a href="#提示-Permission-denied" class="headerlink" title="提示 Permission denied"></a>提示 Permission denied</h1><p><code>sudo chmod -R 777 某一目录</code></p>
 <p>-R 是指级联应用到目录里的所有子目录和文件,777 是所有用户都拥有最高权限</p>
-<h1 id="linux-npm-install-报错"><a href="#linux-npm-install-报错" class="headerlink" title="linux npm install 报错"></a>linux npm install 报错</h1><p>sudo npm install</p>
+<h1 id="linux-npm-install-报错"><a href="#linux-npm-install-报错" class="headerlink" title="linux npm install 报错"></a>linux npm install 报错</h1><p><code>sudo npm install</code></p>
+<h1 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h1><p>显示系统里有几种shell，系统默认的是/bin/bash<br><code>cat /etc/shells</code><br>切换shell的命令<br><code>chsh -s /bin/zsh</code></p>
 
       
 
@@ -1435,22 +1436,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">springboot</a>
               </li>
              
@@ -1460,6 +1445,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">idea</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1479,11 +1468,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
+                <a href="javascript:void(0)" class="js-tag color4">sql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1499,11 +1492,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">transactional</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
             
             <div class="clearfix"></div>

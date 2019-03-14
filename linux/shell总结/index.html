@@ -5,18 +5,18 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link rel="dns-prefetch" href="http://linnxh.online">
+  <link rel="dns-prefetch" href="http://linnxh.cn">
   <title>shell总结 | Linnxh的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="查看进程中含有tomcat的，过滤掉当前查询命令ps -ef|grep tomcat|grep -v grep 移除命令rm -rf  文件名称 拷贝cp   a/b.war  c/d.war  把a目录下的b.war拷贝到c目录下，并重命名为d.war 跨机拷贝命令拷贝命令，在本机上执行如下命令，将tar从本机拷贝到217上，执行如下命令会要求输入密码scp captureserver_vi-v">
 <meta name="keywords" content="shell">
 <meta property="og:type" content="article">
 <meta property="og:title" content="shell总结">
-<meta property="og:url" content="http://linnxh.online/linux/shell总结/index.html">
+<meta property="og:url" content="http://linnxh.cn/linux/shell总结/index.html">
 <meta property="og:site_name" content="Linnxh的博客">
 <meta property="og:description" content="查看进程中含有tomcat的，过滤掉当前查询命令ps -ef|grep tomcat|grep -v grep 移除命令rm -rf  文件名称 拷贝cp   a/b.war  c/d.war  把a目录下的b.war拷贝到c目录下，并重命名为d.war 跨机拷贝命令拷贝命令，在本机上执行如下命令，将tar从本机拷贝到217上，执行如下命令会要求输入密码scp captureserver_vi-v">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-08T09:09:07.206Z">
+<meta property="og:updated_time" content="2019-03-08T09:25:52.582Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="shell总结">
 <meta name="twitter:description" content="查看进程中含有tomcat的，过滤掉当前查询命令ps -ef|grep tomcat|grep -v grep 移除命令rm -rf  文件名称 拷贝cp   a/b.war  c/d.war  把a目录下的b.war拷贝到c目录下，并重命名为d.war 跨机拷贝命令拷贝命令，在本机上执行如下命令，将tar从本机拷贝到217上，执行如下命令会要求输入密码scp captureserver_vi-v">
@@ -209,7 +209,8 @@
 <h1 id="linux链接"><a href="#linux链接" class="headerlink" title="linux链接"></a>linux链接</h1><p>当我们需要在不同的目录，用到相同的文件时，我们不需要在每一个需要的目录下都放一个必须相同的文件，我们只要在某个固定的目录，放上该文件，然后在其它的 目录下用ln命令链接（link）它就可以，不必重复的占用磁盘空间，这个命令最常用的参数是-s,具体用法是：ln -s 源文件 目标文件<br><code>sudo ln -s /opt/software/node-v10.15.2-linux-x64/bin/npm /usr/bin/npm</code><br>查看某个命令下的软连接的实际位置<br><code>cd /usr/bin</code> 输入 ls -al |grep npm 过滤输出 npm 软连接的实际位置</p>
 <h1 id="提示-Permission-denied"><a href="#提示-Permission-denied" class="headerlink" title="提示 Permission denied"></a>提示 Permission denied</h1><p><code>sudo chmod -R 777 某一目录</code></p>
 <p>-R 是指级联应用到目录里的所有子目录和文件,777 是所有用户都拥有最高权限</p>
-<h1 id="linux-npm-install-报错"><a href="#linux-npm-install-报错" class="headerlink" title="linux npm install 报错"></a>linux npm install 报错</h1><p>sudo npm install</p>
+<h1 id="linux-npm-install-报错"><a href="#linux-npm-install-报错" class="headerlink" title="linux npm install 报错"></a>linux npm install 报错</h1><p><code>sudo npm install</code></p>
+<h1 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h1><p>显示系统里有几种shell，系统默认的是/bin/bash<br><code>cat /etc/shells</code><br>切换shell的命令<br><code>chsh -s /bin/zsh</code></p>
 
       
 
@@ -290,7 +291,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://linnxh.online/linux/shell总结/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://linnxh.cn/linux/shell总结/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -342,7 +343,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#查看进程中含有tomcat的，过滤掉当前查询命令"><span class="toc-number">1.</span> <span class="toc-text">查看进程中含有tomcat的，过滤掉当前查询命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#移除命令"><span class="toc-number">2.</span> <span class="toc-text">移除命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#拷贝"><span class="toc-number">3.</span> <span class="toc-text">拷贝</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#跨机拷贝命令"><span class="toc-number">4.</span> <span class="toc-text">跨机拷贝命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实时输出文件"><span class="toc-number">5.</span> <span class="toc-text">实时输出文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#解压"><span class="toc-number">6.</span> <span class="toc-text">解压</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#压缩"><span class="toc-number">7.</span> <span class="toc-text">压缩</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#centos7-5-虚拟机不上网配置"><span class="toc-number">8.</span> <span class="toc-text">centos7.5 虚拟机不上网配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查看内存总数"><span class="toc-number">9.</span> <span class="toc-text">查看内存总数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查看某个端口的占用情况"><span class="toc-number">10.</span> <span class="toc-text">查看某个端口的占用情况</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查看程序占用情况"><span class="toc-number">11.</span> <span class="toc-text">查看程序占用情况</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查找名称为XXX的文件"><span class="toc-number">12.</span> <span class="toc-text">查找名称为XXX的文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查找大文件"><span class="toc-number">13.</span> <span class="toc-text">查找大文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#过滤输出"><span class="toc-number">14.</span> <span class="toc-text">过滤输出</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#linux链接"><span class="toc-number">15.</span> <span class="toc-text">linux链接</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#提示-Permission-denied"><span class="toc-number">16.</span> <span class="toc-text">提示 Permission denied</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#linux-npm-install-报错"><span class="toc-number">17.</span> <span class="toc-text">linux npm install 报错</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#查看进程中含有tomcat的，过滤掉当前查询命令"><span class="toc-number">1.</span> <span class="toc-text">查看进程中含有tomcat的，过滤掉当前查询命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#移除命令"><span class="toc-number">2.</span> <span class="toc-text">移除命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#拷贝"><span class="toc-number">3.</span> <span class="toc-text">拷贝</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#跨机拷贝命令"><span class="toc-number">4.</span> <span class="toc-text">跨机拷贝命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实时输出文件"><span class="toc-number">5.</span> <span class="toc-text">实时输出文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#解压"><span class="toc-number">6.</span> <span class="toc-text">解压</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#压缩"><span class="toc-number">7.</span> <span class="toc-text">压缩</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#centos7-5-虚拟机不上网配置"><span class="toc-number">8.</span> <span class="toc-text">centos7.5 虚拟机不上网配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查看内存总数"><span class="toc-number">9.</span> <span class="toc-text">查看内存总数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查看某个端口的占用情况"><span class="toc-number">10.</span> <span class="toc-text">查看某个端口的占用情况</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查看程序占用情况"><span class="toc-number">11.</span> <span class="toc-text">查看程序占用情况</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查找名称为XXX的文件"><span class="toc-number">12.</span> <span class="toc-text">查找名称为XXX的文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查找大文件"><span class="toc-number">13.</span> <span class="toc-text">查找大文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#过滤输出"><span class="toc-number">14.</span> <span class="toc-text">过滤输出</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#linux链接"><span class="toc-number">15.</span> <span class="toc-text">linux链接</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#提示-Permission-denied"><span class="toc-number">16.</span> <span class="toc-text">提示 Permission denied</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#linux-npm-install-报错"><span class="toc-number">17.</span> <span class="toc-text">linux npm install 报错</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查看"><span class="toc-number">18.</span> <span class="toc-text">查看</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -356,7 +357,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="linux/shell总结" data-title="shell总结" data-url="http://linnxh.online/linux/shell总结/"></div>
+	<div class="ds-thread" data-thread-key="linux/shell总结" data-title="shell总结" data-url="http://linnxh.cn/linux/shell总结/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -379,7 +380,7 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://linnxh.online/linux/shell总结/", 
+    url: "http://linnxh.cn/linux/shell总结/", 
     sourceId: "linux/shell总结",
     productKey: "true",
     target: "cloud-tie-wrapper"
@@ -530,22 +531,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">springboot</a>
               </li>
              
@@ -555,6 +540,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">idea</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -574,11 +563,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
+                <a href="javascript:void(0)" class="js-tag color4">sql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -594,11 +587,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">transactional</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
             
             <div class="clearfix"></div>
