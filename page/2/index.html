@@ -199,6 +199,38 @@
 <h1 id="查看内存总数"><a href="#查看内存总数" class="headerlink" title="查看内存总数"></a>查看内存总数</h1><p><code>cat /proc/meminfo | grep MemTotal</code></p>
 <h1 id="查看某个端口的占用情况"><a href="#查看某个端口的占用情况" class="headerlink" title="查看某个端口的占用情况"></a>查看某个端口的占用情况</h1><p><code>netstat -anp|grep 80</code>查看80端口的占用情况</p>
 <h1 id="查看程序占用情况"><a href="#查看程序占用情况" class="headerlink" title="查看程序占用情况"></a>查看程序占用情况</h1><p>输入top，然后输入大写P，就是按照cpu占用情况倒叙，输入大写M，按照memory排序，</p>
+<h2 id="各行的解释"><a href="#各行的解释" class="headerlink" title="各行的解释"></a>各行的解释</h2><p><img src="/,http://linnxh.online/linux/shell总结/media/15537550102049.png" alt=""></p>
+<p><strong>第一行</strong><br><code>top - 10:53:24 up 12 days, 22:17,  1 user,  load average: 0.00, 0.04, 0.09</code><br>当前时间 系统已运行的时间 当前登录用户的数量 相应最近5、10和15分钟内的平均负载(大于1代表已经没有负载了，理想状态维持在0.7一下)</p>
+<p><strong>第二行</strong><br><code>Tasks: 173 total,   1 running, 171 sleeping,   1 stopped,   0 zombie</code><br>Tasks — 任务（进程），系统现在共有173个进程，其中处于运行中的有1个，171个在休眠（sleep），stoped状态的有1个，zombie状态（僵尸）的有0个。</p>
+<p><strong>第三行</strong><br><code>%Cpu(s):  0.5 us,  0.5 sy,  0.0 ni, 98.9 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st</code><br>这里显示不同模式下所占cpu时间百分比，这些不同的cpu时间表示：<br>us, user： 运行(未调整优先级的) 用户进程的CPU时间<br>sy，system: 运行内核进程的CPU时间<br>ni，niced：运行已调整优先级的用户进程的CPU时间<br>wa，IO wait: 用于等待IO完成的CPU时间<br>hi：处理硬件中断的CPU时间<br>si: 处理软件中断的CPU时间<br>st：这个虚拟机被hypervisor偷去的CPU时间（译注：如果当前处于一个hypervisor下的vm，实际上hypervisor也是要消耗一部分CPU处理时间的）。</p>
+<p><strong>第四行</strong><br><code>KiB Mem :  6444056 total,   244948 free,  5825308 used,   373800 buff/cache</code><br>物理内存使用 全部可用内存、已使用内存、空闲内存、缓冲内存。<br><strong>第五行</strong><br><code>KiB Swap:  2097148 total,  1469132 free,   628016 used.   249292 avail Mem</code><br> 虚拟内存使用  交换部分显示的是：全部、已使用、空闲和缓冲交换空间<br> 提示：不可用windows的习惯计算linux的可用内存为 244M+146M  </p>
+<p> 近似的计算公式： Mem的free + Mem的buffers + Swap的cached，按这个公式此台服务器的可用内存：</p>
+<p> <strong>第六行</strong><br> 空的</p>
+<p> <strong>第七行</strong><br> 各进程（任务）的状态监控</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND</span><br><span class="line">85705 root      20   0 4266000 567868   5708 S   4.7  8.8 493:30.77 java</span><br><span class="line">40070 root      20   0 4334092 386616   6964 S   1.7  6.0 121:39.53 java</span><br><span class="line">64750 root      20   0 4310400 832980   7176 S   1.0 12.9  42:14.71 java</span><br><span class="line">65006 root      20   0 4311228 869760   6432 S   1.0 13.5  78:31.34 java</span><br><span class="line">39739 root      20   0 4274144 781004   7144 S   0.7 12.1  20:07.01 java</span><br><span class="line">57504 root      20   0 4387340 713820   6252 S   0.7 11.1  83:30.28 java</span><br><span class="line">65567 root      20   0 4291584 817576   6260 S   0.7 12.7  76:41.67 java</span><br><span class="line">66818 root      20   0 4283008 415872   6868 S   0.7  6.5  36:16.48 java</span><br></pre></td></tr></table></figure>
+<p>PID：进程ID，进程的唯一标识符</p>
+<p>USER：进程所有者的实际用户名。</p>
+<p>PR：进程的调度优先级。这个字段的一些值是’rt’。这意味这这些进程运行在实时态。</p>
+<p>NI：进程的nice值（优先级）。越小的值意味着越高的优先级。负值表示高优先级，正值表示低优先级</p>
+<p>VIRT：进程使用的虚拟内存。进程使用的虚拟内存总量，单位kb。VIRT=SWAP+RES</p>
+<p>RES：驻留内存大小。驻留内存是任务使用的非交换物理内存大小。进程使用的、未被换出的物理内存大小，单位kb。RES=CODE+DATA</p>
+<p>SHR：SHR是进程使用的共享内存。共享内存大小，单位kb</p>
+<p>S：这个是进程的状态。它有以下不同的值:</p>
+<ul>
+<li>D - 不可中断的睡眠态。</li>
+<li>R – 运行态</li>
+<li>S – 睡眠态</li>
+<li>T – 被跟踪或已停止</li>
+<li>Z – 僵尸态<br>%CPU：自从上一次更新时到现在任务所使用的CPU时间百分比。</li>
+</ul>
+<p>%MEM：进程使用的可用物理内存百分比。</p>
+<p>TIME+：任务启动后到现在所使用的全部CPU时间，精确到百分之一秒。</p>
+<p>COMMAND：运行进程所使用的命令。进程名称（命令名/命令行）</p>
+<h1 id="查看cpu核数"><a href="#查看cpu核数" class="headerlink" title="查看cpu核数"></a>查看cpu核数</h1><p>总核数 = 物理CPU个数 X 每颗物理CPU的核数<br><code>总逻辑CPU数 = 物理CPU个数 X 每颗物理CPU的核数 X 超线程数</code></p>
+<p>查看物理CPU个数<br><code>cat /proc/cpuinfo| grep &quot;physical id&quot;| sort| uniq| wc -l</code></p>
+<p>查看每个物理CPU中core的个数(即核数)<br><code>cat /proc/cpuinfo| grep &quot;cpu cores&quot;| uniq</code></p>
+<p>查看逻辑CPU的个数<br><code>cat /proc/cpuinfo| grep &quot;processor&quot;| wc -l</code></p>
+<p><a href="https://www.cnblogs.com/zhoug2020/p/6336453.html" target="_blank" rel="noopener">top命令详解</a></p>
 <h1 id="查找名称为XXX的文件"><a href="#查找名称为XXX的文件" class="headerlink" title="查找名称为XXX的文件"></a>查找名称为XXX的文件</h1><p><code>find / |grep tomcat</code>   在更目录下查找名称为tomcat的文件</p>
 <h1 id="查找大文件"><a href="#查找大文件" class="headerlink" title="查找大文件"></a>查找大文件</h1><p>linux查看根目录下所有文件夹大小的方法如下：<br>1、进入根目录：<code>cd /</code><br>2、使用命令 ： <code>du -sh *</code> 查看根目录下每个文件夹的大小<br>3、进入占用空间比较大的文件夹，然后再使用2中命令查找大文件</p>
 <h1 id="过滤输出"><a href="#过滤输出" class="headerlink" title="过滤输出"></a>过滤输出</h1><p><code>cat cata.out |gre error</code>  过滤输出</p>
@@ -206,7 +238,7 @@
 <h1 id="linux链接"><a href="#linux链接" class="headerlink" title="linux链接"></a>linux链接</h1><p>当我们需要在不同的目录，用到相同的文件时，我们不需要在每一个需要的目录下都放一个必须相同的文件，我们只要在某个固定的目录，放上该文件，然后在其它的 目录下用ln命令链接（link）它就可以，不必重复的占用磁盘空间，这个命令最常用的参数是-s,具体用法是：ln -s 源文件 目标文件<br><code>sudo ln -s /opt/software/node-v10.15.2-linux-x64/bin/npm /usr/bin/npm</code><br>查看某个命令下的软连接的实际位置<br><code>cd /usr/bin</code> 输入 ls -al |grep npm 过滤输出 npm 软连接的实际位置</p>
 <h1 id="提示-Permission-denied"><a href="#提示-Permission-denied" class="headerlink" title="提示 Permission denied"></a>提示 Permission denied</h1><p><code>sudo chmod -R 777 某一目录</code></p>
 <p>-R 是指级联应用到目录里的所有子目录和文件,777 是所有用户都拥有最高权限</p>
-<h1 id="linux-npm-install-报错"><a href="#linux-npm-install-报错" class="headerlink" title="linux npm install 报错"></a>linux npm install 报错</h1><p><code>sudo npm install</code></p>
+<h1 id="linux-npm-install-报错，提示没有权限"><a href="#linux-npm-install-报错，提示没有权限" class="headerlink" title="linux npm install 报错，提示没有权限"></a>linux npm install 报错，提示没有权限</h1><p><code>sudo npm install</code></p>
 <h1 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h1><p>显示系统里有几种shell，系统默认的是/bin/bash<br><code>cat /etc/shells</code><br>切换shell的命令<br><code>chsh -s /bin/zsh</code></p>
 
       
