@@ -4,6 +4,21 @@
 
     
   <url>
+    <loc>http://linnxh.cn/,http://linnxh.online/lxhname/</loc>
+    <lastmod>2019-03-28T07:07:10.739Z</lastmod>
+    <data>
+        <display>
+        <title>lxhname</title>
+        <pubTime>2019-03-28T07:04:31.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://linnxh.cn/,http://linnxh.online/linux/shell%E6%80%BB%E7%BB%93/</loc>
     <lastmod>2019-03-28T06:40:26.144Z</lastmod>
     <data>
@@ -491,9 +506,9 @@
         <title>SpringBoot基础</title>
         <pubTime>2018-05-15T07:45:48.000Z</pubTime>
         
-        <tag>springboot</tag>
-         
         <tag>shell</tag>
+         
+        <tag>springboot</tag>
          
          
            
