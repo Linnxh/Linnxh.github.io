@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="Linnxh的博客">
 <meta property="og:description" content="查看进程中含有tomcat的，过滤掉当前查询命令ps -ef|grep tomcat|grep -v grep 移除命令rm -rf  文件名称 拷贝cp   a/b.war  c/d.war  把a目录下的b.war拷贝到c目录下，并重命名为d.war 跨机拷贝命令拷贝命令，在本机上执行如下命令，将tar从本机拷贝到217上，执行如下命令会要求输入密码scp captureserver_vi-v">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://linnxh.cn/,http://linnxh.online/linux/shell总结/media/15537550102049.png">
-<meta property="og:updated_time" content="2019-03-28T06:37:29.700Z">
+<meta property="og:image" content="http://linnxh.cn/,http://linnxh.online/linux/shell总结/media/topcommend.png">
+<meta property="og:updated_time" content="2019-03-28T06:40:26.144Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="shell总结">
 <meta name="twitter:description" content="查看进程中含有tomcat的，过滤掉当前查询命令ps -ef|grep tomcat|grep -v grep 移除命令rm -rf  文件名称 拷贝cp   a/b.war  c/d.war  把a目录下的b.war拷贝到c目录下，并重命名为d.war 跨机拷贝命令拷贝命令，在本机上执行如下命令，将tar从本机拷贝到217上，执行如下命令会要求输入密码scp captureserver_vi-v">
-<meta name="twitter:image" content="http://linnxh.cn/,http://linnxh.online/linux/shell总结/media/15537550102049.png">
+<meta name="twitter:image" content="http://linnxh.cn/,http://linnxh.online/linux/shell总结/media/topcommend.png">
   
     <link rel="alternative" href="/atom.xml" title="Linnxh的博客" type="application/atom+xml">
   
@@ -204,7 +204,7 @@
 <h1 id="查看内存总数"><a href="#查看内存总数" class="headerlink" title="查看内存总数"></a>查看内存总数</h1><p><code>cat /proc/meminfo | grep MemTotal</code></p>
 <h1 id="查看某个端口的占用情况"><a href="#查看某个端口的占用情况" class="headerlink" title="查看某个端口的占用情况"></a>查看某个端口的占用情况</h1><p><code>netstat -anp|grep 80</code>查看80端口的占用情况</p>
 <h1 id="查看程序占用情况"><a href="#查看程序占用情况" class="headerlink" title="查看程序占用情况"></a>查看程序占用情况</h1><p>输入top，然后输入大写P，就是按照cpu占用情况倒叙，输入大写M，按照memory排序，</p>
-<h2 id="各行的解释"><a href="#各行的解释" class="headerlink" title="各行的解释"></a>各行的解释</h2><p><img src="/,http://linnxh.online/linux/shell总结/media/15537550102049.png" alt=""></p>
+<h2 id="各行的解释"><a href="#各行的解释" class="headerlink" title="各行的解释"></a>各行的解释</h2><p><img src="/,http://linnxh.online/linux/shell总结/media/topcommend.png" alt=""></p>
 <p><strong>第一行</strong><br><code>top - 10:53:24 up 12 days, 22:17,  1 user,  load average: 0.00, 0.04, 0.09</code><br>当前时间 系统已运行的时间 当前登录用户的数量 相应最近5、10和15分钟内的平均负载(大于1代表已经没有负载了，理想状态维持在0.7一下)</p>
 <p><strong>第二行</strong><br><code>Tasks: 173 total,   1 running, 171 sleeping,   1 stopped,   0 zombie</code><br>Tasks — 任务（进程），系统现在共有173个进程，其中处于运行中的有1个，171个在休眠（sleep），stoped状态的有1个，zombie状态（僵尸）的有0个。</p>
 <p><strong>第三行</strong><br><code>%Cpu(s):  0.5 us,  0.5 sy,  0.0 ni, 98.9 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st</code><br>这里显示不同模式下所占cpu时间百分比，这些不同的cpu时间表示：<br>us, user： 运行(未调整优先级的) 用户进程的CPU时间<br>sy，system: 运行内核进程的CPU时间<br>ni，niced：运行已调整优先级的用户进程的CPU时间<br>wa，IO wait: 用于等待IO完成的CPU时间<br>hi：处理硬件中断的CPU时间<br>si: 处理软件中断的CPU时间<br>st：这个虚拟机被hypervisor偷去的CPU时间（译注：如果当前处于一个hypervisor下的vm，实际上hypervisor也是要消耗一部分CPU处理时间的）。</p>
