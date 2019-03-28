@@ -4,15 +4,18 @@
 
     
   <url>
-    <loc>http://linnxh.cn/,http://linnxh.online/lxhname/</loc>
-    <lastmod>2019-03-28T07:52:02.218Z</lastmod>
+    <loc>http://linnxh.cn/,http://linnxh.online/README/</loc>
+    <lastmod>2019-03-28T08:44:44.727Z</lastmod>
     <data>
         <display>
-        <title>lxhname</title>
-        <pubTime>2019-03-28T07:04:31.000Z</pubTime>
+        <title>hexo搭建博客注意事项</title>
+        <pubTime>2018-02-05T07:10:28.000Z</pubTime>
         
          
            
+             
+              <breadCrumb title="else" url="http://linnxh.cn/,http://linnxh.online/categories/else/"/>
+          
         </display>
     </data>
     </url>
@@ -32,24 +35,6 @@
            
              
               <breadCrumb title="linux" url="http://linnxh.cn/,http://linnxh.online/categories/linux/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://linnxh.cn/,http://linnxh.online/README/</loc>
-    <lastmod>2019-03-14T03:32:18.244Z</lastmod>
-    <data>
-        <display>
-        <title>hexo搭建博客注意事项</title>
-        <pubTime>2018-02-05T07:10:28.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="else" url="http://linnxh.cn/,http://linnxh.online/categories/else/"/>
           
         </display>
     </data>
