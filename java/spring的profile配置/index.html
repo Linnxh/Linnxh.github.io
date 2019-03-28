@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="Linnxh的博客">
 <meta property="og:description" content="spring.profile是为了解决开发环境和生产环境对应的配置文件不一致，可以灵活使用对应的配置文件 代码实现配置文件分为两份">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/moreprofile1.png">
-<meta property="og:updated_time" content="2019-02-22T07:13:47.906Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/Linnxh/img/master/moreprofile1.png">
+<meta property="og:updated_time" content="2019-03-28T09:09:34.076Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring的profile配置">
 <meta name="twitter:description" content="spring.profile是为了解决开发环境和生产环境对应的配置文件不一致，可以灵活使用对应的配置文件 代码实现配置文件分为两份">
-<meta name="twitter:image" content="http://p964q970y.bkt.clouddn.com/moreprofile1.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Linnxh/img/master/moreprofile1.png">
   
     <link rel="alternative" href="/atom.xml" title="Linnxh的博客" type="application/atom+xml">
   
@@ -188,7 +188,8 @@
       
       
         <p>spring.profile是为了解决开发环境和生产环境对应的配置文件不一致，可以灵活使用对应的配置文件</p>
-<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><h2 id="配置文件分为两份"><a href="#配置文件分为两份" class="headerlink" title="配置文件分为两份"></a>配置文件分为两份</h2><p><img src="http://p964q970y.bkt.clouddn.com/moreprofile1.png" alt="moreprofile"><br><a id="more"></a></p>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><h2 id="配置文件分为两份"><a href="#配置文件分为两份" class="headerlink" title="配置文件分为两份"></a>配置文件分为两份</h2><p><img src="https://raw.githubusercontent.com/Linnxh/img/master/moreprofile1.png" alt="moreprofile"></p>
+<a id="more"></a>
 <h2 id="applicationContext中配置两种环境的配置文件"><a href="#applicationContext中配置两种环境的配置文件" class="headerlink" title="applicationContext中配置两种环境的配置文件"></a>applicationContext中配置两种环境的配置文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 生产环境配置文件 --&gt;</span><br><span class="line">&lt;beans profile=&quot;product&quot;&gt;</span><br><span class="line">    &lt;context:property-placeholder location=&quot;classpath:properties/product/*.properties&quot; /&gt;</span><br><span class="line">&lt;/beans&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 开发环境配置文件 --&gt;</span><br><span class="line">&lt;beans profile=&quot;dev&quot;&gt;</span><br><span class="line">    &lt;context:property-placeholder location=&quot;classpath:properties/dev/*.properties&quot; /&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="web-xm中指定默认的配置文件时生产环境的"><a href="#web-xm中指定默认的配置文件时生产环境的" class="headerlink" title="web.xm中指定默认的配置文件时生产环境的"></a>web.xm中指定默认的配置文件时生产环境的</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 在上下文context-param中设置profile.default的默认值 --&gt;</span><br><span class="line">&lt;context-param&gt;</span><br><span class="line">    &lt;param-name&gt;spring.profiles.default&lt;/param-name&gt;</span><br><span class="line">    &lt;param-value&gt;product&lt;/param-value&gt;</span><br><span class="line">&lt;/context-param&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="代码中获取当前的环境"><a href="#代码中获取当前的环境" class="headerlink" title="代码中获取当前的环境"></a>代码中获取当前的环境</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public static String ENV;</span><br><span class="line"></span><br><span class="line">static &#123;</span><br><span class="line">    String env = System.getProperty(&quot;spring.profiles.active&quot;);</span><br><span class="line">    if (env == null) &#123;</span><br><span class="line">        PropUtils.ENV = &quot;product&quot;;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        PropUtils.ENV = env;</span><br><span class="line">    &#125;</span><br><span class="line">    PropertyConfigurator.configure(Thread.currentThread().getContextClassLoader().getResource(&quot;&quot;).getPath() + &quot;properties/&quot; + ENV + &quot;/log4j.properties&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -289,18 +290,18 @@
   
 <nav id="article-nav">
   
-    <a href="/db/实际开发中mysql的性能优化/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/linux/打包用到的脚本/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          实际开发中mysql的性能优化
+          jenkins打包用到的脚本
         
       </div>
     </a>
   
   
-    <a href="/linux/打包用到的脚本/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">jenkins打包用到的脚本</div>
+    <a href="/java/java基础/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">java基础</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -515,19 +516,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -535,15 +524,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">profile</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -559,11 +540,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
+                <a href="javascript:void(0)" class="js-tag color4">sql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">idea</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">profile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -579,11 +572,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">transactional</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
             
             <div class="clearfix"></div>

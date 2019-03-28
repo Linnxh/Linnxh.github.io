@@ -15,13 +15,13 @@
 <meta property="og:site_name" content="Linnxh的博客">
 <meta property="og:description" content="java基础知识总结 2018-01">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/QQ20180321-175431@2x.png">
-<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/post-get.png">
-<meta property="og:updated_time" content="2019-01-16T05:57:37.620Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/Linnxh/img/master/QQ20180321-175431@2x.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Linnxh/img/master/post-get.png">
+<meta property="og:updated_time" content="2019-03-28T09:14:34.096Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java-18-01">
 <meta name="twitter:description" content="java基础知识总结 2018-01">
-<meta name="twitter:image" content="http://p964q970y.bkt.clouddn.com/QQ20180321-175431@2x.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Linnxh/img/master/QQ20180321-175431@2x.png">
   
     <link rel="alternative" href="/atom.xml" title="Linnxh的博客" type="application/atom+xml">
   
@@ -254,7 +254,7 @@ public class VolaticleNoAtomic extends Thread {
     }
 }
 `
-</code></pre><h2 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h2><p>定义：<br>远程过程调用，A通过网络调用B的过程方法<br>RPC调用的流程<br><img src="http://p964q970y.bkt.clouddn.com/QQ20180321-175431@2x.png" alt=""></p>
+</code></pre><h2 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h2><p>定义：<br>远程过程调用，A通过网络调用B的过程方法<br>RPC调用的流程<br><img src="https://raw.githubusercontent.com/Linnxh/img/master/QQ20180321-175431@2x.png" alt=""></p>
 <p>1）服务消费方（client）调用以本地调用方式调用服务；<br>2）client stub接收到调用后负责将方法、参数等组装成能够进行网络传输的消息体；<br>3）client stub找到服务地址，并将消息发送到服务端；<br>4）server stub收到消息后进行解码；<br>5）server stub根据解码结果调用本地的服务；<br>6）本地服务执行并将结果返回给server stub；<br>7）server stub将返回结果打包成消息并发送至消费方；<br>8）client stub接收到消息，并进行解码；<br>9）服务消费方得到最终结果<br>RPC的目标就是要2~8这些步骤都封装起来，让用户对这些细节透明<br> 举例说明</p>
 <pre><code>1 int Multiply(int l, int r) {
 2    int y = l * r;
@@ -301,7 +301,7 @@ public class VolaticleNoAtomic extends Thread {
 <blockquote>
 <p>注意：<br>1）方法名称是区分大小写的，当某个请求所针对的资源不支持对应的请求方法的时候，服务器应当返回状态码405（Mothod Not Allowed）；当服务器不认识或者不支持对应的请求方法时，应返回状态码501（Not Implemented）。<br>2）HTTP服务器至少应该实现GET和HEAD/POST方法，其他方法都是可选的，此外除上述方法，特定的HTTP服务器支持扩展自定义的方法。</p>
 </blockquote>
-<p>post和get的对比图<br><img src="http://p964q970y.bkt.clouddn.com/post-get.png" alt=""></p>
+<p>post和get的对比图<br><img src="https://raw.githubusercontent.com/Linnxh/img/master/post-get.png" alt=""></p>
 <h2 id="pom打包"><a href="#pom打包" class="headerlink" title="pom打包"></a>pom打包</h2><p>jar包和war包</p>
 <p>jar：jar包就是别人已经写好的一些类，然后对这些类进行打包，别的项目可以直接引用已经存在的jar包；<br>war：Javaweb程序打包成war包，一个WAR文件就是一个Web应用程序，建立WAR文件，就是把整个Web应用程序压缩起来，指定一个.war扩展名</p>
 
@@ -613,19 +613,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -633,15 +621,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">profile</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -657,11 +637,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
+                <a href="javascript:void(0)" class="js-tag color4">sql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">idea</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">profile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -677,11 +669,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">transactional</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
             
             <div class="clearfix"></div>

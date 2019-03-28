@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="Linnxh的博客">
 <meta property="og:description" content="本案例采用的是mongo分片模式中的replicat+sharding实现备份分片，采用的是三台虚拟机，    192.168.3.229 192.168.3.128 192.168.3.125     mongos mongos mongos   config server config server config server   shard server1 主节点 shard server1">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/mongodb%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9fenbu.png">
-<meta property="og:updated_time" content="2019-02-22T07:11:57.902Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/Linnxh/img/master/mongodb%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9fenbu.png">
+<meta property="og:updated_time" content="2019-03-28T09:14:34.152Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mongo的Sharding+Replset集群">
 <meta name="twitter:description" content="本案例采用的是mongo分片模式中的replicat+sharding实现备份分片，采用的是三台虚拟机，    192.168.3.229 192.168.3.128 192.168.3.125     mongos mongos mongos   config server config server config server   shard server1 主节点 shard server1">
-<meta name="twitter:image" content="http://p964q970y.bkt.clouddn.com/mongodb%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9fenbu.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Linnxh/img/master/mongodb%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9fenbu.png">
   
     <link rel="alternative" href="/atom.xml" title="Linnxh的博客" type="application/atom+xml">
   
@@ -234,7 +234,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /lxhtext/</span><br><span class="line">cd /lxhtest/</span><br></pre></td></tr></table></figure>
 <p>现在其中一台服务器上操作</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mkdir mongodb</span><br><span class="line">mkdir -p /lxhtext/mongodb/conf \</span><br><span class="line">mkdir -p /lxhtext/mongodb/mongos/log \</span><br><span class="line">mkdir -p /lxhtext/mongodb/config/data \</span><br><span class="line">mkdir -p /lxhtext/mongodb/config/log \</span><br><span class="line">mkdir -p /lxhtext/mongodb/shard1/data \</span><br><span class="line">mkdir -p /lxhtext/mongodb/shard1/log \</span><br><span class="line">mkdir -p /lxhtext/mongodb/shard2/data \</span><br><span class="line">mkdir -p /lxhtext/mongodb/shard2/log \</span><br><span class="line">mkdir -p /lxhtext/mongodb/shard3/data \</span><br><span class="line">mkdir -p /lxhtext/mongodb/shard3/log</span><br></pre></td></tr></table></figure>
-<p>将mongo的包解压到/lxhtext/mongodb，<br>/lxhtext/mongodb的文件信息如下：<br><img src="http://p964q970y.bkt.clouddn.com/mongodb%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9fenbu.png" alt="mongodb的文件分布"><br>其中红框的部分是我们新建的，其他的是mongo解压的</p>
+<p>将mongo的包解压到/lxhtext/mongodb，<br>/lxhtext/mongodb的文件信息如下：<br><img src="https://raw.githubusercontent.com/Linnxh/img/master/mongodb%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9fenbu.png" alt="mongodb的文件分布"><br>其中红框的部分是我们新建的，其他的是mongo解压的</p>
 <p>5分配置文件</p>
 <p>/lxhtext/mongodb/conf/config.conf</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">## 配置文件内容</span><br><span class="line">pidfilepath = /lxhtest/mongodb/config/log/configsrv.pid</span><br><span class="line">dbpath = /lxhtest/mongodb/config/data</span><br><span class="line">logpath = /lxhtest/mongodb/config/log/congigsrv.log</span><br><span class="line">logappend = true</span><br><span class="line"> </span><br><span class="line">bind_ip = 0.0.0.0</span><br><span class="line">port = 21000</span><br><span class="line">fork = true</span><br><span class="line"> </span><br><span class="line">#declare this is a config db of a cluster;</span><br><span class="line">configsvr = true</span><br><span class="line"> </span><br><span class="line">#副本集名称</span><br><span class="line">replSet = configs</span><br><span class="line"> </span><br><span class="line">#设置最大连接数</span><br><span class="line">maxConns = 20000</span><br></pre></td></tr></table></figure>
@@ -426,8 +426,8 @@
     </a>
   
   
-    <a href="/java/kafka集群/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">kafka集群</div>
+    <a href="/java/mongo千万级数据优化/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mongo千万级数据优化</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -642,19 +642,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -662,15 +650,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">profile</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -686,11 +666,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
+                <a href="javascript:void(0)" class="js-tag color4">sql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">idea</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">profile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -706,11 +698,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">transactional</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
             
             <div class="clearfix"></div>

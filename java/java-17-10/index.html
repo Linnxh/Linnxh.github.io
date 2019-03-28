@@ -15,16 +15,16 @@
 <meta property="og:site_name" content="Linnxh的博客">
 <meta property="og:description" content="java基础知识总结 2017-10">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/15177961453999.jpg">
-<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/15177962099111.jpg">
-<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/15177962329985.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Linnxh/img/master/15177961453999.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Linnxh/img/master/15177962099111.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Linnxh/img/master/15177962329985.jpg">
 <meta property="og:image" content="http://linnxh.cn/,http://linnxh.online/java/java-17-10/">
 <meta property="og:image" content="http://linnxh.cn/,http://linnxh.online/java/java-17-10/">
-<meta property="og:updated_time" content="2018-07-09T03:26:56.970Z">
+<meta property="og:updated_time" content="2019-03-28T09:14:34.129Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java-17-10">
 <meta name="twitter:description" content="java基础知识总结 2017-10">
-<meta name="twitter:image" content="http://p964q970y.bkt.clouddn.com/15177961453999.jpg">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Linnxh/img/master/15177961453999.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Linnxh的博客" type="application/atom+xml">
   
@@ -193,10 +193,10 @@
         <p>java基础知识总结 2017-10</p>
 <a id="more"></a>
 <h1 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h1><p>linux编辑文件时不可用<br>修改/etc/vim/vimrc.tiny 文件，将set compatible 设置成set nocompatible . 保存退出即可。这是因为有时候系统会默认vim兼容vi，所以使用vi的命令<br>设置里面要选择桥连，ubantu地址是：我linux地址是10.10.1.74<br>2、搭建java开发环境<br>ubuntu-16.04+mac+virtual+idea<br>—- —-ubuntu启用root用户：参考 <a href="http://blog.csdn.net/sunxiaoju/article/details/51993091" target="_blank" rel="noopener">ubuntu16启用root用户</a><br>sudo passwd -u root 设置root密码<br>su root 测试是否可以进入root用户，如果出现# 说明已成功<br>进入到/usr/share/lightdm/lightdm.conf.d/目录，使用gedit 50-unity-greeter.conf &amp;命令打开50-unity-greeter.conf 文件，如下图所示：<br>在打开文件中添加如下信息，来设置登录时可以选择用户登录，如下图所示：<br>user-session=ubuntu<br>greeter-show-manual-login=true<br>all-guest=false</p>
-<p><img src="http://p964q970y.bkt.clouddn.com/15177961453999.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/Linnxh/img/master/15177961453999.jpg" alt=""></p>
 <p>重启系统，点击登录，输入root，和设置的密码 </p>
-<p>重启系统，点击登录，输入root，和设置的密码<br>此时会出现：读取/root/.profile时发现错误，对话框，如下图所示：<br><img src="http://p964q970y.bkt.clouddn.com/15177962099111.jpg" alt=""></p>
-<p>点击确定按钮，进入系统，使用vi /root/.profile命令修改文件，找到mesg n，修改为：tty -s &amp;&amp; mesg n，如下图所示：<br><img src="http://p964q970y.bkt.clouddn.com/15177962329985.jpg" alt=""></p>
+<p>重启系统，点击登录，输入root，和设置的密码<br>此时会出现：读取/root/.profile时发现错误，对话框，如下图所示：<br><img src="https://raw.githubusercontent.com/Linnxh/img/master/15177962099111.jpg" alt=""></p>
+<p>点击确定按钮，进入系统，使用vi /root/.profile命令修改文件，找到mesg n，修改为：tty -s &amp;&amp; mesg n，如下图所示：<br><img src="https://raw.githubusercontent.com/Linnxh/img/master/15177962329985.jpg" alt=""></p>
 <ul>
 <li><a href="http://www.runoob.com/linux/linux-shell.html" target="_blank" rel="noopener">shell基础教程</a><br>shell脚本开头是，<br>“#!bin/sh”，是一个shell脚本，用bin/sh来执行<br>”#!/bin/bash”，是bash脚本程序，用/bin/sh来执行<br>bash是sh的增强版本，bash中支持的命令更加多一些，实际开发中用bash比较多</li>
 <li>linux和mac互传文件<br>用的是smb，finder 文件-前往-连接服务器，，，smb://10.10.2.236</li>
@@ -829,19 +829,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -849,15 +837,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">profile</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -873,11 +853,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
+                <a href="javascript:void(0)" class="js-tag color4">sql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">idea</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">profile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -893,11 +885,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">transactional</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
             
             <div class="clearfix"></div>

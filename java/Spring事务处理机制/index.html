@@ -16,14 +16,14 @@
 <meta property="og:site_name" content="Linnxh的博客">
 <meta property="og:description" content="事务它是一个操作序列，这些操作要么都执行，要么都不执行，它是一个不可分割的工作单位事务的特性 isolation的参数有以下五种： Isolation.DEFAULT:为数据源的默认隔离级别 isolation=Isolation.READ_UNCOMMITTED:未授权读取级别（一般采用这个策略）以操作同一行数据为前提，读事务允许其他读事务和写事务，未提交的写事务禁止其他写事务（但允许其他读事务">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%BC%A0%E6%92%AD%E8%A1%8C%E4%B8%BA.png">
-<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/spring%E5%86%85%E7%BD%AE%E7%9A%84%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8.png">
-<meta property="og:image" content="http://p964q970y.bkt.clouddn.com/spring%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6.png">
-<meta property="og:updated_time" content="2019-02-22T07:13:34.525Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/Linnxh/img/master/%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%BC%A0%E6%92%AD%E8%A1%8C%E4%B8%BA.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Linnxh/img/master/spring%E5%86%85%E7%BD%AE%E7%9A%84%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Linnxh/img/master/spring%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6.png">
+<meta property="og:updated_time" content="2019-03-28T09:14:34.104Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring事务处理机制">
 <meta name="twitter:description" content="事务它是一个操作序列，这些操作要么都执行，要么都不执行，它是一个不可分割的工作单位事务的特性 isolation的参数有以下五种： Isolation.DEFAULT:为数据源的默认隔离级别 isolation=Isolation.READ_UNCOMMITTED:未授权读取级别（一般采用这个策略）以操作同一行数据为前提，读事务允许其他读事务和写事务，未提交的写事务禁止其他写事务（但允许其他读事务">
-<meta name="twitter:image" content="http://p964q970y.bkt.clouddn.com/%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%BC%A0%E6%92%AD%E8%A1%8C%E4%B8%BA.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Linnxh/img/master/%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%BC%A0%E6%92%AD%E8%A1%8C%E4%B8%BA.png">
   
     <link rel="alternative" href="/atom.xml" title="Linnxh的博客" type="application/atom+xml">
   
@@ -285,7 +285,7 @@
 </tr>
 </tbody>
 </table>
-<p><img src="http://p964q970y.bkt.clouddn.com/%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%BC%A0%E6%92%AD%E8%A1%8C%E4%B8%BA.png" alt="事务的传播行为"></p>
+<p><img src="https://raw.githubusercontent.com/Linnxh/img/master/%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%BC%A0%E6%92%AD%E8%A1%8C%E4%B8%BA.png" alt="事务的传播行为"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Transactional(rollbackFor = &#123;Exception.class&#125;, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)</span><br></pre></td></tr></table></figure>
 <h1 id="事务管理器"><a href="#事务管理器" class="headerlink" title="事务管理器"></a>事务管理器</h1><p>Spring对事务管理是通过事务管理器来实现的。Spring提供了许多内置事务管理器实现：</p>
 <p>事务管理器(org.springframework.*)使用场景</p>
@@ -333,7 +333,7 @@
 </tbody>
 </table>
 <a id="more"></a>
-<p><img src="http://p964q970y.bkt.clouddn.com/spring%E5%86%85%E7%BD%AE%E7%9A%84%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8.png" alt="Spring内置的管理器"><br>以上就是Spring中支持使用的事务管理器，一般我们比较常用的就是HibernateTransactionManager和DataSourceTransactionManager。我们在使用事务的时候要声明要使用哪种事务管理器。如：</p>
+<p><img src="https://raw.githubusercontent.com/Linnxh/img/master/spring%E5%86%85%E7%BD%AE%E7%9A%84%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8.png" alt="Spring内置的管理器"><br>以上就是Spring中支持使用的事务管理器，一般我们比较常用的就是HibernateTransactionManager和DataSourceTransactionManager。我们在使用事务的时候要声明要使用哪种事务管理器。如：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;tx:annotation-driven /&gt;</span><br><span class="line">&lt;bean id=&quot;transactionManager&quot;</span><br><span class="line">class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</span><br><span class="line">&lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
 <h1 id="编程式和声明式事务"><a href="#编程式和声明式事务" class="headerlink" title="编程式和声明式事务"></a>编程式和声明式事务</h1><p>Spring提供了对编程式事务和声明式事务的支持</p>
 <ul>
@@ -388,7 +388,7 @@
 </tbody>
 </table>
 <h4 id="Spring-的注解方式的事务实现机制"><a href="#Spring-的注解方式的事务实现机制" class="headerlink" title="Spring 的注解方式的事务实现机制"></a>Spring 的注解方式的事务实现机制</h4><p>在应用系统调用声明@Transactional 的目标方法时，Spring Framework 默认使用 AOP 代理，在代码运行时生成一个代理对象，根据@Transactional 的属性配置信息，这个代理对象决定该声明@Transactional 的目标方法是否由拦截器 TransactionInterceptor 来使用拦截，在 TransactionInterceptor 拦截时，会在在目标方法开始执行之前创建并加入事务，并执行目标方法的逻辑, 最后根据执行情况是否出现异常，利用抽象事务管理器AbstractPlatformTransactionManager 操作数据源 DataSource 提交或回滚事务, </p>
-<p><img src="http://p964q970y.bkt.clouddn.com/spring%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6.png" alt="spring事务处理机制"></p>
+<p><img src="https://raw.githubusercontent.com/Linnxh/img/master/spring%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6.png" alt="spring事务处理机制"></p>
 <p>Spring AOP 代理有 CglibAopProxy 和 JdkDynamicAopProxy 两种，上图是以 CglibAopProxy 为例，对于 CglibAopProxy，需要调用其内部类的 DynamicAdvisedInterceptor 的 intercept 方法。对于 JdkDynamicAopProxy，需要调用其 invoke 方法。</p>
 <h4 id="spring的-Transactional也可以加在合适的方法上"><a href="#spring的-Transactional也可以加在合适的方法上" class="headerlink" title="spring的@Transactional也可以加在合适的方法上"></a>spring的@Transactional也可以加在合适的方法上</h4><p>常见的使用方法</p>
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Transactional(rollbackFor = &#123;Exception.class&#125;, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)</span><br></pre></td></tr></table></figure>
@@ -727,19 +727,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -747,15 +735,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">profile</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -771,11 +751,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
+                <a href="javascript:void(0)" class="js-tag color4">sql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">idea</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">profile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -791,11 +783,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">transactional</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
             
             <div class="clearfix"></div>
