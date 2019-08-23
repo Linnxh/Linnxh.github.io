@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Linnxh的博客">
 <meta property="og:description" content="千万级数据分页优化 mongo采用的是单机部署，数据量1千万，需求是实现分页面，按照capTime倒叙排列，每页数据20条  skip+limit这是最传统的数据查询方式，db.getCollection(&amp;#39;CapMotor&amp;#39;).find().skip(9000000).sort({&amp;#39;capTime&amp;#39;:1}).limit(20);skip后面是pageSize*pa">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-30T02:18:27.287Z">
+<meta property="og:updated_time" content="2018-11-30T02:18:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mongo千万级数据优化">
 <meta name="twitter:description" content="千万级数据分页优化 mongo采用的是单机部署，数据量1千万，需求是实现分页面，按照capTime倒叙排列，每页数据20条  skip+limit这是最传统的数据查询方式，db.getCollection(&amp;#39;CapMotor&amp;#39;).find().skip(9000000).sort({&amp;#39;capTime&amp;#39;:1}).limit(20);skip后面是pageSize*pa">
@@ -543,19 +543,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">

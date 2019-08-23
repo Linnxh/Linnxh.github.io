@@ -160,20 +160,20 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-java/乐优项目随笔集" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-java/记一次上线的小bug" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/java/乐优项目随笔集/">乐优项目随笔集</a>
+      <a class="article-title" href="/java/记一次上线的小bug/">记一次上线的小bug</a>
     </h1>
   
 
         
-        <a href="/java/乐优项目随笔集/" class="archive-article-date">
-  	<time datetime="2019-03-28T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-29</time>
+        <a href="/java/记一次上线的小bug/" class="archive-article-date">
+  	<time datetime="2019-08-23T02:48:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-23</time>
 </a>
         
       </header>
@@ -182,70 +182,10 @@
     <div class="article-entry" itemprop="articleBody">
       
       
-        <h1 id="静态化"><a href="#静态化" class="headerlink" title="静态化"></a>静态化</h1><p>thymeleaf  类似于springmvc里的jsp页面，语法类似el表达式 </p>
-<p>页面静态化，解决高并发有效的手段，静态化常用的模本 thymeleaf freemaker<br>原理，</p>
-<p>将生成的html，上传到ngnix上，通过ngix拦截详情页的访问，<br>当商品有增删改时要更新html，如果采用直接在代码中注入的方式，代码的耦合性太高，建议采用 消息队列的方式，如：rabbitmq，</p>
-<h1 id="rabbitMQ"><a href="#rabbitMQ" class="headerlink" title="rabbitMQ"></a>rabbitMQ</h1><h2 id="原生rabbitMQ"><a href="#原生rabbitMQ" class="headerlink" title="原生rabbitMQ"></a>原生rabbitMQ</h2><p>rabbitmq 防止消息丢失</p>
-<p>消费者的消息确认机制，当消费者收到消息后，回想rabbitmq发送回执ack，告知消息已经被接收，不过这种回执ACK分两种情况，自动ack（消费者自动）和手动ack（消费接收后，不会发送，需手动调用）</p>
-<p>hellworld 方式  生产者  消费者 ，队列 这三种角色<br>消费者默认分配方式是，一轮分一次，均分的，消费会造成堆积的问题  设置每个消费者同时只能处理一个，   channel.basicQos （1）    保证</p>
-<p>发布和订阅模式  生产者  消费者 交换中心，队列 这三种角色<br>订阅模型 fanout ，discount 广播模式  </p>
-<p>默认不是持久化的，重启的时候数据是不能恢复的</p>
-<p>———————————————如何保证  持久化问题  保证消息的———</p>
-<h1 id="ack（消费者确认-）"><a href="#ack（消费者确认-）" class="headerlink" title="ack（消费者确认 ）"></a>ack（消费者确认 ）</h1><p>durable，持久的耐用的</p>
-<h1 id="消息的持久化，防止rabbitmq把消息弄丢"><a href="#消息的持久化，防止rabbitmq把消息弄丢" class="headerlink" title="消息的持久化，防止rabbitmq把消息弄丢"></a>消息的持久化，防止rabbitmq把消息弄丢</h1><p> 1声明交换机，2队列，可以设成成true，持久的，new的时候设置durable 为true，</p>
-<p>3消息  实体 增加 props  属性   MessageProperties.persistent_text_plain   delivermode 为2，代表是持久的</p>
-<p>生产者发消息，没发成功<br>生产者的消费确认<br>mq向生产方发送回执，代表消息发送成功</p>
-<p>activeMQ相比rabbitmq的方式     </p>
-<p>幂等性  同一个接口被重复执行，其结果是一直的一致的</p>
-<h2 id="Spring-AMQP"><a href="#Spring-AMQP" class="headerlink" title="Spring AMQP"></a>Spring AMQP</h2><p>spring进行了封装，使用方法较简单<br>发送消息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@RunWith(SpringRunner.class)</span><br><span class="line">@SpringBootTest(classes = Application.class)</span><br><span class="line">public class MqDemo &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private AmqpTemplate amqpTemplate;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void testSend() throws InterruptedException &#123;</span><br><span class="line">        String msg = &quot;hello, Spring boot amqp&quot;;</span><br><span class="line">        this.amqpTemplate.convertAndSend(&quot;spring.test.exchange&quot;,&quot;a.b&quot;, msg);</span><br><span class="line">        // 等待10秒后再结束</span><br><span class="line">        Thread.sleep(10000);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>消费消息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class Listener &#123;</span><br><span class="line"></span><br><span class="line">    @RabbitListener(bindings = @QueueBinding(</span><br><span class="line">            value = @Queue(value = &quot;spring.test.queue&quot;, durable = &quot;true&quot;),</span><br><span class="line">            exchange = @Exchange(</span><br><span class="line">                    value = &quot;spring.test.exchange&quot;,</span><br><span class="line">                    ignoreDeclarationExceptions = &quot;true&quot;,</span><br><span class="line">                    type = ExchangeTypes.TOPIC</span><br><span class="line">            ),</span><br><span class="line">            key = &#123;&quot;#.#&quot;&#125;))</span><br><span class="line">    public void listen(String msg)&#123;</span><br><span class="line">        System.out.println(&quot;接收到消息：&quot; + msg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>入参写成  141L，形式</p>
-<p>搜索引擎<br>solr  elastic-search  底层基于luson</p>
-<p>日志系统  elk</p>
-<p>跨域请求<br>ajax 跨域请求，是针对ajax的一种限制，</p>
-<p>scrip 标签可以跨域，需要服务器的支持，scrip底层只能发起get请求</p>
-<p>nginx反向代理，需要维护大量地址，不方便</p>
-<p>cors，</p>
-<hr>
-<p>title: ajax跨域问题<br>date: 2018-02-05 15:10:28</p>
-<hr>
-<p>跨域请求<br>ajax 跨域请求，是针对ajax的一种限制，</p>
-<p>scrip 标签可以跨域，需要服务器的支持，scrip底层只能发起get请求</p>
-<p>nginx反向代理，需要维护大量地址，不方便</p>
-<p>cors，底层依然是ajax，</p>
-<p>ajax分为简单请求和复杂请求<br>简单请求满足以下两者条件</p>
-<p>简单请求头部携带添加字段  </p>
-<p>switchhost  用来解决 域名解析   </p>
-<p>nginx，单机并发5000，tomcat默认链接数  200个</p>
-<p>ngix  作为动态服务器，静态资源服务器<br>nginx 代理和反向代理</p>
-<p>客户端默认端口是80，</p>
-<p>pom  scop provider  范围<br>filezilla  xftp</p>
-<p>地址栏如果没有写地址默认地址是80</p>
-<p>通过域名访问网站的流程，，，，<br>主机（5.2）  浏览器范围   leyou.com<br>本机主机（5.2）解析，，本地host  leyou.com  指向虚拟机地址  5.101</p>
-<p>5.101 上有nginx，监听80端口（默认）  我们之前将 leyou.com  代理到   （5.2）上的 9001端口，此时请求被转发到本机上（tomcat）</p>
-<p> dependencies即使在子项目中不写该依赖项，那么子项目仍然会从父项目中继承该依赖项（全部继承）</p>
-<p>dependencyManagement里只是声明依赖，并不实现引入，因此子项目需要显示的声明需要用的依赖。如果不在子项目中声明依赖，是不会从父项目中继承下来的；<br>只有在子项目中写了该依赖项，并且没有指定具体版本，才会从父项目中继承该项，并且version和scope都读取自父pom;另外如果子项目中指定了版本号，那么会使用子项目中指定的jar版本。</p>
-<p>vue webpack 打包    是一个js应用程序的静态模块打包器，压缩变小，混淆</p>
-<p>insomnia 工具类似postman，，，，，，</p>
-<p>euraka 注册中心</p>
-<p>ribbon 负载均衡</p>
-<p>而 Ribbon  Hystix的超时时间 设置成是1000ms，因此重试机制没有被触发，而是先触发了熔断。<br>所以，Ribbon的超时时间一定要小于Hystix的超时时间。</p>
-<p>hustix</p>
-<p>Feign可以把Rest的请求进行隐藏，伪装成类似SpringMVC的Controller一样。你不用再自己拼接url，拼接参数等等操作，一切都交给Feign去做</p>
-<p>feign 的熔断</p>
-<p>elasticsearch</p>
-<p>nginx</p>
-<p>fastdfs</p>
-<p>mycat</p>
-<p>thymeleaf</p>
-<p>jwt</p>
-<p>2、<br>Eureka<br><a href="https://blog.csdn.net/nanbiebao6522/article/details/80574463" target="_blank" rel="noopener">https://blog.csdn.net/nanbiebao6522/article/details/80574463</a></p>
-<p>1、properties读取的字符乱码问题</p>
-<p>idea 设置<br>设置 File Encodings的Transparent native-to-ascii conversion为true，具体步骤如下：<br>依次点击<br>File -&gt; Settings -&gt; Editor -&gt; File Encodings<br>将Properties Files (*.properties)下的Default encoding for properties files设置为UTF-8，将Transparent native-to-ascii conversion前的勾选上。</p>
-<p>application.properties</p>
-<p>spring.http.encoding.force=true<br>spring.http.encoding.charset=UTF-8<br>spring.http.encoding.enabled=true<br>server.tomcat.uri-encoding=UTF-8</p>
+        <p><strong>8月21号上午线上有人提出一个bug</strong><br>大概提示是“同一个业务员通一个卖家存在多次抵达签到的情况，请联系管理员”，<br>这显然是因为，buyerUserId，salesmanUserId,status 三个关联查询存在多个值，<br>我问组长：我每次插入的时候都判断了，，为啥还会插入多条（太年轻），<br>组长：这种最好用redis锁，先查询在插入的这种情况，可能不会太准<br>我：那帮我先把线上的数据修复一下吧，把其他多余的几条删一下，<br>sql写好，发给他，然后线上一测试，还是有问题，，，，坑此坑次的找下一个坑，，，然后我就开始慌了<br>组长：你这查询is_deleted没有生效吧，默认是查的所有<br>我：不可能，我很早之前测过这块，没有问题，哼😒，是不会承认有问题的<br>然后我私下测了一下，果真，，没有生效然后就发现，我实体里，is_deleted没有加<code>@TableLogic</code>的注解，查询sql的默认查的所有，心情很down，然后我让组长线上把多余的数据给硬删除了，然后用户已测试，，好了。。。。。</p>
+<p><strong>8月21日下午</strong><br>想着上午出现的问题以后不能再犯了，我开始了一番修改<br>1、把之前签到的地方加redis锁，30s之内不能点击第二次<br>2、把springboot的配置文件仔细检查了下，修改了一番，改成自己顺眼的样子，<br>3、组长也看一下mybatis-plus的配置，这，可以删了，这这这也可以删了，<code>id-type</code>这默认增长类型是auto，也可以删了，然后我不过脑子的，删了！！！<br>想了一下应该没啥问题，接下来又开始了准备第二天上线的工作了，累~</p>
+<p><strong>8月22日周四（适合上线的日子）</strong><br>这次主要是优化后端，测试也主要集中在pc上，一整天都在，测试，改bug，测试，改bug，写bug，改bug，漫长的一天~<br>到了晚上准备上线了，修改的主要是在salesman，想着这次也有增加新需求，自然而然也就跟着上线了，把我这次修改的项目网上一提，咔，，三四个，<br>晚上7点半，准时开干，，，实际等到差不多8点才开始上，因为，我是小跟班，组长他们是负责发war，起tomcat，修改线上sql，而我，在静等他们发版，然后测试，到了差不多8点半的时候，发好半了，群里喊了一声，开始测试，大家都开始又开始干活了。。。。<br>我想往常一下，疯狂这点击着，我这次上线的内容，恩，好像没啥问题，组长发了一张图在群里，对下面这个图片儿<br><img src="https://raw.githubusercontent.com/Linnxh/img/master/190822-%E5%9B%BE%E7%89%872.png" alt=""><br>一看，我的问题，咦，，空指针，，恩，好改，这次这快没改动啊，切到线上环境一测试，拜访失败，，我就很纳闷了，显示如下<br><img src="https://raw.githubusercontent.com/Linnxh/img/master/190822-%E5%9B%BE%E7%89%873.png" alt=""><br>这id不对啊，怎么这么长，然后我发群里问了<br><img src="https://raw.githubusercontent.com/Linnxh/img/master/190822-%E5%9B%BE%E7%89%874.png" alt=""><br>组长跑过来说，看一下你的配置文件，把那个mybatis-plug的<code>id-type</code>auto 的配置加上，😢<br>因为这一个配置导致了salesmn项目下的所有库的id，都变成了，<code>id_work</code>的增长方式，之前的空指针是因为，id返回给小程序端时如果过长要转成字符串，后面几位的精度都会丢失了，好尴尬，然后更新配置，再次发版上线，好紧张的一幕，领导催的要命，一直在问情况，然后id已经增长到了那么大，他下次增长的时候只能从最大的那个开始增长，然后接下来，，，，没错备份库，导库，修改库，还好只有两张表，项目上线时间也不是很长，加起来一共7千多条数据，组长三下五除二，我也就在旁边看了看，默默的加油，看他是怎么改的（比较紧张，他那屏幕亮度太低，看不太清）</p>
+<p>记录下来，只为提醒自己，上线之前如果不是特别熟悉的东西，能不动尽量不动，你好，我好，大家好，再就是别人说的一定要过一下自己的脑子，不要因为tatata能力很好，就想着，恩，可以，结果往往会出现很多粗心的结果。</p>
 
       
 
@@ -269,7 +209,370 @@
 
       
         <p class="article-more-link">
+          <a class="article-more-a" href="/java/记一次上线的小bug/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-java/ABTest" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java/ABTest/">ABTest</a>
+    </h1>
+  
+
+        
+        <a href="/java/ABTest/" class="archive-article-date">
+  	<time datetime="2019-08-04T02:48:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-04</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        <h1 id="什么是ABTest"><a href="#什么是ABTest" class="headerlink" title="什么是ABTest"></a>什么是ABTest</h1><p>产品的改变优化都是通过用户的反馈来的，ABTest就是其中一种很好的方法，简单来说，ABTest 就是将用户分成不同的组，同时在线试验产品的不同版本，通过用户反馈的真实数据来找出采用哪一个版本方案更好的过程。<br>我们将原始版本作为对照组，以每个版本进行尽量是小的流量迭代作为原则去使用 ABTest。一旦指标分析完成，用户反馈数据表现最佳的版本再去全量上线。</p>
+<p>大概的流程如下<br><img src="https://raw.githubusercontent.com/Linnxh/img/master/ABTest图片.png" alt=""></p>
+<p>#特性</p>
+<ul>
+<li>先验性：采用流量分割与小流量测试的方式，先让线上部分小流量用户使用，来验证我们的想法，在根据反馈推广到全流量，减少产品损失。</li>
+<li>并行性：可以同时运行两个或者两个以上的版本同时去对比，而且保证每个版本所处环境一直，只需要很多的时间就可以确定是否需要发吧，避免流程复杂和周期长的问题。</li>
+<li>科学性：ABTest要求使用统计的指标来判断这个结果是否可行，避免依靠经验。</li>
+</ul>
+<h1 id="分流模型"><a href="#分流模型" class="headerlink" title="分流模型"></a>分流模型</h1><p>这种测试方式一般是通过接口返回，根据返回值的不同来执行不同的方法，进行分流。</p>
+<p>技术选型：Openresty，关于他的具体指示自己google</p>
+<p>参考<br><a href="https://blog.51cto.com/xsunday/2049650" target="_blank" rel="noopener">OpenResty专题</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/java/ABTest/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-java/java-19-04" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java/java-19-04/">java-19-04</a>
+    </h1>
+  
+
+        
+        <a href="/java/java-19-04/" class="archive-article-date">
+  	<time datetime="2019-03-28T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-29</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        <p>java基础知识总结 2019-04</p>
+<h1 id="long后面加L，float后面加F"><a href="#long后面加L，float后面加F" class="headerlink" title="long后面加L，float后面加F"></a>long后面加L，float后面加F</h1><p>java语言默认情况下是int类型的，如果只写一个23那他默认是int类型的23，如果想要一个长整型的long，在后面加上L这样23L，就是long类型；如果是包装类型Long，Long a=0L，只能加L，不加报错</p>
+<p>java会自动向下转型，byte，short都可以由int自动向下转型，但是long类型的不能自动向上转型，所以要加L，转为long类型</p>
+<p>浮点类型默认是double类型，double转float可能会丢失精度，所以不会自动转，编译会报错，<br>如果超过int的取值范围，也是直接报错</p>
+<h1 id="数字中有"><a href="#数字中有" class="headerlink" title="数字中有_"></a>数字中有_</h1><p>java1.7以后，数字中可以含有”_”，其目的是为了增加程序的可读性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">int int_num = 1_00_00_000;</span><br><span class="line">System.out.println(&quot;int num:&quot; + int_num);</span><br><span class="line"></span><br><span class="line">long long_num = 1_00_00_000;</span><br><span class="line">System.out.println(&quot;long num:&quot; + long_num);</span><br><span class="line"></span><br><span class="line">float float_num = 2.10_001F;</span><br><span class="line">System.out.println(&quot;float num:&quot; + float_num);</span><br><span class="line"></span><br><span class="line">double double_num = 2.10_12_001;</span><br><span class="line">System.out.println(&quot;double num:&quot; + double_num);</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int num:10000000</span><br><span class="line">long num:10000000</span><br><span class="line">float num:2.10001</span><br><span class="line">double num:2.1012001</span><br></pre></td></tr></table></figure>
+<p>参考<br><a href="http://www.importnew.com/12998.html" target="_blank" rel="noopener">为什么Java7开始在数字中使用下划线</a></p>
+<h1 id="代码生成器"><a href="#代码生成器" class="headerlink" title="代码生成器"></a>代码生成器</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">    public void generateCode() &#123;</span><br><span class="line">        String packageName = &quot;com.baomidou.springboot&quot;;</span><br><span class="line">        boolean serviceNameStartWithI = false;//user -&gt; UserService, 设置成true: user -&gt; IUserService</span><br><span class="line">        generateByTables(serviceNameStartWithI, packageName, &quot;salesman_give_likes&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void generateByTables(boolean serviceNameStartWithI, String packageName, String... tableNames) &#123;</span><br><span class="line">        GlobalConfig config = new GlobalConfig();</span><br><span class="line">        String dbUrl = &quot;jdbc:mysql://dragon-mysql:3306/salesman?useSSL=false&quot;;</span><br><span class="line">        DataSourceConfig dataSourceConfig = new DataSourceConfig();</span><br><span class="line">        dataSourceConfig.setDbType(DbType.MYSQL)</span><br><span class="line">                .setUrl(dbUrl)</span><br><span class="line">                .setUsername(&quot;root&quot;)</span><br><span class="line">                .setPassword(&quot;!QAZ2wsx&quot;)</span><br><span class="line">                .setDriverName(&quot;com.mysql.jdbc.Driver&quot;);</span><br><span class="line">        StrategyConfig strategyConfig = new StrategyConfig();</span><br><span class="line">        strategyConfig</span><br><span class="line">                .setCapitalMode(true)</span><br><span class="line">                .setEntityLombokModel(true)</span><br><span class="line">                .setEntityBuilderModel(true)</span><br><span class="line">                .setNaming(NamingStrategy.underline_to_camel)</span><br><span class="line">                .setInclude(tableNames);//修改替换成你需要的表名，多个表名传数组</span><br><span class="line">        config.setActiveRecord(false)</span><br><span class="line">                .setBaseResultMap(true)//mapper文件的resultmap</span><br><span class="line">                .setBaseColumnList(true)</span><br><span class="line">                .setAuthor(&quot;LXH&quot;)</span><br><span class="line">                .setOutputDir(&quot;/Users/LXH/Desktop/mybatisplugs/&quot;)</span><br><span class="line">                .setFileOverride(true);</span><br><span class="line">        if (!serviceNameStartWithI) &#123;</span><br><span class="line">            config.setServiceName(&quot;%sService&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        new AutoGenerator().setGlobalConfig(config)</span><br><span class="line">                .setDataSource(dataSourceConfig)</span><br><span class="line">                .setStrategy(strategyConfig)</span><br><span class="line">                .setPackageInfo(</span><br><span class="line">                        new PackageConfig()</span><br><span class="line">                                .setParent(packageName)</span><br><span class="line">                                .setController(&quot;controller&quot;)</span><br><span class="line">                                .setEntity(&quot;entity&quot;)</span><br><span class="line">                ).execute();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>pom文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 模板引擎 --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.velocity&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;velocity-engine-core&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<p><a href="https://baomidou.gitee.io/mybatis-plus-doc/#/generate-code" target="_blank" rel="noopener">Mybatis-Plus代码生成器</a></p>
+<h1 id="Mybatis-Plus"><a href="#Mybatis-Plus" class="headerlink" title="Mybatis-Plus"></a>Mybatis-Plus</h1><p><a href="https://baomidou.gitee.io/mybatis-plus-doc/#/" target="_blank" rel="noopener">官方文档</a></p>
+<p>#删除</p>
+<p>#多租户</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/java/java-19-04/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-java/乐优项目随笔集" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java/乐优项目随笔集/">乐优项目随笔集</a>
+    </h1>
+  
+
+        
+        <a href="/java/乐优项目随笔集/" class="archive-article-date">
+  	<time datetime="2019-03-28T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-29</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>基于乐优项目视频的总结，只记录的关键点，具体可看项目的markdown笔记；<br></p>
+        
+          <a class="article-more-a" href="/java/乐优项目随笔集/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
           <a class="article-more-a" href="/java/乐优项目随笔集/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-java/java-17-10" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java/java-17-10/">java-17-10</a>
+    </h1>
+  
+
+        
+        <a href="/java/java-17-10/" class="archive-article-date">
+  	<time datetime="2019-03-28T09:14:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-28</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>java基础知识总结 2017-10</p>
+        
+          <a class="article-more-a" href="/java/java-17-10/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/java/java-17-10/">展开全文 >></a>
         </p>
       
 
@@ -816,391 +1119,9 @@
 
 
   
-    <article id="post-java/mongo千万级数据优化" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java/mongo千万级数据优化/">mongo千万级数据优化</a>
-    </h1>
-  
-
-        
-        <a href="/java/mongo千万级数据优化/" class="archive-article-date">
-  	<time datetime="2018-10-25T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-26</time>
-</a>
-        
-      </header>
-    
-   
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="千万级数据分页优化"><a href="#千万级数据分页优化" class="headerlink" title="千万级数据分页优化"></a>千万级数据分页优化</h1><blockquote>
-<p>mongo采用的是单机部署，数据量1千万，需求是实现分页面，按照capTime倒叙排列，每页数据20条</p>
-</blockquote>
-<h2 id="skip-limit"><a href="#skip-limit" class="headerlink" title="skip+limit"></a>skip+limit</h2><p>这是最传统的数据查询方式，<code>db.getCollection(&#39;CapMotor&#39;).find().skip(9000000).sort({&#39;capTime&#39;:1}).limit(20);</code>skip后面是pageSize*pageIndex,limit后是pageSize<br>这种方式在数据量是百万的时候，还凑合着用，但是千万以后，就不可用了，我这边跟踪的查询时间是9s左右，明显不行，影响效率，建议采用第2中方法</p>
-<h2 id="前端传临界值id，查询添加条件，从当前位置往后截取，取20条"><a href="#前端传临界值id，查询添加条件，从当前位置往后截取，取20条" class="headerlink" title="前端传临界值id，查询添加条件，从当前位置往后截取，取20条"></a>前端传临界值id，查询添加条件，从当前位置往后截取，取20条</h2>
-        
-          <a class="article-more-a" href="/java/mongo千万级数据优化/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/java/mongo千万级数据优化/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-db/实际开发中mysql的性能优化" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/db/实际开发中mysql的性能优化/">实际开发中mysql的性能优化</a>
-    </h1>
-  
-
-        
-        <a href="/db/实际开发中mysql的性能优化/" class="archive-article-date">
-  	<time datetime="2018-10-12T01:03:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-12</time>
-</a>
-        
-      </header>
-    
-   
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1>
-        
-          <a class="article-more-a" href="/db/实际开发中mysql的性能优化/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/db//" class="article-tag-list-link color3">db</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/db/实际开发中mysql的性能优化/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-java/spring的profile配置" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java/spring的profile配置/">spring的profile配置</a>
-    </h1>
-  
-
-        
-        <a href="/java/spring的profile配置/" class="archive-article-date">
-  	<time datetime="2018-10-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-10</time>
-</a>
-        
-      </header>
-    
-   
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>spring.profile是为了解决开发环境和生产环境对应的配置文件不一致，可以灵活使用对应的配置文件</p>
-<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><h2 id="配置文件分为两份"><a href="#配置文件分为两份" class="headerlink" title="配置文件分为两份"></a>配置文件分为两份</h2><p><img src="https://raw.githubusercontent.com/Linnxh/img/master/moreprofile1.png" alt="moreprofile"></p>
-        
-          <a class="article-more-a" href="/java/spring的profile配置/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">profile</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/java/spring的profile配置/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-linux/打包用到的脚本" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/linux/打包用到的脚本/">jenkins打包用到的脚本</a>
-    </h1>
-  
-
-        
-        <a href="/linux/打包用到的脚本/" class="archive-article-date">
-  	<time datetime="2018-10-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-10</time>
-</a>
-        
-      </header>
-    
-   
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>几个在开发中用到的shell脚本的demo</p>
-        
-          <a class="article-more-a" href="/linux/打包用到的脚本/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/linux//" class="article-tag-list-link color1">linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/linux/打包用到的脚本/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -1307,19 +1228,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">

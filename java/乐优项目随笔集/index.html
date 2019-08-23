@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://linnxh.cn/,http://linnxh.online">
   <title>乐优项目随笔集 | Linnxh的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="静态化thymeleaf  类似于springmvc里的jsp页面，语法类似el表达式  页面静态化，解决高并发有效的手段，静态化常用的模本 thymeleaf freemaker原理， 将生成的html，上传到ngnix上，通过ngix拦截详情页的访问，当商品有增删改时要更新html，如果采用直接在代码中注入的方式，代码的耦合性太高，建议采用 消息队列的方式，如：rabbitmq， rabbit">
+  <meta name="description" content="基于乐优项目视频的总结，只记录的关键点，具体可看项目的markdown笔记；">
 <meta property="og:type" content="article">
 <meta property="og:title" content="乐优项目随笔集">
 <meta property="og:url" content="http://linnxh.cn/,http://linnxh.online/java/乐优项目随笔集/index.html">
 <meta property="og:site_name" content="Linnxh的博客">
-<meta property="og:description" content="静态化thymeleaf  类似于springmvc里的jsp页面，语法类似el表达式  页面静态化，解决高并发有效的手段，静态化常用的模本 thymeleaf freemaker原理， 将生成的html，上传到ngnix上，通过ngix拦截详情页的访问，当商品有增删改时要更新html，如果采用直接在代码中注入的方式，代码的耦合性太高，建议采用 消息队列的方式，如：rabbitmq， rabbit">
+<meta property="og:description" content="基于乐优项目视频的总结，只记录的关键点，具体可看项目的markdown笔记；">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-29T09:49:19.330Z">
+<meta property="og:updated_time" content="2019-04-04T04:24:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="乐优项目随笔集">
-<meta name="twitter:description" content="静态化thymeleaf  类似于springmvc里的jsp页面，语法类似el表达式  页面静态化，解决高并发有效的手段，静态化常用的模本 thymeleaf freemaker原理， 将生成的html，上传到ngnix上，通过ngix拦截详情页的访问，当商品有增删改时要更新html，如果采用直接在代码中注入的方式，代码的耦合性太高，建议采用 消息队列的方式，如：rabbitmq， rabbit">
+<meta name="twitter:description" content="基于乐优项目视频的总结，只记录的关键点，具体可看项目的markdown笔记；">
   
     <link rel="alternative" href="/atom.xml" title="Linnxh的博客" type="application/atom+xml">
   
@@ -184,7 +184,40 @@
     <div class="article-entry" itemprop="articleBody">
       
       
-        <h1 id="静态化"><a href="#静态化" class="headerlink" title="静态化"></a>静态化</h1><p>thymeleaf  类似于springmvc里的jsp页面，语法类似el表达式 </p>
+        <p>基于乐优项目视频的总结，只记录的关键点，具体可看项目的markdown笔记；<br><a id="more"></a></p>
+<h1 id="密码"><a href="#密码" class="headerlink" title="密码"></a>密码</h1><p>普通密码，数据库中保存的是密码的MD5 或者SHA 加密后的数据，两者都是不可逆算法，SHA相较于MD5更安全，可用性更高，</p>
+<p>加盐的概念<br>salt可以是任意数字字母的组合，但必须是随机产生的，每个用户的值都是不一样的，将该组合加入到密码中的任意为，前中后部都可以，数据库中存储的是MD5(明文密码+salt)<br>如：MD5(‘123’ + ‘1ck12b13k1jmjxrg1h0129h2lj’) = ‘6c22ef52be70e11b6f3bcf0f672c96ce’</p>
+<p>数据库中的存储形式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from User;</span><br><span class="line">+----------+----------------------------+----------------------------------+</span><br><span class="line">| UserName | Salt                       | PwdHash                          |</span><br><span class="line">+----------+----------------------------+----------------------------------+</span><br><span class="line">| lichao   | 1ck12b13k1jmjxrg1h0129h2lj | 6c22ef52be70e11b6f3bcf0f672c96ce |</span><br><span class="line">| akasuna  | 1h029kh2lj11jmjxrg13k1c12b | 7128f587d88d6686974d6ef57c193628 |</span><br><span class="line">+----------+----------------------------+----------------------------------+</span><br></pre></td></tr></table></figure>
+<p>tomcat session</p>
+<p>jwt+rsa  非对称加密</p>
+<p>json web token </p>
+<p>加密算法可分为三类</p>
+<ul>
+<li>对称加密，如AES<ul>
+<li>基本原理：将明文分成N个组，然后使用密钥对各个组进行加密，形成各自的密文，最后把所有的分组密文进行合并，形成最终的密文。</li>
+<li>优势：算法公开、计算量小、加密速度快、加密效率高</li>
+<li>缺陷：双方都使用同样密钥，安全性得不到保证 </li>
+</ul>
+</li>
+<li>非对称加密，如RSA<ul>
+<li>基本原理：同时生成两把密钥：私钥和公钥，私钥隐秘保存，公钥可以下发给信任客户端<ul>
+<li>私钥加密，持有私钥或公钥才可以解密</li>
+<li>公钥加密，持有私钥才可解密</li>
+</ul>
+</li>
+<li>优点：安全，难以破解</li>
+<li>缺点：算法比较耗时</li>
+</ul>
+</li>
+<li>不可逆加密，如MD5，SHA<ul>
+<li>基本原理：加密过程中不需要使用<a href="https://baike.baidu.com/item/%E5%AF%86%E9%92%A5" target="_blank" rel="noopener">密钥</a>，输入明文后由系统直接经过加密算法处理成密文，这种加密后的数据是无法被解密的，无法根据密文推算出明文。</li>
+</ul>
+</li>
+</ul>
+<h1 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h1><p>nosql数据库<br>常用的五种数据结构<br>string,list,set,sort_set,hash<br>常用客户端  jdies,redisson </p>
+<p>srping 的redistemplete</p>
+<h1 id="阿里短信服务"><a href="#阿里短信服务" class="headerlink" title="阿里短信服务"></a>阿里短信服务</h1><h1 id="静态化"><a href="#静态化" class="headerlink" title="静态化"></a>静态化</h1><p>thymeleaf  类似于springmvc里的jsp页面，语法类似el表达式 </p>
 <p>页面静态化，解决高并发有效的手段，静态化常用的模本 thymeleaf freemaker<br>原理，</p>
 <p>将生成的html，上传到ngnix上，通过ngix拦截详情页的访问，<br>当商品有增删改时要更新html，如果采用直接在代码中注入的方式，代码的耦合性太高，建议采用 消息队列的方式，如：rabbitmq，</p>
 <h1 id="rabbitMQ"><a href="#rabbitMQ" class="headerlink" title="rabbitMQ"></a>rabbitMQ</h1><h2 id="原生rabbitMQ"><a href="#原生rabbitMQ" class="headerlink" title="原生rabbitMQ"></a>原生rabbitMQ</h2><p>rabbitmq 防止消息丢失</p>
@@ -331,9 +364,18 @@
   
 <nav id="article-nav">
   
+    <a href="/java/java-19-04/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          java-19-04
+        
+      </div>
+    </a>
   
-    <a href="/else/git常用命令/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">git常用命令</div>
+  
+    <a href="/java/java-17-10/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">java-17-10</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -360,7 +402,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#静态化"><span class="toc-number">1.</span> <span class="toc-text">静态化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#rabbitMQ"><span class="toc-number">2.</span> <span class="toc-text">rabbitMQ</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#原生rabbitMQ"><span class="toc-number">2.1.</span> <span class="toc-text">原生rabbitMQ</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ack（消费者确认-）"><span class="toc-number">3.</span> <span class="toc-text">ack（消费者确认 ）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#消息的持久化，防止rabbitmq把消息弄丢"><span class="toc-number">4.</span> <span class="toc-text">消息的持久化，防止rabbitmq把消息弄丢</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-AMQP"><span class="toc-number">4.1.</span> <span class="toc-text">Spring AMQP</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#密码"><span class="toc-number">1.</span> <span class="toc-text">密码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#redis"><span class="toc-number">2.</span> <span class="toc-text">redis</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#阿里短信服务"><span class="toc-number">3.</span> <span class="toc-text">阿里短信服务</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#静态化"><span class="toc-number">4.</span> <span class="toc-text">静态化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#rabbitMQ"><span class="toc-number">5.</span> <span class="toc-text">rabbitMQ</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#原生rabbitMQ"><span class="toc-number">5.1.</span> <span class="toc-text">原生rabbitMQ</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ack（消费者确认-）"><span class="toc-number">6.</span> <span class="toc-text">ack（消费者确认 ）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#消息的持久化，防止rabbitmq把消息弄丢"><span class="toc-number">7.</span> <span class="toc-text">消息的持久化，防止rabbitmq把消息弄丢</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-AMQP"><span class="toc-number">7.1.</span> <span class="toc-text">Spring AMQP</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -548,19 +590,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
