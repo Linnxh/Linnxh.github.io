@@ -182,9 +182,10 @@
     <div class="article-entry" itemprop="articleBody">
       
       
-        <p><strong>8月21号上午线上有人提出一个bug</strong><br>大概提示是“同一个业务员通一个卖家存在多次抵达签到的情况，请联系管理员”，<br>这显然是因为，buyerUserId，salesmanUserId,status 三个关联查询存在多个值，<br>我问组长：我每次插入的时候都判断了，，为啥还会插入多条（太年轻），<br>组长：这种最好用redis锁，先查询在插入的这种情况，可能不会太准<br>我：那帮我先把线上的数据修复一下吧，把其他多余的几条删一下，<br>sql写好，发给他，然后线上一测试，还是有问题，，，，坑此坑次的找下一个坑，，，然后我就开始慌了<br>组长：你这查询is_deleted没有生效吧，默认是查的所有<br>我：不可能，我很早之前测过这块，没有问题，哼😒，是不会承认有问题的<br>然后我私下测了一下，果真，，没有生效然后就发现，我实体里，is_deleted没有加<code>@TableLogic</code>的注解，查询sql的默认查的所有，心情很down，然后我让组长线上把多余的数据给硬删除了，然后用户已测试，，好了。。。。。</p>
+        <a id="more"></a>
+<p><strong>8月21号上午线上有人提出一个bug</strong><br>大概提示是“同一个业务员通一个卖家存在多次抵达签到的情况，请联系管理员”，<br>这显然是因为，buyerUserId，salesmanUserId,status 三个关联查询存在多个值，<br>我问组长：我每次插入的时候都判断了，，为啥还会插入多条（太年轻），<br>组长：这种最好用redis锁，先查询在插入的这种情况，可能不会太准<br>我：那帮我先把线上的数据修复一下吧，把其他多余的几条删一下，<br>sql写好，发给他，然后线上一测试，还是有问题，，，，坑此坑次的找下一个坑，，，然后我就开始慌了<br>组长：你这查询is_deleted没有生效吧，默认是查的所有<br>我：不可能，我很早之前测过这块，没有问题，哼😒，是不会承认有问题的<br>然后我私下测了一下，果真，，没有生效然后就发现，我实体里，is_deleted没有加<code>@TableLogic</code>的注解，查询sql的默认查的所有，心情很down，然后我让组长线上把多余的数据给硬删除了，然后用户已测试，，好了。。。。。</p>
 <p><strong>8月21日下午</strong><br>想着上午出现的问题以后不能再犯了，我开始了一番修改<br>1、把之前签到的地方加redis锁，30s之内不能点击第二次<br>2、把springboot的配置文件仔细检查了下，修改了一番，改成自己顺眼的样子，<br>3、组长也看一下mybatis-plus的配置，这，可以删了，这这这也可以删了，<code>id-type</code>这默认增长类型是auto，也可以删了，然后我不过脑子的，删了！！！<br>想了一下应该没啥问题，接下来又开始了准备第二天上线的工作了，累~</p>
-<p><strong>8月22日周四（适合上线的日子）</strong><br>这次主要是优化后端，测试也主要集中在pc上，一整天都在，测试，改bug，测试，改bug，写bug，改bug，漫长的一天~<br>到了晚上准备上线了，修改的主要是在salesman，想着这次也有增加新需求，自然而然也就跟着上线了，把我这次修改的项目网上一提，咔，，三四个，<br>晚上7点半，准时开干，，，实际等到差不多8点才开始上，因为，我是小跟班，组长他们是负责发war，起tomcat，修改线上sql，而我，在静等他们发版，然后测试，到了差不多8点半的时候，发好半了，群里喊了一声，开始测试，大家都开始又开始干活了。。。。<br>我想往常一下，疯狂这点击着，我这次上线的内容，恩，好像没啥问题，组长发了一张图在群里，对下面这个图片儿<br><img src="https://raw.githubusercontent.com/Linnxh/img/master/190822-%E5%9B%BE%E7%89%872.png" alt=""><br>一看，我的问题，咦，，空指针，，恩，好改，这次这快没改动啊，切到线上环境一测试，拜访失败，，我就很纳闷了，显示如下<br><img src="https://raw.githubusercontent.com/Linnxh/img/master/190822-%E5%9B%BE%E7%89%873.png" alt=""><br>这id不对啊，怎么这么长，然后我发群里问了<br><img src="https://raw.githubusercontent.com/Linnxh/img/master/190822-%E5%9B%BE%E7%89%874.png" alt=""><br>组长跑过来说，看一下你的配置文件，把那个mybatis-plug的<code>id-type</code>auto 的配置加上，😢<br>因为这一个配置导致了salesmn项目下的所有库的id，都变成了，<code>id_work</code>的增长方式，之前的空指针是因为，id返回给小程序端时如果过长要转成字符串，后面几位的精度都会丢失了，好尴尬，然后更新配置，再次发版上线，好紧张的一幕，领导催的要命，一直在问情况，然后id已经增长到了那么大，他下次增长的时候只能从最大的那个开始增长，然后接下来，，，，没错备份库，导库，修改库，还好只有两张表，项目上线时间也不是很长，加起来一共7千多条数据，组长三下五除二，我也就在旁边看了看，默默的加油，看他是怎么改的（比较紧张，他那屏幕亮度太低，看不太清）</p>
+<p><strong>8月22日周四（适合上线的日子）</strong><br>这次主要是优化后端，测试也主要集中在pc上，一整天都在，测试，改bug，测试，改bug，写bug，改bug，漫长的一天~<br>到了晚上准备上线了，修改的主要是在salesman，想着这次也有增加新需求，自然而然也就跟着上线了，把我这次修改的项目网上一提，咔，，三四个，<br>晚上7点半，准时开干，，，实际等到差不多8点才开始上，因为，我是小跟班，组长他们是负责发war，起tomcat，修改线上sql，而我，在静等他们发版，然后测试，到了差不多8点半的时候，发好半了，群里喊了一声，开始测试，大家都开始又开始干活了。。。。<br>我想往常一下，疯狂这点击着，我这次上线的内容，恩，好像没啥问题，组长发了一张图在群里，对下面这个图片儿<br><img src="https://raw.githubusercontent.com/Linnxh/img/master/190822-%E5%9B%BE%E7%89%872.png" alt=""><br>一看，我的问题，咦，，空指针，，恩，好改，这次这快没改动啊，切到线上环境一测试，拜访失败，，我就很纳闷了，显示如下<br><img src="https://raw.githubusercontent.com/Linnxh/img/master/08-22-01.png" alt=""><br>这id不对啊，怎么这么长，然后我发群里问了<br><img src="https://raw.githubusercontent.com/Linnxh/img/master/190822-%E5%9B%BE%E7%89%874.png" alt=""><br>组长跑过来说，看一下你的配置文件，把那个mybatis-plug的<code>id-type</code>auto 的配置加上，😢<br>因为这一个配置导致了salesmn项目下的所有库的id，都变成了，<code>id_work</code>的增长方式，之前的空指针是因为，id返回给小程序端时如果过长要转成字符串，后面几位的精度都会丢失了，好尴尬，然后更新配置，再次发版上线，好紧张的一幕，领导催的要命，一直在问情况，然后id已经增长到了那么大，他下次增长的时候只能从最大的那个开始增长，然后接下来，，，，没错备份库，导库，修改库，还好只有两张表，项目上线时间也不是很长，加起来一共7千多条数据，组长三下五除二，我也就在旁边看了看，默默的加油，看他是怎么改的（比较紧张，他那屏幕亮度太低，看不太清）</p>
 <p>记录下来，只为提醒自己，上线之前如果不是特别熟悉的东西，能不动尽量不动，你好，我好，大家好，再就是别人说的一定要过一下自己的脑子，不要因为tatata能力很好，就想着，恩，可以，结果往往会出现很多粗心的结果。</p>
 
       
@@ -1033,19 +1034,19 @@
 
 
   
-    <article id="post-java/kafka集群" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-java/mongo千万级数据优化" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/java/kafka集群/">kafka集群</a>
+      <a class="article-title" href="/java/mongo千万级数据优化/">mongo千万级数据优化</a>
     </h1>
   
 
         
-        <a href="/java/kafka集群/" class="archive-article-date">
+        <a href="/java/mongo千万级数据优化/" class="archive-article-date">
   	<time datetime="2018-10-25T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-26</time>
 </a>
         
@@ -1054,10 +1055,13 @@
    
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="zookeeper-集群搭建的方法"><a href="#zookeeper-集群搭建的方法" class="headerlink" title="zookeeper 集群搭建的方法"></a>zookeeper 集群搭建的方法</h1><p>/etc/profile 环境变量</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#java</span><br><span class="line">export JAVA_HOME=/lxhtest/jdk</span><br><span class="line">export JRE_HOME=/lxhtest/jdk/jre</span><br><span class="line">export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib</span><br><span class="line">export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH</span><br><span class="line"></span><br><span class="line">#zookeeper</span><br><span class="line">export ZOOKEEPER_HOME=/lxhtest/zookeeper-3.4.12</span><br><span class="line">export PATH=$PATH:$ZOOKEEPER_HOME/bin:$ZOOKEEPER_HOME/conf</span><br></pre></td></tr></table></figure>
+        <h1 id="千万级数据分页优化"><a href="#千万级数据分页优化" class="headerlink" title="千万级数据分页优化"></a>千万级数据分页优化</h1><blockquote>
+<p>mongo采用的是单机部署，数据量1千万，需求是实现分页面，按照capTime倒叙排列，每页数据20条</p>
+</blockquote>
+<h2 id="skip-limit"><a href="#skip-limit" class="headerlink" title="skip+limit"></a>skip+limit</h2><p>这是最传统的数据查询方式，<code>db.getCollection(&#39;CapMotor&#39;).find().skip(9000000).sort({&#39;capTime&#39;:1}).limit(20);</code>skip后面是pageSize*pageIndex,limit后是pageSize<br>这种方式在数据量是百万的时候，还凑合着用，但是千万以后，就不可用了，我这边跟踪的查询时间是9s左右，明显不行，影响效率，建议采用第2中方法</p>
+<h2 id="前端传临界值id，查询添加条件，从当前位置往后截取，取20条"><a href="#前端传临界值id，查询添加条件，从当前位置往后截取，取20条" class="headerlink" title="前端传临界值id，查询添加条件，从当前位置往后截取，取20条"></a>前端传临界值id，查询添加条件，从当前位置往后截取，取20条</h2>
         
-          <a class="article-more-a" href="/java/kafka集群/#more">more >></a>
+          <a class="article-more-a" href="/java/mongo千万级数据优化/#more">more >></a>
         
       
 
@@ -1081,7 +1085,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/java/kafka集群/">展开全文 >></a>
+          <a class="article-more-a" href="/java/mongo千万级数据优化/">展开全文 >></a>
         </p>
       
 
