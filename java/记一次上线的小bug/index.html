@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/Linnxh/img/master/190822-%E5%9B%BE%E7%89%872.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Linnxh/img/master/08-22-01.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Linnxh/img/master/190822-%E5%9B%BE%E7%89%874.png">
-<meta property="og:updated_time" content="2019-08-23T07:57:02.123Z">
+<meta property="og:updated_time" content="2019-10-12T04:04:29.127Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记一次上线的小bug">
 <meta name="twitter:description" content="8月21号上午线上有人提出一个bug大概提示是“同一个业务员通一个卖家存在多次抵达签到的情况，请联系管理员”，这显然是因为，buyerUserId，salesmanUserId,status 三个关联查询存在多个值，我问组长：我每次插入的时候都判断了，，为啥还会插入多条（太年轻），组长：这种最好用redis锁，先查询在插入的这种情况，可能不会太准我：那帮我先把线上的数据修复一下吧，把其他多余的几">
@@ -276,6 +276,15 @@
   
 <nav id="article-nav">
   
+    <a href="/db/mps统计sql/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          mps统计sql.md
+        
+      </div>
+    </a>
+  
   
     <a href="/java/ABTest/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">ABTest</div>
@@ -501,6 +510,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
@@ -510,10 +523,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">springboot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">

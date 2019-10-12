@@ -2,9 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://linnxh.cn/,http://linnxh.online/db/mps%E7%BB%9F%E8%AE%A1sql/</loc>
+    
+    <lastmod>2019-10-12T06:59:14.978Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://linnxh.cn/,http://linnxh.online/java/ABTest/</loc>
+    
+    <lastmod>2019-10-12T04:05:07.520Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://linnxh.cn/,http://linnxh.online/java/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%B8%8A%E7%BA%BF%E7%9A%84%E5%B0%8Fbug/</loc>
     
-    <lastmod>2019-08-23T07:57:02.123Z</lastmod>
+    <lastmod>2019-10-12T04:04:29.127Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://linnxh.cn/,http://linnxh.online/tools/idea%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</loc>
+    
+    <lastmod>2019-10-12T04:04:26.817Z</lastmod>
     
   </url>
   
@@ -12,13 +33,6 @@
     <loc>http://linnxh.cn/,http://linnxh.online/else/hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/</loc>
     
     <lastmod>2019-08-23T07:51:43.321Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://linnxh.cn/,http://linnxh.online/java/ABTest/</loc>
-    
-    <lastmod>2019-08-23T02:24:29.608Z</lastmod>
     
   </url>
   
@@ -166,13 +180,6 @@
     <loc>http://linnxh.cn/,http://linnxh.online/java/%E5%95%86%E5%93%81%E8%AF%A6%E6%83%85%E5%88%87%E6%8D%A2sku/</loc>
     
     <lastmod>2019-02-22T07:12:57.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://linnxh.cn/,http://linnxh.online/tools/idea%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</loc>
-    
-    <lastmod>2019-02-22T07:12:33.000Z</lastmod>
     
   </url>
   
