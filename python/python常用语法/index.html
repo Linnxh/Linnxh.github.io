@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://linnxh.cn/,http://linnxh.online">
   <title>python常用语法 | Linnxh的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="测试测试">
+  <meta name="description" content="测试分组 order_day_count_grouped_df = order_day_count_df.groupby(&amp;apos;user_id&amp;apos;)[&amp;apos;交易天数&amp;apos;].nunique()   按照user_id分组后，再按照交易天数列去重取个数  df[&amp;apos;group_index&amp;apos;] = df.groupby(&amp;apos;cleaned_gb_co">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python常用语法">
 <meta property="og:url" content="http://linnxh.cn/,http://linnxh.online/python/python常用语法/index.html">
 <meta property="og:site_name" content="Linnxh的博客">
-<meta property="og:description" content="测试测试">
+<meta property="og:description" content="测试分组 order_day_count_grouped_df = order_day_count_df.groupby(&amp;apos;user_id&amp;apos;)[&amp;apos;交易天数&amp;apos;].nunique()   按照user_id分组后，再按照交易天数列去重取个数  df[&amp;apos;group_index&amp;apos;] = df.groupby(&amp;apos;cleaned_gb_co">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-06-10T07:02:01.090Z">
+<meta property="og:updated_time" content="2021-06-10T07:12:07.154Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python常用语法">
-<meta name="twitter:description" content="测试测试">
+<meta name="twitter:description" content="测试分组 order_day_count_grouped_df = order_day_count_df.groupby(&amp;apos;user_id&amp;apos;)[&amp;apos;交易天数&amp;apos;].nunique()   按照user_id分组后，再按照交易天数列去重取个数  df[&amp;apos;group_index&amp;apos;] = df.groupby(&amp;apos;cleaned_gb_co">
   
     <link rel="alternative" href="/atom.xml" title="Linnxh的博客" type="application/atom+xml">
   
@@ -190,7 +190,12 @@
     <div class="article-entry" itemprop="articleBody">
       
       
-        <h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><h2 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h2>
+        <h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><h2 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h2><pre><code> order_day_count_grouped_df = order_day_count_df.groupby(&apos;user_id&apos;)[&apos;交易天数&apos;].nunique()
+  按照user_id分组后，再按照交易天数列去重取个数
+
+df[&apos;group_index&apos;] = df.groupby(&apos;cleaned_gb_code&apos;)[&quot;isDeleted&quot;].rank(ascending=True, method=&apos;first&apos;).astype(int)
+ 按照cleaned_gb_code分组后，在按照isDeleted 编号
+</code></pre>
       
 
       
@@ -275,7 +280,7 @@
   
   
     <a href="/java/java-2021-05/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">java-2021-05.md</div>
+      <div class="article-nav-title">java-2021-05</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -302,7 +307,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#测试"><span class="toc-number">1.</span> <span class="toc-text">测试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#测试-1"><span class="toc-number">1.1.</span> <span class="toc-text">测试</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#测试"><span class="toc-number">1.</span> <span class="toc-text">测试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#分组"><span class="toc-number">1.1.</span> <span class="toc-text">分组</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -506,15 +511,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">idea</a>
+                <a href="javascript:void(0)" class="js-tag color2">devops</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -522,7 +523,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color5">idea</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -542,11 +543,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">devops</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+                <a href="javascript:void(0)" class="js-tag color1">mongo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -559,6 +560,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">quartz</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
              
               <li class="article-tag-list-item">
