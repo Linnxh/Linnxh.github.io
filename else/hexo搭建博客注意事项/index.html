@@ -18,7 +18,8 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/Linnxh/img/master/QQ20180525-143544@2x.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Linnxh/img/master/QQ20180525-143415@2x.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Linnxh/img/master/QQ20180525-143930@2x.png">
-<meta property="og:updated_time" content="2021-06-10T05:31:03.157Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/Linnxh/img/master/else-readme-aliyunsetting.png">
+<meta property="og:updated_time" content="2021-06-10T06:59:21.029Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo搭建博客注意事项">
 <meta name="twitter:description" content="摘要:hexo的基本使用">
@@ -206,6 +207,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 你好</span><br><span class="line">date: 2018-02-05 16:48:22</span><br><span class="line">categories: java</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
 <h1 id="官网"><a href="#官网" class="headerlink" title="官网"></a>官网</h1><p><a href="https://hexo.io/zh-cn/docs/configuration.html" target="_blank" rel="noopener">地址</a></p>
 <h1 id="本地调试"><a href="#本地调试" class="headerlink" title="本地调试"></a>本地调试</h1><p>Hexo 3.0 把服务器独立成了个别模块，您必须先安装 hexo-server 才能使用。安装方法参考官网<br>启动服务器方法<br><code>hexo server</code><br>以端口号5000启动<br><code>hexo server -p 5000</code></p>
+<h1 id="线上部署"><a href="#线上部署" class="headerlink" title="线上部署"></a>线上部署</h1><p><code>hexo clean &amp;&amp; hexo d -g</code></p>
 <h1 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h1><h2 id="单行代码只能用单引号-daima-多行代码三个"><a href="#单行代码只能用单引号-daima-多行代码三个" class="headerlink" title="单行代码只能用单引号`daima,多行代码三个`"></a>单行代码只能用单引号<code>`daima</code>,多行代码三个`</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">多行代码</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>以上有可能是因为个人编辑器或者yilia的原因</p>
@@ -213,7 +215,7 @@
 <h1 id="增加目录的方式"><a href="#增加目录的方式" class="headerlink" title="增加目录的方式"></a>增加目录的方式</h1><p>本人使用hexo版本是4.0.0，只需要在主题根目录里的_config.yml，将toc: 2  设置为2，就可以自动生成目录，之前看网上有说要添加代码的那种，可能是之前的版本，具体原因不清楚</p>
 <h1 id="代码托管（自定义域名-百度谷歌被收录）"><a href="#代码托管（自定义域名-百度谷歌被收录）" class="headerlink" title="代码托管（自定义域名+百度谷歌被收录）"></a>代码托管（自定义域名+百度谷歌被收录）</h1><p>前提条件</p>
 <ol>
-<li>阿里云买的域名，我的是<a href="linnxh.online">linnxh.online</a>，我买的online，5年99块，基本是最便宜的</li>
+<li>阿里云买的域名，我的是<a href="linnxh.online">linnxh.cn</a>，我买的online，5年99块，基本是最便宜的</li>
 <li>coding 账号 <a href="https://coding.net/user?welcome" target="_blank" rel="noopener">coding.net</a><br>考虑到托管到github上不能被百度索引收录，转战到国内的coding，要想被百度收录，一定要用自定义的域名，linnxh.github.io,这种连接百度是不予许的，可以采用双部署的方式，coding和github都部署，然后在服务器的解析设置里将，国内和国外两个线分别设置，我采用的是阿里云的域名</li>
 </ol>
 <p>如果是没有被谷歌收录的显示的样子是<img src="https://raw.githubusercontent.com/Linnxh/img/master/QQ20180525-143544@2x.png" alt="未被谷歌收录"><br>已经收录的是<br><img src="https://raw.githubusercontent.com/Linnxh/img/master/QQ20180525-143415@2x.png" alt="已被谷歌收录"></p>
@@ -227,10 +229,16 @@
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> &lt;% if (theme.valine &amp;&amp; theme.valine.appid &amp;&amp; theme.valine.appkey)&#123; %&gt;</span><br><span class="line">  &lt;section id=&quot;comments&quot; style=&quot;margin:10px;padding:10px;background:#fff;&quot;&gt;</span><br><span class="line">    &lt;%- partial(&apos;post/valine&apos;, &#123;</span><br><span class="line">      key: post.slug,</span><br><span class="line">      title: post.title,</span><br><span class="line">      url: config.url+url_for(post.path)</span><br><span class="line">      &#125;) %&gt;</span><br><span class="line">  &lt;/section&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
 <p>这一步一定要注意加的位置，文档末尾处，注意括号，，，实际添加的代码是如上部分（不是官方文档写的部分，多了一个括号），要在最好一行的 <code>&lt;% } %&gt;</code> 之前加入如下代码</p>
 <p><a href="https://github.com/litten/hexo-theme-yilia/pull/646" target="_blank" rel="noopener">Yilia添加Valine评论的官方文档</a></p>
-<p>自定义域名</p>
-<p>阿里云域名<br><a href="https://dns.console.aliyun.com/?spm=5176.100251.111252.14.59eb4f15orznJ0#/dns/domainList" target="_blank" rel="noopener">https://dns.console.aliyun.com/?spm=5176.100251.111252.14.59eb4f15orznJ0#/dns/domainList</a><br>阿里云的域名解析配置，点击域名解析，出现已有的域名，操作中点击解析设置，将两个域名的解析设置成一样的，国内方位pages，国外访问github</p>
+<h1 id="自定义域名"><a href="#自定义域名" class="headerlink" title="自定义域名"></a>自定义域名</h1><p>2021-06-10更新</p>
+<ol>
+<li>命令行 ping Linnxh.github.io 得到一个ip地址</li>
+<li>阿里云域名 linnxh.cn 进入域名解析，点击新手引导，将ping 得到的ip地址填入，保存</li>
+<li>在hexo的source 文件下新建名字为CNAME的文件，写入域名 linnxh.cn</li>
+<li>重新进入hexo文件夹，  <code>hexo clean &amp;&amp; hexo d -g</code>编译并进行线上部署<br><img src="https://raw.githubusercontent.com/Linnxh/img/master/else-readme-aliyunsetting.png" alt=""></li>
+</ol>
+<p>以下已经废弃<br>~~阿里云域名<br><a href="https://dns.console.aliyun.com/?spm=5176.100251.111252.14.59eb4f15orznJ0#/dns/domainList" target="_blank" rel="noopener">https://dns.console.aliyun.com/?spm=5176.100251.111252.14.59eb4f15orznJ0#/dns/domainList</a><br>阿里云的域名解析配置，点击域名解析，出现已有的域名，操作中点击解析设置，将两个域名的解析设置成一样的，国内方位pages，国外访问github</p>
 <p>coding pages<br><a href="https://dev.tencent.com/u/lxhcom/p/linnxh-blog/git/pages/settings" target="_blank" rel="noopener">https://dev.tencent.com/u/lxhcom/p/linnxh-blog/git/pages/settings</a><br>自定义域名<br>将cn的设置为首选，其他的跳转至首选，</p>
-<p>github<br><a href="https://github.com/Linnxh/Linnxh.github.io/settings/rename" target="_blank" rel="noopener">https://github.com/Linnxh/Linnxh.github.io/settings/rename</a><br>hexo 项目的设置中有一个选项，Custom domain 输入首选域名cn</p>
+<p>github<br><a href="https://github.com/Linnxh/Linnxh.github.io/settings/rename" target="_blank" rel="noopener">https://github.com/Linnxh/Linnxh.github.io/settings/rename</a><br>hexo 项目的设置中有一个选项，Custom domain 输入首选域名cn~~</p>
 <h1 id="图床"><a href="#图床" class="headerlink" title="图床"></a>图床</h1><p>采用github的免费图床</p>
 <p>新建一个项目，将需要的图片通过git上传到远端，然后从github官网就能看到图片了然后，前缀类似 <a href="https://raw.githubusercontent.com/Linnxh/img/master/名称" target="_blank" rel="noopener">https://raw.githubusercontent.com/Linnxh/img/master/名称</a></p>
 
@@ -349,7 +357,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#新建文章"><span class="toc-number">1.</span> <span class="toc-text">新建文章</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#目录-yili"><span class="toc-number">2.</span> <span class="toc-text">目录(yili)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#官网"><span class="toc-number">3.</span> <span class="toc-text">官网</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#本地调试"><span class="toc-number">4.</span> <span class="toc-text">本地调试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tips"><span class="toc-number">5.</span> <span class="toc-text">tips</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#单行代码只能用单引号-daima-多行代码三个"><span class="toc-number">5.1.</span> <span class="toc-text">单行代码只能用单引号`daima,多行代码三个`</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#增加目录的方式"><span class="toc-number">6.</span> <span class="toc-text">增加目录的方式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码托管（自定义域名-百度谷歌被收录）"><span class="toc-number">7.</span> <span class="toc-text">代码托管（自定义域名+百度谷歌被收录）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#评论系统的添加"><span class="toc-number">7.1.</span> <span class="toc-text">评论系统的添加</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#图床"><span class="toc-number">8.</span> <span class="toc-text">图床</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#新建文章"><span class="toc-number">1.</span> <span class="toc-text">新建文章</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#目录-yili"><span class="toc-number">2.</span> <span class="toc-text">目录(yili)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#官网"><span class="toc-number">3.</span> <span class="toc-text">官网</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#本地调试"><span class="toc-number">4.</span> <span class="toc-text">本地调试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#线上部署"><span class="toc-number">5.</span> <span class="toc-text">线上部署</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tips"><span class="toc-number">6.</span> <span class="toc-text">tips</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#单行代码只能用单引号-daima-多行代码三个"><span class="toc-number">6.1.</span> <span class="toc-text">单行代码只能用单引号`daima,多行代码三个`</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#增加目录的方式"><span class="toc-number">7.</span> <span class="toc-text">增加目录的方式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码托管（自定义域名-百度谷歌被收录）"><span class="toc-number">8.</span> <span class="toc-text">代码托管（自定义域名+百度谷歌被收录）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#评论系统的添加"><span class="toc-number">8.1.</span> <span class="toc-text">评论系统的添加</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#自定义域名"><span class="toc-number">9.</span> <span class="toc-text">自定义域名</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#图床"><span class="toc-number">10.</span> <span class="toc-text">图床</span></a></li></ol>
                     </div>
                 </span>
             </div>
