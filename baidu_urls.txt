@@ -1,4 +1,10 @@
+http://linnxh.cn/,http://linnxh.online/python/2021-06-10/
+http://linnxh.cn/,http://linnxh.online/2021-05-13/
+http://linnxh.cn/,http://linnxh.online/java/java-2021-05/
+http://linnxh.cn/,http://linnxh.online/linux/docker、kubernetea/
+http://linnxh.cn/,http://linnxh.online/java/2019-12-04/
 http://linnxh.cn/,http://linnxh.online/db/mps统计sql/
+http://linnxh.cn/,http://linnxh.online/java/java-19-11/
 http://linnxh.cn/,http://linnxh.online/java/记一次上线的小bug/
 http://linnxh.cn/,http://linnxh.online/java/ABTest/
 http://linnxh.cn/,http://linnxh.online/java/java-19-04/
