@@ -166,6 +166,100 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-java/ABTest" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java/ABTest/">ABTest</a>
+    </h1>
+  
+
+        
+        <a href="/java/ABTest/" class="archive-article-date">
+  	<time datetime="2019-08-04T02:48:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-04</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        <h1 id="什么是ABTest"><a href="#什么是ABTest" class="headerlink" title="什么是ABTest"></a>什么是ABTest</h1><p>产品的改变优化都是通过用户的反馈来的，ABTest就是其中一种很好的方法，简单来说，ABTest 就是将用户分成不同的组，同时在线试验产品的不同版本，通过用户反馈的真实数据来找出采用哪一个版本方案更好的过程。<br>我们将原始版本作为对照组，以每个版本进行尽量是小的流量迭代作为原则去使用 ABTest。一旦指标分析完成，用户反馈数据表现最佳的版本再去全量上线。</p>
+<p>大概的流程如下<br><img src="https://raw.githubusercontent.com/Linnxh/img/master/ABTest%E5%9B%BE%E7%89%87.png"></p>
+<p>#特性</p>
+<ul>
+<li>先验性：采用流量分割与小流量测试的方式，先让线上部分小流量用户使用，来验证我们的想法，在根据反馈推广到全流量，减少产品损失。</li>
+<li>并行性：可以同时运行两个或者两个以上的版本同时去对比，而且保证每个版本所处环境一直，只需要很多的时间就可以确定是否需要发吧，避免流程复杂和周期长的问题。</li>
+<li>科学性：ABTest要求使用统计的指标来判断这个结果是否可行，避免依靠经验。</li>
+</ul>
+<h1 id="分流模型"><a href="#分流模型" class="headerlink" title="分流模型"></a>分流模型</h1><p>这种测试方式一般是通过接口返回，根据返回值的不同来执行不同的方法，进行分流。</p>
+<p>技术选型：Openresty，关于他的具体指示自己google</p>
+<p>参考<br><a target="_blank" rel="noopener" href="https://blog.51cto.com/xsunday/2049650">OpenResty专题</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/java/ABTest/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-java/java-19-04" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -834,6 +928,95 @@ double num:2.1012001
 
 
   
+    <article id="post-java/mongo千万级数据优化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java/mongo%E5%8D%83%E4%B8%87%E7%BA%A7%E6%95%B0%E6%8D%AE%E4%BC%98%E5%8C%96/">mongo千万级数据优化</a>
+    </h1>
+  
+
+        
+        <a href="/java/mongo%E5%8D%83%E4%B8%87%E7%BA%A7%E6%95%B0%E6%8D%AE%E4%BC%98%E5%8C%96/" class="archive-article-date">
+  	<time datetime="2018-10-25T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-26</time>
+</a>
+        
+      </header>
+    
+   
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="千万级数据分页优化"><a href="#千万级数据分页优化" class="headerlink" title="千万级数据分页优化"></a>千万级数据分页优化</h1><blockquote>
+<p>mongo采用的是单机部署，数据量1千万，需求是实现分页面，按照capTime倒叙排列，每页数据20条</p>
+</blockquote>
+<h2 id="skip-limit"><a href="#skip-limit" class="headerlink" title="skip+limit"></a>skip+limit</h2><p>这是最传统的数据查询方式，<code>db.getCollection(&#39;CapMotor&#39;).find().skip(9000000).sort(&#123;&#39;capTime&#39;:1&#125;).limit(20); </code>skip后面是pageSize*pageIndex,limit后是pageSize<br>这种方式在数据量是百万的时候，还凑合着用，但是千万以后，就不可用了，我这边跟踪的查询时间是9s左右，明显不行，影响效率，建议采用第2中方法</p>
+<h2 id="前端传临界值id，查询添加条件，从当前位置往后截取，取20条"><a href="#前端传临界值id，查询添加条件，从当前位置往后截取，取20条" class="headerlink" title="前端传临界值id，查询添加条件，从当前位置往后截取，取20条"></a>前端传临界值id，查询添加条件，从当前位置往后截取，取20条</h2>
+        
+          <a class="article-more-a" href="/java/mongo%E5%8D%83%E4%B8%87%E7%BA%A7%E6%95%B0%E6%8D%AE%E4%BC%98%E5%8C%96/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/java/mongo%E5%8D%83%E4%B8%87%E7%BA%A7%E6%95%B0%E6%8D%AE%E4%BC%98%E5%8C%96/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-java/kafka集群" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -892,95 +1075,6 @@ export PATH=$PATH:$ZOOKEEPER_HOME/bin:$ZOOKEEPER_HOME/conf
       
         <p class="article-more-link">
           <a class="article-more-a" href="/java/kafka%E9%9B%86%E7%BE%A4/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-java/mongo千万级数据优化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java/mongo%E5%8D%83%E4%B8%87%E7%BA%A7%E6%95%B0%E6%8D%AE%E4%BC%98%E5%8C%96/">mongo千万级数据优化</a>
-    </h1>
-  
-
-        
-        <a href="/java/mongo%E5%8D%83%E4%B8%87%E7%BA%A7%E6%95%B0%E6%8D%AE%E4%BC%98%E5%8C%96/" class="archive-article-date">
-  	<time datetime="2018-10-25T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-26</time>
-</a>
-        
-      </header>
-    
-   
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="千万级数据分页优化"><a href="#千万级数据分页优化" class="headerlink" title="千万级数据分页优化"></a>千万级数据分页优化</h1><blockquote>
-<p>mongo采用的是单机部署，数据量1千万，需求是实现分页面，按照capTime倒叙排列，每页数据20条</p>
-</blockquote>
-<h2 id="skip-limit"><a href="#skip-limit" class="headerlink" title="skip+limit"></a>skip+limit</h2><p>这是最传统的数据查询方式，<code>db.getCollection(&#39;CapMotor&#39;).find().skip(9000000).sort(&#123;&#39;capTime&#39;:1&#125;).limit(20); </code>skip后面是pageSize*pageIndex,limit后是pageSize<br>这种方式在数据量是百万的时候，还凑合着用，但是千万以后，就不可用了，我这边跟踪的查询时间是9s左右，明显不行，影响效率，建议采用第2中方法</p>
-<h2 id="前端传临界值id，查询添加条件，从当前位置往后截取，取20条"><a href="#前端传临界值id，查询添加条件，从当前位置往后截取，取20条" class="headerlink" title="前端传临界值id，查询添加条件，从当前位置往后截取，取20条"></a>前端传临界值id，查询添加条件，从当前位置往后截取，取20条</h2>
-        
-          <a class="article-more-a" href="/java/mongo%E5%8D%83%E4%B8%87%E7%BA%A7%E6%95%B0%E6%8D%AE%E4%BC%98%E5%8C%96/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/java/mongo%E5%8D%83%E4%B8%87%E7%BA%A7%E6%95%B0%E6%8D%AE%E4%BC%98%E5%8C%96/">展开全文 >></a>
         </p>
       
 
@@ -1081,103 +1175,6 @@ export PATH=$PATH:$ZOOKEEPER_HOME/bin:$ZOOKEEPER_HOME/conf
       
         <p class="article-more-link">
           <a class="article-more-a" href="/db/%E5%AE%9E%E9%99%85%E5%BC%80%E5%8F%91%E4%B8%ADmysql%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-java/spring的profile配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java/spring%E7%9A%84profile%E9%85%8D%E7%BD%AE/">spring的profile配置</a>
-    </h1>
-  
-
-        
-        <a href="/java/spring%E7%9A%84profile%E9%85%8D%E7%BD%AE/" class="archive-article-date">
-  	<time datetime="2018-10-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-10</time>
-</a>
-        
-      </header>
-    
-   
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>spring.profile是为了解决开发环境和生产环境对应的配置文件不一致，可以灵活使用对应的配置文件</p>
-<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><h2 id="配置文件分为两份"><a href="#配置文件分为两份" class="headerlink" title="配置文件分为两份"></a>配置文件分为两份</h2><p><img src="https://raw.githubusercontent.com/Linnxh/img/master/moreprofile1.png" alt="moreprofile"></p>
-        
-          <a class="article-more-a" href="/java/spring%E7%9A%84profile%E9%85%8D%E7%BD%AE/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">profile</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/java/spring%E7%9A%84profile%E9%85%8D%E7%BD%AE/">展开全文 >></a>
         </p>
       
 
@@ -1324,14 +1321,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
@@ -1341,6 +1330,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mongo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sql</a>
               </li>
              
               <li class="article-tag-list-item">

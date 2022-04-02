@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://linnxh.cn/,http://linnxh.online/else/2022-04-01/</loc>
+    <lastmod>2022-04-02</lastmod>
+  </url>
+  <url>
     <loc>http://linnxh.cn/,http://linnxh.online/tools/idea%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2022-04-01</lastmod>
   </url>
@@ -61,11 +65,11 @@
     <lastmod>2022-04-01</lastmod>
   </url>
   <url>
-    <loc>http://linnxh.cn/,http://linnxh.online/java/kafka%E9%9B%86%E7%BE%A4/</loc>
+    <loc>http://linnxh.cn/,http://linnxh.online/java/java%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2022-04-01</lastmod>
   </url>
   <url>
-    <loc>http://linnxh.cn/,http://linnxh.online/java/java%E5%9F%BA%E7%A1%80/</loc>
+    <loc>http://linnxh.cn/,http://linnxh.online/java/kafka%E9%9B%86%E7%BE%A4/</loc>
     <lastmod>2022-04-01</lastmod>
   </url>
   <url>
@@ -133,11 +137,11 @@
     <lastmod>2022-04-01</lastmod>
   </url>
   <url>
-    <loc>http://linnxh.cn/,http://linnxh.online/db/mongodb/</loc>
+    <loc>http://linnxh.cn/,http://linnxh.online/db/mongo%E7%9A%84Sharding+Replset%E9%9B%86%E7%BE%A4/</loc>
     <lastmod>2022-04-01</lastmod>
   </url>
   <url>
-    <loc>http://linnxh.cn/,http://linnxh.online/db/mongo%E7%9A%84Sharding+Replset%E9%9B%86%E7%BE%A4/</loc>
+    <loc>http://linnxh.cn/,http://linnxh.online/db/mongodb/</loc>
     <lastmod>2022-04-01</lastmod>
   </url>
   <url>
