@@ -18,8 +18,8 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/Linnxh/img/master/15177961453999.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/Linnxh/img/master/15177962099111.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/Linnxh/img/master/15177962329985.jpg">
-<meta property="article:published_time" content="2022-04-01T04:01:10.398Z">
-<meta property="article:modified_time" content="2022-04-01T04:01:10.398Z">
+<meta property="article:published_time" content="2018-05-10T08:48:22.000Z">
+<meta property="article:modified_time" content="2022-04-02T10:17:56.864Z">
 <meta property="article:author" content="LXH">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/Linnxh/img/master/15177961453999.jpg">
@@ -185,7 +185,7 @@
 
         
         <a href="/java/java-17-10/" class="archive-article-date">
-  	<time datetime="2022-04-01T04:01:10.398Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-01</time>
+  	<time datetime="2018-05-10T08:48:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-10</time>
 </a>
         
       </header>
@@ -237,7 +237,7 @@ console.log(data);
 <li>设置compile里 build priject automatically</li>
 <li>mvn spring-boot:run 方式启动项目</li>
 </ul>
-<h1 id="linux-安装"><a href="#linux-安装" class="headerlink" title="linux 安装"></a>linux 安装</h1><p><a target="_blank" rel="noopener" href="https://www.2cto.com/database/201711/698783.html">https://www.2cto.com/database/201711/698783.html</a><br>用户名：root 密码：123123<br>查看ip地址：ip addr show<br>scp -P  /Users/LXH/Desktop/host.txt <a href="mailto:&#114;&#111;&#111;&#x74;&#64;&#49;&#x32;&#55;&#46;&#x30;&#46;&#48;&#x2e;&#49;">&#114;&#111;&#111;&#x74;&#64;&#49;&#x32;&#55;&#46;&#x30;&#46;&#48;&#x2e;&#49;</a>/8:/</p>
+<h1 id="linux-安装"><a href="#linux-安装" class="headerlink" title="linux 安装"></a>linux 安装</h1><p><a target="_blank" rel="noopener" href="https://www.2cto.com/database/201711/698783.html">https://www.2cto.com/database/201711/698783.html</a><br>用户名：root 密码：123123<br>查看ip地址：ip addr show<br>scp -P  /Users/LXH/Desktop/host.txt <a href="mailto:&#114;&#x6f;&#111;&#116;&#64;&#49;&#x32;&#x37;&#x2e;&#48;&#x2e;&#x30;&#46;&#49;">&#114;&#x6f;&#111;&#116;&#64;&#49;&#x32;&#x37;&#x2e;&#48;&#x2e;&#x30;&#46;&#49;</a>/8:/</p>
 <h1 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h1><p>“在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意方法和属性；这种动态获取信息以及动态调用对象方法的功能称为java语言的反射机制<br>思考题：<br>对于下面的list，何如在list添加一个Integer型整数？</p>
 <p>ArrayList<String> str_list=new ArrayList<String>();<br>//获取类信息<br>Class c=str_list.getClass();<br>//获取add方法<br>Method m=c.getMethod(“add”, Object.class);<br>//运行时调用add方法<br>m.invoke(str_list, 20);<br>//输出当前str_list<br>System.out.println(str_list);</String></String></p>
 <pre><code>public class Compare &#123;
@@ -304,12 +304,12 @@ class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quo
 <ol>
 <li>写Dockerfile文件</li>
 </ol>
-<p>//继承自tomcat，（from后面的是通过docker images查看得到的）<br>from hub.c.163.com/library/tomcat<br>MAINTAINER lxh <a href="mailto:&#49;&#x32;&#x33;&#64;&#49;&#54;&#51;&#x2e;&#99;&#111;&#109;">&#49;&#x32;&#x33;&#64;&#49;&#54;&#51;&#x2e;&#99;&#111;&#109;</a><br>//将war包拷贝到tomcat对应的目录下<br>copy test0831.war /usr/local/tomcat/webapps</p>
+<p>//继承自tomcat，（from后面的是通过docker images查看得到的）<br>from hub.c.163.com/library/tomcat<br>MAINTAINER lxh <a href="mailto:&#x31;&#50;&#51;&#64;&#49;&#x36;&#x33;&#x2e;&#x63;&#111;&#109;">&#x31;&#50;&#51;&#64;&#49;&#x36;&#x33;&#x2e;&#x63;&#111;&#109;</a><br>//将war包拷贝到tomcat对应的目录下<br>copy test0831.war /usr/local/tomcat/webapps</p>
 <ol start="2">
 <li>准备war</li>
 <li>将Dockerfile和war放在同一个路径，执行<code>docker build -t test0832:latest .</code><br>注意最后的. 代表当前路径，test0832代码自定义images的名字，后面是版本<br>运行成功的话提示如下</li>
 </ol>
-<p>Sending build context to Docker daemon  21.77MB<br>Step 1/3 : FROM hub.c.163.com/library/tomcat<br> —&gt; 72d2be374029<br>Step 2/3 : MAINTAINER lxh <a href="mailto:&#49;&#50;&#x33;&#64;&#x31;&#54;&#51;&#46;&#x63;&#x6f;&#x6d;">&#49;&#50;&#x33;&#64;&#x31;&#54;&#51;&#46;&#x63;&#x6f;&#x6d;</a><br> —&gt; Using cache<br> —&gt; d414feedf40b<br>Step 3/3 : COPY test0831.war /usr/local/tomcat/webapps<br> —&gt; Using cache<br> —&gt; 31004d8a54bc<br>Successfully built 31004d8a54bc<br>Successfully tagged test0832:latest</p>
+<p>Sending build context to Docker daemon  21.77MB<br>Step 1/3 : FROM hub.c.163.com/library/tomcat<br> —&gt; 72d2be374029<br>Step 2/3 : MAINTAINER lxh <a href="mailto:&#x31;&#50;&#x33;&#x40;&#x31;&#54;&#51;&#46;&#x63;&#111;&#x6d;">&#x31;&#50;&#x33;&#x40;&#x31;&#54;&#51;&#46;&#x63;&#111;&#x6d;</a><br> —&gt; Using cache<br> —&gt; d414feedf40b<br>Step 3/3 : COPY test0831.war /usr/local/tomcat/webapps<br> —&gt; Using cache<br> —&gt; 31004d8a54bc<br>Successfully built 31004d8a54bc<br>Successfully tagged test0832:latest</p>
 <ol start="4">
 <li>通过 <code>docker imsges</code>查看是否添加了对应的image，名称为test0832</li>
 <li>运行 <code>docker run -d -p 8888:8080 test0832</code></li>
@@ -326,7 +326,7 @@ class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quo
 <p>修改端口号<br>&lt;arguments&gt;-Xrs -Xmx256m -Dhudson.lifecycle=hudson.lifecycle.WindowsServiceLifecycle -jar “%BASE%\jenkins.war” –httpPort=8088&lt;/arguments&gt;  </p>
 <p>81cd18c6db9a407bbe393d2f0f0bc48f</p>
 <p>/Users/LXH/Library/apache-maven-3.5.0/bin<br>/Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home<br>/usr/bin/git</p>
-<p>ssh://<a href="mailto:&#x67;&#x69;&#x74;&#64;&#x31;&#57;&#50;&#46;&#x31;&#x36;&#56;&#x2e;&#49;&#x30;&#50;&#46;&#x31;&#54;&#x35;">&#x67;&#x69;&#x74;&#64;&#x31;&#57;&#50;&#46;&#x31;&#x36;&#56;&#x2e;&#49;&#x30;&#50;&#46;&#x31;&#54;&#x35;</a>:59999/androidcsywy</p>
+<p>ssh://<a href="mailto:&#x67;&#x69;&#116;&#64;&#x31;&#57;&#x32;&#46;&#49;&#x36;&#x38;&#46;&#x31;&#48;&#50;&#46;&#49;&#54;&#x35;">&#x67;&#x69;&#116;&#64;&#x31;&#57;&#x32;&#46;&#49;&#x36;&#x38;&#46;&#x31;&#48;&#50;&#46;&#49;&#54;&#x35;</a>:59999/androidcsywy</p>
 <p>/Users/LXH/.jenkins/workspace/android-saleman/android-saleman/salesman/build.gradle<br>/Users/LXH/.jenkins/workspace/android-saleman/salesman<br>android 用jenkins自动构建打包<br><a target="_blank" rel="noopener" href="http://blog.csdn.net/u011904605/article/details/54604851">http://blog.csdn.net/u011904605/article/details/54604851</a><br><a target="_blank" rel="noopener" href="http://blog.csdn.net/zl594389970/article/details/53444277">http://blog.csdn.net/zl594389970/article/details/53444277</a></p>
 <p>sudo sh ./startup.sh<br>sh ./shutdown.sh</p>
 <p>/exit无法退出jenkins<br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/99fu/p/6042744.html">http://www.cnblogs.com/99fu/p/6042744.html</a><br>jenkins自动打包上传到fir<br><a target="_blank" rel="noopener" href="https://juejin.im/entry/5993a6d66fb9a024a04adc0a">https://juejin.im/entry/5993a6d66fb9a024a04adc0a</a><br>配置问题：<br>Post Steps，是构建完执行的操作<br>Send files or execute commands over SSH<br>发送文件或者执行sql到远程<br><img src alt="Alt text"><a href>image-7</a></p>
@@ -593,7 +593,7 @@ exit 0
 <h1 id="jenkins"><a href="#jenkins" class="headerlink" title="jenkins"></a>jenkins</h1><p>打开terminal，进入到war包所在目录，<br>/usr/local/Cellar/jenkins/2.69/libexec<br>执行命令：</p>
 <p>java -jar jenkins.war –httpPort=8888//启动（端口8888）<br><a target="_blank" rel="noopener" href="http://localhost:8888/exit">http://localhost:8888/exit</a>       //退出<br><a target="_blank" rel="noopener" href="http://localhost:8888/restart">http://localhost:8888/restart</a>  //重启<br><a target="_blank" rel="noopener" href="http://localhost:8888/reload">http://localhost:8888/reload</a>  //重新加载</p>
 <p>从cmd进入jenkins的安装目录，执行jenkins stop/start 也可以关闭和开启jenkins服务<br><a target="_blank" rel="noopener" href="http://blog.csdn.net/taishanduba/article/details/50452601">http://blog.csdn.net/taishanduba/article/details/50452601</a></p>
-<p>/Users/LXH/Library/apache-maven-3.5.0/bin<br>/Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home<br>/usr/bin/git<br>ssh://<a href="mailto:&#x67;&#x69;&#x74;&#x40;&#x31;&#57;&#x32;&#46;&#x31;&#54;&#56;&#46;&#49;&#48;&#x32;&#46;&#x31;&#x36;&#x35;">&#x67;&#x69;&#x74;&#x40;&#x31;&#57;&#x32;&#46;&#x31;&#54;&#56;&#46;&#49;&#48;&#x32;&#46;&#x31;&#x36;&#x35;</a>:59999/androidcsywy<br>/Users/LXH/.jenkins/workspace/android-saleman/android-saleman/salesman/build.gradle<br>/Users/LXH/.jenkins/workspace/android-saleman/salesman<br>android 用jenkins自动构建打包<br><a target="_blank" rel="noopener" href="http://blog.csdn.net/u011904605/article/details/54604851">http://blog.csdn.net/u011904605/article/details/54604851</a><br><a target="_blank" rel="noopener" href="http://blog.csdn.net/zl594389970/article/details/53444277">http://blog.csdn.net/zl594389970/article/details/53444277</a><br>sudo sh ./startup.sh<br>sh ./shutdown.sh<br>/exit无法退出jenkins<br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/99fu/p/6042744.html">http://www.cnblogs.com/99fu/p/6042744.html</a></p>
+<p>/Users/LXH/Library/apache-maven-3.5.0/bin<br>/Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home<br>/usr/bin/git<br>ssh://<a href="mailto:&#x67;&#105;&#x74;&#x40;&#x31;&#57;&#x32;&#x2e;&#49;&#54;&#x38;&#46;&#x31;&#48;&#50;&#46;&#x31;&#54;&#x35;">&#x67;&#105;&#x74;&#x40;&#x31;&#57;&#x32;&#x2e;&#49;&#54;&#x38;&#46;&#x31;&#48;&#50;&#46;&#x31;&#54;&#x35;</a>:59999/androidcsywy<br>/Users/LXH/.jenkins/workspace/android-saleman/android-saleman/salesman/build.gradle<br>/Users/LXH/.jenkins/workspace/android-saleman/salesman<br>android 用jenkins自动构建打包<br><a target="_blank" rel="noopener" href="http://blog.csdn.net/u011904605/article/details/54604851">http://blog.csdn.net/u011904605/article/details/54604851</a><br><a target="_blank" rel="noopener" href="http://blog.csdn.net/zl594389970/article/details/53444277">http://blog.csdn.net/zl594389970/article/details/53444277</a><br>sudo sh ./startup.sh<br>sh ./shutdown.sh<br>/exit无法退出jenkins<br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/99fu/p/6042744.html">http://www.cnblogs.com/99fu/p/6042744.html</a></p>
 <h1 id="JSP"><a href="#JSP" class="headerlink" title="JSP"></a>JSP</h1><p>html中插入java代码<br>JavaServer Pages(JSP) 是一种技术，能够开发支持动态内容的网页，可以帮助开发人员在 HTML 页面中利用特殊的 JSP 标签插入 Java 代码，其中大部分标签是以 &lt;% 开始，以 %&gt; 结束的。</p>
 <p>JavaServer Pages 组件是 Java Servlet 的一种，旨在为 Java web 应用程序实现一个用户界面。Web 开发人员编写 JSP 作为文本文件，结合 HTML 或 XHTML 代码，XML 元素，并嵌入 JSP 操作和命令。</p>
 <h1 id="JSTL"><a href="#JSTL" class="headerlink" title="JSTL"></a>JSTL</h1><p>JSP标准标签库（JSTL）是一个JSP标签集合，它封装了JSP应用的通用核心功能。<br>JSTL支持通用的、结构化的任务，比如迭代，条件判断，XML文档操作，国际化标签，SQL标签。 除了这些，它还提供了一个框架来使用集成JSTL的自定义标签。<br>根据JSTL标签所提供的功能，可以将其分为5个类别。</p>
@@ -933,9 +933,18 @@ id=&quot;WebApp_ID&quot; version=&quot;3.0&quot;&gt;
   
 <nav id="article-nav">
   
+    <a href="/java/SpringBoot%E5%9F%BA%E7%A1%80/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          SpringBoot基础
+        
+      </div>
+    </a>
   
-    <a href="/else/2022-04-01/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Fri Apr 01 2022 00:00:00 GMT+0800 (中国标准时间)</div>
+  
+    <a href="/db/sql1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">sql1</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -1150,6 +1159,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
@@ -1159,14 +1176,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mongo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1186,10 +1195,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
@@ -1202,6 +1207,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">quartz</a>
               </li>
              
@@ -1210,15 +1219,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">商品管理</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sku</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
               </li>
              
               <li class="article-tag-list-item">
